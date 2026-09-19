@@ -66,12 +66,36 @@ a contact form backend for Vercel and for classic PHP hosting, SEO plumbing and 
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 65 pages, 0 errors |
 | End-to-end behaviour (cookies, banner, switcher, header, form, quiz, calculator, FAQ, blog, 404, reduced motion, view transitions) | `npm run qa:e2e` | 21/21 passed (`docs/qa/e2e.md`) |
-| Screenshots 390/1440 px, overflow at 360–1920 px | `npm run qa:screenshots` | see `docs/qa-screenshots/README.md` |
+| Screenshots 390/1440 px, overflow at 360–1920 px | `npm run qa:screenshots` | 144 screenshots (60 pages × 2 widths + UI states), no horizontal overflow at any of the 7 widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 
 ### Lighthouse (mobile, simulated throttling)
 
-LIGHTHOUSE_TABLE
+All 21 audited pages score at least **96** in performance, **100** in accessibility, **100** in best practices and **100** in SEO (mobile preset, simulated throttling, local static server with compression). Full report with the audits below 0.9: `docs/qa/lighthouse.md`.
+
+| Page | Perf | A11y | Best practices | SEO | LCP | TBT | CLS |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/en/` | 97 | 100 | 100 | 100 | 2.3 s | 50 ms | 0 |
+| `/en/services/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/en/services/fractional-hr-partnership/` | 97 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/en/about/` | 98 | 100 | 100 | 100 | 2.1 s | 20 ms | 0 |
+| `/en/blog/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/en/blog/onboarding-bingo-buzzwords/` | 99 | 100 | 100 | 100 | 2.1 s | 10 ms | 0 |
+| `/en/contact/` | 99 | 100 | 100 | 100 | 2.0 s | 20 ms | 0 |
+| `/de/` | 97 | 100 | 100 | 100 | 2.4 s | 40 ms | 0 |
+| `/de/leistungen/` | 98 | 100 | 100 | 100 | 2.3 s | 20 ms | 0 |
+| `/de/leistungen/fraktionale-hr-partnerschaft/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/de/ueber-uns/` | 99 | 100 | 100 | 100 | 2.0 s | 20 ms | 0 |
+| `/de/blog/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/de/blog/onboarding-bingo-buzzwords/` | 97 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
+| `/de/kontakt/` | 99 | 100 | 100 | 100 | 2.0 s | 10 ms | 0 |
+| `/bg/` | 96 | 100 | 100 | 100 | 2.6 s | 30 ms | 0 |
+| `/bg/uslugi/` | 97 | 100 | 100 | 100 | 2.5 s | 10 ms | 0 |
+| `/bg/uslugi/fraktsionno-hr-partniorstvo/` | 97 | 100 | 100 | 100 | 2.4 s | 10 ms | 0 |
+| `/bg/za-nas/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/bg/blog/` | 97 | 100 | 100 | 100 | 2.6 s | 0 ms | 0 |
+| `/bg/blog/onboarding-bingo-buzzwords/` | 97 | 100 | 100 | 100 | 2.4 s | 10 ms | 0 |
+| `/bg/kontakti/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
 
 ## Not done / needs the client
 
@@ -84,4 +108,25 @@ KPIs, testimonials, client logos, confirmation of the inherited blog cover licen
 Conventional commits, one feature area each, on `fable/newlevelhr-redesign` (also pushed to
 `claude/clever-albattani-bggq5q`):
 
-COMMIT_LIST
+* `eb2a4f6` chore: scaffold Astro 7 project with design tokens, self-hosted fonts and i18n routing
+* `c5a0739` feat(layout): shared header, mega-menu, mobile menu, footer, cookie consent, cursor and motion core
+* `30e642b` feat(home): hero with lazy Three.js scene, marquee, manifesto and view skeleton
+* `2c9baa4` feat(assets): free-license photography (Pexels) with credits and inherited blog covers
+* `92857f3` docs: README, client TODO list; per-page Open Graph defaults and blog cover by name
+* `a4a3877` feat(home): problems flip cards, service cards, pinned 90-day timeline, comparison, HR health check, bad-hire calculator, facts, about, blog and FAQ teasers
+* `7c0a4a1` feat(services): services overview and four detail pages in EN, DE and BG
+* `4da6bd9` feat(pages): What We Fix, About and How We Work pages; DE/BG dictionaries for problems, about, process, contact, blog, quiz, calculator and FAQ
+* `48c99ba` feat(blog,legal,faq,contact): blog listing and post pages, legal pages in EN/DE/BG, FAQ search, contact form script and PHP backend, localized 404
+* `7c68b68` feat(seo): generated Open Graph images, multilingual sitemap, robots.txt and Apache .htaccess
+* `1e471b8` test(qa): i18n parity, language guard, link/hreflang/sitemap, screenshot, Lighthouse and end-to-end scripts
+* `6a499d1` fix(a11y,qa): AA contrast for dimmed illuminate words; cached fast compression in the QA static server
+* `5e1892a` fix(a11y): darken the mist text token to AA contrast; JPEG screenshots; remove ad-hoc helper scripts
+* `f51fac1` test(qa): wheel-based scroll in the screenshot suite so Lenis and reveals run; final Lighthouse report (all pages ≥ 96)
+* `262c2f6` docs(qa): first screenshots of the QA run (home, BG)
+* `fc3a446` docs(qa): screenshots in progress (Bulgarian pages)
+* `17398d1` fix(404,hero): localized 404 shell for DE/BG URLs; shorter German hero copy; split words never break inside
+* `a1bd307` docs: README and PR summary notes on the localized 404 flow and the self-serving QA scripts
+* `7cf185d` docs(qa): screenshots of the final build (in progress)
+* `375aa29` test(qa): screenshot suite restarts the browser and retries once after a hung page
+* `cf0b62b` docs(qa): screenshots of the final build (in progress)
+* final commit: QA screenshots of the final build, reports and this summary
