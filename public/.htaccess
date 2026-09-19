@@ -1,0 +1,103 @@
+# NewLevelHR — Apache configuration for classic shared hosting.
+# Vercel deployments ignore this file (see vercel.json instead).
+
+# ---------------------------------------------------------------------------
+# Encoding and MIME types
+# ---------------------------------------------------------------------------
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddType image/avif                      .avif
+  AddType image/webp                      .webp
+  AddType image/svg+xml                   .svg
+  AddType font/woff2                      .woff2
+  AddType font/woff                       .woff
+  AddType application/manifest+json       .webmanifest
+  AddType application/javascript          .js .mjs
+  AddCharset utf-8 .html .css .js .mjs .json .xml .webmanifest .svg .txt
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Rewrites: root -> /en/, legacy URLs of the previous site
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Root goes to the English site (the browser-language banner offers DE/BG).
+  RewriteRule ^$ /en/ [R=302,L]
+
+  # Enforce trailing slashes on directory-style URLs (except files and the API).
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+  # Legacy URLs of the previous site.
+  RewriteRule ^index\.html$          /en/            [R=301,L]
+  RewriteRule ^legal\.html$          /en/legal-notice/ [R=301,L]
+  RewriteRule ^blog\.html$           /en/blog/       [R=301,L]
+  RewriteRule ^blog-post\.php$       /en/blog/       [R=301,L]
+  RewriteRule ^api-posts\.php$       /en/blog/       [R=301,L]
+  RewriteRule ^contact\.html$        /en/contact/    [R=301,L]
+  RewriteRule ^services\.html$       /en/services/   [R=301,L]
+  RewriteRule ^about\.html$          /en/about/      [R=301,L]
+</IfModule>
+
+# Custom 404 (the page picks EN/DE/BG from the URL prefix).
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType application/xml           "access plus 1 hour"
+  ExpiresByType text/plain                "access plus 1 hour"
+  ExpiresByType image/avif                "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType font/woff                 "access plus 1 year"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+<IfModule mod_headers.c>
+  # Hashed build assets are immutable.
+  <FilesMatch "^.+\.(?:[0-9a-zA-Z_-]{8,})\.(?:js|css|avif|webp|png|jpg|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Security headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  # vercel.json sets no CSP; extend this list when adding third parties (booking widget, analytics).
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml application/xml application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Protect config and hidden files
+# ---------------------------------------------------------------------------
+<FilesMatch "^(\.env.*|contact\.config\.php|contact\.config\.example\.php|\.htaccess|\.rate-limit.*)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
