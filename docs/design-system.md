@@ -14,7 +14,7 @@ recurring patterns. Components consume tokens either as Tailwind utilities (`bg-
 | `ink` | `#14141C` | Primary text, dark contrast sections (inherited from the previous site) |
 | `ink-2` … `ink-4` | `#1F1F2A` … `#3D3D4C` | Dark surface steps, secondary text on light |
 | `slate` | `#5B5B6C` | Muted body text on light (AA on ivory: 6.5:1) |
-| `mist` | `#8B8B99` | Captions, large decorative labels only |
+| `mist` | `#696977` | Captions and meta text (AA on white, ivory and sand) |
 | `accent` | `#FF6B35` | Brand orange: large surfaces, icons, buttons with ink text |
 | `accent-2` / `accent-3` | `#F7931E` / `#FFB347` | Gradient stops, glows, highlights on dark |
 | `accent-ink` | `#C2410C` | Orange for text and links on light backgrounds (AA: 5.3:1 on ivory) |

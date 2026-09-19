@@ -2,7 +2,7 @@
  * Full-page screenshots of every page in every language at 390 px and 1440 px,
  * plus UI states (cookie dialog, language banner, mobile menu, mega menu, 404),
  * and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px.
- * Output: docs/qa-screenshots/<lang>/<page>@<width>.png and docs/qa-screenshots/README.md
+ * Output: docs/qa-screenshots/<lang>/<page>@<width>.jpg (JPEG keeps the folder small) and docs/qa-screenshots/README.md
  *
  *   node scripts/qa-screenshots.mjs [--base=http://host:port] [--only=<regex>] [--no-widths]
  */
@@ -71,9 +71,9 @@ for (const sitePath of pages) {
         await open(page, sitePath);
         await scrollThrough(page);
         await page.waitForTimeout(1400);
-        const file = path.join(OUT, lang, `${slug}@${width}.png`);
+        const file = path.join(OUT, lang, `${slug}@${width}.jpg`);
         // Long pages with blurred glows render slowly in software; give the capture time and freeze CSS animations.
-        await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled' });
+        await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
         const h = await hasHorizontalScroll(page);
         const title = await page.title();
         rows.push({ path: sitePath, width, file: path.relative(OUT, file), overflow: h.over, errors: errors.length, title });
@@ -114,8 +114,8 @@ for (const lang of ['en', 'de', 'bg']) {
     await withPage(width, async (page) => {
       await page.goto(base + home, { waitUntil: 'networkidle' });
       await page.waitForTimeout(1800);
-      const file = path.join(dir, `state-cookie-dialog@${width}.png`);
-      await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
+      const file = path.join(dir, `state-cookie-dialog@${width}.jpg`);
+      await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
       rows.push({ path: `${home} (cookie dialog)`, width, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
     });
   }
@@ -127,8 +127,8 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.waitForTimeout(800);
     await page.click('[data-consent-action="settings"]');
     await page.waitForTimeout(500);
-    const file = path.join(dir, 'state-cookie-settings@1440.png');
-    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
+    const file = path.join(dir, 'state-cookie-settings@1440.jpg');
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
     rows.push({ path: `${home} (cookie settings)`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // Language banner: a German browser on a non-German page (and an English one on the German page).
@@ -139,8 +139,8 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.evaluate(() => { try { localStorage.removeItem('nlhr_lang_banner'); } catch {} });
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(1200);
-    const file = path.join(dir, 'state-language-banner@1440.png');
-    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
+    const file = path.join(dir, 'state-language-banner@1440.jpg');
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
     rows.push({ path: `${home} (language banner, browser ${browserLocale})`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   }, { locale: browserLocale });
   // Mobile menu open.
@@ -148,8 +148,8 @@ for (const lang of ['en', 'de', 'bg']) {
     await open(page, home);
     await page.click('[data-burger]');
     await page.waitForTimeout(900);
-    const file = path.join(dir, 'state-mobile-menu@390.png');
-    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
+    const file = path.join(dir, 'state-mobile-menu@390.jpg');
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
     rows.push({ path: `${home} (mobile menu)`, width: 390, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // Mega menu open.
@@ -157,8 +157,8 @@ for (const lang of ['en', 'de', 'bg']) {
     await open(page, home);
     await page.hover('[data-mega-trigger]');
     await page.waitForTimeout(700);
-    const file = path.join(dir, 'state-mega-menu@1440.png');
-    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
+    const file = path.join(dir, 'state-mega-menu@1440.jpg');
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
     rows.push({ path: `${home} (mega menu)`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // 404 for an unknown URL under the language prefix.
@@ -168,8 +168,8 @@ for (const lang of ['en', 'de', 'bg']) {
       await settleBanners(page);
       await page.reload({ waitUntil: 'networkidle' });
       await page.waitForTimeout(900);
-      const file = path.join(dir, `state-404@${width}.png`);
-      await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled' });
+      const file = path.join(dir, `state-404@${width}.jpg`);
+      await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
       rows.push({ path: `/${lang}/this-page-does-not-exist/ (status ${res?.status()})`, width, file: path.relative(OUT, file), overflow: false, errors: 0, title: await page.title() });
     });
   }
