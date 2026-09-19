@@ -1,10 +1,95 @@
 ---
-/** STUB — to be replaced by the section builder. */
+/** Fractional HR partner vs. full-time hire. Two columns on desktop, a segmented control below 768px. */
+import { Check, Minus } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
+import { getDict, localizePath } from '@/i18n';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+
 interface Props { lang: Locale }
 const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.home.comparison;
 ---
-<section class="section container-site" data-stub="Comparison">
-  <p class="eyebrow">Comparison</p>
-  <p class="mt-2 text-slate">Section "Comparison" is being built ({lang}).</p>
+<section id="comparison" class="cmp section bg-white" aria-labelledby="cmp-title" data-comparison data-view="fractional">
+  <div class="container-site">
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} text={t.text} align="center" />
+
+    <div class="cmp-toggle" role="group" aria-label={t.eyebrow} data-reveal>
+      <button type="button" class="cmp-toggle-btn" data-compare-view="fractional" aria-pressed="true">{t.colFractional}</button>
+      <button type="button" class="cmp-toggle-btn" data-compare-view="fullTime" aria-pressed="false">{t.colFullTime}</button>
+    </div>
+
+    <div class="cmp-table-wrap" data-reveal data-reveal-delay="1">
+      <table class="cmp-table">
+        <caption class="sr-only">{t.title}</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="cmp-th cmp-th-label"><span class="sr-only">{t.eyebrow}</span></th>
+            <th scope="col" class="cmp-th cmp-th-fractional"><span class="cmp-badge">{t.colFractional}</span></th>
+            <th scope="col" class="cmp-th cmp-th-full">{t.colFullTime}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {t.rows.map((row) => (
+            <tr class="cmp-row">
+              <th scope="row" class="cmp-label">{row.label}</th>
+              <td class="cmp-cell cmp-cell-fractional"><span class="cmp-icon cmp-icon-yes" aria-hidden="true"><Check class="size-3.5" /></span><span>{row.fractional}</span></td>
+              <td class="cmp-cell cmp-cell-full"><span class="cmp-icon cmp-icon-neutral" aria-hidden="true"><Minus class="size-3.5" /></span><span>{row.fullTime}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="cmp-note" data-reveal data-reveal-delay="2">{t.note}</p>
+    <div class="cmp-cta" data-reveal data-reveal-delay="3">
+      <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{t.cta}</Button>
+    </div>
+  </div>
 </section>
+
+<style>
+  .cmp-toggle { display: none; }
+  .cmp-table-wrap { margin-top: 3rem; border: 1px solid var(--color-line); border-radius: var(--radius-xl); background: var(--color-white); box-shadow: var(--shadow-soft); overflow: hidden; }
+  .cmp-table { width: 100%; border-collapse: collapse; }
+  .cmp-th { padding: 1.25rem 1.5rem; text-align: left; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--color-ink); vertical-align: bottom; }
+  .cmp-th-fractional { background: var(--color-accent-soft); }
+  .cmp-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; background: var(--color-ink); color: #fff; font-size: 0.9rem; }
+  .cmp-badge::before { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--grad-accent); }
+  .cmp-row { border-top: 1px solid var(--color-line); }
+  .cmp-label { padding: 1.1rem 1.5rem; text-align: left; font-weight: 650; font-size: 0.95rem; color: var(--color-ink-3); vertical-align: top; width: 20%; }
+  .cmp-cell { padding: 1.1rem 1.5rem; display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.95rem; line-height: 1.5; color: var(--color-ink-2); vertical-align: top; }
+  .cmp-cell-fractional { background: var(--color-accent-soft); font-weight: 550; color: var(--color-ink); }
+  .cmp-cell-full { color: var(--color-slate); }
+  .cmp-icon { display: grid; place-items: center; flex: none; width: 1.4rem; height: 1.4rem; border-radius: 999px; margin-top: 0.05rem; }
+  .cmp-icon-yes { background: var(--color-accent); color: var(--color-ink); }
+  .cmp-icon-neutral { background: var(--color-sand-2); color: var(--color-slate); }
+  .cmp-note { margin: 1.5rem auto 0; max-width: 42rem; text-align: center; font-size: 0.85rem; line-height: 1.55; color: var(--color-slate); }
+  .cmp-cta { margin-top: 2rem; display: flex; justify-content: center; }
+
+  /* Table cells as flex need display:table-cell semantics restored for a11y; use grid rows instead on all sizes */
+  .cmp-table, .cmp-table thead, .cmp-table tbody { display: block; }
+  .cmp-table tr { display: grid; grid-template-columns: 1fr; }
+  .cmp-table thead tr { display: none; }
+  .cmp-label { padding-bottom: 0.25rem; width: auto; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-mist); }
+  .cmp-cell { padding-top: 0.35rem; }
+  [data-view='fractional'] .cmp-cell-full { display: none; }
+  [data-view='fullTime'] .cmp-cell-fractional { display: none; }
+  .cmp-toggle { display: inline-flex; margin: 2.5rem auto 0; padding: 0.3rem; border-radius: 999px; background: var(--color-sand); border: 1px solid var(--color-line); position: relative; left: 50%; transform: translateX(-50%); }
+  .cmp-toggle-btn { padding: 0.6rem 1rem; border-radius: 999px; border: 0; background: transparent; font-size: 0.85rem; font-weight: 650; color: var(--color-ink-3); cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
+  .cmp-toggle-btn[aria-pressed='true'] { background: var(--color-ink); color: #fff; box-shadow: var(--shadow-soft); }
+  .cmp-toggle-btn:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
+
+  @media (min-width: 48rem) {
+    .cmp-toggle { display: none; }
+    .cmp-table thead tr { display: grid; }
+    .cmp-table tr { grid-template-columns: 1.1fr 1.6fr 1.6fr; }
+    .cmp-label { padding: 1.25rem 1.5rem; font-size: 0.95rem; font-weight: 650; letter-spacing: 0; text-transform: none; color: var(--color-ink-3); }
+    .cmp-cell { padding: 1.25rem 1.5rem; }
+    [data-view='fractional'] .cmp-cell-full, [data-view='fullTime'] .cmp-cell-fractional { display: flex; }
+  }
+</style>
+<script>
+  import '@/scripts/comparison';
+</script>

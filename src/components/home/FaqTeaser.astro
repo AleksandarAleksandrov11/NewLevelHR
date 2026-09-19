@@ -1,10 +1,38 @@
 ---
-/** STUB — to be replaced by the section builder. */
+/** Five frequent questions with FAQPage structured data, linking to the full FAQ. */
 import { type Locale } from '@/i18n/config';
+import { getDict, localizePath } from '@/i18n';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import Button from '@/components/ui/Button.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+
 interface Props { lang: Locale }
 const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.home.faqTeaser;
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: t.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })),
+};
 ---
-<section class="section container-site" data-stub="FaqTeaser">
-  <p class="eyebrow">FaqTeaser</p>
-  <p class="mt-2 text-slate">Section "FaqTeaser" is being built ({lang}).</p>
+<section id="faq-teaser" class="faq-t section bg-ivory bg-grain" aria-labelledby="faq-t-title">
+  <div class="container-site faq-t-grid">
+    <div class="faq-t-side">
+      <SectionHeading eyebrow={t.eyebrow} title={t.title} as="h2" size="md" />
+      <div class="mt-8" data-reveal data-reveal-delay="1"><Button href={localizePath('faq', lang)} variant="secondary">{t.cta}</Button></div>
+    </div>
+    <div class="faq-t-list" data-reveal data-reveal-delay="1">
+      {t.items.map((it, i) => (
+        <Accordion question={it.q} name="home-faq" open={i === 0}><p>{it.a}</p></Accordion>
+      ))}
+    </div>
+  </div>
+  <JsonLd data={faqLd} />
 </section>
+<style>
+  .faq-t-grid { display: grid; gap: 2.5rem; }
+  @media (min-width: 64rem) { .faq-t-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .faq-t-side { position: sticky; top: calc(var(--header-h) + 2rem); } }
+  .faq-t-list { border-top: 1px solid var(--color-line); }
+</style>

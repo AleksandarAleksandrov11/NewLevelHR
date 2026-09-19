@@ -1,10 +1,209 @@
 ---
-/** STUB — to be replaced by the section builder. */
+/**
+ * Cost of a bad hire: seven editable assumptions (slider + number field each)
+ * and a live result card that shows every line of the calculation.
+ * The initial values are computed here with the same formula that
+ * src/scripts/calculator.ts uses in the browser. Nothing is stored or sent.
+ */
+import { RotateCcw } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, fmt, formatNumber } from '@/i18n';
+import Button from '@/components/ui/Button.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
 interface Props { lang: Locale }
 const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.calculator;
+
+type InputKey = keyof typeof t.inputs;
+interface Field { key: InputKey; min: number; max: number; step: number; value: number; unit: string }
+const fields: Field[] = [
+  { key: 'salary', min: 15000, max: 250000, step: 1000, value: 60000, unit: t.currency },
+  { key: 'monthsEmployed', min: 1, max: 24, step: 1, value: 6, unit: t.units.months },
+  { key: 'recruitingPct', min: 0, max: 40, step: 1, value: 20, unit: '%' },
+  { key: 'managerHours', min: 0, max: 20, step: 0.5, value: 4, unit: t.units.hours },
+  { key: 'hourlyRate', min: 15, max: 250, step: 5, value: 60, unit: `${t.currency}/${t.units.hours}` },
+  { key: 'severanceMonths', min: 0, max: 6, step: 0.5, value: 1, unit: t.units.months },
+  { key: 'vacancyMonths', min: 0, max: 12, step: 0.5, value: 3, unit: t.units.months },
+];
+const v = Object.fromEntries(fields.map((f) => [f.key, f.value])) as Record<InputKey, number>;
+
+/* Same formula as the client script (keep in sync). */
+const WEEKS_PER_MONTH = 4.33;
+const recruiting = (v.salary * v.recruitingPct) / 100;
+const lines = {
+  salary: (v.salary * v.monthsEmployed) / 12,
+  recruiting,
+  manager: v.managerHours * (v.monthsEmployed * WEEKS_PER_MONTH) * v.hourlyRate,
+  severance: (v.salary * v.severanceMonths) / 12,
+  rehire: recruiting,
+  vacancy: (v.salary * v.vacancyMonths) / 12,
+};
+const lineKeys = Object.keys(lines) as Array<keyof typeof lines>;
+const total = lineKeys.reduce((sum, k) => sum + lines[k], 0);
+const money = (n: number) => formatNumber(n, lang, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const multiple = formatNumber(total / v.salary, lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
 ---
-<section class="section container-site" data-stub="BadHireCalculator">
-  <p class="eyebrow">BadHireCalculator</p>
-  <p class="mt-2 text-slate">Section "BadHireCalculator" is being built ({lang}).</p>
+<section id="bad-hire-calculator" class="calc section bg-ink text-white" aria-labelledby="calc-title" data-calculator>
+  <div class="calc-glow" aria-hidden="true"></div>
+  <div class="container-site">
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} text={t.text} dark as="h2" />
+    <div class="calc-grid">
+      <form class="calc-form" aria-labelledby="calc-assumptions" novalidate data-calc-form data-reveal>
+        <h3 id="calc-assumptions" class="calc-subtitle">{t.assumptionsTitle}</h3>
+        <div class="calc-fields">
+          {fields.map((f) => (
+            <div class="calc-field">
+              <div class="calc-field-head">
+                <label for={`calc-${f.key}`} id={`calc-${f.key}-label`} class="calc-label">{t.inputs[f.key].label}</label>
+                <div class="calc-number">
+                  <input
+                    type="number"
+                    id={`calc-${f.key}`}
+                    name={f.key}
+                    class="calc-num tabular"
+                    inputmode={f.step % 1 ? 'decimal' : 'numeric'}
+                    min={f.min}
+                    max={f.max}
+                    step={f.step}
+                    value={f.value}
+                    aria-describedby={`calc-${f.key}-help calc-${f.key}-unit`}
+                    data-calc-input={f.key}
+                    data-default={f.value}
+                  />
+                  <span id={`calc-${f.key}-unit`} class="calc-unit">{f.unit}</span>
+                </div>
+              </div>
+              <input
+                type="range"
+                class="calc-range"
+                min={f.min}
+                max={f.max}
+                step={f.step}
+                value={f.value}
+                aria-labelledby={`calc-${f.key}-label`}
+                aria-describedby={`calc-${f.key}-help`}
+                data-calc-range={f.key}
+                style={`--p:${pct(f)}`}
+              />
+              <p id={`calc-${f.key}-help`} class="calc-help">{t.inputs[f.key].help}</p>
+            </div>
+          ))}
+        </div>
+      </form>
+
+      <aside class="calc-result" aria-labelledby="calc-result-title" data-reveal data-reveal-delay="2">
+        <h3 id="calc-result-title" class="calc-result-title">{t.resultTitle}</h3>
+        <dl class="calc-lines">
+          {lineKeys.map((k) => (
+            <div class="calc-line">
+              <dt>{t.lines[k]}</dt>
+              <dd class="tabular" data-calc-line={k}>{money(lines[k])}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="calc-total">
+          <p class="calc-total-label" data-calc-total-label>{t.lines.total}</p>
+          <p class="calc-total-value font-display tabular" data-calc-total data-value={total}>{money(total)}</p>
+          <p class="calc-multiple" data-calc-multiple data-template={t.multipleLabel}>{fmt(t.multipleLabel, { multiple })}</p>
+        </div>
+        <p class="calc-formula"><code>{t.formula}</code></p>
+        <p class="calc-note">{t.note}</p>
+        <div class="calc-actions">
+          <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{t.cta}</Button>
+          <button type="button" class="calc-reset" data-calc-reset><RotateCcw class="size-4" aria-hidden="true" /><span>{t.reset}</span></button>
+        </div>
+        <p class="sr-only" aria-live="polite" data-calc-announce></p>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<style>
+  .calc { overflow: hidden; isolation: isolate; }
+  .calc-glow { position: absolute; width: 56vw; height: 56vw; max-width: 46rem; max-height: 46rem; left: -22vw; bottom: -24vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.24), transparent 66%); filter: blur(24px); pointer-events: none; z-index: -1; }
+  .calc-grid { display: grid; gap: 2.5rem; margin-top: 3rem; }
+  @media (min-width: 64rem) {
+    .calc-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 4rem; margin-top: 4.5rem; align-items: start; }
+    .calc-result { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  }
+  .calc-subtitle { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: #fff; }
+  .calc-fields { display: grid; gap: 1.6rem; margin-top: 1.75rem; }
+  .calc-field { padding-bottom: 1.6rem; border-bottom: 1px solid var(--color-line-dark); }
+  .calc-field:last-child { border-bottom: 0; padding-bottom: 0; }
+  .calc-field-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .calc-label { font-weight: 600; color: rgba(255, 255, 255, 0.92); line-height: 1.35; }
+  .calc-number { display: inline-flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .calc-num {
+    width: 7.25rem;
+    padding: 0.45rem 0.65rem;
+    text-align: right;
+    font-weight: 650;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    -moz-appearance: textfield;
+    appearance: textfield;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .calc-num::-webkit-outer-spin-button, .calc-num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .calc-num:hover { border-color: rgba(255, 255, 255, 0.4); }
+  .calc-num:focus-visible { outline-color: var(--color-accent-3); border-color: var(--color-accent-3); background: rgba(255, 255, 255, 0.1); }
+  .calc-unit { font-size: 0.8rem; font-weight: 600; color: rgba(255, 255, 255, 0.6); min-width: 2.2rem; white-space: nowrap; }
+  .calc-help { margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.5; color: rgba(255, 255, 255, 0.6); }
+
+  /* Range slider: track fill via --p, thumb styled per engine */
+  .calc-range {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 6px;
+    margin-top: 1rem;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--color-accent) 0%, var(--color-accent-3) var(--p, 0%), rgba(255, 255, 255, 0.16) var(--p, 0%), rgba(255, 255, 255, 0.16) 100%);
+    cursor: pointer;
+    touch-action: pan-y;
+  }
+  .calc-range:focus-visible { outline-color: var(--color-accent-3); outline-offset: 8px; }
+  .calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #fff; border: 3px solid var(--color-accent); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45); transition: transform 0.35s var(--ease-spring), box-shadow 0.3s ease; cursor: grab; }
+  .calc-range::-moz-range-thumb { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #fff; border: 3px solid var(--color-accent); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45); cursor: grab; }
+  .calc-range::-moz-range-track { background: transparent; }
+  .calc-range:hover::-webkit-slider-thumb, .calc-range:focus-visible::-webkit-slider-thumb { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.25), 0 2px 12px rgba(0, 0, 0, 0.45); }
+  .calc-range:active::-webkit-slider-thumb { cursor: grabbing; transform: scale(1.18); }
+
+  /* Result card (light on the dark section) */
+  .calc-result { position: relative; background: var(--color-white); color: var(--color-ink); border-radius: var(--radius-xl); padding: clamp(1.5rem, 1rem + 1.6vw, 2.5rem); box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08); overflow: hidden; }
+  .calc-result::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--grad-accent); }
+  .calc-result-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-ink); }
+  .calc-lines { margin-top: 1.25rem; }
+  .calc-line { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--color-line-strong); font-size: 0.9rem; }
+  .calc-line dt { color: var(--color-slate); line-height: 1.4; }
+  .calc-line dd { font-weight: 650; color: var(--color-ink); white-space: nowrap; }
+  .calc-total { margin-top: 1.5rem; padding: 1.25rem 1.35rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .calc-total-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-slate); }
+  .calc-total-value { margin-top: 0.35rem; font-size: clamp(2.1rem, 1.4rem + 2.4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--color-ink); overflow-wrap: normal; }
+  .calc-multiple { margin-top: 0.6rem; font-size: 0.95rem; font-weight: 500; color: var(--color-accent-ink); }
+  .calc-formula { margin-top: 1.25rem; padding: 0.85rem 1rem; border-radius: var(--radius-md); background: var(--color-sand); }
+  .calc-formula code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.74rem; line-height: 1.55; color: var(--color-ink-3); overflow-wrap: anywhere; }
+  .calc-note { margin-top: 1rem; font-size: 0.85rem; line-height: 1.55; color: var(--color-slate); }
+  .calc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
+  .calc-reset { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.25rem; font-size: 0.9rem; font-weight: 600; color: var(--color-slate); border-radius: 999px; transition: color 0.3s ease; }
+  .calc-reset:hover { color: var(--color-ink); }
+  .calc-reset :global(svg) { transition: transform 0.6s var(--ease-out-expo); }
+  .calc-reset:hover :global(svg) { transform: rotate(-180deg); }
+  @media (max-width: 30rem) {
+    .calc-field-head { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    .calc-actions :global(.btn) { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .calc-range::-webkit-slider-thumb, .calc-reset :global(svg), .calc-num { transition: none; }
+  }
+</style>
+
+<script>
+  import '@/scripts/calculator';
+</script>

@@ -1,10 +1,274 @@
 ---
-/** STUB — to be replaced by the section builder. */
+/**
+ * HR Health Check: eight questions scored 0/1/2, one at a time, with a result
+ * view (animated score ring, level, recommended services, areas to watch).
+ * Everything is rendered server-side and hidden; src/scripts/quiz.ts only
+ * switches visibility, scores and animates. Nothing is stored or sent.
+ */
+import { ArrowLeft, ArrowRight, Check, RotateCcw, ShieldCheck } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, fmt, serviceKeys, type ServiceKey } from '@/i18n';
+import Button from '@/components/ui/Button.astro';
+
 interface Props { lang: Locale }
 const { lang } = Astro.props;
+const d = getDict(lang);
+const q = d.quiz;
+const c = d.common;
+const problems = d.home.problems.items;
+
+const serviceInfo: Record<ServiceKey, { name: string; desc: string; href: string }> = {
+  serviceFractional: { name: c.services.fractional.name, desc: c.services.fractional.menuDesc, href: localizePath('serviceFractional', lang) },
+  serviceHiring: { name: c.services.hiring.name, desc: c.services.hiring.menuDesc, href: localizePath('serviceHiring', lang) },
+  serviceBridge: { name: c.services.bridge.name, desc: c.services.bridge.menuDesc, href: localizePath('serviceBridge', lang) },
+  serviceCoaching: { name: c.services.coaching.name, desc: c.services.coaching.menuDesc, href: localizePath('serviceCoaching', lang) },
+};
+
+/** Question id → services, mirroring home.problems.items; a hiring problem also points to the 90-day bridge. */
+const questions = q.questions.map((item) => {
+  const problem = problems.find((p) => p.id === item.id);
+  const services: ServiceKey[] = problem ? [problem.service] : [];
+  if (item.id === 'hiring') services.push('serviceBridge');
+  return { ...item, services, area: problem?.title ?? item.id };
+});
+const total = questions.length;
+const maxScore = total * 2;
+
+/** Language-agnostic configuration consumed by src/scripts/quiz.ts. */
+const config = {
+  total,
+  maxScore,
+  progress: q.progress,
+  questions: questions.map((item) => ({ id: item.id, services: item.services })),
+  levels: q.result.levels.map((l) => l.max),
+  services: serviceKeys.map((key) => ({ key, name: serviceInfo[key].name, href: serviceInfo[key].href })),
+};
 ---
-<section class="section container-site" data-stub="HealthCheck">
-  <p class="eyebrow">HealthCheck</p>
-  <p class="mt-2 text-slate">Section "HealthCheck" is being built ({lang}).</p>
+<section id="health-check" class="hc section bg-white" aria-labelledby="hc-title" data-quiz={JSON.stringify(config)}>
+  <div class="hc-grid bg-grid" aria-hidden="true"></div>
+  <div class="container-site">
+    <div class="hc-card" data-quiz-card data-reveal>
+      <div class="hc-glow" aria-hidden="true"></div>
+
+      <!-- Intro -->
+      <div class="hc-panel hc-intro" data-quiz-panel="intro">
+        <p class="eyebrow mb-5">{q.eyebrow}</p>
+        <h2 id="hc-title" class="font-display text-display-md text-ink max-w-2xl">{q.title}</h2>
+        <p class="text-lead text-slate mt-5 max-w-xl">{q.text}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <Button type="button" size="lg" data-quiz-start="">{q.start}</Button>
+        </div>
+        <p class="hc-privacy mt-7">
+          <ShieldCheck class="size-4 shrink-0 text-accent-ink" aria-hidden="true" />
+          <span>{q.privacy}</span>
+        </p>
+      </div>
+
+      <!-- Questions, one step visible at a time -->
+      <div class="hc-panel hc-questions" data-quiz-panel="questions" hidden>
+        <div class="hc-progress">
+          <p class="hc-progress-text" id="hc-progress" data-quiz-progress>{fmt(q.progress, { current: 1, total })}</p>
+          <div class="hc-bar" role="progressbar" aria-labelledby="hc-progress" aria-valuemin="0" aria-valuemax={total} aria-valuenow="1" data-quiz-progressbar>
+            <span class="hc-bar-fill" data-quiz-bar style={`--p:${1 / total}`}></span>
+          </div>
+        </div>
+        <div class="hc-stage" data-quiz-stage>
+          {questions.map((item, i) => (
+            <div class="hc-step" data-quiz-step={item.id} hidden={i !== 0}>
+              <h3 id={`hc-q-${item.id}`} class="hc-question font-display" tabindex="-1" data-quiz-heading>{item.q}</h3>
+              <div class="hc-options" role="radiogroup" aria-labelledby={`hc-q-${item.id}`} data-quiz-options>
+                {item.options.map((opt, j) => (
+                  <button type="button" class="hc-option" role="radio" aria-checked="false" tabindex={j === 0 ? 0 : -1} data-quiz-option={j}>
+                    <span class="hc-option-num" aria-hidden="true">{j + 1}</span>
+                    <span class="hc-option-text">{opt}</span>
+                    <span class="hc-option-check" aria-hidden="true"><Check class="size-3.5" /></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="hc-nav">
+          <Button type="button" variant="ghost" icon="none" magnetic={false} data-quiz-back="">
+            <ArrowLeft class="size-4" aria-hidden="true" />{q.back}
+          </Button>
+          <Button type="button" magnetic={false} data-quiz-next="" data-label-next={q.next} data-label-finish={q.seeResult}>
+            <span data-quiz-next-label>{q.next}</span>
+          </Button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="hc-panel hc-result" data-quiz-panel="result" data-level="0" hidden>
+        <div class="hc-result-grid">
+          <div class="hc-score">
+            <p class="eyebrow mb-4">{q.eyebrow}</p>
+            <h3 id="hc-result-title" class="font-display text-display-sm text-ink" tabindex="-1" data-quiz-result-title>{q.result.title}</h3>
+            <div class="hc-ring" data-quiz-ring>
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="hc-ring-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ff6b35" /><stop offset="0.6" stop-color="#f7931e" /><stop offset="1" stop-color="#ffb347" />
+                  </linearGradient>
+                </defs>
+                <circle class="hc-ring-track" cx="60" cy="60" r="52" />
+                <circle class="hc-ring-fill" cx="60" cy="60" r="52" data-quiz-ring-fill />
+              </svg>
+              <div class="hc-ring-label">
+                <span class="hc-ring-score tabular"><span data-quiz-score>0</span><span class="hc-ring-max">/{maxScore}</span></span>
+                <span class="hc-ring-caption">{q.result.scoreLabel}</span>
+              </div>
+            </div>
+            {q.result.levels.map((level, i) => (
+              <div class="hc-level" data-quiz-level={i} hidden>
+                <p class="hc-level-label"><span class="hc-level-dot" aria-hidden="true"></span>{level.label}</p>
+                <p class="hc-level-text">{level.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="hc-reco">
+            <h4 class="hc-reco-title">{q.result.recommendedTitle}</h4>
+            <p class="hc-reco-intro" data-quiz-reco-intro>{q.result.recommendedIntro}</p>
+            <p class="hc-noissues" data-quiz-noissues hidden>{q.result.noIssues}</p>
+            <ul class="hc-services" role="list" data-quiz-services>
+              {serviceKeys.map((key) => (
+                <li data-quiz-service={key} hidden>
+                  <a href={serviceInfo[key].href} class="hc-service group" data-cursor="open">
+                    <span class="hc-service-body">
+                      <span class="hc-service-name">{serviceInfo[key].name}</span>
+                      <span class="hc-service-desc">{serviceInfo[key].desc}</span>
+                    </span>
+                    <span class="hc-service-cta">{q.result.explore}<ArrowRight class="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1" aria-hidden="true" /></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="hc-areas" data-quiz-areas hidden>
+              <h4 class="hc-reco-title">{q.result.areasTitle}</h4>
+              <ul class="hc-areas-list" role="list">
+                {questions.map((item) => (
+                  <li data-quiz-area={item.id} hidden><span class="pill pill-accent">{item.area}</span></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="hc-result-actions">
+          <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{q.result.book}</Button>
+          <Button type="button" variant="ghost" size="lg" icon="none" magnetic={false} data-quiz-restart="">
+            <RotateCcw class="size-4" aria-hidden="true" />{q.restart}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<style>
+  .hc { overflow: hidden; }
+  .hc-grid { position: absolute; inset: 0; opacity: 0.85; pointer-events: none; }
+  .hc-card {
+    position: relative;
+    isolation: isolate;
+    max-width: 58rem;
+    margin-inline: auto;
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lift);
+    padding: clamp(1.5rem, 1rem + 2.4vw, 3.5rem);
+    overflow: hidden;
+  }
+  .hc-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--grad-accent); }
+  .hc-glow { position: absolute; width: 26rem; height: 26rem; right: -10rem; top: -12rem; border-radius: 50%; background: radial-gradient(circle, rgba(255, 179, 71, 0.28), transparent 68%); pointer-events: none; z-index: -1; }
+  .hc-panel { position: relative; }
+  .hc-privacy { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; color: var(--color-slate); max-width: 34rem; }
+  .hc-privacy :global(svg) { margin-top: 0.2rem; }
+
+  /* Progress */
+  .hc-progress { display: flex; flex-direction: column; gap: 0.7rem; }
+  .hc-progress-text { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-slate); }
+  .hc-bar { height: 6px; border-radius: 999px; background: var(--color-sand-2); overflow: hidden; }
+  .hc-bar-fill { display: block; width: 100%; height: 100%; background: var(--grad-accent); transform-origin: left center; transform: scaleX(var(--p, 0)); transition: transform 0.7s var(--ease-out-expo); }
+
+  /* Steps: the stage keeps the height of the tallest step (set by the script) so nothing shifts */
+  .hc-stage { position: relative; margin-top: 2rem; }
+  .hc-question { font-size: clamp(1.35rem, 1.05rem + 1.3vw, 1.95rem); line-height: 1.22; letter-spacing: -0.015em; font-weight: 700; color: var(--color-ink); max-width: 36rem; }
+  .hc-options { display: grid; gap: 0.75rem; margin-top: 1.75rem; }
+  .hc-option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.1rem;
+    border: 1.5px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-weight: 500;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+    touch-action: manipulation;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hc-option:hover { border-color: rgba(255, 107, 53, 0.55); background: var(--color-white); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+  }
+  .hc-option[aria-checked='true'] { border-color: var(--color-accent); background: var(--color-accent-soft); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.14); }
+  .hc-option-num { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 1px solid var(--color-line-strong); font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--color-ink-3); background: var(--color-white); transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .hc-option[aria-checked='true'] .hc-option-num { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
+  .hc-option-check { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--grad-accent); color: var(--color-ink); opacity: 0; transform: scale(0.5); transition: opacity 0.3s ease, transform 0.5s var(--ease-spring); }
+  .hc-option[aria-checked='true'] .hc-option-check { opacity: 1; transform: scale(1); }
+  .hc-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
+  .hc :global(.btn:disabled) { opacity: 0.4; pointer-events: none; }
+
+  /* Result */
+  .hc-result-grid { display: grid; gap: 2.5rem; }
+  @media (min-width: 48rem) { .hc-result-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 3.5rem; } }
+  .hc-ring { position: relative; width: 11.5rem; margin-top: 1.75rem; }
+  .hc-ring svg { width: 100%; height: auto; transform: rotate(-90deg); }
+  .hc-ring-track { fill: none; stroke: var(--color-sand-2); stroke-width: 9; }
+  .hc-ring-fill { fill: none; stroke: var(--ring, url(#hc-ring-grad)); stroke-width: 9; stroke-linecap: round; }
+  .hc-ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; }
+  .hc-ring-score { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--color-ink); }
+  .hc-ring-max { font-size: 1rem; font-weight: 600; color: var(--color-mist); margin-left: 0.1rem; }
+  .hc-ring-caption { margin-top: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-slate); }
+  .hc-result[data-level='0'] { --ring: var(--color-teal); --level: var(--color-teal-ink); }
+  .hc-result[data-level='1'] { --ring: url(#hc-ring-grad); --level: var(--color-accent-ink); }
+  .hc-result[data-level='2'] { --ring: var(--color-error); --level: var(--color-error); }
+  .hc-level { margin-top: 1.75rem; max-width: 24rem; }
+  .hc-level-label { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; line-height: 1.3; color: var(--level); }
+  .hc-level-dot { width: 0.6rem; height: 0.6rem; border-radius: 999px; background: var(--level); flex-shrink: 0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--level) 18%, transparent); }
+  .hc-level-text { margin-top: 0.6rem; color: var(--color-slate); line-height: 1.6; }
+  .hc-reco-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-3); }
+  .hc-reco-intro { margin-top: 0.5rem; font-size: 0.95rem; color: var(--color-slate); }
+  .hc-noissues { margin-top: 0.75rem; padding: 1rem 1.15rem; border-radius: var(--radius-md); background: var(--color-teal-soft); color: var(--color-teal-ink); font-weight: 500; line-height: 1.5; }
+  .hc-services { display: grid; gap: 0.75rem; margin-top: 1.1rem; }
+  .hc-service { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--color-ivory); transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo); }
+  @media (hover: hover) and (pointer: fine) {
+    .hc-service:hover { border-color: rgba(255, 107, 53, 0.4); background: var(--color-white); transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+  }
+  .hc-service-body { min-width: 0; }
+  .hc-service-name { display: block; font-family: var(--font-display); font-weight: 700; color: var(--color-ink); line-height: 1.3; }
+  .hc-service-desc { display: block; margin-top: 0.2rem; font-size: 0.85rem; line-height: 1.5; color: var(--color-slate); }
+  .hc-service-cta { display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0; font-size: 0.8rem; font-weight: 700; color: var(--color-accent-ink); white-space: nowrap; }
+  .hc-areas { margin-top: 2rem; }
+  .hc-areas-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.85rem; }
+  .hc-areas-list .pill { white-space: normal; }
+  .hc-result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--color-line); }
+  @media (max-width: 30rem) {
+    .hc-service { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    .hc-result-actions :global(.btn) { width: 100%; }
+    .hc-ring { width: 10rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hc-bar-fill, .hc-option, .hc-option-check, .hc-service { transition: none; }
+  }
+</style>
+
+<script>
+  import '@/scripts/quiz';
+</script>

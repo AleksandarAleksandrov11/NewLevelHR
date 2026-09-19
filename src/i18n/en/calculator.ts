@@ -11,6 +11,8 @@ export const calculator = {
   resultTitle: 'Estimated cost of one bad hire',
   perYear: 'per year of gross salary',
   currency: 'EUR',
+  /** Short unit suffixes shown next to the number fields ("%" and the currency code need no translation). */
+  units: { months: 'months', hours: 'h' },
   inputs: {
     salary: { label: 'Annual gross salary', help: 'Of the role you are hiring for.' },
     monthsEmployed: { label: 'Months until the person leaves', help: 'How long a mis-hire typically stays before the exit.' },

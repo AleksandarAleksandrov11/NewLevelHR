@@ -1,5 +1,35 @@
 import type { CalculatorDict } from '../en/calculator';
 
 export const calculator: CalculatorDict = {
-  meta: { title: 'TODO', description: 'TODO' },
+  eyebrow: 'Kosten einer Fehlbesetzung',
+  title: 'Was kostet Sie eine Fehlbesetzung wirklich?',
+  text: 'Passen Sie die Annahmen an Ihre Situation an. Jede Zeile der Rechnung ist sichtbar – nichts ist eine versteckte Statistik.',
+  assumptionsTitle: 'Ihre Annahmen',
+  resultTitle: 'Geschätzte Kosten einer Fehlbesetzung',
+  perYear: 'pro Jahr Bruttogehalt',
+  currency: 'EUR',
+  units: { months: 'Monate', hours: 'Std.' },
+  inputs: {
+    salary: { label: 'Jahresbruttogehalt', help: 'Der Position, die Sie besetzen.' },
+    monthsEmployed: { label: 'Monate bis zum Austritt', help: 'Wie lange eine Fehlbesetzung typischerweise bleibt, bevor sie geht.' },
+    recruitingPct: { label: 'Recruiting-Kosten (% des Gehalts)', help: 'Agenturhonorar, Stellenanzeigen, interne Zeit. Tragen Sie 0 ein, wenn Sie ohne Kosten einstellen.' },
+    managerHours: { label: 'Stunden der Führungskraft pro Woche für die Person', help: 'Onboarding, zusätzliche Betreuung, Fehler ausbügeln.' },
+    hourlyRate: { label: 'Stundenkosten der Führungskraft', help: 'Vollkosten einer Arbeitsstunde der Führungskraft.' },
+    severanceMonths: { label: 'Abfindung und Kündigungsfrist (Monate)', help: 'Bezahlte Monate ohne produktive Arbeit.' },
+    vacancyMonths: { label: 'Monate, die die Stelle danach unbesetzt bleibt', help: 'Zeit für Neubesetzung und Neustart.' },
+  },
+  lines: {
+    salary: 'Gehalt während der erfolglosen Zeit',
+    recruiting: 'Recruiting-Kosten der ersten Einstellung',
+    manager: 'Aufgewendete Zeit der Führungskraft',
+    severance: 'Abfindung und Kündigungsfrist',
+    rehire: 'Recruiting-Kosten der Nachbesetzung',
+    vacancy: 'Unbesetzte Stelle (Gehaltsäquivalent)',
+    total: 'Geschätzte Gesamtkosten',
+  },
+  formula: 'Gesamt = Gehalt × Monate / 12 + Recruiting + Stunden der Führungskraft × Wochen × Stundensatz + Gehalt × Abfindung / 12 + Recruiting erneut + Gehalt × Vakanz / 12',
+  note: 'Dies ist ein vereinfachtes Modell zur Orientierung. Es lässt entgangenen Umsatz, Teammoral und Auswirkungen auf Kunden außer Acht – die reale Zahl liegt daher meist höher.',
+  cta: 'Die nächste vermeiden: Sprechen Sie mit uns',
+  reset: 'Auf Standardwerte zurücksetzen',
+  multipleLabel: 'Das entspricht etwa dem {multiple}-Fachen des Jahresgehalts.',
 };

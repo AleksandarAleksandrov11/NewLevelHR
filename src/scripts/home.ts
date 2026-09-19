@@ -56,7 +56,7 @@ function initBridge() {
   }
   const days = items.map((i) => parseInt(i.dataset.bridgeItem || '0', 10));
   const st = ScrollTrigger.create({
-    trigger: section, start: 'top top', end: () => `+=${items.length * 90}%`, pin: track, scrub: 0.6, anticipatePin: 1,
+    trigger: section, start: 'top top', end: () => `+=${items.length * 70}%`, pin: track, scrub: 0.6, anticipatePin: 1,
     onUpdate: (self) => {
       const p = self.progress;
       if (fill) fill.style.transform = `scaleX(${p})`;
