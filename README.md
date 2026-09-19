@@ -89,7 +89,7 @@ src/
   pages/
     index.astro              Root redirect to /en/
     [lang]/[...path].astro   Localised router for all pages and blog posts
-    404.astro                Root 404 with language detection
+    404.astro                Root 404: English shell + localized fallback; DE/BG URLs continue to /de/404/, /bg/404/
     sitemap.xml.ts, robots.txt.ts, og/…  Generated SEO files and Open Graph images
   scripts/                   Client-side TypeScript (motion core, header, consent, cursor, tools)
   styles/global.css          Tailwind v4 theme tokens and base styles

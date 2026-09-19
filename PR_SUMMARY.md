@@ -49,6 +49,13 @@ a contact form backend for Vercel and for classic PHP hosting, SEO plumbing and 
    topics exist as `draft: true` outlines. The inherited cover images are flagged for license confirmation.
 9. **Formal address everywhere.** DE uses *Sie*, BG uses *Вие*, including the translated blog posts (the
    originals were informal in places; see `TODO-CLIENT.md`).
+10. **One 404 document, three languages.** Static hosts serve a single `404.html`. It carries the English shell
+    with all three localized messages as a no-JavaScript fallback, and a tiny inline script continues `/de/…`
+    and `/bg/…` URLs to the fully localized `/de/404/` and `/bg/404/` pages (header, footer and cookie dialog
+    in the right language) while the HTTP status of the original response stays 404 for crawlers.
+11. **QA that runs by itself.** The QA scripts serve `dist/` through a small compressing static server, so no
+    preview server is needed and Lighthouse measures the site rather than the compressor. Screenshots are taken
+    after wheel-driven scrolling so Lenis, IntersectionObserver reveals and ScrollTrigger pins all run first.
 
 ## Quality assurance
 
