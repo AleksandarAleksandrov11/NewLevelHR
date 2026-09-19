@@ -81,8 +81,22 @@ Sections alternate deliberately so that each one reads as a new "level":
 * `ui/Accordion.astro` — `<details>`-based, animated, exclusive with `name`.
 * `ui/Breadcrumbs.astro` — with BreadcrumbList JSON-LD.
 * `ui/Wordmark.astro` — the typographic logo with step glyph.
+* `ui/Photo.astro` — `<Picture>` (AVIF/WebP) by image name with a graceful gradient fallback when a file is missing.
+* `ui/FounderPortrait.astro` — monogram placeholder until the client provides a portrait (`site.founder.portrait`).
 * `layout/PageShell.astro` — wraps every page: SEO, hreflang, header, footer, cookie banner, language banner, cursor, preloader.
+* `layout/LangSwitcher.astro` — dropdown (header) or inline pills (footer, 404); every link targets the same page in the other language.
+* `layout/CookieBanner.astro` — consent dialog with Accept / Reject / Configure, category switches, revocable from the footer.
+* `pages/PageHero.astro` — inner-page hero with eyebrow, title, lead, breadcrumbs, optional photo and `ivory|mesh|dark|white` variants.
+* `pages/LegalLayout.astro` — renders the legal block model (paragraphs, lists, definition lists, tables, consent button) with a sticky table of contents.
+* `services/ProcessSteps.astro`, `services/CheckList.astro` — numbered process and yes/no/neutral check lists for the service pages.
+* `blog/PostCard.astro` — article card with category, cover, reading time and localized date.
 * `sections/FinalCta.astro` — orange full-bleed CTA.
+
+## Open Graph images
+
+`src/lib/og.ts` renders a 1200×630 card per page and per post at build time (satori + resvg) with the wordmark,
+the language badge, the title in Manrope 800 and the tagline or the author and date. Pages use the light ivory
+card, articles the dark ink card. Fonts come from `@fontsource/manrope` (Latin, Latin Extended and Cyrillic).
 
 ## Iconography
 

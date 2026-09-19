@@ -21,6 +21,7 @@ const { base, close } = await resolveBase();
 const browser = await chromium.launch({ executablePath: chromiumPath() });
 const rows = [];
 const overflow = [];
+const failures = [];
 let consoleErrors = 0;
 
 const viewport = (w) => ({ width: w, height: w < 700 ? 844 : w < 1100 ? 1024 : 900 });
@@ -65,18 +66,24 @@ for (const sitePath of pages) {
   const slug = slugOf(sitePath);
   ensureDir(path.join(OUT, lang));
   for (const width of SHOT_WIDTHS) {
-    await withPage(width, async (page, errors) => {
-      await open(page, sitePath);
-      await scrollThrough(page);
-      await page.waitForTimeout(1400);
-      const file = path.join(OUT, lang, `${slug}@${width}.png`);
-      await page.screenshot({ path: file, fullPage: true });
-      const h = await hasHorizontalScroll(page);
-      const title = await page.title();
-      rows.push({ path: sitePath, width, file: path.relative(OUT, file), overflow: h.over, errors: errors.length, title });
-      if (h.over) overflow.push({ path: sitePath, width, ...h });
-      if (errors.length) { consoleErrors += errors.length; console.log(`  ! ${sitePath} @${width}: ${errors.join(' | ').slice(0, 300)}`); }
-    });
+    try {
+      await withPage(width, async (page, errors) => {
+        await open(page, sitePath);
+        await scrollThrough(page);
+        await page.waitForTimeout(1400);
+        const file = path.join(OUT, lang, `${slug}@${width}.png`);
+        // Long pages with blurred glows render slowly in software; give the capture time and freeze CSS animations.
+        await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled' });
+        const h = await hasHorizontalScroll(page);
+        const title = await page.title();
+        rows.push({ path: sitePath, width, file: path.relative(OUT, file), overflow: h.over, errors: errors.length, title });
+        if (h.over) overflow.push({ path: sitePath, width, ...h });
+        if (errors.length) { consoleErrors += errors.length; console.log(`  ! ${sitePath} @${width}: ${errors.join(' | ').slice(0, 300)}`); }
+      });
+    } catch (e) {
+      failures.push({ path: sitePath, width, error: String(e.message || e).split('\n')[0] });
+      console.log(`  ✗ ${sitePath} @${width}: ${String(e.message || e).split('\n')[0]}`);
+    }
   }
   if (!hasFlag('no-widths')) {
     // One page load, then resize through the remaining breakpoints.
@@ -108,7 +115,7 @@ for (const lang of ['en', 'de', 'bg']) {
       await page.goto(base + home, { waitUntil: 'networkidle' });
       await page.waitForTimeout(1800);
       const file = path.join(dir, `state-cookie-dialog@${width}.png`);
-      await page.screenshot({ path: file, fullPage: false });
+      await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
       rows.push({ path: `${home} (cookie dialog)`, width, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
     });
   }
@@ -121,7 +128,7 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.click('[data-consent-action="settings"]');
     await page.waitForTimeout(500);
     const file = path.join(dir, 'state-cookie-settings@1440.png');
-    await page.screenshot({ path: file, fullPage: false });
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
     rows.push({ path: `${home} (cookie settings)`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // Language banner: a German browser on a non-German page (and an English one on the German page).
@@ -133,7 +140,7 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(1200);
     const file = path.join(dir, 'state-language-banner@1440.png');
-    await page.screenshot({ path: file, fullPage: false });
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
     rows.push({ path: `${home} (language banner, browser ${browserLocale})`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   }, { locale: browserLocale });
   // Mobile menu open.
@@ -142,7 +149,7 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.click('[data-burger]');
     await page.waitForTimeout(900);
     const file = path.join(dir, 'state-mobile-menu@390.png');
-    await page.screenshot({ path: file, fullPage: false });
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
     rows.push({ path: `${home} (mobile menu)`, width: 390, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // Mega menu open.
@@ -151,7 +158,7 @@ for (const lang of ['en', 'de', 'bg']) {
     await page.hover('[data-mega-trigger]');
     await page.waitForTimeout(700);
     const file = path.join(dir, 'state-mega-menu@1440.png');
-    await page.screenshot({ path: file, fullPage: false });
+    await page.screenshot({ path: file, fullPage: false, timeout: 120000, animations: 'disabled' });
     rows.push({ path: `${home} (mega menu)`, width: 1440, file: path.relative(OUT, file), overflow: false, errors: 0, title: 'state' });
   });
   // 404 for an unknown URL under the language prefix.
@@ -162,7 +169,7 @@ for (const lang of ['en', 'de', 'bg']) {
       await page.reload({ waitUntil: 'networkidle' });
       await page.waitForTimeout(900);
       const file = path.join(dir, `state-404@${width}.png`);
-      await page.screenshot({ path: file, fullPage: true });
+      await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled' });
       rows.push({ path: `/${lang}/this-page-does-not-exist/ (status ${res?.status()})`, width, file: path.relative(OUT, file), overflow: false, errors: 0, title: await page.title() });
     });
   }
@@ -180,8 +187,14 @@ const lines = [
   `* ${pages.length} pages × ${SHOT_WIDTHS.join(' / ')} px full-page screenshots, plus UI states per language.`,
   `* Horizontal-overflow check at ${CHECK_WIDTHS.join(' / ')} px: **${overflow.length === 0 ? 'no page scrolls horizontally' : overflow.length + ' finding(s), see below'}**.`,
   `* Console errors while capturing: **${consoleErrors}**.`,
+  `* Captures that failed: **${failures.length}**.`,
   '',
 ];
+if (failures.length) {
+  lines.push('## Failed captures', '');
+  for (const f of failures) lines.push(`* ${f.path} @${f.width}px: ${f.error}`);
+  lines.push('');
+}
 if (overflow.length) {
   lines.push('## Horizontal overflow', '', '| Page | Width | scrollWidth | Widest element |', '| --- | --- | --- | --- |');
   for (const o of overflow) lines.push(`| ${o.path} | ${o.width} | ${o.scrollWidth} / ${o.clientWidth} | \`${o.worst?.tag}.${o.worst?.cls}\` |`);
@@ -193,3 +206,4 @@ lines.push('');
 fs.writeFileSync(path.join(OUT, 'README.md'), lines.join('\n'));
 console.log(`\n${rows.length} screenshots in docs/qa-screenshots/. Overflow findings: ${overflow.length}. Console errors: ${consoleErrors}.`);
 if (overflow.length) { for (const o of overflow) console.log(`  ✗ overflow ${o.path} @${o.width}px: ${o.scrollWidth}>${o.clientWidth} (${o.worst?.tag}.${o.worst?.cls})`); process.exitCode = 1; }
+if (failures.length) process.exitCode = 1;

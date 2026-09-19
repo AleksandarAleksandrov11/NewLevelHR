@@ -44,8 +44,20 @@ Items marked **visible** are rendered on the live site until replaced.
 | The four published blog posts were expanded from the one-paragraph originals; please review the additions | Blog | to review |
 | The three announced topics (EU Pay Transparency Directive, first manager hire, 90-day bridge case study) exist as unpublished outlines (`draft: true`) | `src/content/blog/*/` | write or brief; the case study needs a real client story and permission |
 | Optional privacy-friendly analytics (e.g. Plausible) | `.env` `PUBLIC_ANALYTICS*` | decision; off by default, loads only after consent |
+| Tone of the German and Bulgarian blog posts: the site uses the formal address (Sie / Вие) everywhere, including the translated posts. The originals were informal in places; confirm the formal voice or ask for an informal blog voice. | Blog | decision |
+| Blog post dates: the four inherited posts carry the publication date of the previous site. Adjust if they should look new. | `src/content/blog/*/` frontmatter | to confirm |
 
-## 5. Nice to have
+## 5. Hosting decisions
+
+| Item | Where | Status |
+| --- | --- | --- |
+| Hosting target: Vercel (recommended, `vercel.json` + `api/contact.js`) or the current PHP host (`public/.htaccess` + `public/contact.php`) | README "Deployment" | decision |
+| Domain and DNS: point `newlevelhr.com` at the chosen host; `SITE_URL` must match the final origin so canonicals, hreflang and the sitemap are correct | `.env` / Vercel settings | after the decision |
+| Content Security Policy: `public/.htaccess` ships a strict CSP; extend `script-src`, `connect-src` and `frame-src` when adding third parties (booking widget, analytics). Vercel deployments set no CSP by default. | `public/.htaccess`, `vercel.json` | when adding third parties |
+| Rate limiting of the Vercel contact function is per instance (in memory). For a stricter limit use a shared store (Vercel KV, Upstash) or a form service. | `api/contact.js` | optional |
+| Submit the sitemap in Google Search Console after launch (`https://newlevelhr.com/sitemap.xml`) and set up redirects for any old URL not listed in `vercel.json` / `.htaccess`. | Search Console | after launch |
+
+## 6. Nice to have
 
 * Additional photography of the real team and office to replace the licensed stock photos over time.
 * A short video or audio greeting from the founder for the About page.

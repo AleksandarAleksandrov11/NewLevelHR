@@ -114,6 +114,7 @@ export async function startStaticServer({ dir = DIST, port = 4173 } = {}) {
     '.woff2': 'font/woff2', '.woff': 'font/woff', '.webmanifest': 'application/manifest+json', '.php': 'text/plain; charset=utf-8',
   };
   const compressible = new Set(['.html', '.css', '.js', '.mjs', '.json', '.xml', '.txt', '.svg', '.webmanifest']);
+  const cache = new Map();
   const server = http.createServer((req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     let pathname = decodeURIComponent(url.pathname);
@@ -134,8 +135,20 @@ export async function startStaticServer({ dir = DIST, port = 4173 } = {}) {
     let body = fs.readFileSync(file);
     const accept = String(req.headers['accept-encoding'] || '');
     if (compressible.has(ext) && body.length > 512) {
-      if (accept.includes('br')) { body = zlib.brotliCompressSync(body); headers['Content-Encoding'] = 'br'; }
-      else if (accept.includes('gzip')) { body = zlib.gzipSync(body); headers['Content-Encoding'] = 'gzip'; }
+      // Compressed bodies are cached per file so the response time reflects the site, not the compressor.
+      const enc = accept.includes('br') ? 'br' : accept.includes('gzip') ? 'gzip' : '';
+      if (enc) {
+        const key = `${enc}:${file}:${fs.statSync(file).mtimeMs}`;
+        let out = cache.get(key);
+        if (!out) {
+          out = enc === 'br'
+            ? zlib.brotliCompressSync(body, { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 5, [zlib.constants.BROTLI_PARAM_SIZE_HINT]: body.length } })
+            : zlib.gzipSync(body, { level: 6 });
+          cache.set(key, out);
+        }
+        body = out;
+        headers['Content-Encoding'] = enc;
+      }
     }
     headers['Content-Length'] = body.length;
     res.writeHead(status, headers);
