@@ -6,15 +6,31 @@
  */
 import { getCollection } from 'astro:content';
 import { locales, type Locale } from '@/i18n/config';
-import { pageKeys, routes, type PageKey } from '@/i18n/routes';
-import { entryLang, entrySlug } from '@/lib/blog';
+import { pageKeys, routes, blogPostPath, type PageKey } from '@/i18n/routes';
+import { entryLang, entrySlug, postLanguages } from '@/lib/blog';
 
-import Placeholder from '@/views/Placeholder.astro';
+import Home from '@/views/Home.astro';
+import Services from '@/views/Services.astro';
+import ServiceDetail from '@/views/ServiceDetail.astro';
+import Problems from '@/views/Problems.astro';
+import About from '@/views/About.astro';
+import HowWeWork from '@/views/HowWeWork.astro';
+import Blog from '@/views/Blog.astro';
+import BlogPost from '@/views/BlogPost.astro';
+import Faq from '@/views/Faq.astro';
+import Contact from '@/views/Contact.astro';
+import LegalNotice from '@/views/LegalNotice.astro';
+import Terms from '@/views/Terms.astro';
+import Privacy from '@/views/Privacy.astro';
+import CookiePolicy from '@/views/CookiePolicy.astro';
+import NotFound from '@/views/NotFound.astro';
 
 interface PageProps {
   lang: Locale;
   view: PageKey | 'blogPost';
   postId?: string;
+  /** For blog posts: paths of the translations that exist */
+  alternates?: Record<Locale, string>;
 }
 
 export async function getStaticPaths() {
@@ -29,14 +45,32 @@ export async function getStaticPaths() {
   for (const post of posts) {
     const lang = entryLang(post);
     if (!locales.includes(lang)) continue;
-    paths.push({
-      params: { lang, path: `${routes.blog[lang]}/${entrySlug(post)}` },
-      props: { lang, view: 'blogPost', postId: post.id },
-    });
+    const slug = entrySlug(post);
+    const available = await postLanguages(slug);
+    // Languages without a translation point to their blog index.
+    const alternates = Object.fromEntries(
+      locales.map((l) => [l, available.includes(l) ? blogPostPath(l, slug) : `/${l}/${routes.blog[l]}/`]),
+    ) as Record<Locale, string>;
+    paths.push({ params: { lang, path: `${routes.blog[lang]}/${slug}` }, props: { lang, view: 'blogPost', postId: post.id, alternates } });
   }
   return paths;
 }
 
-const { lang, view } = Astro.props as PageProps;
+const { lang, view, postId, alternates } = Astro.props as PageProps;
+const path = view === 'blogPost' && alternates ? alternates[lang] : undefined;
 ---
-<Placeholder lang={lang} view={view} />
+{view === 'home' && <Home lang={lang} />}
+{view === 'services' && <Services lang={lang} pageKey={view} />}
+{(view === 'serviceFractional' || view === 'serviceHiring' || view === 'serviceBridge' || view === 'serviceCoaching') && <ServiceDetail lang={lang} pageKey={view} />}
+{view === 'problems' && <Problems lang={lang} pageKey={view} />}
+{view === 'about' && <About lang={lang} pageKey={view} />}
+{view === 'howWeWork' && <HowWeWork lang={lang} pageKey={view} />}
+{view === 'blog' && <Blog lang={lang} pageKey={view} />}
+{view === 'blogPost' && <BlogPost lang={lang} pageKey={view} postId={postId} path={path} alternates={alternates} />}
+{view === 'faq' && <Faq lang={lang} pageKey={view} />}
+{view === 'contact' && <Contact lang={lang} pageKey={view} />}
+{view === 'legalNotice' && <LegalNotice lang={lang} pageKey={view} />}
+{view === 'terms' && <Terms lang={lang} pageKey={view} />}
+{view === 'privacy' && <Privacy lang={lang} pageKey={view} />}
+{view === 'cookies' && <CookiePolicy lang={lang} pageKey={view} />}
+{view === 'notFound' && <NotFound lang={lang} pageKey={view} />}

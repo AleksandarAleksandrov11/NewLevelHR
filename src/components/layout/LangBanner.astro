@@ -30,9 +30,9 @@ const texts = Object.fromEntries(
   </div>
 </div>
 <style>
-  .lang-banner { position: fixed; z-index: 85; left: var(--gutter); right: var(--gutter); top: calc(var(--header-h) + 0.75rem); display: flex; justify-content: center; pointer-events: none; }
+  .lang-banner { position: fixed; z-index: 85; left: var(--gutter); right: var(--gutter); bottom: max(1rem, env(safe-area-inset-bottom)); display: flex; justify-content: center; pointer-events: none; }
   .lang-banner[hidden], html.menu-open .lang-banner { display: none; }
-  @media (min-width: 64rem) { .lang-banner { top: auto; bottom: 1.5rem; left: auto; right: 1.5rem; justify-content: flex-end; } }
+  @media (min-width: 64rem) { .lang-banner { bottom: 1.5rem; left: auto; right: 1.5rem; justify-content: flex-end; } }
   .lang-banner-inner { pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; padding: 0.7rem 0.9rem 0.7rem 1rem; border-radius: 999px; background: rgba(255, 255, 255, 0.9); box-shadow: var(--shadow-lift); animation: lb-in 0.7s var(--ease-out-expo); max-width: 100%; }
   @keyframes lb-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
   .lang-banner-text { font-size: 0.85rem; font-weight: 550; color: var(--color-ink); }

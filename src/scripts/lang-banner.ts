@@ -30,7 +30,13 @@ export function initLangBanner() {
   sw.setAttribute('lang', preferred);
   dismiss.textContent = texts[current]?.dismiss || t.dismiss;
   close.setAttribute('aria-label', t.close);
-  el.hidden = false;
+  // The cookie dialog has priority: show the suggestion once consent is settled.
+  const consent = document.querySelector<HTMLElement>('[data-consent]');
+  if (consent && !consent.hidden) {
+    const once = () => { el.hidden = false; };
+    window.addEventListener('nlhr:consent', once, { once: true });
+    cleanup.push(() => window.removeEventListener('nlhr:consent', once));
+  } else el.hidden = false;
 
   const remember = (value: string) => { try { localStorage.setItem(key, value); } catch { /* ignore */ } };
   const onDismiss = () => { remember('dismissed'); el.hidden = true; };
