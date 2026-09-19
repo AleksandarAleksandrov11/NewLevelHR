@@ -326,14 +326,19 @@ await test('blog: category filter narrows the list', desktop, async (page) => {
   expect(shown > 0 && shown < all, `${shown} of ${all} after filtering`);
 });
 
-await test('404: unknown URL returns status 404 and the page speaks the URL language', desktop, async (page) => {
-  const res = await page.goto(base + '/bg/nyama-takava-stranitsa/', { waitUntil: 'networkidle' });
+await test('404: unknown URL returns status 404 and continues to the localized 404 page', desktop, async (page) => {
+  const res = await page.goto(base + '/bg/nyama-takava-stranitsa/', { waitUntil: 'commit' });
   expect(res?.status() === 404, `status ${res?.status()}`);
-  await page.waitForTimeout(300);
-  const visible = await page.locator('[data-lang-block]:visible').getAttribute('data-lang-block');
-  expect(visible === 'bg', `visible block is ${visible}`);
-  const home = page.locator('[data-lang-block="bg"] a[href="/bg/"]').first();
-  expect(await home.count(), 'no link back to the Bulgarian home page');
+  await page.waitForURL('**/bg/404/', { timeout: 8000 });
+  await page.waitForLoadState('networkidle');
+  expect((await page.getAttribute('html', 'lang')) === 'bg', 'html lang is not bg on the localized 404 page');
+  expect(await page.locator('main a[href="/bg/"]').count(), 'no link back to the Bulgarian home page');
+  expect(await page.locator('header a[href="/bg/"]').count(), 'header is not Bulgarian');
+  // English URLs stay on the root 404 document with the English block visible.
+  const en = await page.goto(base + '/en/no-such-page/', { waitUntil: 'networkidle' });
+  expect(en?.status() === 404, `EN status ${en?.status()}`);
+  expect(new URL(page.url()).pathname === '/en/no-such-page/', `EN 404 navigated away to ${page.url()}`);
+  expect(await page.locator('[data-lang-block="en"]').isVisible(), 'English block not visible');
 });
 
 await test('reduced motion: no preloader, no smooth-scroll class, content visible immediately', { ...desktop, reducedMotion: 'reduce' }, async (page) => {

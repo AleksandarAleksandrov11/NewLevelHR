@@ -87,18 +87,19 @@ export async function settleBanners(page, { consent = 'accept' } = {}) {
  * scrolling, IntersectionObserver reveals and ScrollTrigger pins all run, then
  * returns to the top. Programmatic window.scrollTo jumps are overridden by Lenis.
  */
-export async function scrollThrough(page, step = 600) {
+export async function scrollThrough(page, step = 600, { returnToTop = true } = {}) {
   const vp = page.viewportSize() || { width: 1280, height: 800 };
   await page.mouse.move(Math.floor(vp.width / 2), Math.floor(vp.height / 2));
   const height = await page.evaluate(() => document.documentElement.scrollHeight);
   const steps = Math.ceil(height / step) + 4;
   for (let i = 0; i < steps; i++) {
     await page.mouse.wheel(0, step);
-    await page.waitForTimeout(100);
+    await page.waitForTimeout(80);
   }
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(600);
+  if (!returnToTop) return;
   await page.mouse.wheel(0, -height * 2);
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(1400);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(300);
 }

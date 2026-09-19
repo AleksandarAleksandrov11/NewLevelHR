@@ -90,7 +90,8 @@ const c = d.common;
   .hero-title .accent { color: var(--color-accent-ink); }
   /* Gradient per word so it survives the split-text wrappers */
   .hero-title .accent :global(.split-i), html:not(.js) .hero-title .accent { background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-right: 0.02em; }
-  .hero-title :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  /* Split words never break inside (overflow-wrap: anywhere would orphan trailing punctuation). */
+  .hero-title :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; overflow-wrap: normal; word-break: keep-all; hyphens: manual; }
   .hero-title :global(.split-i) { display: inline-block; }
   .hero-proof { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; font-size: 0.875rem; font-weight: 550; color: var(--color-ink-3); }
   .hero-proof li { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }

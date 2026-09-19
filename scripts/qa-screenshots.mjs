@@ -93,8 +93,8 @@ for (const sitePath of pages) {
       for (const width of extra) {
         await page.setViewportSize(viewport(width));
         await page.waitForTimeout(250);
-        await scrollThrough(page, 1400);
-        await page.waitForTimeout(250);
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await scrollThrough(page, 1400, { returnToTop: false });
         const h = await hasHorizontalScroll(page);
         if (h.over) overflow.push({ path: sitePath, width, ...h });
       }
@@ -164,10 +164,14 @@ for (const lang of ['en', 'de', 'bg']) {
   // 404 for an unknown URL under the language prefix.
   for (const width of SHOT_WIDTHS) {
     await withPage(width, async (page) => {
-      const res = await page.goto(`${base}/${lang}/this-page-does-not-exist/`, { waitUntil: 'networkidle' });
+      const res = await page.goto(`${base}/${lang}/this-page-does-not-exist/`, { waitUntil: 'commit' });
+      await page.waitForLoadState('networkidle');
+      if (lang !== 'en') await page.waitForURL(`**/${lang}/404/`, { timeout: 8000 }).catch(() => {});
       await settleBanners(page);
       await page.reload({ waitUntil: 'networkidle' });
-      await page.waitForTimeout(900);
+      await page.waitForTimeout(600);
+      await scrollThrough(page);
+      await page.waitForTimeout(600);
       const file = path.join(dir, `state-404@${width}.jpg`);
       await page.screenshot({ path: file, fullPage: true, timeout: 120000, animations: 'disabled', type: 'jpeg', quality: 82 });
       rows.push({ path: `/${lang}/this-page-does-not-exist/ (status ${res?.status()})`, width, file: path.relative(OUT, file), overflow: false, errors: 0, title: await page.title() });

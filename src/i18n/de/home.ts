@@ -7,9 +7,9 @@ export const home: HomeDict = {
   },
   hero: {
     eyebrow: 'Der HR-Partner, den Ihr Unternehmen wirklich braucht',
-    titleLine1: 'Echte HR-Unterstützung.',
+    titleLine1: 'Echter HR-Support.',
     titleLine2: 'Ohne die',
-    titleAccent: 'Festanstellung.',
+    titleAccent: 'feste Stelle.',
     sub: 'Wir übernehmen die heiklen Personalthemen: Compliance, Recruiting, Mitarbeiterfragen – richtig gemacht, damit Ihr Unternehmen rund läuft. Praktisch. Erreichbar. Immer an Ihrer Seite.',
     cta1: 'Kostenlose Beratung sichern',
     cta2: 'Unsere Leistungen',
