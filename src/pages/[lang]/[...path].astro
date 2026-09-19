@@ -37,6 +37,6 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { lang, view, postId } = Astro.props as PageProps;
+const { lang, view } = Astro.props as PageProps;
 ---
-<Placeholder lang={lang} view={view === 'blogPost' ? `blogPost:${postId}` : view} />
+<Placeholder lang={lang} view={view} />

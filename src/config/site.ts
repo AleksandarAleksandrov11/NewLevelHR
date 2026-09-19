@@ -11,7 +11,7 @@ export const site = {
   email: 'info@newlevelhr.com',
   /** TODO-CLIENT: real Calendly event link. */
   bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || 'https://calendly.com/',
-  formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/contact.php',
+  formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/api/contact',
   formToken: (env.PUBLIC_FORM_TOKEN as string | undefined) || '',
   analytics: {
     provider: (env.PUBLIC_ANALYTICS as string | undefined) || '',

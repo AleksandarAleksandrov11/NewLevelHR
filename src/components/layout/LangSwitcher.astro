@@ -1,0 +1,106 @@
+---
+import { Globe, Check, ChevronDown } from '@lucide/astro';
+import { locales, localeMeta, type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+
+interface Props {
+  lang: Locale;
+  alternates: Record<Locale, string>;
+  variant?: 'dropdown' | 'inline';
+  light?: boolean;
+  class?: string;
+  id?: string;
+}
+const { lang, alternates, variant = 'dropdown', light = false, class: className = '', id = 'lang-switcher' } = Astro.props;
+const dict = getDict(lang);
+const label = dict.common.nav.chooseLanguage;
+---
+{variant === 'inline' ? (
+  <nav aria-label={label} class:list={['lang-inline', className]}>
+    <ul class="flex flex-wrap gap-2" role="list">
+      {locales.map((l) => (
+        <li>
+          <a
+            href={alternates[l]}
+            hreflang={localeMeta[l].hreflang}
+            lang={localeMeta[l].htmlLang}
+            aria-current={l === lang ? 'true' : undefined}
+            data-lang-link={l}
+            data-astro-reload
+            class:list={[
+              'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition-colors',
+              l === lang
+                ? (light ? 'border-white bg-white text-ink' : 'border-ink bg-ink text-white')
+                : (light ? 'border-white/25 text-white/85 hover:border-white hover:text-white' : 'border-line-strong text-ink-3 hover:border-ink hover:text-ink'),
+            ]}
+          >
+            <span aria-hidden="true">{localeMeta[l].short}</span>
+            <span class="sr-only">{localeMeta[l].name}</span>
+            <span class="hidden sm:inline" aria-hidden="true">{localeMeta[l].name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+) : (
+  <div class:list={['lang-dd relative', className]} data-lang-switcher>
+    <button
+      type="button"
+      class:list={[
+        'lang-dd-btn inline-flex h-10 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold transition-colors',
+        light ? 'border-white/25 text-white hover:border-white' : 'border-line-strong text-ink hover:border-ink',
+      ]}
+      aria-haspopup="true"
+      aria-expanded="false"
+      aria-controls={`${id}-menu`}
+      aria-label={`${label} (${dict.common.nav.currentLanguage}: ${localeMeta[lang].name})`}
+    >
+      <Globe class="size-4" aria-hidden="true" />
+      <span aria-hidden="true">{localeMeta[lang].short}</span>
+      <ChevronDown class="size-3.5 transition-transform duration-300 group-aria-expanded:rotate-180" aria-hidden="true" />
+    </button>
+    <div id={`${id}-menu`} class="lang-dd-menu" hidden>
+      <ul role="list" class="p-1.5">
+        {locales.map((l) => (
+          <li>
+            <a
+              href={alternates[l]}
+              hreflang={localeMeta[l].hreflang}
+              lang={localeMeta[l].htmlLang}
+              data-lang-link={l}
+              data-astro-reload
+              aria-current={l === lang ? 'true' : undefined}
+              class:list={[
+                'flex items-center justify-between gap-6 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-sand',
+                l === lang ? 'text-ink' : 'text-ink-3',
+              ]}
+            >
+              <span class="inline-flex items-center gap-2.5">
+                <span class="w-6 text-[0.7rem] font-bold tracking-wider text-mist" aria-hidden="true">{localeMeta[l].short}</span>
+                <span>{localeMeta[l].name}</span>
+              </span>
+              {l === lang && <Check class="size-4 text-accent-ink" aria-hidden="true" />}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)}
+<style>
+  .lang-dd-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    min-width: 12rem;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lift);
+    z-index: 60;
+    transform-origin: top right;
+    animation: lang-pop 0.35s var(--ease-out-expo);
+  }
+  @keyframes lang-pop { from { opacity: 0; transform: translateY(-6px) scale(0.98); } to { opacity: 1; transform: none; } }
+  .lang-dd-btn[aria-expanded='true'] :global(svg:last-child) { transform: rotate(180deg); }
+</style>

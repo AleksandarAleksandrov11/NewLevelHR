@@ -1,0 +1,29 @@
+{
+  "name": "NewLevelHR",
+  "short_name": "NewLevelHR",
+  "description": "Real HR support without the full-time hire. Compliance, hiring, employee issues, done right.",
+  "start_url": "/en/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#fbf8f4",
+  "theme_color": "#fbf8f4",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

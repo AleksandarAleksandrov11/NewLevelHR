@@ -1,3 +1,4 @@
+import type { Widen } from '../types';
 /**
  * Shared strings: navigation, footer, generic CTAs, service names.
  * This file is the type reference for de/common.ts and bg/common.ts.
@@ -221,4 +222,4 @@ export const common = {
   },
 } as const;
 
-export type CommonDict = typeof common;
+export type CommonDict = Widen<typeof common>;
