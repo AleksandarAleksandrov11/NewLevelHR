@@ -1,0 +1,33 @@
+# Image credits
+
+All photographs in `src/assets/images/` (except the `blog/` folder, see below) were sourced from [Pexels](https://www.pexels.com/) and are free to use for commercial purposes under the [Pexels License](https://www.pexels.com/license/). The license requires no attribution, but we credit every photographer here as a courtesy and for traceability. Each image was downloaded from the original file, re-encoded as JPEG (quality 82, maximum width 2400 px, metadata stripped) and saved under a descriptive filename.
+
+None of these photographs depicts NewLevelHR staff, the founder, or NewLevelHR clients. They are stock photographs of models and public places and must not be captioned as if they showed real NewLevelHR people or projects.
+
+The four blog cover images in `src/assets/images/blog/` (`onboarding-bingo.jpg`, `meme-application.jpg`, `quick-feedback.jpg`, `coffee-machine.jpg`) were inherited from the previous website, where they were stored as `blogimg-1786122475-f403bdde.jpg` (underwater diver), `blogimg-1786122473-bc3700cd.jpg` (Lisbon trams), `blogimg-1786122472-b1e6c5a5.jpg` (Italian street) and `blogimg-1786122470-4bfd5565.jpg` (Santorini). Their provenance and license are unknown and must be confirmed by the client before launch; if the rights cannot be confirmed, they should be replaced with licensed images.
+
+| Filename | Description | Photographer | Source URL (photo page) | License | Used on |
+| --- | --- | --- | --- | --- | --- |
+| `hero-team-bright.jpg` | Small diverse startup team collaborating over notebooks at a table in a bright office | Thirdman | https://www.pexels.com/photo/men-having-a-meeting-5256995/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `one-on-one.jpg` | Two colleagues in a calm one-to-one conversation at a small table in warm daylight | Christina Morillo | https://www.pexels.com/photo/man-wearing-white-top-in-front-of-woman-wearing-blue-long-sleeved-top-1181715/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `interview.jpg` | Candidate in a job interview with two interviewers in a modern office | Edmond Dantès | https://www.pexels.com/photo/woman-in-a-job-interview-4344878/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `onboarding-welcome.jpg` | Colleagues welcoming and showing a new team member around on a first day | Mikhail Nilov | https://www.pexels.com/photo/photograph-of-colleagues-talking-8297443/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `coaching-mentoring.jpg` | Senior colleague mentoring a younger colleague at a laptop by a bright window | Antoni Shkraba | https://www.pexels.com/photo/men-looking-at-the-screen-of-a-laptop-5862377/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `office-light.jpg` | Sunlit, minimalist modern office interior with plants and no people | Julia Filirovska | https://www.pexels.com/photo/empty-room-with-indoor-plants-in-tilt-shift-lens-7141029/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `whiteboard-planning.jpg` | Hand placing a sticky note on a glass wall during planning | Mikhail Nilov | https://www.pexels.com/photo/a-person-holding-a-sticky-note-6592367/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `founder-thinking.jpg` | Founder working thoughtfully at a laptop in warm natural light | Kindel Media | https://www.pexels.com/photo/a-man-in-gray-shirt-looking-at-the-laptop-6773659/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `team-celebration.jpg` | Small team reacting to good news at a laptop in a bright loft office | Andrea Piacquadio | https://www.pexels.com/photo/excited-multiracial-colleagues-enjoying-triumph-together-in-front-of-laptop-in-office-3931634/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `notebook-desk.jpg` | Flat-lay of a notebook, pen, laptop and latte on a warm wooden desk | dlxmedia.hu | https://www.pexels.com/photo/a-cup-of-coffee-and-a-notebook-11911067/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `city-europe.jpg` | Bright, sunny street with historic orange houses in Copenhagen, Denmark | Jude Okafor | https://www.pexels.com/photo/sunny-street-scene-in-historic-copenhagen-32763399/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `handshake-agreement.jpg` | Understated handshake between two colleagues holding documents in an office | Sora Shimazaki | https://www.pexels.com/photo/diverse-coworkers-shaking-hands-after-meeting-5668841/ | [Pexels License](https://www.pexels.com/license/) | TBD |
+| `blog/onboarding-bingo.jpg` | Underwater diver (inherited blog cover, formerly `blogimg-1786122475-f403bdde.jpg`) | Unknown | Unknown (previous website) | Unknown, to be confirmed by client | Blog: Onboarding bingo |
+| `blog/meme-application.jpg` | Lisbon trams (inherited blog cover, formerly `blogimg-1786122473-bc3700cd.jpg`) | Unknown | Unknown (previous website) | Unknown, to be confirmed by client | Blog: Meme application |
+| `blog/quick-feedback.jpg` | Italian street (inherited blog cover, formerly `blogimg-1786122472-b1e6c5a5.jpg`) | Unknown | Unknown (previous website) | Unknown, to be confirmed by client | Blog: Quick feedback |
+| `blog/coffee-machine.jpg` | Santorini (inherited blog cover, formerly `blogimg-1786122470-4bfd5565.jpg`) | Unknown | Unknown (previous website) | Unknown, to be confirmed by client | Blog: Coffee machine |
+
+## Selection notes
+
+- Brief: natural, luminous, warm, un-stocky imagery; bright European-style offices; diverse teams; landscape orientation; at least 1800 px wide; free for commercial use (Unsplash or Pexels License only). Unsplash search was unavailable at sourcing time (bot protection), so all twelve images come from Pexels.
+- Every image was reviewed at full size before selection. Candidates were rejected for readable third-party logos or brand names (for example an Apple logo on a laptop lid, a Nike swoosh on shoes, a Polo Ralph Lauren emblem, shop and vehicle lettering, a branded café umbrella), for dark or heavily filtered looks, for staged high-fives, and for repeating the same models across two images.
+- No image resembles an executive portrait of the founder; the only images with a single prominent person (`founder-thinking.jpg`, `one-on-one.jpg`) show models who are clearly not NewLevelHR staff.
+- Existing blog covers were deliberately not duplicated: `city-europe.jpg` shows Copenhagen, not Lisbon, Italy or Santorini.
