@@ -1,5 +1,5 @@
 ---
-title: "5 Dinge, die dein Chef wirklich meint, wenn er 'kurzes Feedback' sagt"
+title: "5 Dinge, die Ihr Chef wirklich meint, wenn er 'kurzes Feedback' sagt"
 description: "Eine Übersetzungshilfe für die häufigsten Management-Floskeln, humorvoll erklärt."
 date: 2026-08-07
 category: leadership
@@ -9,7 +9,7 @@ coverAlt: "Eine sonnige, enge italienische Straße mit pastellfarbenen Fassaden 
 draft: false
 author: "Mariyana Velkova"
 ---
-Kurzes Feedback bedeutet selten kurz und noch seltener nur Feedback. Wir haben die fünf häufigsten Varianten gesammelt und für euch entschlüsselt, damit ihr beim nächsten 1:1 wisst, worauf ihr euch einstellen müsst.
+Kurzes Feedback bedeutet selten kurz und noch seltener nur Feedback. Wir haben die fünf häufigsten Varianten gesammelt und für Sie entschlüsselt, damit Sie beim nächsten 1:1 wissen, worauf Sie sich einstellen müssen.
 
 ## Die fünf Übersetzungen
 

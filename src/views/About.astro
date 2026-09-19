@@ -55,7 +55,7 @@ const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name
       <p class="eyebrow" data-reveal>{a.story.eyebrow}</p>
       <h2 class="font-display text-display-md text-ink mt-4" data-reveal data-reveal-delay="1">{a.story.title}</h2>
       <div class="ab-story">
-        {a.story.paragraphs.map((para, i) => (i === 2 ? <p class="ab-story-key font-display" data-illuminate>{para}</p> : <p data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>{para}</p>))}
+        {a.story.paragraphs.map((text, i) => (i === 2 ? <p class="ab-story-key font-display" data-illuminate>{text}</p> : <p data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>{text}</p>))}
       </div>
       <p class="ab-signature font-display" data-reveal>{a.story.signature}</p>
     </div>

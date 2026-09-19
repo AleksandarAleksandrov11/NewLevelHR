@@ -48,7 +48,8 @@ npm run dev               # http://localhost:4321/en/
 | `npm run qa:e2e` | Playwright checks: cookie consent, language switcher, header, contact form, tools, 404 |
 | `npm test` | `check` + `check:i18n` + `build` + `check:lang` + `check:links` |
 
-The QA scripts expect a running preview server (`npm run preview` in another terminal) unless `--base` is given.
+The QA scripts serve `dist/` themselves (with compression and a real 404 status) after `npm run build`; pass
+`--base=https://…` to run them against a deployed site instead.
 
 ## Environment variables
 
@@ -150,8 +151,17 @@ Upload `dist/`. Configure a redirect from `/` to `/en/`, serve `404.html` for un
 
 ## Quality gates
 
-Before deploying run `npm test`. For the full visual and functional QA run `npm run preview` and then
-`npm run qa:screenshots`, `npm run qa:e2e` and `npm run qa:lighthouse`. Results are written to `docs/qa/`.
+Before deploying run `npm test` (`astro check`, dictionary parity, build, language guard, link/hreflang/sitemap
+check). For the full visual and functional QA run, after `npm run build`:
+
+| Command | Output |
+| --- | --- |
+| `npm run qa:e2e` | `docs/qa/e2e.md` — cookie consent, language banner and switcher, header, contact form (mocked endpoint), quiz, calculator, FAQ, blog, 404, reduced motion, view transitions |
+| `npm run qa:screenshots` | `docs/qa-screenshots/` — every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
+| `npm run qa:lighthouse` | `docs/qa/lighthouse.md` — mobile Lighthouse for home, services, a service page, about, blog, a post and contact in the three languages (target ≥ 90 everywhere) |
+
+Each script exits with a non-zero code when a check fails, so they can run in CI. The Chromium bundled with
+Playwright is used; set `CHROMIUM_PATH` to use another binary.
 
 ## Documentation
 

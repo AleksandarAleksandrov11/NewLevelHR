@@ -60,10 +60,11 @@ function initForm(form: HTMLFormElement) {
     const results = fields.map((f) => validate(f));
     if (results.includes(false)) { fields[results.indexOf(false)]?.focus(); return; }
     setBusy(true);
-    const data: Record<string, string> = {};
+    const data: Record<string, string | number | boolean> = {};
     new FormData(form).forEach((v, k) => { data[k] = String(v); });
     const consent = form.querySelector<HTMLInputElement>('input[name="consent"]');
-    data.consent = consent?.checked ? 'true' : 'false';
+    data.consent = Boolean(consent?.checked);
+    data.ts = Number(data.ts) || 0;
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
       let body: { ok?: boolean; error?: string; fields?: Record<string, string> } = {};

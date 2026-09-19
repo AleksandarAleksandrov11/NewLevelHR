@@ -1,5 +1,5 @@
 ---
-title: "Onboarding-Bingo: Wie viele Buzzwords überlebt dein neuer Kollege am ersten Tag?"
+title: "Onboarding-Bingo: Wie viele Buzzwords überlebt Ihr neuer Kollege am ersten Tag?"
 description: "Ein augenzwinkernder Blick auf die Sprache, die neue Mitarbeitende am ersten Tag über sich ergehen lassen müssen."
 date: 2026-08-07
 category: onboarding
