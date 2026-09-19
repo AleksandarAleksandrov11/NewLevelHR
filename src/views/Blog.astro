@@ -1,9 +1,92 @@
 ---
-/** STUB — to be replaced by the page builder. */
-import Placeholder from '@/views/Placeholder.astro';
-import type { Locale } from '@/i18n/config';
-import type { PageKey } from '@/i18n/routes';
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost'; postId?: string; path?: string; alternates?: Record<Locale, string> }
-const { lang, pageKey, path, alternates } = Astro.props;
+/** Blog index: category filters, post grid, coming-soon teasers. */
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, fmt, blogPostPath, type PageKey } from '@/i18n';
+import { getPosts, entrySlug } from '@/lib/blog';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const b = d.blog;
+const c = d.common;
+const posts = await getPosts(lang);
+const categories = (Object.keys(b.categories) as Array<keyof typeof b.categories>).filter((k) => posts.some((p) => p.data.category === k));
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: b.meta.title,
+  url: `${site.url}${Astro.url.pathname}`,
+  publisher: { '@id': `${site.url}/#organization` },
+  blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, datePublished: p.data.date.toISOString(), url: `${site.url}${blogPostPath(lang, entrySlug(p))}`, inLanguage: lang })),
+};
 ---
-<Placeholder lang={lang} view={pageKey} path={path} alternates={alternates} />
+<PageShell lang={lang} pageKey="blog" title={b.meta.title} description={b.meta.description} jsonLd={[blogLd]}>
+  <PageHero lang={lang} eyebrow={b.hero.eyebrow} title={b.hero.title} text={b.hero.text} crumbs={[{ label: c.nav.blog }]} variant="ivory" />
+
+  <section class="section bg-white pt-8 lg:pt-10" data-blog>
+    <div class="container-site">
+      <div class="blog-toolbar" data-reveal>
+        <div class="blog-filters" role="group" aria-label={b.filterLabel}>
+          <button type="button" class="blog-chip" data-filter="all" aria-pressed="true">{b.all}</button>
+          {categories.map((k) => <button type="button" class="blog-chip" data-filter={k} aria-pressed="false">{b.categories[k]}</button>)}
+        </div>
+        <p class="blog-status" aria-live="polite" data-blog-status data-template={b.count}>{fmt(b.count, { count: posts.length, total: posts.length })}</p>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="blog-grid">
+          {posts.map((post, i) => <PostCard post={post} lang={lang} headingLevel="h2" featured={i === 0} delay={(i % 3) + 1} />)}
+        </div>
+      ) : (
+        <p class="blog-empty">{b.empty}</p>
+      )}
+      <p class="blog-empty" data-blog-empty hidden>{b.empty}</p>
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site">
+      <p class="eyebrow" data-reveal>{b.comingSoon.eyebrow}</p>
+      <h2 class="font-display text-display-md text-ink mt-4" data-reveal data-reveal-delay="1">{b.comingSoon.title}</h2>
+      <p class="text-lead text-slate mt-4 max-w-2xl" data-reveal data-reveal-delay="2">{b.comingSoon.text}</p>
+      <ul class="soon-grid" role="list">
+        {b.comingSoon.items.map((it, i) => (
+          <li class="soon-card" data-reveal data-reveal-delay={String(i + 1)}>
+            <span class="pill pill-accent">{c.misc.comingSoon}</span>
+            <h3 class="font-display text-xl font-bold text-ink mt-4">{it.title}</h3>
+            <p class="mt-2 text-slate leading-relaxed">{it.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+  <JsonLd data={[]} />
+</PageShell>
+
+<style>
+  .blog-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-line); }
+  .blog-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .blog-chip { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--color-line-strong); background: var(--color-white); font-size: 0.85rem; font-weight: 600; color: var(--color-ink-3); cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .blog-chip:hover { border-color: var(--color-ink); color: var(--color-ink); }
+  .blog-chip[aria-pressed='true'] { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+  .blog-chip:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
+  .blog-status { font-size: 0.8rem; color: var(--color-mist); }
+  .blog-grid { display: grid; gap: 1.5rem; margin-top: 2rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 40rem) { .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .blog-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; } .blog-grid > :global(.post-card-featured) { grid-column: span 2; } }
+  .blog-empty { margin-top: 2rem; padding: 2rem; border-radius: var(--radius-lg); background: var(--color-sand); color: var(--color-ink-2); text-align: center; }
+  .soon-grid { display: grid; gap: 1.25rem; margin-top: 2.5rem; }
+  @media (min-width: 48rem) { .soon-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .soon-card { padding: 1.75rem; border-radius: var(--radius-lg); background: var(--color-white); border: 1px dashed var(--color-line-strong); }
+</style>
+<script>
+  import '@/scripts/blog-filter';
+</script>

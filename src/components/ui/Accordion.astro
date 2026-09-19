@@ -4,10 +4,10 @@
  * Group several with the same `name` for exclusive opening (native).
  */
 import { Plus } from '@lucide/astro';
-interface Props { question: string; name?: string; open?: boolean; class?: string; dark?: boolean; id?: string }
-const { question, name, open = false, class: className = '', dark = false, id } = Astro.props;
+interface Props { question: string; name?: string; open?: boolean; class?: string; dark?: boolean; id?: string; [key: `data-${string}`]: string | undefined }
+const { question, name, open = false, class: className = '', dark = false, id, ...rest } = Astro.props;
 ---
-<details class:list={['acc group', dark ? 'acc-dark' : '', className]} name={name} open={open} id={id} data-accordion>
+<details class:list={['acc group', dark ? 'acc-dark' : '', className]} name={name} open={open} id={id} data-accordion {...rest}>
   <summary class:list={['acc-summary flex w-full cursor-pointer list-none items-start justify-between gap-6 py-5 text-left font-display text-[1.05rem] font-semibold leading-snug', dark ? 'text-white' : 'text-ink']}>
     <span>{question}</span>
     <span class:list={['acc-icon mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border transition-transform duration-500 ease-out-expo group-open:rotate-45', dark ? 'border-white/25 text-white' : 'border-line-strong text-ink']} aria-hidden="true">

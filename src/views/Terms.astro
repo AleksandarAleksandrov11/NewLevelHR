@@ -1,9 +1,8 @@
 ---
-/** STUB — to be replaced by the page builder. */
-import Placeholder from '@/views/Placeholder.astro';
+import LegalLayout from '@/components/pages/LegalLayout.astro';
 import type { Locale } from '@/i18n/config';
 import type { PageKey } from '@/i18n/routes';
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost'; postId?: string; path?: string; alternates?: Record<Locale, string> }
-const { lang, pageKey, path, alternates } = Astro.props;
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
 ---
-<Placeholder lang={lang} view={pageKey} path={path} alternates={alternates} />
+<LegalLayout lang={lang} pageKey="terms" />

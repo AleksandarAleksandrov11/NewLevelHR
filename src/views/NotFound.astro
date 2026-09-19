@@ -1,9 +1,13 @@
 ---
-/** STUB — to be replaced by the page builder. */
-import Placeholder from '@/views/Placeholder.astro';
+/** Per-language 404 page (/en/404/, /de/404/, /bg/404/). */
+import PageShell from '@/components/layout/PageShell.astro';
+import NotFoundContent from '@/components/pages/NotFoundContent.astro';
 import type { Locale } from '@/i18n/config';
-import type { PageKey } from '@/i18n/routes';
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost'; postId?: string; path?: string; alternates?: Record<Locale, string> }
-const { lang, pageKey, path, alternates } = Astro.props;
+import { getDict, type PageKey } from '@/i18n';
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const n = getDict(lang).common.notFound;
 ---
-<Placeholder lang={lang} view={pageKey} path={path} alternates={alternates} />
+<PageShell lang={lang} pageKey="notFound" title={n.title} description={n.text} noindex>
+  <NotFoundContent lang={lang} />
+</PageShell>

@@ -1,4 +1,24 @@
 ---
-import Placeholder from '@/views/Placeholder.astro';
+/**
+ * Root 404 served by the host for any unknown URL. Contains all three languages;
+ * an inline script reveals the block matching the URL prefix (/de/ or /bg/).
+ */
+import PageShell from '@/components/layout/PageShell.astro';
+import NotFoundContent from '@/components/pages/NotFoundContent.astro';
+import { getDict } from '@/i18n';
+const n = getDict('en').common.notFound;
 ---
-<Placeholder lang="en" view="notFound" />
+<PageShell lang="en" pageKey="notFound" path="/404.html" title={n.title} description={n.text} noindex>
+  <div data-lang-block="en"><NotFoundContent lang="en" /></div>
+  <div data-lang-block="de" hidden><NotFoundContent lang="de" /></div>
+  <div data-lang-block="bg" hidden><NotFoundContent lang="bg" /></div>
+  <script is:inline>
+    (function () {
+      var m = location.pathname.match(/^\/(de|bg)(\/|$)/);
+      if (!m) return;
+      var lang = m[1];
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang-block]').forEach(function (el) { el.hidden = el.getAttribute('data-lang-block') !== lang; });
+    })();
+  </script>
+</PageShell>

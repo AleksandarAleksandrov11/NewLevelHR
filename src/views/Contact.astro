@@ -1,9 +1,199 @@
 ---
-/** STUB — to be replaced by the page builder. */
-import Placeholder from '@/views/Placeholder.astro';
-import type { Locale } from '@/i18n/config';
-import type { PageKey } from '@/i18n/routes';
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost'; postId?: string; path?: string; alternates?: Record<Locale, string> }
-const { lang, pageKey, path, alternates } = Astro.props;
+/** Contact: message form, direct booking, contact details and what happens next. */
+import { Mail, Clock, Zap, MapPin, Languages, Check, CalendarDays, AlertCircle, ExternalLink } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.contact;
+const c = d.common;
+const fm = c.form;
+const escape = (s: string) => s.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch] as string));
+const consentHtml = escape(fm.consent).replace('{privacyLink}', `<a href="${localizePath('privacy', lang)}" class="underline underline-offset-2 text-accent-ink hover:text-accent-deep">${escape(fm.consentLinkText)}</a>`);
+const messages = { required: fm.errors.required, email: fm.errors.email, minLength: fm.errors.minLength, consent: fm.errors.consent, rateLimit: fm.errors.rateLimit, spam: fm.errors.spam, errorText: fmt(fm.errorText, { email: site.email }) };
+const topics = Object.entries(fm.topics) as Array<[string, string]>;
+const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', name: t.meta.title, url: `${site.url}${localizePath('contact', lang)}`, mainEntity: { '@id': `${site.url}/#organization` } };
+const nextIcons = [Mail, Clock, Check];
 ---
-<Placeholder lang={lang} view={pageKey} path={path} alternates={alternates} />
+<PageShell lang={lang} pageKey="contact" title={t.meta.title} description={t.meta.description} jsonLd={[contactLd]}>
+  <section class="ct-hero bg-mesh">
+    <div class="container-site">
+      <Breadcrumbs items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.contact }]} label={c.nav.breadcrumbs} class="mb-8" />
+      <p class="eyebrow" data-reveal>{t.hero.eyebrow}</p>
+      <h1 class="font-display text-display-lg text-ink mt-5 max-w-3xl" data-split="immediate">{t.hero.title}</h1>
+      <p class="text-lead text-slate mt-6 max-w-2xl" data-reveal data-reveal-delay="2">{t.hero.text}</p>
+    </div>
+  </section>
+
+  <section class="section bg-white pt-10 lg:pt-14">
+    <div class="container-site ct-grid">
+      <div class="ct-form-card" data-reveal>
+        <h2 class="font-display text-display-sm text-ink">{t.form.title}</h2>
+        <p class="text-slate mt-2">{t.form.text}</p>
+
+        <form class="ct-form mt-8" method="post" action={site.formEndpoint} novalidate data-contact-form data-endpoint={site.formEndpoint} data-messages={JSON.stringify(messages)}>
+          <div class="ct-row">
+            <div class="field">
+              <input id="ct-name" name="name" type="text" required maxlength="120" placeholder=" " autocomplete="name" aria-describedby="ct-name-err" data-field />
+              <label for="ct-name">{fm.name}</label>
+              <p id="ct-name-err" class="field-error" aria-live="polite" data-error-for="name"></p>
+            </div>
+            <div class="field">
+              <input id="ct-email" name="email" type="email" required maxlength="200" placeholder=" " autocomplete="email" inputmode="email" aria-describedby="ct-email-err" data-field />
+              <label for="ct-email">{fm.email}</label>
+              <p id="ct-email-err" class="field-error" aria-live="polite" data-error-for="email"></p>
+            </div>
+          </div>
+          <div class="ct-row">
+            <div class="field">
+              <input id="ct-company" name="company" type="text" maxlength="160" placeholder=" " autocomplete="organization" data-field />
+              <label for="ct-company">{fm.company} <span class="field-opt">({c.misc.optional})</span></label>
+              <p class="field-error" aria-live="polite" data-error-for="company"></p>
+            </div>
+            <div class="field field-select">
+              <select id="ct-topic" name="topic" required aria-describedby="ct-topic-err" data-field>
+                <option value="" disabled selected>{fm.topicPlaceholder}</option>
+                {topics.map(([value, label]) => <option value={value}>{label}</option>)}
+              </select>
+              <label for="ct-topic" class="is-static">{fm.topic}</label>
+              <p id="ct-topic-err" class="field-error" aria-live="polite" data-error-for="topic"></p>
+            </div>
+          </div>
+          <div class="field">
+            <textarea id="ct-message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder=" " aria-describedby="ct-message-err" data-field></textarea>
+            <label for="ct-message">{fm.message}</label>
+            <p id="ct-message-err" class="field-error" aria-live="polite" data-error-for="message"></p>
+          </div>
+          <div class="field field-check">
+            <label class="check">
+              <input id="ct-consent" name="consent" type="checkbox" required aria-describedby="ct-consent-err" data-field />
+              <span class="check-box" aria-hidden="true"><Check class="size-3.5" /></span>
+              <span class="check-text" set:html={consentHtml}></span>
+            </label>
+            <p id="ct-consent-err" class="field-error" aria-live="polite" data-error-for="consent"></p>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="ct-website">{fm.honeypotLabel}</label>
+            <input id="ct-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="ts" value="" />
+          <input type="hidden" name="lang" value={lang} />
+          <input type="hidden" name="token" value={site.formToken} />
+
+          <div class="ct-submit">
+            <Button type="submit" size="lg" icon="send" magnetic={false} data-submit="" data-label-idle={fm.submit} data-label-sending={fm.sending}><span data-submit-label>{fm.submit}</span></Button>
+            <p class="text-xs text-mist">{c.proof.reply}</p>
+          </div>
+        </form>
+
+        <div class="ct-success" data-form-success hidden tabindex="-1">
+          <span class="ct-success-icon"><Check class="size-6" aria-hidden="true" /></span>
+          <h3 class="font-display text-display-sm text-ink mt-4">{fm.successTitle}</h3>
+          <p class="text-slate mt-2">{fm.successText}</p>
+        </div>
+        <div class="ct-failure" data-form-error hidden tabindex="-1" role="alert">
+          <AlertCircle class="size-5 shrink-0" aria-hidden="true" />
+          <div><p class="font-bold">{fm.errorTitle}</p><p class="mt-1 text-sm" data-form-error-text></p></div>
+        </div>
+      </div>
+
+      <aside class="ct-aside">
+        <div id="book" class="ct-book" data-reveal data-reveal-delay="1">
+          <p class="eyebrow text-accent-3">{t.book.eyebrow}</p>
+          <h2 class="font-display text-display-sm mt-4">{t.book.title}</h2>
+          <p class="mt-3 text-white/75 leading-relaxed">{t.book.text}</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <Button href={site.bookingUrl} external icon="calendar" cursor="book">{t.book.button}</Button>
+          </div>
+          <p class="mt-4 inline-flex items-start gap-1.5 text-xs text-white/55"><ExternalLink class="size-3.5 mt-0.5 shrink-0" aria-hidden="true" /><span>{c.misc.calendlyNote}</span></p>
+        </div>
+
+        <div class="ct-info" data-reveal data-reveal-delay="2">
+          <h2 class="font-display text-xl font-bold text-ink">{t.info.title}</h2>
+          <dl class="ct-info-list">
+            <div><dt><Mail class="size-4" aria-hidden="true" />{t.info.email}</dt><dd><a href={`mailto:${site.email}`} class="ct-link">{site.email}</a></dd></div>
+            <div><dt><Zap class="size-4" aria-hidden="true" />{t.info.response}</dt><dd>{t.info.responseValue}</dd></div>
+            <div><dt><Clock class="size-4" aria-hidden="true" />{t.info.hours}</dt><dd>{t.info.hoursValue}</dd></div>
+            <div><dt><Languages class="size-4" aria-hidden="true" />{t.info.languages}</dt><dd>{t.info.languagesValue}</dd></div>
+            <div><dt><MapPin class="size-4" aria-hidden="true" />{t.info.address}</dt><dd><address class="not-italic">{c.footer.addressValue}</address></dd></div>
+          </dl>
+        </div>
+
+        <div class="ct-next" data-reveal data-reveal-delay="3">
+          <h2 class="font-display text-xl font-bold text-ink">{t.next.title}</h2>
+          <ol class="ct-next-list" role="list">
+            {t.next.items.map((it, i) => { const Icon = nextIcons[i] ?? Check; return (
+              <li><span class="ct-next-icon"><Icon class="size-4" aria-hidden="true" /></span><div><p class="font-semibold text-ink">{it.title}</p><p class="mt-0.5 text-sm text-slate">{it.body}</p></div></li>
+            ); })}
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<style>
+  .ct-hero { padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)); padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .ct-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .ct-hero h1 :global(.split-i) { display: inline-block; }
+  .ct-grid { display: grid; gap: 2rem; }
+  @media (min-width: 64rem) { .ct-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 3rem; align-items: start; } }
+  .ct-form-card { position: relative; padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-lift); }
+  .ct-form { display: grid; gap: 1.25rem; }
+  .ct-row { display: grid; gap: 1.25rem; }
+  @media (min-width: 40rem) { .ct-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .field { position: relative; }
+  .field input:not([type='checkbox']), .field textarea, .field select {
+    width: 100%; padding: 1.55rem 1rem 0.6rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-line-strong); background: var(--color-ivory); color: var(--color-ink); font-size: 1rem; line-height: 1.4;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  .field textarea { resize: vertical; min-height: 9rem; }
+  .field select { appearance: none; -webkit-appearance: none; padding-right: 2.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235b5b6c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+  .field select:invalid { color: var(--color-mist); }
+  .field label:not(.check) { position: absolute; left: 1rem; top: 1.05rem; font-size: 1rem; color: var(--color-slate); pointer-events: none; transform-origin: left top; transition: transform 0.25s var(--ease-out-expo), color 0.25s ease; }
+  .field input:focus ~ label, .field input:not(:placeholder-shown) ~ label, .field textarea:focus ~ label, .field textarea:not(:placeholder-shown) ~ label, .field label.is-static { transform: translateY(-0.7rem) scale(0.78); color: var(--color-ink-3); }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--color-accent); background: var(--color-white); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15); }
+  .field-opt { font-weight: 400; color: var(--color-mist); }
+  .field-error { min-height: 0; margin-top: 0.35rem; font-size: 0.8rem; color: var(--color-error); }
+  .field-error:empty { display: none; }
+  .has-error input, .has-error textarea, .has-error select { border-color: var(--color-error) !important; }
+  .field-check { margin-top: 0.25rem; }
+  .check { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; font-size: 0.9rem; line-height: 1.5; color: var(--color-ink-3); }
+  .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .check-box { display: grid; place-items: center; flex: none; width: 1.35rem; height: 1.35rem; margin-top: 0.15rem; border-radius: 0.4rem; border: 1.5px solid var(--color-line-strong); background: var(--color-white); color: transparent; transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
+  .check input:checked ~ .check-box { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-ink); }
+  .check input:focus-visible ~ .check-box { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
+  .has-error .check-box { border-color: var(--color-error); }
+  .hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+  .ct-submit { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+  .ct-success { padding: 2.5rem 1rem; text-align: center; }
+  .ct-success:focus { outline: none; }
+  .ct-success-icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: var(--grad-accent); color: var(--color-ink); animation: pop 0.7s var(--ease-spring); }
+  @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .ct-failure { display: flex; gap: 0.75rem; margin-top: 1.25rem; padding: 1rem 1.15rem; border-radius: var(--radius-md); background: var(--color-error-soft); color: var(--color-error); }
+  .ct-aside { display: grid; gap: 1.5rem; }
+  .ct-book { padding: 2rem; border-radius: var(--radius-xl); background: var(--color-ink); color: #fff; scroll-margin-top: calc(var(--header-h) + 1rem); position: relative; overflow: hidden; isolation: isolate; }
+  .ct-book::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(22rem circle at 90% 0%, rgba(255, 107, 53, 0.3), transparent 60%); }
+  .ct-info, .ct-next { padding: 1.75rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .ct-info-list { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  .ct-info-list dt { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); }
+  .ct-info-list dt :global(svg) { color: var(--color-accent-ink); }
+  .ct-info-list dd { margin-top: 0.2rem; font-weight: 600; color: var(--color-ink); }
+  .ct-link { color: var(--color-accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+  .ct-next-list { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  .ct-next-list li { display: flex; gap: 0.85rem; align-items: flex-start; }
+  .ct-next-icon { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 999px; background: var(--color-white); border: 1px solid var(--color-line); color: var(--color-accent-ink); }
+</style>
+<script>
+  import '@/scripts/contact-form';
+</script>
