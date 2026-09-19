@@ -7,7 +7,7 @@ import { glob } from 'astro/loaders';
  */
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       title: z.string(),
       description: z.string(),
@@ -15,7 +15,8 @@ const blog = defineCollection({
       updated: z.coerce.date().optional(),
       category: z.enum(['culture', 'recruiting', 'leadership', 'compliance', 'onboarding']),
       tags: z.array(z.string()).default([]),
-      cover: image().optional(),
+      /** Name of a photo in src/assets/images (without extension), e.g. "blog/onboarding-bingo" */
+      cover: z.string().optional(),
       coverAlt: z.string().optional(),
       coverCredit: z.string().optional(),
       draft: z.boolean().default(false),
