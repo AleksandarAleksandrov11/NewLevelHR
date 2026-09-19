@@ -15,7 +15,7 @@ if (opts.includes('menu')) { await page.click('[data-burger]'); await page.waitF
 if (opts.includes('mega')) { await page.hover('[data-mega-trigger]'); await page.waitForTimeout(600); }
 if (opts.includes('settings')) { await page.click('[data-consent-action="settings"]'); await page.waitForTimeout(500); }
 if (opts.includes('accept')) { await page.click('[data-consent-action="accept"]'); await page.waitForTimeout(400); }
-if (opts.includes('scroll')) { await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } }); await page.waitForTimeout(800); if (!opts.includes('stay')) await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(600); }
+if (opts.includes('scroll')) { await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } }); await page.waitForTimeout(800); if (!opts.includes("stay")) { await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(1800); } }
 await page.screenshot({ path: out, fullPage: !opts.includes('viewport') });
 const hasHScroll = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
 console.log(JSON.stringify({ url, width, errors, hasHScroll, title: await page.title() }));

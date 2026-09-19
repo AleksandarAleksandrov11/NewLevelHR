@@ -38,3 +38,5 @@ function destroy() {
 
 document.addEventListener('astro:page-load', init);
 document.addEventListener('astro:before-swap', destroy);
+
+export {};

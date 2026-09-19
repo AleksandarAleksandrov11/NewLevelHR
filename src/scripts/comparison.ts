@@ -34,3 +34,5 @@ function destroy() { cleanup.forEach((f) => f()); cleanup = []; }
 
 document.addEventListener('astro:page-load', init);
 document.addEventListener('astro:before-swap', destroy);
+
+export {};
