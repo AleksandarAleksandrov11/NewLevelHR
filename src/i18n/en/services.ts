@@ -1,6 +1,568 @@
 import type { Widen } from '../types';
-/** Namespace "services" — English is the type reference for de/ and bg/. */
+/**
+ * Namespace "services": the services overview and the four service detail
+ * pages. English is the type reference for de/ and bg/.
+ * Identifiers (`key`, `image`, `related`, `problems`, `service`) stay untranslated.
+ */
 export const services = {
-  meta: { title: 'TODO', description: 'TODO' },
+  meta: {
+    title: 'Services – Fractional HR, Hiring, 90-Day Bridge & Manager Coaching',
+    description:
+      'Four ways to work with NewLevelHR: fractional HR partnership, high-velocity hiring, the 90-day success bridge and manager coaching. Senior HR support for startups and SMEs in Europe, on retainer or per project.',
+  },
+  hero: {
+    eyebrow: 'Our services',
+    title: 'Senior HR support, sized to your company.',
+    text: 'Fractional HR partnership, high-velocity hiring, a 90-day success bridge and manager coaching. Pick one, combine them, or start with a free call and let us tell you which one you actually need.',
+    imageAlt: 'A team celebrating a milestone together in a bright office',
+  },
+  cardsSection: {
+    eyebrow: 'Four services',
+    title: 'Pick the one that matches your situation.',
+    text: 'Every service is delivered by a senior partner who knows your team by name. No dashboards, no bots, no ticket queue.',
+  },
+  cards: [
+    {
+      key: 'fractional',
+      summary: 'The alternative to a full-time hire. On-demand support to fix your team structure, handle policy, and align your people with your business goals.',
+      bullets: [
+        'Structure, roles and a people roadmap for the next 12 months',
+        'Policies, contracts and compliance reviewed with your legal counsel',
+        'Salary bands and fair offers, aligned with the EU Pay Transparency Directive',
+      ],
+      tags: ['Policy & Structure', 'On Demand', 'Cost Efficient'],
+      image: 'one-on-one',
+      imageAlt: 'HR partner in a one-on-one conversation with a founder',
+    },
+    {
+      key: 'hiring',
+      summary: 'Stop the “hire and hope” cycle. Big Tech hiring speed combined with a 3-month success bridge so your new hire doesn’t just start, they succeed.',
+      bullets: [
+        'Role scorecard and clear expectations before the first interview',
+        'A structured, fast process that candidates actually respect',
+        'The 90-Day Success Bridge included for every hire',
+      ],
+      tags: ['Fast Hiring', '3-Month Bridge', 'Clear Expectations'],
+      image: 'interview',
+      imageAlt: 'A structured job interview between a candidate and a hiring manager',
+    },
+    {
+      key: 'bridge',
+      summary: 'Our job doesn’t end when the contract is signed. We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.',
+      bullets: [
+        'Day 1: expectations and scorecard agreed on both sides',
+        'Day 30 and 60: feedback loops and course correction',
+        'Day 90: confirmed fit, probation decision, development plan',
+      ],
+      tags: ['Day 1 to Day 90', 'Hire & Manager', 'Retention'],
+      image: 'onboarding-welcome',
+      imageAlt: 'A new team member being welcomed on their first day',
+    },
+    {
+      key: 'coaching',
+      summary: 'Turning experts into leaders. Coaching managers and giving them tools to handle conflict, give feedback, and lead high-performing teams independently.',
+      bullets: [
+        'Practical tools for feedback, delegation and difficult conversations',
+        'A coach in their corner for the first hard calls',
+        'Leadership alignment so the team hears one message',
+      ],
+      tags: ['Leadership Coaching', 'Conflict Management', 'Team Building'],
+      image: 'coaching-mentoring',
+      imageAlt: 'A manager and a coach in a mentoring conversation',
+    },
+  ],
+  intro: {
+    eyebrow: 'How we work with you',
+    title: 'One partner. Your Slack channel. No ticket queue.',
+    text: 'Whichever service you pick, the way we work stays the same: a senior person who takes ownership, answers fast and tells you the truth.',
+    points: [
+      {
+        title: 'Retainer or project',
+        body: 'Ongoing support with a fixed monthly scope, or a clearly defined project with a start and an end. We recommend the one that fits, not the bigger one.',
+      },
+      {
+        title: 'The partner in your Slack',
+        body: 'A person in your channel who answers the awkward questions, Monday to Friday, 9–18 CET, in English, German or Bulgarian. Reply within 24 hours.',
+      },
+      {
+        title: 'Free 30-minute call first',
+        body: 'Before any proposal you get a free 30-minute consultation. You leave with a clear picture of what would help, whether or not you work with us.',
+      },
+    ],
+    valuesTitle: 'What drives every engagement',
+    values: [
+      { title: 'Velocity over Bureaucracy', body: 'Hiring should take days, not months.' },
+      { title: 'Humanity over Automation', body: 'You don’t need another AI dashboard; you need a partner who understands your struggle.' },
+      { title: 'Strategic Precision', body: 'The brain of a senior partner without the executive price tag.' },
+    ],
+  },
+  howToChoose: {
+    eyebrow: 'Not sure where to start?',
+    title: 'Start with the symptom, not the service.',
+    text: 'Most founders come to us with a situation, not a shopping list. Here is a quick way to read the map.',
+    optionLabel: 'Start with',
+    options: [
+      { when: 'You are doing HR yourself between product and sales, and it shows.', service: 'fractional' },
+      { when: 'A key role has been open for weeks, or your last hire left within months.', service: 'hiring' },
+      { when: 'You already hired someone and want the first 90 days to go right.', service: 'bridge' },
+      { when: 'Your best engineers became managers and nobody trained them.', service: 'coaching' },
+    ],
+    callTitle: 'Talk it through in 30 minutes',
+    callText: 'The free consultation is the fastest way to find out which service fits. No pitch deck, no pressure.',
+    callButton: 'Book a free call',
+    checkTitle: 'Or take the HR Health Check',
+    checkText: 'A short self-assessment on the home page that shows where your people setup is solid and where it leaks.',
+    checkButton: 'Take the health check',
+  },
+  labels: {
+    bookCall: 'Book a free call',
+    askQuestion: 'Ask a question',
+    allServices: 'All services',
+    exploreService: 'Explore this service',
+    includesEyebrow: 'Scope',
+    processEyebrow: 'The process',
+    forWhomEyebrow: 'Fit check',
+    yesTitle: 'This is for you if…',
+    deliverablesEyebrow: 'Deliverables',
+    deliverablesImageAlt: 'Planning session at a whiteboard',
+    faqEyebrow: 'FAQ',
+    relatedEyebrow: 'Related',
+    relatedTitle: 'Services that pair with this one',
+    relatedText: 'One partner, four ways to work together. These usually go hand in hand.',
+    problemsTitle: 'Problems this service fixes',
+    problemsText: 'Each one links to the full description on the “What we fix” page.',
+    stepLabel: 'Step {n}',
+  },
+  pages: {
+    fractional: {
+      meta: {
+        title: 'Fractional HR Partnership – Senior HR Without the Full-Time Hire',
+        description:
+          'On-demand senior HR support for startups and SMEs: team structure, policies, pay bands, compliance alongside your legal counsel and leadership alignment. On retainer or per project, in EN, DE and BG.',
+      },
+      serviceType: 'Fractional HR partnership',
+      hero: {
+        eyebrow: 'Fractional HR Partnership',
+        title: 'Senior HR on demand. The alternative to a full-time hire.',
+        sub: 'On-demand support to fix your team structure, handle policy and align your people with your business goals. You get the brain of a senior partner in your Slack channel, without the executive price tag.',
+        image: 'one-on-one',
+        imageAlt: 'Founder and HR partner working through a people question one-on-one',
+        tags: ['Policy & Structure', 'On Demand', 'Cost Efficient'],
+      },
+      problem: {
+        eyebrow: 'The situation',
+        title: 'HR is happening to you, not for you.',
+        text: 'Somewhere between ten and a hundred people, the people stuff stops being a side task. Founders end up as the accidental HR department, and the gaps start to cost real money.',
+        points: [
+          'Employee questions, paperwork and disputes eat the hours meant for product and customers.',
+          'Salaries and benefits are decided offer by offer, so no two people are paid on the same logic.',
+          'Contracts and policies were written once and never updated; an inspection would be an unpleasant surprise.',
+          'Headcount grows faster than structure, and the leadership team sends mixed signals.',
+        ],
+      },
+      solution: {
+        eyebrow: 'The partnership',
+        title: 'A senior partner who takes the people work off your desk.',
+        text: 'We work as your HR lead for a defined share of the week: strategy where you need it, hands-on execution where you don’t have time. Compliance support is HR advisory delivered alongside your legal counsel, never legal advice.',
+        points: [
+          'Structure first: roles, reporting lines and a 12-month people roadmap.',
+          'Policies, contracts and files reviewed, closed and kept current with your lawyer.',
+          'Simple salary bands and benefit rules aligned with the EU Pay Transparency Directive.',
+          'Difficult conversations, performance cases and exits prepared and, where useful, led together with you.',
+        ],
+      },
+      includes: {
+        title: 'What’s included',
+        text: 'The scope is set together in the first month and adjusted as the company changes.',
+        items: [
+          { title: 'Team structure & roles', body: 'Clear role descriptions, reporting lines and a hiring sequence for the next 12 months, so growth follows a plan instead of a panic.' },
+          { title: 'Policies & employee handbook', body: 'Working time, remote work, leave, equipment, conduct: written in plain language, in the languages your team actually speaks.' },
+          { title: 'Contracts & compliance review', body: 'Employment contracts, addenda and personnel files checked for gaps and kept current, in coordination with your legal counsel.' },
+          { title: 'Pay bands & benefits', body: 'A simple salary structure and benefit rules that make every offer explainable and support the EU Pay Transparency Directive.' },
+          { title: 'Performance & difficult conversations', body: 'A documented performance process, feedback templates and a calm exit plan, so nobody waits months to act.' },
+          { title: 'Leadership alignment', body: 'Working sessions with founders and executives so decisions are made once and the team hears one message.' },
+          { title: 'Employee issues & mediation', body: 'Conflicts, complaints and sensitive cases handled with a neutral, experienced partner in the room.' },
+          { title: 'On-call advisory', body: 'A person in your Slack for the questions that cannot wait: Monday to Friday, 9–18 CET, reply within 24 hours.' },
+        ],
+      },
+      process: {
+        title: 'How the partnership starts',
+        text: 'From the first call to a running rhythm in a few weeks, not a few quarters.',
+        steps: [
+          { tag: 'Free call', title: 'Diagnose', body: 'A 30-minute conversation about where the people setup hurts most. You leave with a clear picture, whether or not we work together.' },
+          { tag: 'Week 1', title: 'Audit', body: 'We review contracts, policies, pay logic and the org chart, talk to the leadership team and list the gaps by risk and effort.' },
+          { tag: 'Weeks 2–4', title: 'Fix the urgent', body: 'The items that create legal or people risk right now get closed first, together with your legal counsel where needed.' },
+          { tag: 'Month 2+', title: 'Build the system', body: 'Structure, policies, pay bands and rituals go live one by one, each one explained to the people who will use it.' },
+          { tag: 'Ongoing', title: 'Run it with you', body: 'A fixed weekly rhythm, a partner in your Slack and a monthly review of what the company needs next.' },
+        ],
+      },
+      forWhom: {
+        title: 'Is this for you?',
+        yes: [
+          'You lead a startup or SME with roughly ten to a hundred and fifty people and no senior HR person on staff.',
+          'You want structure and policies that hold up, without hiring an HR director you cannot fully use yet.',
+          'You are willing to make decisions on pay, roles and performance instead of postponing them.',
+          'You want one accountable partner rather than a tool, a platform or a rotating agency team.',
+        ],
+        noTitle: 'Not for you if…',
+        no: [
+          'You need payroll processing, tax filing or legal counsel; we work alongside those providers, we do not replace them.',
+          'You are looking for a full-time, on-site HR presence every day of the week.',
+          'You want an HR software licence rather than a person who takes ownership.',
+        ],
+      },
+      deliverables: {
+        title: 'What you walk away with',
+        text: 'Concrete documents and working systems, not a slide deck.',
+        items: [
+          'A people audit with gaps ranked by risk and effort',
+          'A 12-month people roadmap: roles, hiring sequence, structure',
+          'Employee handbook and core policies in your working languages',
+          'Reviewed contract templates and a clean personnel file structure',
+          'Salary bands and benefit rules with a written offer logic',
+          'Performance process, feedback templates and exit checklist',
+          'A weekly rhythm and a monthly review with the leadership team',
+        ],
+      },
+      faq: {
+        title: 'Questions about the partnership',
+        items: [
+          { q: 'How much of your time do we get?', a: 'That depends on the scope we agree in the first month. Most partnerships run on a monthly retainer with a fixed number of days; projects such as a policy overhaul or a pay-band design have a defined start and end. We recommend the smaller option when it is enough.' },
+          { q: 'Is this legal advice?', a: 'No. Compliance support is HR advisory: we know where the gaps usually are, we prepare the documents and the process, and we work alongside your legal counsel for anything that needs a lawyer. We do not provide legal counsel, payroll processing or tax filing.' },
+          { q: 'Can you work with our existing HR person or office manager?', a: 'Yes, and it usually works well. We take the senior, strategic and sensitive topics; your internal person keeps the day-to-day administration and grows with a senior partner to lean on.' },
+          { q: 'Which countries and languages do you cover?', a: 'We work with teams across Europe, mostly in Bulgaria and the German-speaking countries, in English, German and Bulgarian. Documents, sessions and employee conversations can be run in any of the three.' },
+          { q: 'How fast can we start?', a: 'The free call is usually possible within a few days, and the audit starts as soon as the scope is agreed. There is no notice period, recruiting process or equipment to wait for.' },
+          { q: 'What if our needs change?', a: 'They will. The scope is reviewed monthly and can grow, shrink or switch from retainer to project. A fractional setup is built to scale with the company, not against it.' },
+        ],
+      },
+      cta: {
+        title: 'See what a fractional partner would change for you.',
+        text: 'Book a free 30-minute call. We look at your setup and tell you honestly whether a partnership makes sense.',
+        button: 'Book a free call',
+      },
+      related: ['hiring', 'coaching', 'bridge'],
+      problems: ['overwhelm', 'pay', 'audit', 'growth', 'terminations', 'leadership'],
+    },
+    hiring: {
+      meta: {
+        title: 'High-Velocity Hiring – Fast, Structured Recruiting With a 90-Day Bridge',
+        description:
+          'Stop the “hire and hope” cycle. Structured hiring at Big Tech speed for startups and SMEs, with clear expectations, a role scorecard and the 90-Day Success Bridge included for every hire.',
+      },
+      serviceType: 'Recruiting and hiring',
+      hero: {
+        eyebrow: 'High-Velocity Hiring',
+        title: 'Stop the “hire and hope” cycle.',
+        sub: 'Big Tech hiring speed combined with a 3-month success bridge, so your new hire doesn’t just start, they succeed. Clear expectations before the first interview, a process candidates respect, and a partner who stays after the signature.',
+        image: 'interview',
+        imageAlt: 'A structured job interview between a candidate and a hiring manager',
+        tags: ['Fast Hiring', '3-Month Bridge', 'Clear Expectations'],
+      },
+      problem: {
+        eyebrow: 'The situation',
+        title: 'Hiring by gut feeling costs twice: once when you hire, again when they leave.',
+        text: 'A role stays open for months, then a candidate gets hired because the calendar hurts more than the doubts. Three months later the person is gone, and the ramp-up starts over.',
+        points: [
+          'No written scorecard, so every interviewer measures something different.',
+          'Slow, unstructured processes lose the strongest candidates to faster companies.',
+          'Offers are improvised, which makes negotiations unpredictable and unfair.',
+          'After the signature, nobody owns the first 90 days; the fit is left to luck.',
+        ],
+      },
+      solution: {
+        eyebrow: 'The engine',
+        title: 'A hiring process built for speed, and a bridge built for retention.',
+        text: 'We run the search the way strong tech companies do: a clear scorecard, a lean interview loop, fast decisions and a candidate experience that sells your company. Then we stay for 90 days.',
+        points: [
+          'Role scorecard and success criteria agreed with the hiring manager before sourcing starts.',
+          'Structured interviews with defined questions, so decisions are comparable and quick.',
+          'Offers based on your pay bands, explained clearly, closed without drama.',
+          'The 90-Day Success Bridge for every hire: coaching for the new hire and the manager.',
+        ],
+      },
+      includes: {
+        title: 'What’s included',
+        text: 'From the first briefing to the confirmed probation decision.',
+        items: [
+          { title: 'Role scorecard', body: 'What the role must achieve in the first year, which skills are essential and which are nice to have, agreed in writing with the hiring manager.' },
+          { title: 'Sourcing & outreach', body: 'Active search and personal outreach in EN, DE or BG, plus a job description candidates actually want to read.' },
+          { title: 'Structured interview loop', body: 'A lean sequence of interviews with defined questions, scoring and a fast feedback rule for every interviewer.' },
+          { title: 'Candidate experience', body: 'Clear communication, fast answers and honest timelines; the strongest candidates remember how they were treated.' },
+          { title: 'Offer & negotiation', body: 'An offer built on your pay logic, presented and negotiated so both sides start with trust.' },
+          { title: 'Hiring manager coaching', body: 'Interview training and decision support for the manager, so the process runs well again after we leave.' },
+          { title: '90-Day Success Bridge', body: 'Day 1 expectations, check-ins on day 30 and 60 and a clear probation decision on day 90, coaching both sides.' },
+        ],
+      },
+      process: {
+        title: 'How a search runs',
+        text: 'Days and weeks, not quarters. The exact timeline depends on the role and the market, and we tell you upfront what is realistic.',
+        steps: [
+          { tag: 'Kick-off', title: 'Scorecard & plan', body: 'We define the role, the must-haves, the interview loop and the decision rule with the hiring manager in one working session.' },
+          { tag: 'Sourcing', title: 'Find & engage', body: 'Active search, personal outreach and a first shortlist reviewed together, with honest feedback on the market.' },
+          { tag: 'Interviews', title: 'Structured loop', body: 'A lean interview sequence with defined questions and same-day feedback, so no candidate waits in silence.' },
+          { tag: 'Offer', title: 'Decide & close', body: 'A clear decision, an offer built on your pay bands and a negotiation that ends with both sides looking forward to day one.' },
+          { tag: 'Day 1–90', title: 'Success Bridge', body: 'We stay on board: expectations on day 1, feedback loops on day 30 and 60, confirmed fit on day 90.' },
+        ],
+      },
+      forWhom: {
+        title: 'Is this for you?',
+        yes: [
+          'You are hiring for roles where a wrong decision hurts: engineers, leads, first sales or operations hires.',
+          'You want a structured process, not a stack of CVs forwarded by an agency.',
+          'You can commit to fast feedback and decision-making from your side.',
+          'You want the person to succeed after day one, not only to sign.',
+        ],
+        noTitle: 'Not for you if…',
+        no: [
+          'You need high-volume hiring for dozens of identical roles in a short time.',
+          'You are looking for the cheapest possible placement fee and nothing after the signature.',
+          'Nobody in your company has time for interviews and decisions; a process cannot replace a hiring manager.',
+        ],
+      },
+      deliverables: {
+        title: 'What you walk away with',
+        text: 'A hire who succeeds, and a process you keep.',
+        items: [
+          'A written role scorecard and success criteria',
+          'A job description and outreach messages in your working languages',
+          'A structured interview kit with questions and scoring',
+          'A reviewed shortlist with candidate summaries and recommendations',
+          'An offer logic and negotiation plan based on your pay bands',
+          'A 90-day plan with check-ins on day 1, 30, 60 and 90',
+          'A hiring manager who can run the next search with less help',
+        ],
+      },
+      faq: {
+        title: 'Questions about hiring with us',
+        items: [
+          { q: 'How fast is “high velocity”?', a: 'Fast enough that strong candidates do not lose interest: a lean interview loop, feedback within a day and decisions within days. The full timeline depends on the role and the market, and we tell you upfront what is realistic instead of promising a number.' },
+          { q: 'Do you replace our recruiter or agency?', a: 'We can, or we can work alongside them. The difference is ownership: we build the scorecard, run the process, coach the hiring manager and stay for the first 90 days.' },
+          { q: 'Which roles do you hire for?', a: 'Mostly tech, product, operations and leadership roles in startups and SMEs across Europe, in English, German and Bulgarian. If a role is outside what we can do well, we say so in the free call.' },
+          { q: 'Is the 90-Day Success Bridge really included?', a: 'Yes, for every hire we run. It is also available as a standalone service for people you hired yourself.' },
+          { q: 'How do you charge?', a: 'Per search or as part of a fractional HR retainer. The model and the scope are agreed before we start, with no hidden fees.' },
+          { q: 'What happens if the hire does not work out?', a: 'The bridge exists so that this is noticed by day 30 or 60, not after probation. If the fit is not confirmed on day 90, you get a clear recommendation and a plan for the next step, prepared with your legal counsel where needed.' },
+        ],
+      },
+      cta: {
+        title: 'Fill the role, and keep it filled.',
+        text: 'Tell us about the position in a free 30-minute call. You get an honest read on the market and a plan for the search.',
+        button: 'Book a free call',
+      },
+      related: ['bridge', 'fractional', 'coaching'],
+      problems: ['hiring'],
+    },
+    bridge: {
+      meta: {
+        title: '90-Day Success Bridge – Onboarding Support for New Hires and Managers',
+        description:
+          'Our job doesn’t end when the contract is signed. We coach the new hire and the manager through the first 90 days: clear expectations on day 1, feedback loops on day 30 and 60, a confirmed fit on day 90. Included with our hiring, also available standalone.',
+      },
+      serviceType: 'Onboarding and probation coaching',
+      hero: {
+        eyebrow: '90-Day Success Bridge',
+        title: 'Our job doesn’t end when the contract is signed.',
+        sub: 'We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit. Clear expectations on day 1, feedback loops on day 30 and 60, a confirmed decision on day 90.',
+        image: 'onboarding-welcome',
+        imageAlt: 'A new team member being welcomed on their first day',
+        tags: ['Day 1 to Day 90', 'Hire & Manager', 'Retention'],
+      },
+      problem: {
+        eyebrow: 'The situation',
+        title: 'The first weeks decide whether the hire worked. Nobody is watching them.',
+        text: 'Most early exits are decided long before probation ends: unclear expectations, a manager with no time, small friction that nobody names. By the time it shows up in a resignation, the ramp-up is lost.',
+        points: [
+          'The new hire has a laptop and a Slack account, but no clear definition of success.',
+          'The manager is busy and assumes silence means everything is fine.',
+          'Early friction goes unspoken until it is a decision instead of a conversation.',
+          'Probation ends by default, without a real assessment or a development plan.',
+        ],
+      },
+      solution: {
+        eyebrow: 'The bridge',
+        title: 'A partner on both sides of the table for 90 days.',
+        text: 'We coach the new hire and the manager in parallel, with a scorecard, a fixed check-in rhythm and honest feedback loops. The goal is a confirmed fit or a clear, early decision, never a surprise.',
+        points: [
+          'Day 1: expectations, scorecard and first-month goals agreed by both sides.',
+          'Day 30: first structured feedback loop; friction is named while it is small.',
+          'Day 60: course correction on scope, support or working style where needed.',
+          'Day 90: probation review with a clear decision and a development plan.',
+        ],
+      },
+      includes: {
+        title: 'What’s included',
+        text: 'Included with every hire we run. Also available standalone for people you hired yourself.',
+        items: [
+          { title: 'Day-1 expectations kit', body: 'A role scorecard, first-month goals and a check-in rhythm, agreed with the new hire and the manager before or on the first day.' },
+          { title: 'Onboarding plan', body: 'Who the new hire meets, what they learn and what they deliver in weeks one to four, written down and shared.' },
+          { title: 'Coaching for the new hire', body: 'Confidential 1:1 sessions on expectations, priorities and the unwritten rules of the company.' },
+          { title: 'Coaching for the manager', body: 'Short sessions on how to set goals, give early feedback and read the signals before they become problems.' },
+          { title: 'Day-30 and day-60 feedback loops', body: 'Structured conversations with both sides, a written summary and agreed adjustments.' },
+          { title: 'Day-90 probation review', body: 'A clear decision based on the scorecard, documented, with a development plan for the confirmed hire.' },
+          { title: 'Documentation', body: 'Every check-in leaves a short written record, useful for the development plan and, if needed, for a fair probation decision prepared with your legal counsel.' },
+        ],
+      },
+      process: {
+        title: 'The four milestones',
+        text: 'Fixed points in the calendar, so nothing is left to chance.',
+        steps: [
+          { tag: 'Day 1', title: 'Clear expectations', body: 'Role scorecard, first-month goals and a check-in rhythm agreed with the new hire and the manager before the laptop arrives.' },
+          { tag: 'Day 30', title: 'First feedback loop', body: 'Structured 1:1 with the hire and the manager. Early friction gets named and fixed while it is still small.' },
+          { tag: 'Day 60', title: 'Course correction', body: 'Performance against the scorecard, coaching on the gaps, and adjustments to scope or support where needed.' },
+          { tag: 'Day 90', title: 'Confirmed fit', body: 'Probation review with a clear decision, a development plan and a manager who now runs the process alone.' },
+        ],
+      },
+      forWhom: {
+        title: 'Is this for you?',
+        yes: [
+          'You just hired, or are about to hire, someone whose success matters: a lead, a senior engineer, a first hire in a new function.',
+          'You want the manager to learn the process, not only to outsource it.',
+          'You prefer an early, honest decision over a probation that ends by default.',
+          'You hired the person yourself and want the same bridge our hiring clients get.',
+        ],
+        noTitle: 'Not for you if…',
+        no: [
+          'You want us to take over the manager’s job; we coach, the manager leads.',
+          'You are looking for a software onboarding checklist rather than a person.',
+          'The probation decision has already been made and you need a legal process; that belongs with your legal counsel.',
+        ],
+      },
+      deliverables: {
+        title: 'What you walk away with',
+        text: 'A confirmed hire, a trained manager and a paper trail you can stand behind.',
+        items: [
+          'A role scorecard and first-month goals signed off by both sides',
+          'A written onboarding plan for weeks one to four',
+          'Check-in summaries from day 30 and day 60 with agreed adjustments',
+          'A documented day-90 probation review and decision',
+          'A development plan for the confirmed hire',
+          'A manager who can run the next onboarding alone',
+        ],
+      },
+      faq: {
+        title: 'Questions about the bridge',
+        items: [
+          { q: 'Is the bridge included in your hiring service?', a: 'Yes. Every hire we run through High-Velocity Hiring includes the 90-Day Success Bridge. It is also available standalone for people you hired yourself.' },
+          { q: 'Can we start if the person has already started?', a: 'Yes, as long as there is enough of the probation period left to run at least the day-30 and day-60 loops. The earlier we start, the more useful the bridge is.' },
+          { q: 'Who do you talk to, the hire or the manager?', a: 'Both, separately and together. Coaching the new hire alone fixes half the problem; most early exits involve the manager as much as the employee.' },
+          { q: 'What if it becomes clear that the fit is wrong?', a: 'Then you hear it on day 30 or 60, not at the end of probation. You get an honest recommendation and, if needed, a calm exit plan prepared with your legal counsel.' },
+          { q: 'Does this work remotely?', a: 'Yes. Most check-ins run as video calls, and the documents live where your team already works. On-site sessions are possible where they help.' },
+        ],
+      },
+      cta: {
+        title: 'Give your next hire a bridge instead of a cliff.',
+        text: 'Tell us who is starting and when. In a free 30-minute call we sketch the first 90 days together.',
+        button: 'Book a free call',
+      },
+      related: ['hiring', 'coaching', 'fractional'],
+      problems: ['hiring', 'managers'],
+    },
+    coaching: {
+      meta: {
+        title: 'Manager Coaching – Turning Experts into Leaders',
+        description:
+          'Coaching for first-time and experienced managers in startups and SMEs: practical tools for feedback, conflict, delegation and leadership alignment, with a coach in their corner for the first hard conversations.',
+      },
+      serviceType: 'Leadership and manager coaching',
+      hero: {
+        eyebrow: 'Manager Coaching',
+        title: 'Turning experts into leaders.',
+        sub: 'Coaching managers and giving them tools to handle conflict, give feedback and lead high-performing teams independently. For the engineer who became a lead last quarter, and for the leadership team that needs to speak with one voice.',
+        image: 'coaching-mentoring',
+        imageAlt: 'A manager and a coach in a mentoring conversation',
+        tags: ['Leadership Coaching', 'Conflict Management', 'Team Building'],
+      },
+      problem: {
+        eyebrow: 'The situation',
+        title: 'Your best expert got promoted. Nobody taught them the job.',
+        text: 'Technical excellence earns the promotion; leading people is a different craft. Without support, new managers avoid feedback, absorb conflict and burn out, and the team pays for it.',
+        points: [
+          'Feedback conversations get postponed until they become performance problems.',
+          'Conflicts inside the team are managed by hoping they go away.',
+          'The manager still does the expert work and delegates nothing.',
+          'Founders and executives pull in different directions, and the team hears mixed signals.',
+        ],
+      },
+      solution: {
+        eyebrow: 'The coaching',
+        title: 'Practical tools, real situations, a coach in their corner.',
+        text: 'No leadership theory marathon. We work on the conversations your managers are actually facing this month, give them a small set of tools that work, and stay available for the first hard calls.',
+        points: [
+          'Individual coaching sessions built around real cases from the manager’s team.',
+          'Tools for feedback, 1:1s, delegation, goal setting and conflict.',
+          'Leadership alignment sessions for founders and executives.',
+          'A clear path to independence: the goal is a manager who no longer needs us.',
+        ],
+      },
+      includes: {
+        title: 'What’s included',
+        text: 'A defined programme for one manager, a group of leads or the whole leadership team.',
+        items: [
+          { title: 'Individual coaching', body: 'Regular confidential sessions with each manager, structured around the situations they are facing right now.' },
+          { title: 'Feedback & 1:1 toolkit', body: 'Simple frameworks for regular 1:1s, praise that lands and critical feedback that changes behaviour without damaging trust.' },
+          { title: 'Conflict management', body: 'How to name tension early, run a difficult conversation and mediate between team members without taking sides.' },
+          { title: 'Delegation & goal setting', body: 'Letting go of the expert work, setting clear goals and holding people accountable without micromanaging.' },
+          { title: 'Team building', body: 'Working sessions with the whole team on roles, rituals and the rules of working together.' },
+          { title: 'Leadership alignment', body: 'Sessions with founders and executives on goals, decision rules and the message the team should hear.' },
+          { title: 'On-call support', body: 'A message in Slack before the hard conversation, a debrief after. Monday to Friday, 9–18 CET.' },
+        ],
+      },
+      process: {
+        title: 'How the coaching runs',
+        text: 'A defined programme with a beginning and an end, not an open-ended subscription.',
+        steps: [
+          { tag: 'Kick-off', title: 'Diagnose', body: 'Conversations with the managers and their leads to understand the real situations, not the job titles.' },
+          { tag: 'Session 1', title: 'Agree the goals', body: 'Each manager sets two or three concrete goals for the programme, aligned with what the company needs from them.' },
+          { tag: 'Sessions', title: 'Work the cases', body: 'Regular coaching built around live situations: a feedback conversation, a conflict, a delegation problem, a decision.' },
+          { tag: 'In between', title: 'Practice & support', body: 'Managers apply the tools in their teams, with a coach available before and after the hard moments.' },
+          { tag: 'Wrap-up', title: 'Independent', body: 'A review against the goals, a personal development plan and a manager who runs their team without us.' },
+        ],
+      },
+      forWhom: {
+        title: 'Is this for you?',
+        yes: [
+          'You promoted strong individual contributors into lead roles and want them to succeed.',
+          'Managers in your company avoid feedback or conflict, and you can see it in the team.',
+          'Your leadership team needs to align on goals and decision rules.',
+          'You want practical coaching tied to real situations, not a generic training day.',
+        ],
+        noTitle: 'Not for you if…',
+        no: [
+          'You want a certificate-style leadership course for the whole company.',
+          'The manager has already decided they do not want the role; coaching cannot replace that decision.',
+          'You need a performance case or an exit handled; that is a task for the fractional partnership, with your legal counsel.',
+        ],
+      },
+      deliverables: {
+        title: 'What you walk away with',
+        text: 'Managers who lead, and the tools they will keep using.',
+        items: [
+          'A coaching plan with two or three concrete goals per manager',
+          'A feedback and 1:1 toolkit the manager actually uses',
+          'A conflict playbook for the team’s typical situations',
+          'Agreed team rituals and rules of working together',
+          'Leadership alignment notes: goals, decision rules, one message',
+          'A personal development plan for every manager at wrap-up',
+        ],
+      },
+      faq: {
+        title: 'Questions about the coaching',
+        items: [
+          { q: 'Is this coaching or training?', a: 'Mostly coaching: individual sessions built around real situations, with short tool inputs where needed. Team workshops are part of the programme when the whole team needs to align.' },
+          { q: 'How long does a programme take?', a: 'Long enough to change habits, short enough to have an end: the length depends on the number of managers and the goals we agree in the kick-off. We tell you upfront what we recommend.' },
+          { q: 'Can you coach our founders as well?', a: 'Yes. Leadership alignment sessions with founders and executives are part of the service, and individual coaching for founders is possible.' },
+          { q: 'Is it confidential?', a: 'Individual sessions are confidential between the manager and the coach. The company sees the agreed goals and the progress against them, not the content of the conversations.' },
+          { q: 'Which languages do you coach in?', a: 'English, German and Bulgarian. Mixed-language teams are common in our work, and materials can be provided in all three.' },
+          { q: 'Does this replace a fractional HR partner?', a: 'No, it complements one. Coaching builds the managers; the fractional partnership builds the structures, policies and processes around them. Many clients combine both.' },
+        ],
+      },
+      cta: {
+        title: 'Turn your experts into leaders their teams want to follow.',
+        text: 'Tell us about your managers in a free 30-minute call. We suggest a programme that fits, or tell you if something simpler would do.',
+        button: 'Book a free call',
+      },
+      related: ['fractional', 'bridge', 'hiring'],
+      problems: ['managers', 'leadership'],
+    },
+  },
 } as const;
 export type ServicesDict = Widen<typeof services>;

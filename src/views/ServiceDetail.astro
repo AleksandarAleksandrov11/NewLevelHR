@@ -1,9 +1,205 @@
 ---
-/** STUB — to be replaced by the page builder. */
-import Placeholder from '@/views/Placeholder.astro';
-import type { Locale } from '@/i18n/config';
-import type { PageKey } from '@/i18n/routes';
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost'; postId?: string; path?: string; alternates?: Record<Locale, string> }
-const { lang, pageKey, path, alternates } = Astro.props;
+/** Service detail page: problem → solution, scope, process, fit, deliverables, FAQ, related. */
+import { ArrowRight, MessageCircle } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+import Photo from '@/components/ui/Photo.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import ProcessSteps from '@/components/services/ProcessSteps.astro';
+import CheckList from '@/components/services/CheckList.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang, pageKey } = Astro.props;
+const d = getDict(lang);
+const s = d.services;
+const c = d.common;
+type Short = 'fractional' | 'hiring' | 'bridge' | 'coaching';
+const shortOf: Partial<Record<PageKey, Short>> = { serviceFractional: 'fractional', serviceHiring: 'hiring', serviceBridge: 'bridge', serviceCoaching: 'coaching' };
+const keyOf: Record<Short, PageKey> = { fractional: 'serviceFractional', hiring: 'serviceHiring', bridge: 'serviceBridge', coaching: 'serviceCoaching' };
+const short = shortOf[pageKey as PageKey] ?? 'fractional';
+const key = keyOf[short];
+const page = s.pages[short];
+const name = c.services[short].name;
+const l = s.labels;
+const variant = ({ fractional: 'mesh', hiring: 'ivory', bridge: 'dark', coaching: 'mesh' } as const)[short];
+const related = page.related.map((r) => r as Short).filter((r) => r !== short);
+const problems = d.home.problems.items.filter((p) => (page.problems as readonly string[]).includes(p.id));
+const url = `${site.url}${localizePath(key, lang)}`;
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${url}#service`,
+  name,
+  serviceType: page.serviceType,
+  description: page.meta.description,
+  url,
+  provider: { '@id': `${site.url}/#organization` },
+  areaServed: ['Bulgaria', 'Germany', 'Austria', 'Switzerland', 'Europe'],
+  availableLanguage: ['en', 'de', 'bg'],
+};
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: page.faq.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })),
+};
 ---
-<Placeholder lang={lang} view={pageKey} path={path} alternates={alternates} />
+<PageShell lang={lang} pageKey={key} title={page.meta.title} description={page.meta.description} jsonLd={[serviceLd, faqLd]}>
+  <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }} variant={variant} tags={page.hero.tags}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book" variant={variant === 'dark' ? 'primary' : 'primary'}>{l.bookCall}</Button>
+    <Button href={localizePath('contact', lang)} variant={variant === 'dark' ? 'light-ghost' : 'ghost'} icon="none"><MessageCircle class="size-4" aria-hidden="true" />{l.askQuestion}</Button>
+  </PageHero>
+
+  <section class="section bg-white">
+    <div class="container-site sd-split">
+      <div class="sd-problem" data-reveal>
+        <p class="eyebrow">{page.problem.eyebrow}</p>
+        <h2 class="font-display text-display-sm text-ink mt-4">{page.problem.title}</h2>
+        <p class="text-slate mt-4 leading-relaxed">{page.problem.text}</p>
+        <CheckList items={page.problem.points} kind="no" class="mt-6" />
+      </div>
+      <div class="sd-solution" data-reveal data-reveal-delay="2">
+        <p class="eyebrow">{page.solution.eyebrow}</p>
+        <h2 class="font-display text-display-sm text-ink mt-4">{page.solution.title}</h2>
+        <p class="text-slate mt-4 leading-relaxed">{page.solution.text}</p>
+        <CheckList items={page.solution.points} class="mt-6" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site">
+      <SectionHeading eyebrow={l.includesEyebrow} title={page.includes.title} text={page.includes.text} size="md" />
+      <ul class="sd-includes" role="list">
+        {page.includes.items.map((it, i) => (
+          <li class="sd-include card card-hover" data-reveal data-reveal-delay={String((i % 4) + 1)} data-spotlight>
+            <span class="sd-include-num font-display">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="font-display text-lg font-bold text-ink mt-3">{it.title}</h3>
+            <p class="mt-2 text-slate leading-relaxed text-[0.95rem]">{it.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site sd-process">
+      <div class="sd-process-head">
+        <SectionHeading eyebrow={l.processEyebrow} title={page.process.title} text={page.process.text} size="md" />
+      </div>
+      <ProcessSteps steps={page.process.steps} stepLabel={l.stepLabel} />
+    </div>
+  </section>
+
+  <section class="section bg-sand">
+    <div class="container-site">
+      <SectionHeading eyebrow={l.forWhomEyebrow} title={page.forWhom.title} size="md" align="center" />
+      <div class="sd-fit">
+        <div class="sd-fit-col sd-fit-yes" data-reveal>
+          <h3 class="font-display text-xl font-bold text-ink">{l.yesTitle}</h3>
+          <CheckList items={page.forWhom.yes} class="mt-5" />
+        </div>
+        <div class="sd-fit-col sd-fit-no" data-reveal data-reveal-delay="2">
+          <h3 class="font-display text-xl font-bold text-ink">{page.forWhom.noTitle}</h3>
+          <CheckList items={page.forWhom.no} kind="no" class="mt-5" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink text-white relative overflow-hidden">
+    <div class="sd-glow" aria-hidden="true"></div>
+    <div class="container-site sd-deliver">
+      <div>
+        <SectionHeading eyebrow={l.deliverablesEyebrow} title={page.deliverables.title} text={page.deliverables.text} size="md" dark />
+        <CheckList items={page.deliverables.items} class="mt-8" dark />
+      </div>
+      <div class="sd-deliver-media" data-reveal data-reveal-delay="2" data-parallax-scope>
+        <div data-parallax="0.12"><Photo name="whiteboard-planning" alt={l.deliverablesImageAlt} ratio="4/5" sizes="(min-width: 64rem) 40vw, 100vw" class="rounded-xl shadow-lift" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site sd-faq">
+      <div class="sd-faq-side">
+        <SectionHeading eyebrow={l.faqEyebrow} title={page.faq.title} size="md" />
+        <div class="mt-8" data-reveal data-reveal-delay="1"><Button href={localizePath('faq', lang)} variant="ghost">{c.nav.faq}</Button></div>
+      </div>
+      <div class="sd-faq-list" data-reveal data-reveal-delay="1">
+        {page.faq.items.map((it, i) => <Accordion question={it.q} name={`faq-${short}`} open={i === 0}><p>{it.a}</p></Accordion>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site">
+      {problems.length > 0 && (
+        <div class="sd-problems" data-reveal>
+          <h2 class="font-display text-display-sm text-ink">{l.problemsTitle}</h2>
+          <p class="text-slate mt-3">{l.problemsText}</p>
+          <ul class="mt-6 flex flex-wrap gap-2" role="list">
+            {problems.map((p) => <li><a href={`${localizePath('problems', lang)}#${p.id}`} class="pill pill-accent sd-problem-chip">{p.title}<ArrowRight class="size-3.5" aria-hidden="true" /></a></li>)}
+          </ul>
+        </div>
+      )}
+      <div class="sd-related">
+        <SectionHeading eyebrow={l.relatedEyebrow} title={l.relatedTitle} text={l.relatedText} size="md" />
+        <ul class="sd-related-grid" role="list">
+          {related.map((r, i) => (
+            <li data-reveal data-reveal-delay={String(i + 1)}>
+              <a href={localizePath(keyOf[r], lang)} class="sd-related-card card card-hover group" data-cursor="open">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-accent-ink">{c.services[r].tagline}</p>
+                <h3 class="font-display text-xl font-bold text-ink mt-2">{c.services[r].name}</h3>
+                <p class="mt-2 text-slate text-[0.95rem] leading-relaxed">{c.services[r].menuDesc}</p>
+                <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-accent-ink">{l.exploreService}<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} title={page.cta.title} text={page.cta.text} />
+  <JsonLd data={[]} />
+</PageShell>
+
+<style>
+  .sd-split { display: grid; gap: 2.5rem; }
+  @media (min-width: 64rem) { .sd-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; } }
+  .sd-problem, .sd-solution { padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); border-radius: var(--radius-xl); }
+  .sd-problem { background: var(--color-sand); border: 1px solid var(--color-line); }
+  .sd-solution { background: var(--color-white); border: 1px solid rgba(255, 107, 53, 0.3); box-shadow: var(--shadow-glow); }
+  .sd-includes { display: grid; gap: 1.25rem; margin-top: 3rem; }
+  @media (min-width: 40rem) { .sd-includes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .sd-includes { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .sd-include { position: relative; padding: 1.5rem; overflow: hidden; }
+  .sd-include::before { content: ''; position: absolute; inset: 0; background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 50%), rgba(255, 107, 53, 0.12), transparent 60%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+  .sd-include:hover::before { opacity: 1; }
+  .sd-include-num { font-size: 0.85rem; font-weight: 800; color: var(--color-accent-ink); letter-spacing: 0.05em; }
+  .sd-process { display: grid; gap: 3rem; }
+  @media (min-width: 64rem) { .sd-process { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .sd-process-head { position: sticky; top: calc(var(--header-h) + 2rem); } }
+  .sd-fit { display: grid; gap: 1.5rem; margin-top: 3rem; }
+  @media (min-width: 48rem) { .sd-fit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; } }
+  .sd-fit-col { padding: 2rem; border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-soft); }
+  .sd-fit-yes { border-color: rgba(255, 107, 53, 0.35); }
+  .sd-glow { position: absolute; width: 50vw; height: 50vw; max-width: 44rem; max-height: 44rem; left: -18vw; bottom: -18vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.22), transparent 65%); filter: blur(20px); pointer-events: none; }
+  .sd-deliver { position: relative; display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 64rem) { .sd-deliver { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 5rem; } }
+  .sd-faq { display: grid; gap: 2.5rem; }
+  @media (min-width: 64rem) { .sd-faq { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .sd-faq-side { position: sticky; top: calc(var(--header-h) + 2rem); } }
+  .sd-faq-list { border-top: 1px solid var(--color-line); }
+  .sd-problems { padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--color-line); }
+  .sd-problem-chip { gap: 0.4rem; transition: background-color 0.3s ease, color 0.3s ease; }
+  .sd-problem-chip:hover { background: var(--color-accent); color: var(--color-ink); }
+  .sd-related-grid { display: grid; gap: 1.25rem; margin-top: 2.5rem; }
+  @media (min-width: 48rem) { .sd-related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sd-related-card { display: flex; flex-direction: column; height: 100%; padding: 1.75rem; }
+</style>

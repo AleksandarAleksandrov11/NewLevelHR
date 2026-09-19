@@ -1,0 +1,25 @@
+---
+/** List with check (or cross) icons. */
+import { Check, X } from '@lucide/astro';
+interface Props { items: readonly string[]; kind?: 'yes' | 'no' | 'neutral'; class?: string; dark?: boolean; columns?: 1 | 2 }
+const { items, kind = 'yes', class: className = '', dark = false, columns = 1 } = Astro.props;
+---
+<ul class:list={['checklist', `checklist-${kind}`, dark && 'checklist-dark', columns === 2 && 'checklist-2', className]} role="list">
+  {items.map((it, i) => (
+    <li data-reveal data-reveal-delay={String((i % 6) + 1)}>
+      <span class="checklist-icon" aria-hidden="true">{kind === 'no' ? <X class="size-3.5" /> : <Check class="size-3.5" />}</span>
+      <span>{it}</span>
+    </li>
+  ))}
+</ul>
+<style>
+  .checklist { display: grid; gap: 0.85rem; }
+  .checklist-2 { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.85rem 2rem; }
+  .checklist li { display: flex; align-items: flex-start; gap: 0.75rem; line-height: 1.55; color: var(--color-ink-2); }
+  .checklist-dark li { color: rgba(255, 255, 255, 0.85); }
+  .checklist-icon { display: grid; place-items: center; flex: none; width: 1.5rem; height: 1.5rem; margin-top: 0.1rem; border-radius: 999px; }
+  .checklist-yes .checklist-icon { background: var(--color-accent); color: var(--color-ink); }
+  .checklist-no .checklist-icon { background: var(--color-sand-2); color: var(--color-ink-3); }
+  .checklist-neutral .checklist-icon { background: var(--color-teal-soft); color: var(--color-teal-ink); }
+  .checklist-dark.checklist-no .checklist-icon { background: rgba(255, 255, 255, 0.12); color: #fff; }
+</style>
