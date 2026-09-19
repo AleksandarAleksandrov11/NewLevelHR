@@ -1,0 +1,42 @@
+---
+/**
+ * Localised catch-all router.
+ * Every static page (see src/i18n/routes.ts) and every published blog post is
+ * generated here for each language, with its translated slug.
+ */
+import { getCollection } from 'astro:content';
+import { locales, type Locale } from '@/i18n/config';
+import { pageKeys, routes, type PageKey } from '@/i18n/routes';
+import { entryLang, entrySlug } from '@/lib/blog';
+
+import Placeholder from '@/views/Placeholder.astro';
+
+interface PageProps {
+  lang: Locale;
+  view: PageKey | 'blogPost';
+  postId?: string;
+}
+
+export async function getStaticPaths() {
+  const paths: Array<{ params: { lang: Locale; path: string | undefined }; props: PageProps }> = [];
+  for (const lang of locales) {
+    for (const key of pageKeys) {
+      const slug = routes[key][lang];
+      paths.push({ params: { lang, path: slug || undefined }, props: { lang, view: key } });
+    }
+  }
+  const posts = await getCollection('blog', (e) => !e.data.draft);
+  for (const post of posts) {
+    const lang = entryLang(post);
+    if (!locales.includes(lang)) continue;
+    paths.push({
+      params: { lang, path: `${routes.blog[lang]}/${entrySlug(post)}` },
+      props: { lang, view: 'blogPost', postId: post.id },
+    });
+  }
+  return paths;
+}
+
+const { lang, view, postId } = Astro.props as PageProps;
+---
+<Placeholder lang={lang} view={view === 'blogPost' ? `blogPost:${postId}` : view} />

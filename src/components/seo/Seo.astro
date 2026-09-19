@@ -1,0 +1,40 @@
+---
+import { site } from '@/config/site';
+import { localeMeta, locales } from '@/i18n/config';
+import { getDict } from '@/i18n';
+import { buildTitle, canonicalFor, hreflangLinks, type SeoInput } from '@/lib/seo';
+
+type Props = SeoInput;
+const { lang, title, description, path, alternates, image, imageAlt, type = 'website', noindex = false, publishedTime, modifiedTime } = Astro.props;
+const dict = getDict(lang);
+const fullTitle = buildTitle(title, dict.common.meta.titleSuffix);
+const canonical = canonicalFor(path);
+const links = hreflangLinks(alternates, lang, path);
+const ogImage = image ? (image.startsWith('http') ? image : `${site.url}${image}`) : `${site.url}/og/${lang}/default.png`;
+const alternateLocales = locales.filter((l) => l !== lang && alternates?.[l]);
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{links.map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={localeMeta[lang].ogLocale} />
+{alternateLocales.map((l) => <meta property="og:locale:alternate" content={localeMeta[l].ogLocale} />)}
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt ?? fullTitle} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={imageAlt ?? fullTitle} />
