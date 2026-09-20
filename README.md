@@ -134,6 +134,12 @@ legacy URL redirects, cache and security headers, and the serverless function `a
 3. Verify the sending domain in Resend so that `CONTACT_FROM` is accepted.
 4. Deploy. The 404 page, redirects and headers are handled by Vercel from `vercel.json` and `dist/404.html`.
 
+The `functions` block in `vercel.json` only sets `memory` and `maxDuration`. The runtime itself is inferred
+from the file extension, and its `runtime` key would have to be an npm package with a version
+(`@vercel/node@5.x`), never an AWS-style identifier such as `nodejs22.x` — that value fails the build with
+*"Function Runtimes must have a valid version"*. The Node.js major version comes from `engines.node` in
+`package.json` (`22.x`) or from *Project → Settings → Node.js Version*.
+
 ### Classic PHP hosting (current host)
 
 1. Build locally: `PUBLIC_FORM_ENDPOINT=/contact.php npm run build`.
