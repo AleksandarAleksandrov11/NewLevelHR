@@ -1,6 +1,7 @@
 ---
 /**
- * "What we fix": eight flip cards. The front names the problem, the back shows
+ * "What we fix": four flip cards (all eight live on the What We Fix page). The
+ * front names the problem, the back shows
  * how NewLevelHR fixes it and links to the matching service.
  * Tilt, spotlight and the flip toggle are driven by the shared interactions core.
  */
@@ -15,7 +16,8 @@ const { lang } = Astro.props;
 const d = getDict(lang);
 const p = d.home.problems;
 const c = d.common;
-const cards = p.items.map((item, i) => ({
+/** The home page shows the first four; the What We Fix page has all eight. */
+const cards = p.items.slice(0, 4).map((item, i) => ({
   ...item,
   index: String(i + 1).padStart(2, '0'),
   href: localizePath(item.service as PageKey, lang),
@@ -35,9 +37,6 @@ const cards = p.items.map((item, i) => ({
                 <span class="problem-num font-display tabular" aria-hidden="true">{card.index}</span>
                 <h3 class="problem-title font-display">{card.title}</h3>
                 <p class="problem-body">{card.body}</p>
-                <ul class="problem-tags" role="list">
-                  {card.tags.map((tag) => <li class="pill">{tag}</li>)}
-                </ul>
                 <button type="button" class="problem-toggle" data-flip-toggle aria-expanded="false" aria-controls={card.backId}>
                   <span class="problem-toggle-icon" aria-hidden="true"><ArrowRight class="size-4" /></span>
                   <span>{p.flip}</span>
@@ -127,8 +126,6 @@ const cards = p.items.map((item, i) => ({
   .problem-num::after { content: ''; flex: 0 0 1.5rem; height: 2px; border-radius: 2px; background: var(--grad-accent); }
   .problem-title { font-size: 1.25rem; font-weight: 750; letter-spacing: -0.015em; line-height: 1.2; color: var(--color-ink); text-wrap: balance; }
   .problem-body { font-size: 0.9375rem; line-height: 1.55; color: var(--color-slate); }
-  .problem-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .problem-tags .pill { white-space: normal; max-width: 100%; }
   .problem-toggle {
     margin-top: auto; align-self: flex-start;
     display: inline-flex; align-items: center; gap: 0.6rem;

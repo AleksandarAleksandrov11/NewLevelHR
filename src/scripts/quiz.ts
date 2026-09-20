@@ -172,12 +172,6 @@ function initQuiz(root: HTMLElement) {
     if (intro) intro.hidden = ranked.length === 0;
     if (none) none.hidden = ranked.length > 0;
 
-    // Areas to watch: questions answered with the highest-risk option.
-    const flagged = config.questions.filter((_, i) => answers[i] === 2).map((qn) => qn.id);
-    $$('[data-quiz-area]').forEach((li) => { li.hidden = !flagged.includes(li.dataset.quizArea || ''); });
-    const areas = $('[data-quiz-areas]');
-    if (areas) areas.hidden = flagged.length === 0;
-
     // Score ring and counter.
     const ring = root.querySelector<SVGCircleElement>('[data-quiz-ring-fill]');
     const scoreEl = $('[data-quiz-score]');

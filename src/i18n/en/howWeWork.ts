@@ -1,9 +1,9 @@
 import type { Widen } from '../types';
-/** Namespace "howWeWork" — the process page. English is the type reference for de/ and bg/. */
+/** Namespace "howWeWork": the process page. English is the type reference for de/ and bg/. */
 export const howWeWork = {
   meta: {
-    title: 'How We Work – From a Free Call to a Partner in Your Slack',
-    description: 'Five steps from a free 30-minute consultation to a running partnership: diagnosis, plan, execution and accompaniment. Retainer or project, Mon–Fri 9–18 CET, reply within 24 hours, in EN, DE and BG.',
+    title: 'How We Work: From a Free Call to a Partner in Your Slack',
+    description: 'Five steps from a free 30-minute consultation to a running partnership: diagnosis, plan, execution and accompaniment. Retainer or project, Mon-Fri 9-18 CET, reply within 24 hours, in EN, DE and BG.',
   },
   hero: {
     eyebrow: 'How we work',
@@ -62,7 +62,7 @@ export const howWeWork = {
   expectations: {
     title: 'What you can expect from us',
     items: [
-      'A reply within 24 hours on business days, Monday to Friday, 9–18 CET.',
+      'A reply within 24 hours on business days, Monday to Friday, 9-18 CET.',
       'Everything in English, German or Bulgarian, whichever your team speaks.',
       'Honest answers, including “this is not something you need” and “this needs a lawyer”.',
       'HR advisory and recruitment only: no payroll processing, tax filing, legal counsel or PEO services.',

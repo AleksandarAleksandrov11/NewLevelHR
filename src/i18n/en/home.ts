@@ -2,7 +2,7 @@ import type { Widen } from '../types';
 /** Home page. English is the type reference for de/ and bg/. */
 export const home = {
   meta: {
-    title: 'NewLevelHR – The HR Partner Your Business Actually Needs',
+    title: 'NewLevelHR: The HR Partner Your Business Actually Needs',
     description: 'Real HR support without the full-time hire. Fractional HR, high-velocity hiring, a 90-day success bridge and manager coaching for startups and SMEs in Europe.',
   },
   hero: {
@@ -16,7 +16,6 @@ export const home = {
     cta2: 'Our services',
     scroll: 'Scroll',
     sceneLabel: 'Decorative 3D scene: glass steps rising towards the light',
-    badge: 'Fractional HR for startups & SMEs',
   },
   marquee: ['Fractional HR', 'High-Velocity Hiring', 'Manager Coaching', '90-Day Bridge', 'Compliance', 'Leadership', 'Team Building'],
   manifesto: {
@@ -31,14 +30,14 @@ export const home = {
     back: 'Back',
     all: 'See all eight in depth',
     items: [
-      { id: 'overwhelm', title: 'Founder Overwhelm', body: 'Employee drama and paperwork eating up your growth time. Every hour spent settling disputes or chasing forms is an hour not spent on your product.', tags: ['Time Drain', 'No Structure'], fix: 'A fractional HR partner takes the people admin, policies and difficult conversations off your plate, so your week goes back to building.', service: 'serviceFractional' },
-      { id: 'managers', title: 'Untrained Managers', body: 'Top tech experts promoted to leads with zero management skills. They freeze during feedback conversations and avoid the hard calls entirely.', tags: ['Leadership Gap', 'Team Friction'], fix: 'Manager coaching gives your leads practical tools for feedback, conflict and delegation, with a coach in their corner for the first hard conversations.', service: 'serviceCoaching' },
-      { id: 'pay', title: 'Guesswork Pay', body: 'Random salary and benefit offers without clear structures. Inconsistent offers erode trust and turn every negotiation into a coin flip.', tags: ['Pay Equity', 'Retention Risk'], fix: 'We build simple salary bands and benefit rules, aligned with the EU Pay Transparency Directive, so every offer is explainable and fair.', service: 'serviceFractional' },
-      { id: 'hiring', title: 'Bad Hiring', body: 'Hiring by gut feeling, leading to people quitting within 3 months. Every mis-hire costs months of ramp-up and a painful restart.', tags: ['Mis-Hires', 'Wasted Ramp-Up'], fix: 'Structured, fast hiring with clear expectations, followed by a 90-day bridge that coaches both the new hire and the manager.', service: 'serviceHiring' },
-      { id: 'audit', title: 'Audit Anxiety', body: 'Outdated legal paperwork and fear of a surprise Labor Inspection. One overlooked contract clause can turn into a costly fine overnight.', tags: ['Compliance', 'Legal Exposure'], fix: 'We review your contracts, policies and files, close the gaps and keep them current, working with your legal counsel where needed.', service: 'serviceFractional' },
-      { id: 'growth', title: 'Chaotic Growth', body: 'Adding headcount fast without a clear structural plan or roadmap. Growth without structure means more people making the same mistakes.', tags: ['Scaling Pains', 'No Roadmap'], fix: 'A people roadmap for the next 12 months: roles, reporting lines, hiring sequence and the rituals that keep a bigger team aligned.', service: 'serviceFractional' },
-      { id: 'terminations', title: 'Risky Terminations', body: 'Stuck with bad employees because you’re afraid of lawsuits. Every day you wait, the cost and the risk keep climbing.', tags: ['Legal Risk', 'Team Morale'], fix: 'A clear, documented performance process and a calm exit plan, prepared with your legal counsel, so you can act instead of waiting.', service: 'serviceFractional' },
-      { id: 'leadership', title: 'Unaligned Leadership', body: 'Founders and executives not working toward the same goals. Mixed signals from the top trickle down into a confused, misaligned team.', tags: ['Misalignment', 'Slow Decisions'], fix: 'Leadership alignment sessions and clear decision rules, so the team hears one message from the top.', service: 'serviceFractional' },
+      { id: 'overwhelm', title: 'Founder Overwhelm', body: 'Employee drama and paperwork eating up your growth time. Every hour spent settling disputes or chasing forms is an hour not spent on your product.', fix: 'A fractional HR partner takes the people admin, policies and difficult conversations off your plate, so your week goes back to building.', service: 'serviceFractional' },
+      { id: 'managers', title: 'Untrained Managers', body: 'Top tech experts promoted to leads with zero management skills. They freeze during feedback conversations and avoid the hard calls entirely.', fix: 'Manager coaching gives your leads practical tools for feedback, conflict and delegation, with a coach in their corner for the first hard conversations.', service: 'serviceCoaching' },
+      { id: 'pay', title: 'Guesswork Pay', body: 'Random salary and benefit offers without clear structures. Inconsistent offers erode trust and turn every negotiation into a coin flip.', fix: 'We build simple salary bands and benefit rules, aligned with the EU Pay Transparency Directive, so every offer is explainable and fair.', service: 'serviceFractional' },
+      { id: 'hiring', title: 'Bad Hiring', body: 'Hiring by gut feeling, leading to people quitting within 3 months. Every mis-hire costs months of ramp-up and a painful restart.', fix: 'Structured, fast hiring with clear expectations, followed by a 90-day bridge that coaches both the new hire and the manager.', service: 'serviceHiring' },
+      { id: 'audit', title: 'Audit Anxiety', body: 'Outdated legal paperwork and fear of a surprise Labor Inspection. One overlooked contract clause can turn into a costly fine overnight.', fix: 'We review your contracts, policies and files, close the gaps and keep them current, working with your legal counsel where needed.', service: 'serviceFractional' },
+      { id: 'growth', title: 'Chaotic Growth', body: 'Adding headcount fast without a clear structural plan or roadmap. Growth without structure means more people making the same mistakes.', fix: 'A people roadmap for the next 12 months: roles, reporting lines, hiring sequence and the rituals that keep a bigger team aligned.', service: 'serviceFractional' },
+      { id: 'terminations', title: 'Risky Terminations', body: 'Stuck with bad employees because you’re afraid of lawsuits. Every day you wait, the cost and the risk keep climbing.', fix: 'A clear, documented performance process and a calm exit plan, prepared with your legal counsel, so you can act instead of waiting.', service: 'serviceFractional' },
+      { id: 'leadership', title: 'Unaligned Leadership', body: 'Founders and executives not working toward the same goals. Mixed signals from the top trickle down into a confused, misaligned team.', fix: 'Leadership alignment sessions and clear decision rules, so the team hears one message from the top.', service: 'serviceFractional' },
     ],
   },
   services: {
@@ -47,10 +46,10 @@ export const home = {
     text: 'Four ways to work with us, from an on-call partner to a full hiring engine.',
     all: 'All services',
     items: [
-      { key: 'serviceFractional', body: 'The alternative to a full-time hire. On-demand support to fix your team structure, handle policy, and align your people with your business goals.', tags: ['Policy & Structure', 'On Demand', 'Cost Efficient'], image: 'one-on-one' },
-      { key: 'serviceHiring', body: 'Stop the “hire and hope” cycle. Big Tech hiring speed combined with a 3-month success bridge so your new hire doesn’t just start, they succeed.', tags: ['Fast Hiring', '3-Month Bridge', 'Clear Expectations'], image: 'interview' },
-      { key: 'serviceBridge', body: 'Our job doesn’t end when the contract is signed. We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.', tags: ['Day 1 to Day 90', 'Hire & Manager', 'Retention'], image: 'onboarding-welcome' },
-      { key: 'serviceCoaching', body: 'Turning experts into leaders. Coaching managers and giving them tools to handle conflict, give feedback, and lead high-performing teams independently.', tags: ['Leadership Coaching', 'Conflict Management', 'Team Building'], image: 'coaching-mentoring' },
+      { key: 'serviceFractional', body: 'The alternative to a full-time hire. On-demand support to fix your team structure, handle policy, and align your people with your business goals.', image: 'one-on-one' },
+      { key: 'serviceHiring', body: 'Stop the “hire and hope” cycle. Big Tech hiring speed combined with a 3-month success bridge so your new hire doesn’t just start, they succeed.', image: 'interview' },
+      { key: 'serviceBridge', body: 'Our job doesn’t end when the contract is signed. We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.', image: 'onboarding-welcome' },
+      { key: 'serviceCoaching', body: 'Turning experts into leaders. Coaching managers and giving them tools to handle conflict, give feedback, and lead high-performing teams independently.', image: 'coaching-mentoring' },
     ],
   },
   bridge: {
@@ -75,11 +74,11 @@ export const home = {
     cta: 'Talk about your setup',
     rows: [
       { label: 'Seniority', fractional: 'Senior partner from day one', fullTime: 'Usually a generalist you can afford' },
-      { label: 'Time to start', fractional: 'Days', fullTime: '2–4 months of hiring and notice periods' },
+      { label: 'Time to start', fractional: 'Days', fullTime: '2-4 months of hiring and notice periods' },
       { label: 'Commitment', fractional: 'Flexible, scales with your needs', fullTime: 'Fixed salary, benefits, equipment, notice period' },
       { label: 'Coverage', fractional: 'Strategy and hands-on execution', fullTime: 'Depends on one person’s profile' },
       { label: 'Hiring', fractional: 'Big-tech process plus a 90-day bridge', fullTime: 'Often outsourced to agencies' },
-      { label: 'Availability', fractional: 'On-call in your Slack, Mon–Fri 9–18 CET', fullTime: 'Full-time presence' },
+      { label: 'Availability', fractional: 'On-call in your Slack, Mon-Fri 9-18 CET', fullTime: 'Full-time presence' },
     ],
   },
   facts: {
@@ -103,11 +102,6 @@ export const home = {
   testimonials: {
     eyebrow: 'What clients say',
     title: 'Real words from real teams.',
-  },
-  blogTeaser: {
-    eyebrow: 'Blog',
-    title: 'Notes from the people side of growth.',
-    cta: 'All articles',
   },
   faqTeaser: {
     eyebrow: 'Questions',

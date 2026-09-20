@@ -39,16 +39,13 @@ const c = d.common;
 
   <div class="container-site hero-inner">
     <div class="hero-content">
-      <p class="hero-badge" data-reveal>
-        <span class="hero-badge-dot" aria-hidden="true"></span>{h.badge}
-      </p>
-      <p class="eyebrow mt-6" data-reveal data-reveal-delay="1">{h.eyebrow}</p>
+      <p class="eyebrow" data-reveal>{h.eyebrow}</p>
       <h1 id="hero-title" class="hero-title font-display text-display-xl mt-5" data-split="immediate">
         {h.titleLine1}<br />{h.titleLine2} <span class="accent">{h.titleAccent}</span>
       </h1>
       <p class="hero-sub text-lead text-slate mt-7 max-w-xl" data-reveal data-reveal-delay="3">{h.sub}</p>
       <div class="mt-9 flex flex-wrap items-center gap-4" data-reveal data-reveal-delay="4">
-        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{h.cta1}</Button>
+        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{h.cta1}</Button>
         <Button href={localizePath('services', lang)} variant="ghost" size="lg">{h.cta2}</Button>
       </div>
       <ul class="hero-proof mt-8" role="list" data-reveal data-reveal-delay="5">

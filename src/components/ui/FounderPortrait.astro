@@ -1,7 +1,7 @@
 ---
 /**
- * Portrait slot for the founder. Until the client supplies a photo it renders an
- * elegant monogram placeholder (never a stock photo standing in for a real person).
+ * Portrait of the founder. Falls back to a monogram if no photo is configured,
+ * never to a stock photo standing in for a real person.
  */
 import { Picture } from 'astro:assets';
 import { type Locale } from '@/i18n/config';
@@ -18,7 +18,7 @@ const initials = name.split(/\s+/).map((p) => p[0]).join('').slice(0, 2).toUpper
 <figure class:list={['portrait', className]}>
   <div class="portrait-frame">
     {photo ? (
-      <Picture src={photo} alt={name} widths={[480, 768, 1024]} sizes="(min-width: 64rem) 40vw, 90vw" formats={['avif', 'webp']} class="portrait-img" loading="lazy" decoding="async" />
+      <Picture src={photo} alt={`${name}, ${role}`} widths={[480, 768, 1024]} sizes="(min-width: 64rem) 40vw, 90vw" formats={['avif', 'webp']} class="portrait-img" loading="lazy" decoding="async" />
     ) : (
       <div class="portrait-placeholder" role="img" aria-label={d.common.misc.photoPlaceholder}>
         <svg class="portrait-steps" viewBox="0 0 120 120" aria-hidden="true">
@@ -33,7 +33,6 @@ const initials = name.split(/\s+/).map((p) => p[0]).join('').slice(0, 2).toUpper
   <figcaption class="portrait-caption">
     <span class="portrait-name font-display">{name}</span>
     <span class="portrait-role">{role}</span>
-    {!photo && <span class="portrait-todo">{d.common.misc.photoPlaceholder}</span>}
   </figcaption>
 </figure>
 <style>
@@ -47,5 +46,4 @@ const initials = name.split(/\s+/).map((p) => p[0]).join('').slice(0, 2).toUpper
   .portrait-caption { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.15rem; }
   .portrait-name { font-weight: 700; font-size: 1.05rem; color: var(--color-ink); }
   .portrait-role { font-size: 0.9rem; color: var(--color-slate); }
-  .portrait-todo { margin-top: 0.4rem; font-size: 0.75rem; color: var(--color-mist); font-style: italic; }
 </style>

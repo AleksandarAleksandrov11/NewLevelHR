@@ -1,7 +1,7 @@
 ---
 /**
- * HR Health Check: eight questions scored 0/1/2, one at a time, with a result
- * view (animated score ring, level, recommended services, areas to watch).
+ * HR Health Check: five questions scored 0/1/2, one at a time, with a result
+ * view (animated score ring, level and recommended services).
  * Everything is rendered server-side and hidden; src/scripts/quiz.ts only
  * switches visibility, scores and animates. Nothing is stored or sent.
  */
@@ -29,7 +29,7 @@ const questions = q.questions.map((item) => {
   const problem = problems.find((p) => p.id === item.id);
   const services: ServiceKey[] = problem ? [problem.service] : [];
   if (item.id === 'hiring') services.push('serviceBridge');
-  return { ...item, services, area: problem?.title ?? item.id };
+  return { ...item, services };
 });
 const total = questions.length;
 const maxScore = total * 2;
@@ -134,7 +134,7 @@ const config = {
             <ul class="hc-services" role="list" data-quiz-services>
               {serviceKeys.map((key) => (
                 <li data-quiz-service={key} hidden>
-                  <a href={serviceInfo[key].href} class="hc-service group" data-cursor="open">
+                  <a href={serviceInfo[key].href} class="hc-service group">
                     <span class="hc-service-body">
                       <span class="hc-service-name">{serviceInfo[key].name}</span>
                       <span class="hc-service-desc">{serviceInfo[key].desc}</span>
@@ -144,18 +144,10 @@ const config = {
                 </li>
               ))}
             </ul>
-            <div class="hc-areas" data-quiz-areas hidden>
-              <h4 class="hc-reco-title">{q.result.areasTitle}</h4>
-              <ul class="hc-areas-list" role="list">
-                {questions.map((item) => (
-                  <li data-quiz-area={item.id} hidden><span class="pill pill-accent">{item.area}</span></li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
         <div class="hc-result-actions">
-          <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{q.result.book}</Button>
+          <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{q.result.book}</Button>
           <Button type="button" variant="ghost" size="lg" icon="none" magnetic={false} data-quiz-restart="">
             <RotateCcw class="size-4" aria-hidden="true" />{q.restart}
           </Button>
@@ -255,9 +247,6 @@ const config = {
   .hc-service-name { display: block; font-family: var(--font-display); font-weight: 700; color: var(--color-ink); line-height: 1.3; }
   .hc-service-desc { display: block; margin-top: 0.2rem; font-size: 0.85rem; line-height: 1.5; color: var(--color-slate); }
   .hc-service-cta { display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0; font-size: 0.8rem; font-weight: 700; color: var(--color-accent-ink); white-space: nowrap; }
-  .hc-areas { margin-top: 2rem; }
-  .hc-areas-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.85rem; }
-  .hc-areas-list .pill { white-space: normal; }
   .hc-result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--color-line); }
   @media (max-width: 30rem) {
     .hc-service { flex-direction: column; align-items: flex-start; gap: 0.6rem; }

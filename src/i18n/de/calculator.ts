@@ -3,7 +3,7 @@ import type { CalculatorDict } from '../en/calculator';
 export const calculator: CalculatorDict = {
   eyebrow: 'Kosten einer Fehlbesetzung',
   title: 'Was kostet Sie eine Fehlbesetzung wirklich?',
-  text: 'Passen Sie die Annahmen an Ihre Situation an. Jede Zeile der Rechnung ist sichtbar – nichts ist eine versteckte Statistik.',
+  text: 'Passen Sie die Annahmen an Ihre Situation an. Jede Zeile der Rechnung ist sichtbar. Nichts ist eine versteckte Statistik.',
   assumptionsTitle: 'Ihre Annahmen',
   resultTitle: 'Geschätzte Kosten einer Fehlbesetzung',
   perYear: 'pro Jahr Bruttogehalt',
@@ -28,7 +28,7 @@ export const calculator: CalculatorDict = {
     total: 'Geschätzte Gesamtkosten',
   },
   formula: 'Gesamt = Gehalt × Monate / 12 + Recruiting + Stunden der Führungskraft × Wochen × Stundensatz + Gehalt × Abfindung / 12 + Recruiting erneut + Gehalt × Vakanz / 12',
-  note: 'Dies ist ein vereinfachtes Modell zur Orientierung. Es lässt entgangenen Umsatz, Teammoral und Auswirkungen auf Kunden außer Acht – die reale Zahl liegt daher meist höher.',
+  note: 'Dies ist ein vereinfachtes Modell zur Orientierung. Es lässt entgangenen Umsatz, Teammoral und Auswirkungen auf Kunden außer Acht. Die reale Zahl liegt daher meist höher.',
   cta: 'Die nächste vermeiden: Sprechen Sie mit uns',
   reset: 'Auf Standardwerte zurücksetzen',
   multipleLabel: 'Das entspricht etwa dem {multiple}-Fachen des Jahresgehalts.',

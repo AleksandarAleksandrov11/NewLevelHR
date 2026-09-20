@@ -1,11 +1,11 @@
 import type { Widen } from '../types';
 /**
- * Namespace "about" — the founder page. Mariyana Velkova speaks in the first
+ * Namespace "about": the founder page. Mariyana Velkova speaks in the first
  * person. English is the type reference for de/ and bg/.
  */
 export const about = {
   meta: {
-    title: 'About – Mariyana Velkova, Founder of NewLevelHR',
+    title: 'About Mariyana Velkova, Founder of NewLevelHR',
     description: 'Why NewLevelHR exists: a human HR partner for startups and SMEs in Europe, founded by Mariyana Velkova. Velocity over bureaucracy, humanity over automation, strategic precision.',
   },
   hero: {
@@ -35,19 +35,6 @@ export const about = {
       { title: 'Strategic Precision', body: 'The brain of a senior partner without the executive price tag.' },
     ],
   },
-  manifesto: {
-    eyebrow: 'Human vs. automation',
-    title: 'No dashboard. No bot. A person who knows your team by name.',
-    text: 'HR software is good at storing data. It is not good at noticing that your best engineer has gone quiet, or that a manager is avoiding a conversation. That part needs a human.',
-    notLabel: 'Not this',
-    butLabel: 'But this',
-    points: [
-      { not: 'A ticket in a queue', but: 'A message in your Slack channel, answered by me' },
-      { not: 'A generic template', but: 'A policy written for your team, in your language' },
-      { not: 'A vendor you call once a year', but: 'A partner who knows your people by name' },
-      { not: 'A report about the problem', but: 'The problem handled, with you in the loop' },
-    ],
-  },
   howIWork: {
     eyebrow: 'How I work',
     title: 'Three ways you’ll notice the difference.',
@@ -65,15 +52,6 @@ export const about = {
         title: 'The safety net for your first 90 days',
         body: 'A hire is not a success on day one. I stay on board for the first three months, checking in with both the new person and their manager, so small frictions get fixed before they become an exit.',
       },
-    ],
-  },
-  facts: {
-    title: 'Practical details',
-    items: [
-      { label: 'Languages', value: 'English, German and Bulgarian' },
-      { label: 'Based in', value: 'Blagoevgrad, Bulgaria, working with teams across Europe' },
-      { label: 'Hours', value: 'Monday to Friday, 9–18 CET' },
-      { label: 'Response time', value: 'Within 24 hours on business days' },
     ],
   },
   cta: {

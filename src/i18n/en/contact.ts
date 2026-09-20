@@ -1,8 +1,8 @@
 import type { Widen } from '../types';
-/** Namespace "contact" — the contact page. Form labels and messages live in common.form. */
+/** Namespace "contact": the contact page. Form labels and messages live in common.form. */
 export const contact = {
   meta: {
-    title: 'Contact – Book a Free 30-Minute HR Consultation',
+    title: 'Contact: Book a Free 30-Minute HR Consultation',
     description: 'Talk to NewLevelHR: send a message or book a free 30-minute consultation. Fractional HR, hiring, the 90-day bridge and manager coaching, in English, German and Bulgarian. Reply within 24 hours.',
   },
   hero: {
@@ -26,7 +26,7 @@ export const contact = {
     response: 'Response time',
     responseValue: 'Within 24 hours on business days',
     hours: 'Hours',
-    hoursValue: 'Monday to Friday, 9–18 CET',
+    hoursValue: 'Monday to Friday, 9-18 CET',
     languages: 'Languages',
     languagesValue: 'English, German, Bulgarian',
     address: 'Address',

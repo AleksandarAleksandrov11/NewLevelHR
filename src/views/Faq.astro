@@ -10,7 +10,7 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
 
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const f = d.faq;
@@ -42,7 +42,7 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
         </nav>
         <div class="faq-side-cta">
           <p class="font-display font-bold text-ink">{f.still.title}</p>
-          <div class="mt-4"><Button href={localizePath('contact', lang, 'book')} size="sm" icon="calendar" cursor="book">{f.still.secondary}</Button></div>
+          <div class="mt-4"><Button href={localizePath('contact', lang, 'book')} size="sm" icon="calendar">{f.still.secondary}</Button></div>
         </div>
       </aside>
 
@@ -71,7 +71,7 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
       <p class="text-lead text-slate mt-5 mx-auto max-w-2xl" data-reveal data-reveal-delay="2">{f.still.text}</p>
       <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal data-reveal-delay="3">
         <Button href={localizePath('contact', lang)} variant="secondary" size="lg">{f.still.button}</Button>
-        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{f.still.secondary}</Button>
+        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{f.still.secondary}</Button>
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
 /**
- * Central site configuration. Values that the client still has to provide are
- * marked TODO-CLIENT and listed in /TODO-CLIENT.md.
+ * Central site configuration. Items the client still has to supply (booking link,
+ * verified KPIs, testimonials, logos) are listed in /TODO-CLIENT.md.
  */
 const env = import.meta.env;
 
@@ -9,7 +9,7 @@ export const site = {
   legalName: 'NewLevelHR',
   url: (env.SITE_URL as string | undefined)?.replace(/\/$/, '') || 'https://newlevelhr.com',
   email: 'info@newlevelhr.com',
-  /** TODO-CLIENT: real Calendly event link. */
+  /** Booking link for the free call; see TODO-CLIENT.md. */
   bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || 'https://calendly.com/',
   formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/api/contact',
   formToken: (env.PUBLIC_FORM_TOKEN as string | undefined) || '',
@@ -21,8 +21,7 @@ export const site = {
   founder: {
     name: 'Mariyana Velkova',
     role: 'Managing Director',
-    /** TODO-CLIENT: portrait photo. Until then an elegant placeholder is rendered. */
-    portrait: null as string | null,
+    portrait: 'mariyana-velkova' as string | null,
   },
   address: {
     street: 'Orfei 1',
@@ -40,16 +39,10 @@ export const site = {
   consultationMinutes: 30,
   bridgeDays: 90,
   languages: ['EN', 'DE', 'BG'] as const,
-  /** Registration data — TODO-CLIENT */
-  registration: {
-    eik: 'TO BE ADDED',
-    vat: 'TO BE ADDED',
-    paymentTermDays: null as number | null,
-  },
   /**
    * KPI counters. The previous site showed hiring-success, time-to-hire and
    * client-retention counters without verified data. They stay disabled until
-   * the client provides real, verifiable numbers (TODO-CLIENT).
+   * the client provides real, verifiable numbers.
    */
   kpis: {
     enabled: false,
@@ -59,12 +52,12 @@ export const site = {
       { id: 'clientRetention', value: 0, suffix: '%', decimals: 0 },
     ],
   },
-  /** Testimonials stay hidden until real client quotes are supplied (TODO-CLIENT). */
+  /** Testimonials stay hidden until real client quotes are supplied. */
   testimonials: {
     enabled: false,
     items: [] as Array<{ quote: string; name: string; role: string; company: string }>,
   },
-  /** Client logos stay hidden until supplied (TODO-CLIENT). */
+  /** Client logos stay hidden until supplied. */
   clientLogos: { enabled: false, items: [] as Array<{ name: string; src: string }> },
   social: [] as Array<{ name: string; url: string }>,
   /** Cookie / storage names actually used by this site (see Cookie Policy). */

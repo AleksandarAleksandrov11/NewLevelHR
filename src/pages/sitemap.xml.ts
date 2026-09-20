@@ -1,14 +1,11 @@
 /**
  * Multilingual sitemap: every indexable page in every language with reciprocal
- * xhtml:link alternates (plus x-default = English), and every published blog
- * post with the translations that actually exist.
+ * xhtml:link alternates (plus x-default = English).
  */
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { site } from '@/config/site';
 import { locales, localeMeta, type Locale } from '@/i18n/config';
-import { pageKeys, localizePath, blogPostPath, absoluteUrl, type PageKey } from '@/i18n/routes';
-import { entryLang, entrySlug } from '@/lib/blog';
+import { pageKeys, localizePath, absoluteUrl, type PageKey } from '@/i18n/routes';
 
 const EXCLUDED: PageKey[] = ['notFound'];
 
@@ -31,7 +28,6 @@ const priorities: Partial<Record<PageKey, string>> = {
   problems: '0.8',
   about: '0.8',
   howWeWork: '0.8',
-  blog: '0.7',
   faq: '0.7',
   legalNotice: '0.2',
   terms: '0.2',
@@ -52,7 +48,7 @@ function alternatesFor(paths: Partial<Record<Locale, string>>) {
   return alts;
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = () => {
   const entries: UrlEntry[] = [];
 
   for (const key of pageKeys) {
@@ -60,24 +56,7 @@ export const GET: APIRoute = async () => {
     const paths = Object.fromEntries(locales.map((l) => [l, localizePath(key, l)])) as Record<Locale, string>;
     const alternates = alternatesFor(paths);
     for (const l of locales) {
-      entries.push({ loc: absoluteUrl(site.url, paths[l]), alternates, priority: priorities[key], changefreq: key === 'blog' ? 'weekly' : 'monthly' });
-    }
-  }
-
-  const posts = await getCollection('blog', (e) => !e.data.draft);
-  const bySlug = new Map<string, typeof posts>();
-  for (const p of posts) {
-    const slug = entrySlug(p);
-    bySlug.set(slug, [...(bySlug.get(slug) ?? []), p]);
-  }
-  for (const [slug, group] of bySlug) {
-    const paths: Partial<Record<Locale, string>> = {};
-    for (const p of group) paths[entryLang(p)] = blogPostPath(entryLang(p), slug);
-    const alternates = alternatesFor(paths);
-    for (const p of group) {
-      const lang = entryLang(p);
-      const lastmod = (p.data.updated ?? p.data.date).toISOString().slice(0, 10);
-      entries.push({ loc: absoluteUrl(site.url, paths[lang]!), lastmod, alternates, priority: '0.6', changefreq: 'monthly' });
+      entries.push({ loc: absoluteUrl(site.url, paths[l]), alternates, priority: priorities[key], changefreq: 'monthly' });
     }
   }
 

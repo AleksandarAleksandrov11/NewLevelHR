@@ -17,7 +17,6 @@ export const pageKeys = [
   'problems',
   'about',
   'howWeWork',
-  'blog',
   'faq',
   'contact',
   'legalNotice',
@@ -54,7 +53,6 @@ export const routes: Record<PageKey, Record<Locale, string>> = {
   problems: { en: 'what-we-fix', de: 'was-wir-loesen', bg: 'kakvo-reshavame' },
   about: { en: 'about', de: 'ueber-uns', bg: 'za-nas' },
   howWeWork: { en: 'how-we-work', de: 'so-arbeiten-wir', bg: 'kak-rabotim' },
-  blog: { en: 'blog', de: 'blog', bg: 'blog' },
   faq: { en: 'faq', de: 'faq', bg: 'faq' },
   contact: { en: 'contact', de: 'kontakt', bg: 'kontakti' },
   legalNotice: { en: 'legal-notice', de: 'impressum', bg: 'pravna-informatsia' },
@@ -74,19 +72,12 @@ export function localizePath(key: PageKey, lang: Locale, hash?: string): string 
   return hash ? `${base}#${hash}` : base;
 }
 
-/** Absolute path of a blog post. Post slugs are shared across languages. */
-export function blogPostPath(lang: Locale, slug: string): string {
-  return `/${lang}/${routes.blog[lang]}/${slug}/`;
-}
 
 /** Path of the same page in another language. */
 export function alternatePaths(key: PageKey): Record<Locale, string> {
   return Object.fromEntries(locales.map((l) => [l, localizePath(key, l)])) as Record<Locale, string>;
 }
 
-export function alternateBlogPaths(slug: string): Record<Locale, string> {
-  return Object.fromEntries(locales.map((l) => [l, blogPostPath(l, slug)])) as Record<Locale, string>;
-}
 
 /** Resolve a (lang, slug) pair back to a page key, if it is a static page. */
 export function pageKeyFromSlug(lang: Locale, slug: string): PageKey | undefined {

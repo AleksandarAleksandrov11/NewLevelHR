@@ -2,8 +2,8 @@ import type { HowWeWorkDict } from '../en/howWeWork';
 
 export const howWeWork: HowWeWorkDict = {
   meta: {
-    title: 'So arbeiten wir – vom kostenlosen Gespräch zur Partnerin in Ihrem Slack',
-    description: 'Fünf Schritte von einer kostenlosen 30-Minuten-Beratung zu einer laufenden Partnerschaft: Diagnose, Plan, Umsetzung und Begleitung. Retainer oder Projekt, Mo–Fr 9–18 Uhr MEZ, Antwort innerhalb von 24 Stunden, auf EN, DE und BG.',
+    title: 'So arbeiten wir: vom kostenlosen Gespräch zur Partnerin in Ihrem Slack',
+    description: 'Fünf Schritte von einer kostenlosen 30-Minuten-Beratung zu einer laufenden Partnerschaft: Diagnose, Plan, Umsetzung und Begleitung. Retainer oder Projekt, Mo-Fr 9-18 Uhr MEZ, Antwort innerhalb von 24 Stunden, auf EN, DE und BG.',
   },
   hero: {
     eyebrow: 'So arbeiten wir',
@@ -62,7 +62,7 @@ export const howWeWork: HowWeWorkDict = {
   expectations: {
     title: 'Was Sie von uns erwarten können',
     items: [
-      'Eine Antwort innerhalb von 24 Stunden an Werktagen, Montag bis Freitag, 9–18 Uhr MEZ.',
+      'Eine Antwort innerhalb von 24 Stunden an Werktagen, Montag bis Freitag, 9-18 Uhr MEZ.',
       'Alles auf Englisch, Deutsch oder Bulgarisch, je nachdem, was Ihr Team spricht.',
       'Ehrliche Antworten, auch „das brauchen Sie nicht“ und „dafür brauchen Sie eine Anwältin“.',
       'Ausschließlich HR-Beratung und Recruiting: keine Lohnabrechnung, keine Steuererklärungen, keine Rechtsberatung, keine PEO-Dienstleistungen.',

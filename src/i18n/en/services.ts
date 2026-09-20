@@ -6,7 +6,7 @@ import type { Widen } from '../types';
  */
 export const services = {
   meta: {
-    title: 'Services – Fractional HR, Hiring, 90-Day Bridge & Manager Coaching',
+    title: 'Services: Fractional HR, Hiring, 90-Day Bridge and Manager Coaching',
     description:
       'Four ways to work with NewLevelHR: fractional HR partnership, high-velocity hiring, the 90-day success bridge and manager coaching. Senior HR support for startups and SMEs in Europe, on retainer or per project.',
   },
@@ -30,7 +30,7 @@ export const services = {
         'Policies, contracts and compliance reviewed with your legal counsel',
         'Salary bands and fair offers, aligned with the EU Pay Transparency Directive',
       ],
-      tags: ['Policy & Structure', 'On Demand', 'Cost Efficient'],
+     
       image: 'one-on-one',
       imageAlt: 'HR partner in a one-on-one conversation with a founder',
     },
@@ -42,7 +42,7 @@ export const services = {
         'A structured, fast process that candidates actually respect',
         'The 90-Day Success Bridge included for every hire',
       ],
-      tags: ['Fast Hiring', '3-Month Bridge', 'Clear Expectations'],
+     
       image: 'interview',
       imageAlt: 'A structured job interview between a candidate and a hiring manager',
     },
@@ -54,7 +54,7 @@ export const services = {
         'Day 30 and 60: feedback loops and course correction',
         'Day 90: confirmed fit, probation decision, development plan',
       ],
-      tags: ['Day 1 to Day 90', 'Hire & Manager', 'Retention'],
+     
       image: 'onboarding-welcome',
       imageAlt: 'A new team member being welcomed on their first day',
     },
@@ -66,7 +66,7 @@ export const services = {
         'A coach in their corner for the first hard calls',
         'Leadership alignment so the team hears one message',
       ],
-      tags: ['Leadership Coaching', 'Conflict Management', 'Team Building'],
+     
       image: 'coaching-mentoring',
       imageAlt: 'A manager and a coach in a mentoring conversation',
     },
@@ -82,7 +82,7 @@ export const services = {
       },
       {
         title: 'The partner in your Slack',
-        body: 'A person in your channel who answers the awkward questions, Monday to Friday, 9–18 CET, in English, German or Bulgarian. Reply within 24 hours.',
+        body: 'A person in your channel who answers the awkward questions, Monday to Friday, 9-18 CET, in English, German or Bulgarian. Reply within 24 hours.',
       },
       {
         title: 'Free 30-minute call first',
@@ -129,14 +129,12 @@ export const services = {
     relatedEyebrow: 'Related',
     relatedTitle: 'Services that pair with this one',
     relatedText: 'One partner, four ways to work together. These usually go hand in hand.',
-    problemsTitle: 'Problems this service fixes',
-    problemsText: 'Each one links to the full description on the “What we fix” page.',
     stepLabel: 'Step {n}',
   },
   pages: {
     fractional: {
       meta: {
-        title: 'Fractional HR Partnership – Senior HR Without the Full-Time Hire',
+        title: 'Fractional HR Partnership: Senior HR Without the Full-Time Hire',
         description:
           'On-demand senior HR support for startups and SMEs: team structure, policies, pay bands, compliance alongside your legal counsel and leadership alignment. On retainer or per project, in EN, DE and BG.',
       },
@@ -147,7 +145,7 @@ export const services = {
         sub: 'On-demand support to fix your team structure, handle policy and align your people with your business goals. You get the brain of a senior partner in your Slack channel, without the executive price tag.',
         image: 'one-on-one',
         imageAlt: 'Founder and HR partner working through a people question one-on-one',
-        tags: ['Policy & Structure', 'On Demand', 'Cost Efficient'],
+       
       },
       problem: {
         eyebrow: 'The situation',
@@ -182,7 +180,7 @@ export const services = {
           { title: 'Performance & difficult conversations', body: 'A documented performance process, feedback templates and a calm exit plan, so nobody waits months to act.' },
           { title: 'Leadership alignment', body: 'Working sessions with founders and executives so decisions are made once and the team hears one message.' },
           { title: 'Employee issues & mediation', body: 'Conflicts, complaints and sensitive cases handled with a neutral, experienced partner in the room.' },
-          { title: 'On-call advisory', body: 'A person in your Slack for the questions that cannot wait: Monday to Friday, 9–18 CET, reply within 24 hours.' },
+          { title: 'On-call advisory', body: 'A person in your Slack for the questions that cannot wait: Monday to Friday, 9-18 CET, reply within 24 hours.' },
         ],
       },
       process: {
@@ -191,7 +189,7 @@ export const services = {
         steps: [
           { tag: 'Free call', title: 'Diagnose', body: 'A 30-minute conversation about where the people setup hurts most. You leave with a clear picture, whether or not we work together.' },
           { tag: 'Week 1', title: 'Audit', body: 'We review contracts, policies, pay logic and the org chart, talk to the leadership team and list the gaps by risk and effort.' },
-          { tag: 'Weeks 2–4', title: 'Fix the urgent', body: 'The items that create legal or people risk right now get closed first, together with your legal counsel where needed.' },
+          { tag: 'Weeks 2-4', title: 'Fix the urgent', body: 'The items that create legal or people risk right now get closed first, together with your legal counsel where needed.' },
           { tag: 'Month 2+', title: 'Build the system', body: 'Structure, policies, pay bands and rituals go live one by one, each one explained to the people who will use it.' },
           { tag: 'Ongoing', title: 'Run it with you', body: 'A fixed weekly rhythm, a partner in your Slack and a monthly review of what the company needs next.' },
         ],
@@ -241,11 +239,10 @@ export const services = {
         button: 'Book a free call',
       },
       related: ['hiring', 'coaching', 'bridge'],
-      problems: ['overwhelm', 'pay', 'audit', 'growth', 'terminations', 'leadership'],
     },
     hiring: {
       meta: {
-        title: 'High-Velocity Hiring – Fast, Structured Recruiting With a 90-Day Bridge',
+        title: 'High-Velocity Hiring: Fast, Structured Recruiting With a 90-Day Bridge',
         description:
           'Stop the “hire and hope” cycle. Structured hiring at Big Tech speed for startups and SMEs, with clear expectations, a role scorecard and the 90-Day Success Bridge included for every hire.',
       },
@@ -256,7 +253,7 @@ export const services = {
         sub: 'Big Tech hiring speed combined with a 3-month success bridge, so your new hire doesn’t just start, they succeed. Clear expectations before the first interview, a process candidates respect, and a partner who stays after the signature.',
         image: 'interview',
         imageAlt: 'A structured job interview between a candidate and a hiring manager',
-        tags: ['Fast Hiring', '3-Month Bridge', 'Clear Expectations'],
+       
       },
       problem: {
         eyebrow: 'The situation',
@@ -301,7 +298,7 @@ export const services = {
           { tag: 'Sourcing', title: 'Find & engage', body: 'Active search, personal outreach and a first shortlist reviewed together, with honest feedback on the market.' },
           { tag: 'Interviews', title: 'Structured loop', body: 'A lean interview sequence with defined questions and same-day feedback, so no candidate waits in silence.' },
           { tag: 'Offer', title: 'Decide & close', body: 'A clear decision, an offer built on your pay bands and a negotiation that ends with both sides looking forward to day one.' },
-          { tag: 'Day 1–90', title: 'Success Bridge', body: 'We stay on board: expectations on day 1, feedback loops on day 30 and 60, confirmed fit on day 90.' },
+          { tag: 'Day 1-90', title: 'Success Bridge', body: 'We stay on board: expectations on day 1, feedback loops on day 30 and 60, confirmed fit on day 90.' },
         ],
       },
       forWhom: {
@@ -349,11 +346,10 @@ export const services = {
         button: 'Book a free call',
       },
       related: ['bridge', 'fractional', 'coaching'],
-      problems: ['hiring'],
     },
     bridge: {
       meta: {
-        title: '90-Day Success Bridge – Onboarding Support for New Hires and Managers',
+        title: '90-Day Success Bridge: Onboarding Support for New Hires and Managers',
         description:
           'Our job doesn’t end when the contract is signed. We coach the new hire and the manager through the first 90 days: clear expectations on day 1, feedback loops on day 30 and 60, a confirmed fit on day 90. Included with our hiring, also available standalone.',
       },
@@ -364,7 +360,7 @@ export const services = {
         sub: 'We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit. Clear expectations on day 1, feedback loops on day 30 and 60, a confirmed decision on day 90.',
         image: 'onboarding-welcome',
         imageAlt: 'A new team member being welcomed on their first day',
-        tags: ['Day 1 to Day 90', 'Hire & Manager', 'Retention'],
+       
       },
       problem: {
         eyebrow: 'The situation',
@@ -454,11 +450,10 @@ export const services = {
         button: 'Book a free call',
       },
       related: ['hiring', 'coaching', 'fractional'],
-      problems: ['hiring', 'managers'],
     },
     coaching: {
       meta: {
-        title: 'Manager Coaching – Turning Experts into Leaders',
+        title: 'Manager Coaching: Turning Experts into Leaders',
         description:
           'Coaching for first-time and experienced managers in startups and SMEs: practical tools for feedback, conflict, delegation and leadership alignment, with a coach in their corner for the first hard conversations.',
       },
@@ -469,7 +464,7 @@ export const services = {
         sub: 'Coaching managers and giving them tools to handle conflict, give feedback and lead high-performing teams independently. For the engineer who became a lead last quarter, and for the leadership team that needs to speak with one voice.',
         image: 'coaching-mentoring',
         imageAlt: 'A manager and a coach in a mentoring conversation',
-        tags: ['Leadership Coaching', 'Conflict Management', 'Team Building'],
+       
       },
       problem: {
         eyebrow: 'The situation',
@@ -503,7 +498,7 @@ export const services = {
           { title: 'Delegation & goal setting', body: 'Letting go of the expert work, setting clear goals and holding people accountable without micromanaging.' },
           { title: 'Team building', body: 'Working sessions with the whole team on roles, rituals and the rules of working together.' },
           { title: 'Leadership alignment', body: 'Sessions with founders and executives on goals, decision rules and the message the team should hear.' },
-          { title: 'On-call support', body: 'A message in Slack before the hard conversation, a debrief after. Monday to Friday, 9–18 CET.' },
+          { title: 'On-call support', body: 'A message in Slack before the hard conversation, a debrief after. Monday to Friday, 9-18 CET.' },
         ],
       },
       process: {
@@ -561,7 +556,6 @@ export const services = {
         button: 'Book a free call',
       },
       related: ['fractional', 'bridge', 'hiring'],
-      problems: ['managers', 'leadership'],
     },
   },
 } as const;

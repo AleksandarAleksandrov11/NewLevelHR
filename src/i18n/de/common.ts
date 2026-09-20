@@ -4,7 +4,7 @@ export const common: CommonDict = {
   meta: {
     siteName: 'NewLevelHR',
     tagline: 'Praktisch. Erreichbar. Immer an Ihrer Seite.',
-    defaultTitle: 'NewLevelHR – Der HR-Partner, den Ihr Unternehmen wirklich braucht',
+    defaultTitle: 'NewLevelHR: Der HR-Partner, den Ihr Unternehmen wirklich braucht',
     defaultDescription: 'Echte HR-Unterstützung ohne Festanstellung. Compliance, Recruiting, Mitarbeiterthemen, richtig gemacht.',
     titleSuffix: ' | NewLevelHR',
   },
@@ -14,7 +14,6 @@ export const common: CommonDict = {
     problems: 'Was wir lösen',
     about: 'Über uns',
     howWeWork: 'So arbeiten wir',
-    blog: 'Blog',
     faq: 'FAQ',
     contact: 'Kontakt',
     bookCall: 'Kostenloses Gespräch buchen',
@@ -88,7 +87,7 @@ export const common: CommonDict = {
     bridge: { value: '90 Tage', label: 'Begleitung nach der Einstellung' },
     response: { value: '< 24 h', label: 'Antwortzeit' },
     languages: { value: '3', label: 'Sprachen: EN · DE · BG' },
-    hours: { value: 'Mo–Fr', label: '9–18 Uhr MEZ' },
+    hours: { value: 'Mo-Fr', label: '9-18 Uhr MEZ' },
   },
   kpis: {
     hiringSuccess: 'Recruiting-Erfolgsquote',
@@ -113,7 +112,7 @@ export const common: CommonDict = {
     colContact: 'Kontakt',
     email: 'E-Mail',
     hours: 'Zeiten',
-    hoursValue: 'Mo–Fr, 9–18 Uhr MEZ',
+    hoursValue: 'Mo-Fr, 9-18 Uhr MEZ',
     responseTime: 'Antwortzeit',
     responseValue: 'Innerhalb von 24 Stunden',
     address: 'Adresse',
@@ -132,14 +131,6 @@ export const common: CommonDict = {
     switch: 'Zu {language} wechseln',
     dismiss: 'Bei Deutsch bleiben',
     close: 'Schließen',
-  },
-  cursor: {
-    view: 'Ansehen',
-    read: 'Lesen',
-    book: 'Buchen',
-    open: 'Öffnen',
-    drag: 'Ziehen',
-    play: 'Abspielen',
   },
   misc: {
     readingTime: '{minutes} Min. Lesezeit',
@@ -169,7 +160,7 @@ export const common: CommonDict = {
     share: 'Teilen',
     lastUpdated: 'Zuletzt aktualisiert: {date}',
     founder: 'Gründerin & Geschäftsführerin',
-    photoPlaceholder: 'Porträt von Mariyana Velkova (Foto folgt)',
+    photoPlaceholder: 'Porträt von Mariyana Velkova',
     servicesList: 'Leistungen',
   },
   notFound: {

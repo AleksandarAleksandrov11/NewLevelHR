@@ -13,7 +13,6 @@ export function initHeader() {
   const megas = Array.from(header.querySelectorAll<HTMLElement>('[data-mega]'));
 
   /* Scroll behaviour --------------------------------------------------- */
-  let lastY = window.scrollY;
   let ticking = false;
   const update = () => {
     const y = window.scrollY;
@@ -21,11 +20,6 @@ export function initHeader() {
     const max = doc.scrollHeight - window.innerHeight;
     if (progress) progress.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
     header.classList.toggle('is-scrolled', y > 8);
-    const goingDown = y > lastY + 4;
-    const goingUp = y < lastY - 4;
-    if (goingDown && y > 140 && !header.classList.contains('is-menu-open')) header.classList.add('is-hidden');
-    else if (goingUp || y < 140) header.classList.remove('is-hidden');
-    lastY = y;
     ticking = false;
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };

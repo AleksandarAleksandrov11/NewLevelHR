@@ -112,7 +112,7 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
         <p class="calc-formula"><code>{t.formula}</code></p>
         <p class="calc-note">{t.note}</p>
         <div class="calc-actions">
-          <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{t.cta}</Button>
+          <Button href={localizePath('contact', lang, 'book')} icon="calendar">{t.cta}</Button>
           <button type="button" class="calc-reset" data-calc-reset><RotateCcw class="size-4" aria-hidden="true" /><span>{t.reset}</span></button>
         </div>
         <p class="sr-only" aria-live="polite" data-calc-announce></p>

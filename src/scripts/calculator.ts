@@ -95,7 +95,7 @@ function initCalculator(root: HTMLElement) {
     const r = ranges.get(k);
     if (r) {
       paintRange(r);
-      r.addEventListener('input', () => { n.value = r.value; render(); }, { signal: ac.signal });
+      r.addEventListener('input', () => { n.value = r.value; paintRange(r); render(); }, { signal: ac.signal });
     }
     n.addEventListener('input', () => { if (r && n.value !== '') { r.value = String(clamp(r, parseFloat(n.value))); paintRange(r); } render(); }, { signal: ac.signal });
     n.addEventListener('change', () => { const c = clamp(n, parseFloat(n.value)); n.value = String(c); if (r) { r.value = String(c); paintRange(r); } render(); }, { signal: ac.signal });

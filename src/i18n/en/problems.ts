@@ -1,13 +1,13 @@
 import type { Widen } from '../types';
 /**
- * Namespace "problems" — the "What We Fix" page. Titles, bodies, tags and the
+ * Namespace "problems": the "What We Fix" page. Titles, bodies, tags and the
  * service mapping of the eight problems come from `home.problems.items`; this
  * namespace extends each one (keyed by the same id) with symptoms, cost and fix.
  * English is the type reference for de/ and bg/.
  */
 export const problems = {
   meta: {
-    title: 'What We Fix – Eight People Problems in Growing Companies',
+    title: 'What We Fix: Eight People Problems in Growing Companies',
     description: 'Founder overwhelm, untrained managers, guesswork pay, bad hiring, audit anxiety, chaotic growth, risky terminations and unaligned leadership: what each one costs you and how NewLevelHR fixes it.',
   },
   hero: {
@@ -34,7 +34,7 @@ export const problems = {
         'Every HR question, from vacation days to a raise request, lands on your desk.',
         'People decisions get postponed because there is never time to think them through.',
       ],
-      cost: 'Founder hours are the most expensive hours in the company. Every afternoon spent refereeing or chasing paperwork is an afternoon the product, the customers and the next funding round do not get. And decisions taken in a hurry tend to come back as bigger problems.',
+      cost: 'Founder hours are the most expensive hours in the company. Every afternoon spent refereeing or chasing paperwork is an afternoon the product, the customers and the next funding round do not get.',
       fix: {
         title: 'A senior partner who takes the people admin off your plate.',
         text: 'You get an on-call HR partner without a full-time salary. We set up the structures once, then run the day-to-day with you, in your Slack channel, in your language.',
@@ -53,7 +53,7 @@ export const problems = {
         'Small tensions grow into resignations because nobody addressed them early.',
         'Leads escalate every decision to you instead of owning their team.',
       ],
-      cost: 'People rarely quit a company. They quit a manager who was never taught how to lead. One untrained lead can cost you the strongest people on their team, and the lead themselves often burns out trying to figure it all out alone.',
+      cost: 'People rarely quit a company. They quit a manager who was never taught how to lead.',
       fix: {
         title: 'Practical coaching that turns experts into leaders.',
         text: 'We coach your leads on the situations they actually face this month: the feedback they are avoiding, the conflict in their team, the delegation they are not doing. Tools first, theory only where it helps.',
@@ -72,7 +72,7 @@ export const problems = {
         'Raises get decided when someone threatens to leave.',
         'You are not sure what the EU Pay Transparency Directive will require from you.',
       ],
-      cost: 'Unexplainable pay erodes trust faster than low pay. The moment salaries are compared, and they always are, inconsistent offers turn into resentment, counter-offers and exits. With pay transparency rules arriving across the EU, guesswork also becomes a compliance exposure.',
+      cost: 'Unexplainable pay erodes trust faster than low pay. The moment salaries are compared, and they always are, inconsistent offers turn into resentment, counter-offers and exits.',
       fix: {
         title: 'Simple salary bands and benefit rules everyone can explain.',
         text: 'We build a compensation structure that fits a company of your size: clear levels, salary ranges per role, benefit rules and a process for raises. Transparent enough for the directive, simple enough to actually use.',
@@ -110,7 +110,7 @@ export const problems = {
         'Personnel files are incomplete, and you would not know where to look.',
         'The words “labour inspection” make your stomach drop.',
       ],
-      cost: 'Audit anxiety costs you twice. First in fines and back-payments when an inspection finds a gap. Then in the quieter cost: management attention spent worrying instead of building, and employees who notice that the basics are not in order.',
+      cost: 'Audit anxiety costs you twice: in fines and back-payments when an inspection finds a gap, and in the hours your team loses reconstructing paperwork that should have been ready.',
       fix: {
         title: 'A compliance baseline you can stop worrying about.',
         text: 'We review your contracts, policies and files, close the gaps and set up a simple rhythm to keep everything current. Where legal advice is required, we work alongside your lawyer; we do not replace them.',
@@ -148,7 +148,7 @@ export const problems = {
         'You are afraid one wrong step will end in a lawsuit.',
         'The rest of the team is losing patience while you wait.',
       ],
-      cost: 'Every week of waiting costs salary, team morale and your credibility as a leader. The strongest people notice first when underperformance has no consequences. And an exit done in a hurry, without documentation, is exactly the one that ends in a dispute.',
+      cost: 'Every week of waiting costs salary, team morale and your credibility as a leader. The strongest people notice first when underperformance has no consequences.',
       fix: {
         title: 'A fair, documented process and a calm exit plan.',
         text: 'We set up a clear performance process: expectations in writing, honest conversations, a defined improvement period and documented outcomes. If an exit is the right decision, we prepare it with your legal counsel and help you handle it with dignity.',
@@ -179,12 +179,6 @@ export const problems = {
       },
       serviceLabel: 'Facilitated within:',
     },
-  },
-  closing: {
-    eyebrow: 'Recognise more than one?',
-    title: 'That is normal. And it is fixable.',
-    text: 'These problems rarely come alone. In a free 30-minute call we look at which of them is costing you the most right now, and what would help first, whether or not you work with us.',
-    button: 'See all four services',
   },
 } as const;
 export type ProblemsDict = Widen<typeof problems>;

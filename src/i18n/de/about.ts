@@ -2,7 +2,7 @@ import type { AboutDict } from '../en/about';
 
 export const about: AboutDict = {
   meta: {
-    title: 'Über uns – Mariyana Velkova, Gründerin von NewLevelHR',
+    title: 'Über Mariyana Velkova, Gründerin von NewLevelHR',
     description: 'Warum es NewLevelHR gibt: eine menschliche HR-Partnerin für Startups und KMU in Europa, gegründet von Mariyana Velkova. Geschwindigkeit statt Bürokratie, Menschlichkeit statt Automatisierung, strategische Präzision.',
   },
   hero: {
@@ -32,19 +32,6 @@ export const about: AboutDict = {
       { title: 'Strategische Präzision', body: 'Der Kopf einer Senior-Partnerin, ohne das Gehalt einer Führungskraft.' },
     ],
   },
-  manifesto: {
-    eyebrow: 'Mensch vs. Automatisierung',
-    title: 'Kein Dashboard. Kein Bot. Eine Person, die Ihr Team beim Namen kennt.',
-    text: 'HR-Software ist gut darin, Daten zu speichern. Sie ist nicht gut darin zu bemerken, dass Ihr bester Entwickler still geworden ist oder dass eine Führungskraft einem Gespräch ausweicht. Dieser Teil braucht einen Menschen.',
-    notLabel: 'Nicht das',
-    butLabel: 'Sondern das',
-    points: [
-      { not: 'Ein Ticket in einer Warteschlange', but: 'Eine Nachricht in Ihrem Slack-Channel, beantwortet von mir' },
-      { not: 'Eine generische Vorlage', but: 'Eine Richtlinie, geschrieben für Ihr Team, in Ihrer Sprache' },
-      { not: 'Eine Dienstleisterin, die man einmal im Jahr anruft', but: 'Eine Partnerin, die Ihre Leute beim Namen kennt' },
-      { not: 'Ein Bericht über das Problem', but: 'Das Problem gelöst, mit Ihnen im Loop' },
-    ],
-  },
   howIWork: {
     eyebrow: 'So arbeite ich',
     title: 'Drei Momente, in denen Sie den Unterschied merken.',
@@ -62,15 +49,6 @@ export const about: AboutDict = {
         title: 'Das Sicherheitsnetz für Ihre ersten 90 Tage',
         body: 'Eine Einstellung ist an Tag eins kein Erfolg. Ich bleibe die ersten drei Monate an Bord und spreche regelmäßig mit der neuen Person und ihrer Führungskraft, damit kleine Reibungen behoben werden, bevor sie zur Kündigung führen.',
       },
-    ],
-  },
-  facts: {
-    title: 'Praktische Details',
-    items: [
-      { label: 'Sprachen', value: 'Englisch, Deutsch und Bulgarisch' },
-      { label: 'Sitz', value: 'Blagoewgrad, Bulgarien, mit Teams in ganz Europa' },
-      { label: 'Zeiten', value: 'Montag bis Freitag, 9–18 Uhr MEZ' },
-      { label: 'Antwortzeit', value: 'Innerhalb von 24 Stunden an Werktagen' },
     ],
   },
   cta: {

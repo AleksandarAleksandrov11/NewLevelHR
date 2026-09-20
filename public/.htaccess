@@ -34,9 +34,9 @@ AddDefaultCharset UTF-8
   # Legacy URLs of the previous site.
   RewriteRule ^index\.html$          /en/            [R=301,L]
   RewriteRule ^legal\.html$          /en/legal-notice/ [R=301,L]
-  RewriteRule ^blog\.html$           /en/blog/       [R=301,L]
-  RewriteRule ^blog-post\.php$       /en/blog/       [R=301,L]
-  RewriteRule ^api-posts\.php$       /en/blog/       [R=301,L]
+  RewriteRule ^blog\.html$           /en/            [R=301,L]
+  RewriteRule ^blog-post\.php$       /en/            [R=301,L]
+  RewriteRule ^api-posts\.php$       /en/            [R=301,L]
   RewriteRule ^contact\.html$        /en/contact/    [R=301,L]
   RewriteRule ^services\.html$       /en/services/   [R=301,L]
   RewriteRule ^about\.html$          /en/about/      [R=301,L]

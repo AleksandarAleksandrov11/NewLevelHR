@@ -1,25 +1,23 @@
 ---
-/** Custom cursor: dot + ring with inertia. Enabled by JS only on fine pointers without reduced motion. */
+/**
+ * Pixel trail: the native cursor stays visible and a grid-snapped trail of
+ * pixels follows it. Enabled by src/scripts/cursor.ts only on fine pointers
+ * without reduced motion; the canvas is empty and inert otherwise.
+ */
 ---
-<div id="cursor" class="cursor" aria-hidden="true" data-cursor-root>
-  <div class="cursor-dot" data-cursor-dot></div>
-  <div class="cursor-ring" data-cursor-ring><span class="cursor-label" data-cursor-label></span></div>
-</div>
+<canvas class="cursor-trail" data-cursor-canvas aria-hidden="true"></canvas>
 <style>
-  .cursor { position: fixed; inset: 0; pointer-events: none; z-index: 1000; display: none; }
-  html.has-cursor .cursor { display: block; }
-  html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor [role='button'], html.has-cursor label, html.has-cursor summary { cursor: none; }
-  html.has-cursor input, html.has-cursor textarea, html.has-cursor select { cursor: auto; }
-  .cursor-dot { position: absolute; top: 0; left: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--color-accent); will-change: transform; transition: opacity 0.2s ease, width 0.3s ease, height 0.3s ease, margin 0.3s ease; }
-  .cursor-ring { position: absolute; top: 0; left: 0; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 1.5px solid rgba(255, 107, 53, 0.9); display: grid; place-items: center; will-change: transform; transition: width 0.45s var(--ease-out-expo), height 0.45s var(--ease-out-expo), margin 0.45s var(--ease-out-expo), background-color 0.3s ease, border-color 0.3s ease, opacity 0.2s ease; }
-  .cursor-label { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink); opacity: 0; transform: scale(0.6); transition: opacity 0.25s ease, transform 0.35s var(--ease-out-expo); }
-  .cursor.is-hidden .cursor-dot, .cursor.is-hidden .cursor-ring { opacity: 0; }
-  .cursor.is-link .cursor-ring { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: rgba(255, 107, 53, 0.12); }
-  .cursor.is-link .cursor-dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; }
-  .cursor.is-label .cursor-ring { width: 76px; height: 76px; margin: -38px 0 0 -38px; background: rgba(255, 107, 53, 0.95); border-color: transparent; }
-  .cursor.is-label .cursor-dot { opacity: 0; }
-  .cursor.is-label .cursor-label { opacity: 1; transform: none; }
-  .cursor.is-down .cursor-ring { transform: scale(0.85); }
-  .cursor.is-text .cursor-ring { width: 4px; height: 28px; margin: -14px 0 0 -2px; border-radius: 2px; background: var(--color-accent); border-color: transparent; }
-  .cursor.is-text .cursor-dot { opacity: 0; }
+  .cursor-trail {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    pointer-events: none;
+    z-index: 900;
+  }
+  html.has-cursor-trail .cursor-trail { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-trail { display: none !important; }
+  }
 </style>

@@ -4,7 +4,7 @@
  * reject / configure, revoke from the footer), language banner, language
  * switcher, header (mega menu, mobile menu, keyboard), contact form (validation,
  * honeypot, success, server errors), HR health check, bad-hire calculator,
- * FAQ search, blog filters, 404 in the right language, hreflang, reduced motion.
+ * FAQ search, 404 in the right language, hreflang, reduced motion.
  * Output: docs/qa/e2e.md. Exit code 1 when a check fails.
  *
  *   node scripts/qa-e2e.mjs [--base=http://host:port]
@@ -309,21 +309,6 @@ await test('FAQ search filters questions and shows an empty state', desktop, asy
   await page.fill('[data-faq-search]', 'zzzzqqq');
   await page.waitForTimeout(400);
   expect(await page.locator('[data-faq-empty]').isVisible(), 'empty state not shown');
-});
-
-await test('blog: category filter narrows the list', desktop, async (page) => {
-  await page.goto(base + '/de/blog/', { waitUntil: 'networkidle' });
-  await settleBanners(page);
-  await page.reload({ waitUntil: 'networkidle' });
-  const cards = page.locator('[data-blog] [data-post]');
-  const all = await cards.count();
-  expect(all >= 4, `only ${all} posts`);
-  const filters = page.locator('[data-blog] [data-filter]');
-  expect((await filters.count()) >= 3, 'no filters');
-  await filters.nth(1).click();
-  await page.waitForTimeout(400);
-  const shown = await page.locator('[data-blog] [data-post]:visible').count();
-  expect(shown > 0 && shown < all, `${shown} of ${all} after filtering`);
 });
 
 await test('404: unknown URL returns status 404 and continues to the localized 404 page', desktop, async (page) => {

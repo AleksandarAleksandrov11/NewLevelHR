@@ -13,9 +13,9 @@ import { ROOT, chromiumPath, resolveBase, ensureDir, nowStamp } from './lib/qa-u
 
 const MIN = Number(process.argv.find((a) => a.startsWith('--min='))?.slice(6) || 90);
 const PAGES = {
-  en: { home: '/en/', services: '/en/services/', service: '/en/services/fractional-hr-partnership/', about: '/en/about/', blog: '/en/blog/', post: '/en/blog/onboarding-bingo-buzzwords/', contact: '/en/contact/' },
-  de: { home: '/de/', services: '/de/leistungen/', service: '/de/leistungen/fraktionale-hr-partnerschaft/', about: '/de/ueber-uns/', blog: '/de/blog/', post: '/de/blog/onboarding-bingo-buzzwords/', contact: '/de/kontakt/' },
-  bg: { home: '/bg/', services: '/bg/uslugi/', service: '/bg/uslugi/fraktsionno-hr-partniorstvo/', about: '/bg/za-nas/', blog: '/bg/blog/', post: '/bg/blog/onboarding-bingo-buzzwords/', contact: '/bg/kontakti/' },
+  en: { home: '/en/', services: '/en/services/', service: '/en/services/fractional-hr-partnership/', problems: '/en/what-we-fix/', about: '/en/about/', faq: '/en/faq/', contact: '/en/contact/' },
+  de: { home: '/de/', services: '/de/leistungen/', service: '/de/leistungen/fraktionale-hr-partnerschaft/', problems: '/de/was-wir-loesen/', about: '/de/ueber-uns/', faq: '/de/faq/', contact: '/de/kontakt/' },
+  bg: { home: '/bg/', services: '/bg/uslugi/', service: '/bg/uslugi/fraktsionno-hr-partniorstvo/', problems: '/bg/kakvo-reshavame/', about: '/bg/za-nas/', faq: '/bg/faq/', contact: '/bg/kontakti/' },
 };
 const onlyPages = process.argv.find((a) => a.startsWith('--pages='))?.slice(8).split(',');
 

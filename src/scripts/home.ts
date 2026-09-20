@@ -60,9 +60,14 @@ function initBridge() {
     onUpdate: (self) => {
       const p = self.progress;
       if (fill) fill.style.transform = `scaleX(${p})`;
-      const idx = Math.min(items.length - 1, Math.floor(p * items.length));
+      // The rail runs from the first dot to the last, so progress maps straight onto the milestones.
+      const seg = p * (items.length - 1);
+      const idx = Math.min(items.length - 1, Math.floor(seg + 1e-4));
       items.forEach((it, i) => { it.classList.toggle('is-active', i <= idx); it.classList.toggle('is-current', i === idx); });
-      if (dayLabel) dayLabel.textContent = String(Math.round(1 + p * (days[days.length - 1] - 1)));
+      if (dayLabel) {
+        const from = days[idx], to = days[Math.min(days.length - 1, idx + 1)] ?? days[idx];
+        dayLabel.textContent = String(Math.round(from + (to - from) * Math.min(1, Math.max(0, seg - idx))));
+      }
     },
   });
   cleanup.push(() => st.kill());

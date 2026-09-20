@@ -30,7 +30,7 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
           <h2 id="bridge-title" class="bridge-title font-display" data-split>{b.title}</h2>
           <p class="bridge-text" data-reveal data-reveal-delay="1">{b.text}</p>
           <div class="bridge-cta" data-reveal data-reveal-delay="2">
-            <Button href={localizePath('serviceBridge', lang)} variant="light" cursor="view">{b.cta}</Button>
+            <Button href={localizePath('serviceBridge', lang)} variant="light">{b.cta}</Button>
           </div>
         </div>
         <div class="bridge-counter" aria-hidden="true" data-reveal data-reveal-delay="2">
@@ -47,9 +47,11 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
           {milestones.map((m) => (
             <li class="bridge-item" data-bridge-item={String(m.value)}>
               <span class="bridge-dot" aria-hidden="true"></span>
-              <p class="bridge-item-day">{m.day}</p>
-              <h3 class="bridge-item-title font-display">{m.title}</h3>
-              <p class="bridge-item-body">{m.body}</p>
+              <div class="bridge-card">
+                <p class="bridge-item-day">{m.day}</p>
+                <h3 class="bridge-item-title font-display">{m.title}</h3>
+                <p class="bridge-item-body">{m.body}</p>
+              </div>
             </li>
           ))}
         </ol>
@@ -75,17 +77,20 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
   .bridge-counter { display: none; }
 
   /* Timeline: vertical rail on the left (mobile, tablet, reduced motion) */
-  .bridge-timeline { position: relative; margin-top: 2.5rem; }
+  .bridge-timeline { --bridge-gap: 1rem; position: relative; margin-top: 2.5rem; }
   .bridge-rail { position: absolute; left: 7px; top: 1rem; bottom: 1rem; width: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.14); }
   .bridge-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--grad-accent-v); transform-origin: top; box-shadow: 0 0 18px rgba(255, 107, 53, 0.55); }
-  .bridge-items { display: grid; gap: 1rem; padding-left: 2.5rem; }
-  .bridge-item {
+  .bridge-items { display: grid; gap: var(--bridge-gap); padding-left: 2.5rem; }
+  /* The item only positions the dot; the card inside carries the visuals, so the
+     lift of the current card never pulls its dot off the rail. */
+  .bridge-item { position: relative; display: grid; }
+  .bridge-card {
     --card-bg: rgba(255, 255, 255, 0.05);
     --card-border: rgba(255, 255, 255, 0.12);
     --card-fg: #fff;
     --card-muted: rgba(255, 255, 255, 0.7);
     --card-day: var(--color-accent-3);
-    position: relative; padding: 1.25rem 1.35rem; border-radius: var(--radius-lg);
+    height: 100%; padding: 1.25rem 1.35rem; border-radius: var(--radius-lg);
     background: var(--card-bg); border: 1px solid var(--card-border); color: var(--card-fg);
     transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease, transform 0.7s var(--ease-out-expo), box-shadow 0.7s var(--ease-out-expo);
   }
@@ -95,12 +100,12 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
   .bridge-item-body { margin-top: 0.55rem; font-size: 0.9rem; line-height: 1.55; color: var(--card-muted); transition: color 0.5s ease; }
 
   /* Lit states: the script adds .is-active to every card below 1024px, in sequence on desktop. */
-  .bridge-item.is-active { --card-bg: #fff; --card-border: #fff; --card-fg: var(--color-ink); --card-muted: var(--color-slate); --card-day: var(--color-accent-ink); }
+  .bridge-item.is-active .bridge-card { --card-bg: #fff; --card-border: #fff; --card-fg: var(--color-ink); --card-muted: var(--color-slate); --card-day: var(--color-accent-ink); }
   .bridge-item.is-active .bridge-dot { background: var(--color-accent); border-color: #fff; box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.25); }
   /* Without motion (no JS or reduced motion) nothing is dimmed, so the content is always readable. */
   .js-motion .bridge-item:not(.is-active) { opacity: 0.45; }
   .js-motion .bridge-item.is-active { opacity: 1; }
-  .bridge-item.is-current { box-shadow: var(--shadow-glow); }
+  .bridge-item.is-current .bridge-card { box-shadow: var(--shadow-glow); }
 
   /* Desktop: pinned full-viewport scene, horizontal bridge from day 1 to day 90 */
   @media (min-width: 64rem) {
@@ -114,14 +119,15 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
     .bridge-counter-of { margin-left: 0.08em; font-size: 0.28em; font-weight: 700; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.4); }
 
     .bridge-timeline { margin-top: 3rem; }
-    .bridge-rail { left: 0; right: 0; top: 7px; bottom: auto; width: auto; height: 2px; }
+    /* The rail ends on the centre of the last dot, so the fill maps day 1 to day 90 exactly. */
+    .bridge-rail { left: 0; right: calc((100% - 3 * var(--bridge-gap)) / 4); top: 7px; bottom: auto; width: auto; height: 2px; }
     .bridge-fill { background: var(--grad-accent); transform-origin: left; transform: scaleX(0); }
     html:not(.js-motion) .bridge-fill { transform: none; }
-    .bridge-items { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; padding-left: 0; padding-top: 2.25rem; }
-    .bridge-dot { left: 0; top: -2.25rem; }
-    .bridge-item { padding: 1.35rem 1.4rem 1.5rem; }
+    .bridge-items { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-left: 0; padding-top: 2.25rem; }
+    .bridge-dot { left: 0; top: -2.25rem; transform: translateX(-50%); }
+    .bridge-card { padding: 1.35rem 1.4rem 1.5rem; }
     .bridge-item-body { font-size: 0.875rem; line-height: 1.5; }
-    .bridge-item.is-current { transform: translateY(-6px) scale(1.02); border-color: rgba(255, 107, 53, 0.5); }
+    .bridge-item.is-current .bridge-card { transform: translateY(-6px) scale(1.02); border-color: rgba(255, 107, 53, 0.5); }
   }
   /* Shorter desktop viewports: keep the whole scene inside the pinned viewport. */
   @media (min-width: 64rem) and (max-height: 50rem) {
@@ -131,11 +137,11 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
     .bridge-cta { margin-top: 1.1rem; }
     .bridge-counter-value { font-size: clamp(4.5rem, 3rem + 4vw, 7rem); }
     .bridge-timeline { margin-top: 1.75rem; }
-    .bridge-item { padding: 1rem 1.1rem 1.1rem; }
+    .bridge-card { padding: 1rem 1.1rem 1.1rem; }
     .bridge-item-title { font-size: 1.05rem; }
     .bridge-item-body { font-size: 0.82rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .bridge-item, .bridge-dot, .bridge-item-day, .bridge-item-body { transition: none; }
+    .bridge-card, .bridge-dot, .bridge-item-day, .bridge-item-body { transition: none; }
   }
 </style>

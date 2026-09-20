@@ -7,7 +7,7 @@ export const common = {
   meta: {
     siteName: 'NewLevelHR',
     tagline: 'Practical. On-call. Always in your corner.',
-    defaultTitle: 'NewLevelHR – The HR Partner Your Business Actually Needs',
+    defaultTitle: 'NewLevelHR: The HR Partner Your Business Actually Needs',
     defaultDescription: 'Real HR support without the full-time hire. Compliance, hiring, employee issues, done right.',
     titleSuffix: ' | NewLevelHR',
   },
@@ -17,7 +17,6 @@ export const common = {
     problems: 'What We Fix',
     about: 'About',
     howWeWork: 'How We Work',
-    blog: 'Blog',
     faq: 'FAQ',
     contact: 'Contact',
     bookCall: 'Book a free call',
@@ -91,7 +90,7 @@ export const common = {
     bridge: { value: '90 days', label: 'Post-hire support' },
     response: { value: '< 24 h', label: 'Response time' },
     languages: { value: '3', label: 'Languages: EN · DE · BG' },
-    hours: { value: 'Mon–Fri', label: '9–18 CET' },
+    hours: { value: 'Mon-Fri', label: '9-18 CET' },
   },
   kpis: {
     hiringSuccess: 'Hiring success rate',
@@ -116,7 +115,7 @@ export const common = {
     colContact: 'Contact',
     email: 'Email',
     hours: 'Hours',
-    hoursValue: 'Mon–Fri, 9–18 CET',
+    hoursValue: 'Mon-Fri, 9-18 CET',
     responseTime: 'Response time',
     responseValue: 'Within 24 hours',
     address: 'Address',
@@ -135,14 +134,6 @@ export const common = {
     switch: 'Switch to {language}',
     dismiss: 'Keep English',
     close: 'Dismiss',
-  },
-  cursor: {
-    view: 'View',
-    read: 'Read',
-    book: 'Book',
-    open: 'Open',
-    drag: 'Drag',
-    play: 'Play',
   },
   misc: {
     readingTime: '{minutes} min read',
@@ -172,7 +163,7 @@ export const common = {
     share: 'Share',
     lastUpdated: 'Last updated: {date}',
     founder: 'Founder & Managing Director',
-    photoPlaceholder: 'Portrait of Mariyana Velkova (photo to follow)',
+    photoPlaceholder: 'Portrait of Mariyana Velkova',
     servicesList: 'Services',
   },
   notFound: {

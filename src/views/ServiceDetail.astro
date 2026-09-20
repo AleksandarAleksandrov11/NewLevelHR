@@ -15,7 +15,7 @@ import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
 import { site } from '@/config/site';
 
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+interface Props { lang: Locale; pageKey: PageKey }
 const { lang, pageKey } = Astro.props;
 const d = getDict(lang);
 const s = d.services;
@@ -30,7 +30,6 @@ const name = c.services[short].name;
 const l = s.labels;
 const variant = ({ fractional: 'mesh', hiring: 'ivory', bridge: 'dark', coaching: 'mesh' } as const)[short];
 const related = page.related.map((r) => r as Short).filter((r) => r !== short);
-const problems = d.home.problems.items.filter((p) => (page.problems as readonly string[]).includes(p.id));
 const url = `${site.url}${localizePath(key, lang)}`;
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -51,8 +50,8 @@ const faqLd = {
 };
 ---
 <PageShell lang={lang} pageKey={key} title={page.meta.title} description={page.meta.description} jsonLd={[serviceLd, faqLd]}>
-  <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }} variant={variant} tags={page.hero.tags}>
-    <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book" variant={variant === 'dark' ? 'primary' : 'primary'}>{l.bookCall}</Button>
+  <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }} variant={variant}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar" variant={variant === 'dark' ? 'primary' : 'primary'}>{l.bookCall}</Button>
     <Button href={localizePath('contact', lang)} variant={variant === 'dark' ? 'light-ghost' : 'ghost'} icon="none"><MessageCircle class="size-4" aria-hidden="true" />{l.askQuestion}</Button>
   </PageHero>
 
@@ -140,21 +139,12 @@ const faqLd = {
 
   <section class="section bg-white">
     <div class="container-site">
-      {problems.length > 0 && (
-        <div class="sd-problems" data-reveal>
-          <h2 class="font-display text-display-sm text-ink">{l.problemsTitle}</h2>
-          <p class="text-slate mt-3">{l.problemsText}</p>
-          <ul class="mt-6 flex flex-wrap gap-2" role="list">
-            {problems.map((p) => <li><a href={`${localizePath('problems', lang)}#${p.id}`} class="pill pill-accent sd-problem-chip">{p.title}<ArrowRight class="size-3.5" aria-hidden="true" /></a></li>)}
-          </ul>
-        </div>
-      )}
       <div class="sd-related">
         <SectionHeading eyebrow={l.relatedEyebrow} title={l.relatedTitle} text={l.relatedText} size="md" />
         <ul class="sd-related-grid" role="list">
           {related.map((r, i) => (
             <li data-reveal data-reveal-delay={String(i + 1)}>
-              <a href={localizePath(keyOf[r], lang)} class="sd-related-card card card-hover group" data-cursor="open">
+              <a href={localizePath(keyOf[r], lang)} class="sd-related-card card card-hover group">
                 <p class="text-xs font-bold uppercase tracking-[0.14em] text-accent-ink">{c.services[r].tagline}</p>
                 <h3 class="font-display text-xl font-bold text-ink mt-2">{c.services[r].name}</h3>
                 <p class="mt-2 text-slate text-[0.95rem] leading-relaxed">{c.services[r].menuDesc}</p>
@@ -196,8 +186,6 @@ const faqLd = {
   .sd-faq { display: grid; gap: 2.5rem; }
   @media (min-width: 64rem) { .sd-faq { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .sd-faq-side { position: sticky; top: calc(var(--header-h) + 2rem); } }
   .sd-faq-list { border-top: 1px solid var(--color-line); }
-  .sd-problems { padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--color-line); }
-  .sd-problem-chip { gap: 0.4rem; transition: background-color 0.3s ease, color 0.3s ease; }
   .sd-problem-chip:hover { background: var(--color-accent); color: var(--color-ink); }
   .sd-related-grid { display: grid; gap: 1.25rem; margin-top: 2.5rem; }
   @media (min-width: 48rem) { .sd-related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
-   Design tokens — the single source of truth for colour, type, motion.
+   Design tokens: the single source of truth for colour, type, motion.
    Everything here is also exposed as a Tailwind v4 utility (bg-ink, text-accent-ink,
    font-display, rounded-xl2 …). See /docs/design-system.md.
    ------------------------------------------------------------------------ */
@@ -225,7 +225,7 @@
     padding-bottom: 0.05em;
   }
 
-  /* Paper/grain texture overlay — pure CSS, no image request */
+  /* Paper/grain texture overlay, pure CSS, no image request */
   .bg-grain { position: relative; isolation: isolate; }
   .bg-grain::before {
     content: '';
@@ -369,16 +369,6 @@
   .prose-nl img { border-radius: var(--radius-lg); }
   .prose-nl figcaption { font-size: 0.875rem; color: var(--color-slate); margin-top: 0.6em; }
   .prose-nl address { font-style: normal; }
-  .prose-nl .todo-client {
-    display: inline-block;
-    padding: 0.1em 0.55em;
-    border-radius: 0.4em;
-    background: var(--color-accent-soft-2);
-    color: var(--color-accent-deep);
-    font-weight: 700;
-    font-size: 0.85em;
-    letter-spacing: 0.02em;
-  }
 }
 
 @layer utilities {
