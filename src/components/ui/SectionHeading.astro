@@ -1,0 +1,29 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  titleHtml?: string;
+  text?: string;
+  align?: 'left' | 'center';
+  size?: 'lg' | 'md';
+  dark?: boolean;
+  class?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  maxWidth?: string;
+}
+const { eyebrow, title, titleHtml, text, align = 'left', size = 'lg', dark = false, class: className = '', as: Tag = 'h2', maxWidth = 'max-w-3xl' } = Astro.props;
+---
+<div class:list={['section-heading', maxWidth, align === 'center' && 'mx-auto text-center', className]} data-reveal>
+  {eyebrow && <p class:list={['eyebrow mb-4', align === 'center' && 'justify-center', dark && 'text-accent-3']}>{eyebrow}</p>}
+  {titleHtml ? (
+    <Tag class:list={[size === 'lg' ? 'text-display-lg' : 'text-display-md', 'font-display', dark ? 'text-white' : 'text-ink']} set:html={titleHtml} />
+  ) : (
+    <Tag class:list={[size === 'lg' ? 'text-display-lg' : 'text-display-md', 'font-display', dark ? 'text-white' : 'text-ink']}>{title}</Tag>
+  )}
+  {text && <p class:list={['text-lead mt-5', dark ? 'text-white/75' : 'text-slate', align === 'center' && 'mx-auto', 'max-w-2xl']}>{text}</p>}
+  <slot />
+</div>
+<style>
+  .section-heading :global(.accent) { color: var(--color-accent-ink); }
+  .section-heading :global(.gradient-text) { padding-bottom: 0.08em; }
+</style>

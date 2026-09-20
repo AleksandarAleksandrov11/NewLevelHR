@@ -1,0 +1,263 @@
+---
+import { ChevronDown, Users, Zap, Route, GraduationCap, ArrowRight, Mail, Clock } from '@lucide/astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+import Wordmark from '@/components/ui/Wordmark.astro';
+import Button from '@/components/ui/Button.astro';
+import LangSwitcher from '@/components/layout/LangSwitcher.astro';
+
+interface Props {
+  lang: Locale;
+  alternates: Record<Locale, string>;
+  currentKey?: PageKey | 'blogPost';
+  transparent?: boolean;
+}
+const { lang, alternates, currentKey, transparent = false } = Astro.props;
+const d = getDict(lang);
+const c = d.common;
+const p = (k: PageKey, hash?: string) => localizePath(k, lang, hash);
+const bookHref = p('contact', 'book');
+
+const services = [
+  { key: 'serviceFractional' as PageKey, icon: Users, ...c.services.fractional },
+  { key: 'serviceHiring' as PageKey, icon: Zap, ...c.services.hiring },
+  { key: 'serviceBridge' as PageKey, icon: Route, ...c.services.bridge },
+  { key: 'serviceCoaching' as PageKey, icon: GraduationCap, ...c.services.coaching },
+];
+const primaryLinks: Array<{ key: PageKey; label: string }> = [
+  { key: 'problems', label: c.nav.problems },
+  { key: 'howWeWork', label: c.nav.howWeWork },
+  { key: 'about', label: c.nav.about },
+  { key: 'blog', label: c.nav.blog },
+];
+const mobileLinks: Array<{ key: PageKey; label: string }> = [
+  { key: 'services', label: c.nav.services },
+  ...primaryLinks,
+  { key: 'faq', label: c.nav.faq },
+  { key: 'contact', label: c.nav.contact },
+];
+const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof currentKey === 'string' && currentKey.startsWith('service')) || (k === 'blog' && currentKey === 'blogPost');
+---
+<header id="site-header" class="site-header">
+  <div class:list={['header-bar', transparent && 'is-transparent-top']} data-header>
+  <div class="progress" aria-hidden="true"><span class="progress-fill" data-progress></span></div>
+  <div class="header-inner container-wide">
+    <Wordmark href={p('home')} label={c.meta.siteName} class="header-logo" />
+
+    <nav class="desktop-nav" aria-label={c.nav.mainNavigation}>
+      <ul class="nav-list" role="list">
+        <li class="nav-item has-mega" data-mega>
+          <button type="button" class:list={['nav-link', isActive('services') && 'is-active']} aria-expanded="false" aria-controls="mega-services" data-mega-trigger>
+            <span>{c.nav.services}</span>
+            <ChevronDown class="size-3.5 transition-transform duration-300" aria-hidden="true" />
+          </button>
+          <div id="mega-services" class="mega" data-mega-panel>
+            <div class="mega-inner">
+              <div class="mega-grid">
+                <p class="mega-title">{c.nav.servicesMenuTitle}</p>
+                <ul class="mega-list" role="list">
+                  {services.map((s) => (
+                    <li>
+                      <a href={p(s.key)} class:list={['mega-card group', isActive(s.key) && 'is-active']} data-cursor="open">
+                        <span class="mega-icon"><s.icon class="size-5" aria-hidden="true" /></span>
+                        <span class="mega-text">
+                          <span class="mega-name">{s.name}</span>
+                          <span class="mega-desc">{s.menuDesc}</span>
+                        </span>
+                        <ArrowRight class="mega-arrow size-4" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a href={p('services')} class="mega-all group">
+                  <span>{c.nav.servicesOverview}</span>
+                  <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </a>
+              </div>
+              <aside class="mega-aside">
+                <p class="mega-aside-title">{c.nav.menuCtaTitle}</p>
+                <p class="mega-aside-text">{c.nav.menuCtaText}</p>
+                <Button href={bookHref} size="sm" icon="calendar" magnetic={false} class="mt-5">{c.nav.bookCall}</Button>
+                <ul class="mega-aside-meta" role="list">
+                  <li><Clock class="size-3.5" aria-hidden="true" /><span>{c.footer.hoursValue}</span></li>
+                  <li><Mail class="size-3.5" aria-hidden="true" /><span>{site.email}</span></li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </li>
+        {primaryLinks.map((l) => (
+          <li class="nav-item">
+            <a href={p(l.key)} class:list={['nav-link', isActive(l.key) && 'is-active']} aria-current={isActive(l.key) ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <LangSwitcher lang={lang} alternates={alternates} class="hidden lg:block" />
+      <div class="hidden md:block"><Button href={bookHref} size="sm" icon="calendar" class="header-cta">{c.nav.bookCall}</Button></div>
+      <button type="button" class="burger" aria-expanded="false" aria-controls="mobile-menu" aria-label={c.nav.openMenu} data-burger>
+        <span class="burger-box" aria-hidden="true"><span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span></span>
+      </button>
+    </div>
+  </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" data-mobile-menu aria-hidden="true">
+    <div class="mobile-inner container-site">
+      <nav aria-label={c.nav.mainNavigation} class="mobile-nav">
+        <ul role="list" class="mobile-list">
+          {mobileLinks.map((l, i) => (
+            <li class="mobile-item" style={`--i:${i}`}>
+              <a href={p(l.key)} class:list={['mobile-link', isActive(l.key) && 'is-active']} aria-current={isActive(l.key) ? 'page' : undefined}>
+                <span class="mobile-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span>{l.label}</span>
+              </a>
+              {l.key === 'services' && (
+                <ul role="list" class="mobile-sub">
+                  {services.map((s) => (
+                    <li><a href={p(s.key)} class="mobile-sub-link"><s.icon class="size-4" aria-hidden="true" /><span>{s.name}</span></a></li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div class="mobile-footer mobile-item" style={`--i:${mobileLinks.length + 1}`}>
+        <Button href={bookHref} size="lg" icon="calendar" magnetic={false} class="w-full">{c.nav.bookCall}</Button>
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+          <LangSwitcher lang={lang} alternates={alternates} variant="inline" id="lang-switcher-mobile" />
+        </div>
+        <p class="mt-6 text-sm text-slate">
+          <a href={`mailto:${site.email}`} class="font-medium text-ink underline-offset-4 hover:underline">{site.email}</a><br />
+          {c.footer.hoursValue}
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header { position: static; }
+  .header-bar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 80;
+    transition: transform 0.6s var(--ease-out-expo), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    background: rgba(251, 248, 244, 0.85);
+    border-bottom: 1px solid transparent;
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    backdrop-filter: saturate(160%) blur(16px);
+  }
+  .header-bar.is-transparent-top:not(.is-scrolled) {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .header-bar.is-scrolled { border-bottom-color: var(--color-line); box-shadow: 0 8px 30px -20px rgba(20, 20, 28, 0.25); }
+  .header-bar.is-hidden { transform: translateY(-100%); }
+  .header-bar.is-menu-open { transform: none; background: var(--color-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: transparent; box-shadow: none; }
+
+  .progress { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: transparent; pointer-events: none; }
+  .progress-fill { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(0); background: var(--grad-accent); }
+
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: var(--header-h); }
+  .header-logo { position: relative; z-index: 2; }
+
+  .desktop-nav { display: none; }
+  @media (min-width: 64rem) { .desktop-nav { display: block; } }
+  .nav-list { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-item { position: relative; }
+  .nav-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    padding: 0.55rem 0.85rem; border-radius: 999px;
+    font-size: 0.9rem; font-weight: 600; color: var(--color-ink-2);
+    background: transparent; border: 0; cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .nav-link:hover, .nav-link[aria-expanded='true'] { background: rgba(20, 20, 28, 0.06); color: var(--color-ink); }
+  .nav-link.is-active { color: var(--color-accent-ink); }
+  .nav-link[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+
+  .mega {
+    position: absolute; left: -1rem; top: calc(100% + 0.6rem);
+    width: min(56rem, calc(100vw - 2 * var(--gutter)));
+    opacity: 0; visibility: hidden; transform: translateY(8px) scale(0.985);
+    transform-origin: top left;
+    transition: opacity 0.35s var(--ease-out-expo), transform 0.45s var(--ease-out-expo), visibility 0s linear 0.35s;
+    pointer-events: none;
+  }
+  .has-mega.is-open .mega { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; pointer-events: auto; }
+  .mega::before { content: ''; position: absolute; left: 0; right: 0; top: -0.8rem; height: 0.8rem; }
+  .mega-inner {
+    display: grid; grid-template-columns: 1.6fr 1fr;
+    background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lift); overflow: hidden;
+  }
+  .mega-grid { padding: 1.5rem; }
+  .mega-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.75rem; padding-left: 0.5rem; }
+  .mega-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem; }
+  .mega-card {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 0.85rem;
+    padding: 0.85rem 0.75rem; border-radius: var(--radius-md);
+    transition: background-color 0.3s ease;
+  }
+  .mega-card:hover, .mega-card.is-active { background: var(--color-ivory); }
+  .mega-icon {
+    display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 0.75rem;
+    background: var(--color-accent-soft); color: var(--color-accent-ink);
+    transition: transform 0.5s var(--ease-out-expo), background-color 0.3s ease, color 0.3s ease;
+  }
+  .mega-card:hover .mega-icon { background: var(--color-accent); color: var(--color-ink); transform: rotate(-6deg) scale(1.05); }
+  .mega-name { display: block; font-weight: 650; font-size: 0.95rem; color: var(--color-ink); line-height: 1.3; }
+  .mega-desc { display: block; margin-top: 0.2rem; font-size: 0.8rem; line-height: 1.45; color: var(--color-slate); }
+  .mega-arrow { margin-top: 0.35rem; color: var(--color-mist); opacity: 0; transform: translateX(-4px); transition: all 0.35s var(--ease-out-expo); }
+  .mega-card:hover .mega-arrow { opacity: 1; transform: none; color: var(--color-accent-ink); }
+  .mega-all { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0.75rem 0 0 0.75rem; font-size: 0.85rem; font-weight: 650; color: var(--color-accent-ink); }
+  .mega-aside { padding: 1.5rem; background: var(--color-ink); color: #fff; }
+  .mega-aside-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .mega-aside-text { margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.55; color: rgba(255, 255, 255, 0.72); }
+  .mega-aside-meta { margin-top: 1.25rem; display: grid; gap: 0.4rem; font-size: 0.78rem; color: rgba(255, 255, 255, 0.6); }
+  .mega-aside-meta li { display: flex; align-items: center; gap: 0.5rem; }
+
+  .header-actions { display: flex; align-items: center; gap: 0.6rem; position: relative; z-index: 2; }
+
+  .burger { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1px solid var(--color-line-strong); background: transparent; cursor: pointer; }
+  .burger-box { position: relative; width: 1.15rem; height: 0.85rem; display: block; }
+  .burger-line { position: absolute; left: 0; width: 100%; height: 2px; background: var(--color-ink); border-radius: 2px; transition: transform 0.45s var(--ease-out-expo), opacity 0.3s ease, top 0.45s var(--ease-out-expo); }
+  .burger-line:nth-child(1) { top: 0; }
+  .burger-line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+  .burger-line:nth-child(3) { top: 100%; transform: translateY(-100%); }
+  .burger[aria-expanded='true'] .burger-line:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+  .burger[aria-expanded='true'] .burger-line:nth-child(2) { opacity: 0; transform: translateY(-50%) scaleX(0); }
+  .burger[aria-expanded='true'] .burger-line:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 79; background: var(--color-ivory);
+    padding-top: var(--header-h);
+    overflow-y: auto; overscroll-behavior: contain;
+    opacity: 0; visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.7s var(--ease-out-expo), opacity 0.4s ease, visibility 0s linear 0.7s;
+  }
+  .mobile-menu.is-open { opacity: 1; visibility: visible; clip-path: inset(0 0 0 0); transition-delay: 0s; }
+  .mobile-inner { padding-block: 1.5rem 3rem; min-height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+  .mobile-list { display: grid; }
+  .mobile-item { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.7s var(--ease-out-expo); transition-delay: calc(0.08s + var(--i) * 0.05s); }
+  .mobile-menu.is-open .mobile-item { opacity: 1; transform: none; }
+  .mobile-link {
+    display: flex; align-items: baseline; gap: 1rem; padding: 0.85rem 0;
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1.75rem, 6vw, 2.5rem); letter-spacing: -0.02em; color: var(--color-ink);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .mobile-link.is-active { color: var(--color-accent-ink); }
+  .mobile-num { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; color: var(--color-accent-ink); letter-spacing: 0.1em; }
+  .mobile-sub { display: grid; gap: 0.1rem; padding: 0.5rem 0 0.75rem 2.2rem; border-bottom: 1px solid var(--color-line); }
+  .mobile-sub-link { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0; font-size: 1rem; font-weight: 550; color: var(--color-ink-3); }
+  .mobile-sub-link :global(svg) { color: var(--color-accent-ink); }
+  @media (min-width: 64rem) { .mobile-menu { display: none; } .burger { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .mobile-menu, .mobile-item, .mega { transition: none; } }
+</style>

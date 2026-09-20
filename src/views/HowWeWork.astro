@@ -1,0 +1,131 @@
+---
+/** How we work: the five-step process, the free call, engagement models, tools, expectations, FAQ. */
+import { MessageSquare, Video, FolderOpen, Check } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import ProcessSteps from '@/components/services/ProcessSteps.astro';
+import CheckList from '@/components/services/CheckList.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const h = d.howWeWork;
+const c = d.common;
+const toolIcons = [MessageSquare, Video, FolderOpen];
+const howTo = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: h.steps.title,
+  description: h.hero.text,
+  step: h.steps.items.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.title, text: s.body })),
+};
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: h.faq.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })) };
+---
+<PageShell lang={lang} pageKey="howWeWork" title={h.meta.title} description={h.meta.description} jsonLd={[howTo, faqLd]}>
+  <PageHero lang={lang} eyebrow={h.hero.eyebrow} title={h.hero.title} text={h.hero.text} crumbs={[{ label: c.nav.howWeWork }]} photo={{ name: 'office-light', alt: h.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{h.firstCall.button}</Button>
+  </PageHero>
+
+  <section class="section bg-white">
+    <div class="container-site hw-steps">
+      <div class="hw-steps-head">
+        <SectionHeading eyebrow={h.steps.eyebrow} title={h.steps.title} text={h.steps.text} size="md" />
+        <svg class="hw-stairs" viewBox="0 0 240 160" aria-hidden="true">
+          <rect x="0" y="120" width="40" height="40" rx="6" fill="#ffb347" /><rect x="50" y="95" width="40" height="65" rx="6" fill="#ffa53d" /><rect x="100" y="70" width="40" height="90" rx="6" fill="#f7931e" /><rect x="150" y="40" width="40" height="120" rx="6" fill="#ff8236" /><rect x="200" y="0" width="40" height="160" rx="6" fill="#ff6b35" />
+        </svg>
+      </div>
+      <ProcessSteps steps={h.steps.items} />
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site hw-call">
+      <div class="hw-call-card" data-reveal>
+        <p class="eyebrow">{h.firstCall.eyebrow}</p>
+        <h2 class="font-display text-display-md text-ink mt-4">{h.firstCall.title}</h2>
+        <p class="text-lead text-slate mt-4">{h.firstCall.text}</p>
+        <CheckList items={h.firstCall.points} class="mt-6" />
+        <div class="mt-8"><Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{h.firstCall.button}</Button></div>
+        <p class="mt-4 text-sm text-slate">{c.proof.consultation} · {c.proof.reply} · {c.proof.languages}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site">
+      <SectionHeading eyebrow={h.models.eyebrow} title={h.models.title} size="md" />
+      <div class="hw-models">
+        {h.models.items.map((m, i) => (
+          <article class:list={['hw-model', i === 0 && 'hw-model-primary']} data-reveal data-reveal-delay={String(i + 1)} data-tilt="3">
+            <h3 class="font-display text-display-sm">{m.title}</h3>
+            <p class="mt-3 leading-relaxed opacity-90">{m.body}</p>
+            <ul class="mt-5 grid gap-2" role="list">
+              {m.bullets.map((b) => <li class="flex items-start gap-2"><Check class="size-4 mt-1 shrink-0 text-accent-3" aria-hidden="true" /><span>{b}</span></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sand">
+    <div class="container-site hw-two">
+      <div>
+        <h2 class="font-display text-display-sm text-ink" data-reveal>{h.tools.title}</h2>
+        <ul class="hw-tools" role="list">
+          {h.tools.items.map((t, i) => { const Icon = toolIcons[i] ?? MessageSquare; return (
+            <li data-reveal data-reveal-delay={String(i + 1)}><span class="hw-tool-icon"><Icon class="size-5" aria-hidden="true" /></span><div><h3 class="font-display font-bold text-ink">{t.title}</h3><p class="mt-1 text-slate text-[0.95rem] leading-relaxed">{t.body}</p></div></li>
+          ); })}
+        </ul>
+      </div>
+      <div class="hw-expect" data-reveal data-reveal-delay="2">
+        <h2 class="font-display text-display-sm text-ink">{h.expectations.title}</h2>
+        <CheckList items={h.expectations.items} class="mt-6" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site hw-faq">
+      <div class="hw-faq-side">
+        <SectionHeading eyebrow={c.nav.faq} title={h.faq.title} size="md" />
+        <div class="mt-8" data-reveal data-reveal-delay="1"><Button href={localizePath('faq', lang)} variant="ghost">{c.nav.faq}</Button></div>
+      </div>
+      <div class="hw-faq-list" data-reveal data-reveal-delay="1">
+        {h.faq.items.map((it, i) => <Accordion question={it.q} name="how-faq" open={i === 0}><p>{it.a}</p></Accordion>)}
+      </div>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} title={h.cta.title} text={h.cta.text} />
+  <JsonLd data={[]} />
+</PageShell>
+
+<style>
+  .hw-steps { display: grid; gap: 3rem; }
+  @media (min-width: 64rem) { .hw-steps { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .hw-steps-head { position: sticky; top: calc(var(--header-h) + 2rem); } }
+  .hw-stairs { width: min(100%, 16rem); margin-top: 2.5rem; opacity: 0.95; }
+  .hw-call-card { max-width: 46rem; margin-inline: auto; padding: clamp(1.75rem, 1rem + 2.5vw, 3.5rem); border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-lift); }
+  .hw-models { display: grid; gap: 1.5rem; margin-top: 3rem; }
+  @media (min-width: 48rem) { .hw-models { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; } }
+  .hw-model { padding: 2rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); color: var(--color-ink); }
+  .hw-model-primary { background: var(--color-ink); color: #fff; border-color: var(--color-ink); box-shadow: var(--shadow-lift); }
+  .hw-model:not(.hw-model-primary) :global(.text-accent-3) { color: var(--color-accent-ink); }
+  .hw-two { display: grid; gap: 3rem; }
+  @media (min-width: 64rem) { .hw-two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5rem; } }
+  .hw-tools { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .hw-tools li { display: flex; gap: 1rem; align-items: flex-start; }
+  .hw-tool-icon { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; background: var(--color-white); border: 1px solid var(--color-line); color: var(--color-accent-ink); }
+  .hw-expect { padding: 2rem; border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); }
+  .hw-faq { display: grid; gap: 2.5rem; }
+  @media (min-width: 64rem) { .hw-faq { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; align-items: start; } .hw-faq-side { position: sticky; top: calc(var(--header-h) + 2rem); } }
+  .hw-faq-list { border-top: 1px solid var(--color-line); }
+</style>

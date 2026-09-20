@@ -1,0 +1,115 @@
+---
+import { Cookie, X } from '@lucide/astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, fmt, localizePath } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.cookies;
+const analyticsConfigured = Boolean(site.analytics.provider && (site.analytics.src || site.analytics.domain));
+const cats = [
+  { id: 'necessary', ...t.categories.necessary, locked: true },
+  { id: 'analytics', ...t.categories.analytics, locked: false, available: analyticsConfigured },
+  { id: 'marketing', ...t.categories.marketing, locked: false, available: false },
+];
+---
+<div
+  id="consent"
+  class="consent"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="consent-title"
+  aria-describedby="consent-text"
+  hidden
+  data-consent
+  data-cookie-name={site.storage.consentCookie}
+  data-max-age-days={String(site.storage.consentMaxAgeDays)}
+  data-analytics-provider={site.analytics.provider}
+  data-analytics-domain={site.analytics.domain}
+  data-analytics-src={site.analytics.src}
+>
+  <div class="consent-card glass">
+    <div class="consent-view" data-consent-view="main">
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex items-center gap-2.5">
+          <span class="consent-icon"><Cookie class="size-4" aria-hidden="true" /></span>
+          <h2 id="consent-title" class="font-display text-[1.05rem] font-bold text-ink">{t.title}</h2>
+        </div>
+      </div>
+      <p id="consent-text" class="mt-3 text-sm leading-relaxed text-ink-3">{t.text}</p>
+      <p class="mt-2 text-xs text-slate">
+        <a href={localizePath('cookies', lang)} class="underline underline-offset-2 hover:text-ink">{t.policyLink}</a>
+        <span aria-hidden="true"> · </span>
+        <a href={localizePath('privacy', lang)} class="underline underline-offset-2 hover:text-ink">{t.privacyLink}</a>
+      </p>
+      <div class="consent-actions">
+        <button type="button" class="consent-btn consent-btn-primary" data-consent-action="accept">{t.acceptAll}</button>
+        <button type="button" class="consent-btn consent-btn-primary-alt" data-consent-action="reject">{t.rejectAll}</button>
+        <button type="button" class="consent-btn consent-btn-ghost" data-consent-action="settings">{t.settings}</button>
+      </div>
+    </div>
+
+    <div class="consent-view" data-consent-view="settings" hidden>
+      <div class="flex items-start justify-between gap-4">
+        <h2 class="font-display text-[1.05rem] font-bold text-ink">{t.settingsTitle}</h2>
+        <button type="button" class="consent-close" data-consent-action="back" aria-label={t.back}><X class="size-4" aria-hidden="true" /></button>
+      </div>
+      <p class="mt-2 text-sm leading-relaxed text-ink-3">{t.settingsText}</p>
+      <ul class="consent-cats" role="list">
+        {cats.map((cat) => (
+          <li class="consent-cat">
+            <div class="min-w-0">
+              <p class="font-semibold text-ink text-sm">{cat.title}</p>
+              <p class="mt-0.5 text-xs leading-relaxed text-slate">{cat.desc}</p>
+            </div>
+            {cat.locked ? (
+              <span class="consent-lock">{t.alwaysOn}</span>
+            ) : (
+              <label class="switch">
+                <input type="checkbox" data-consent-cat={cat.id} aria-label={fmt(t.toggleLabel, { category: cat.title })} />
+                <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              </label>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="consent-actions">
+        <button type="button" class="consent-btn consent-btn-primary" data-consent-action="save">{t.save}</button>
+        <button type="button" class="consent-btn consent-btn-primary-alt" data-consent-action="reject">{t.rejectAll}</button>
+        <button type="button" class="consent-btn consent-btn-ghost" data-consent-action="accept">{t.acceptAll}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .consent { position: fixed; z-index: 90; left: var(--gutter); right: var(--gutter); bottom: max(1rem, env(safe-area-inset-bottom)); display: flex; justify-content: flex-start; pointer-events: none; }
+  .consent[hidden], html.menu-open .consent { display: none; }
+  .consent-card { pointer-events: auto; width: min(100%, 26rem); padding: 1.25rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-lift); background: rgba(255, 255, 255, 0.92); animation: consent-in 0.7s var(--ease-out-expo); }
+  @keyframes consent-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+  .consent-icon { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 0.6rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
+  .consent-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem; }
+  .consent-actions .consent-btn-ghost { grid-column: 1 / -1; }
+  .consent-btn { height: 2.6rem; padding: 0 0.9rem; border-radius: 999px; font-size: 0.85rem; font-weight: 650; cursor: pointer; transition: transform 0.3s var(--ease-out-expo), background-color 0.25s ease, border-color 0.25s ease; border: 1px solid transparent; }
+  .consent-btn:active { transform: scale(0.97); }
+  .consent-btn-primary { background: var(--color-ink); color: #fff; }
+  .consent-btn-primary:hover { background: var(--color-ink-3); }
+  .consent-btn-primary-alt { background: #fff; color: var(--color-ink); border-color: var(--color-ink); }
+  .consent-btn-primary-alt:hover { background: var(--color-sand); }
+  .consent-btn-ghost { background: transparent; color: var(--color-ink-3); border-color: var(--color-line-strong); }
+  .consent-btn-ghost:hover { border-color: var(--color-ink); color: var(--color-ink); }
+  .consent-close { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 1px solid var(--color-line-strong); background: transparent; cursor: pointer; }
+  .consent-cats { display: grid; gap: 0.75rem; margin-top: 1rem; }
+  .consent-cat { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 0.75rem; border-radius: var(--radius-md); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .consent-lock { flex: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-success); padding: 0.3rem 0.5rem; border-radius: 999px; background: var(--color-success-soft); }
+  .switch { position: relative; flex: none; display: inline-block; width: 2.75rem; height: 1.6rem; cursor: pointer; }
+  .switch input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .switch-track { position: absolute; inset: 0; border-radius: 999px; background: var(--color-sand-3); transition: background-color 0.3s ease; }
+  .switch-thumb { position: absolute; top: 0.2rem; left: 0.2rem; width: 1.2rem; height: 1.2rem; border-radius: 999px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.4s var(--ease-out-expo); }
+  .switch input:checked + .switch-track { background: var(--color-accent); }
+  .switch input:checked + .switch-track .switch-thumb { transform: translateX(1.15rem); }
+  .switch input:focus-visible + .switch-track { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
+  @media (min-width: 40rem) { .consent { left: 1.5rem; right: auto; } }
+</style>

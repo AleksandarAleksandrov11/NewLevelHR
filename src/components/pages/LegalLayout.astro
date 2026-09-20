@@ -1,0 +1,120 @@
+---
+/** Shared layout for the four legal pages: in-page nav, structured blocks, cross-links. */
+import PageShell from '@/components/layout/PageShell.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import { type Locale, formatDate } from '@/i18n/config';
+import { getDict, fmt, localizePath, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+
+type LegalKey = 'legalNotice' | 'terms' | 'privacy' | 'cookies';
+interface Props { lang: Locale; pageKey: LegalKey }
+const { lang, pageKey } = Astro.props;
+const d = getDict(lang);
+const l = d.legal;
+const c = d.common;
+const page = l[pageKey];
+const vars: Record<string, string> = {
+  email: site.email,
+  legalNoticeUrl: localizePath('legalNotice', lang),
+  termsUrl: localizePath('terms', lang),
+  privacyUrl: localizePath('privacy', lang),
+  cookiesUrl: localizePath('cookies', lang),
+  consentCookie: site.storage.consentCookie,
+  langBannerKey: site.storage.langBannerKey,
+  preloaderKey: site.storage.preloaderKey,
+  cookieSettings: c.footer.cookieSettings,
+};
+const sub = (s: string) => fmt(s, vars);
+const otherPages = (['legalNotice', 'terms', 'privacy', 'cookies'] as LegalKey[]).filter((k) => k !== pageKey).map((k) => ({ key: k as PageKey, label: c.footer[k] }));
+const updated = formatDate(new Date(l.updated), lang);
+type Block = { type: string; text?: string; html?: string; items?: readonly string[]; lines?: readonly string[]; terms?: ReadonlyArray<{ term: string; text: string }>; caption?: string; headers?: readonly string[]; rows?: ReadonlyArray<readonly string[]> };
+const blocks = (list: readonly Block[]) => list;
+---
+<PageShell lang={lang} pageKey={pageKey} title={page.meta.title} description={page.meta.description}>
+  <section class="lg-hero bg-ivory bg-grain">
+    <div class="container-site">
+      <Breadcrumbs items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.footer[pageKey] }]} label={c.nav.breadcrumbs} class="mb-8" />
+      <p class="eyebrow">{l.common.eyebrow}</p>
+      <h1 class="font-display text-display-lg text-ink mt-5 max-w-4xl">{page.title}</h1>
+      {page.lead && <p class="text-lead text-slate mt-6 max-w-2xl">{page.lead}</p>}
+      <p class="mt-6 text-sm text-mist">{fmt(l.common.lastUpdated, { date: updated })}</p>
+    </div>
+  </section>
+
+  <section class="section bg-white pt-10 lg:pt-14">
+    <div class="container-site lg-grid">
+      <aside class="lg-aside">
+        <nav class="lg-toc" aria-label={l.common.onThisPage}>
+          <p class="lg-toc-title">{l.common.onThisPage}</p>
+          <ol role="list">{page.sections.map((s) => <li><a href={`#${s.id}`}>{s.title}</a></li>)}</ol>
+        </nav>
+        <nav class="lg-other" aria-label={l.common.otherPages}>
+          <p class="lg-toc-title">{l.common.otherPages}</p>
+          <ul role="list">{otherPages.map((p) => <li><a href={localizePath(p.key, lang)}>{p.label}</a></li>)}</ul>
+        </nav>
+      </aside>
+
+      <div class="lg-body prose-nl">
+        <p class="lg-note">{l.common.todoNote}</p>
+        {blocks(page.intro).map((b) => (
+          <Fragment>
+            {b.type === 'p' && <p>{sub(b.text ?? '')}</p>}
+            {b.type === 'html' && <p set:html={sub(b.html ?? '')} />}
+            {b.type === 'address' && <address>{(b.lines ?? []).map((line, i) => <Fragment>{i === 0 ? <strong>{line}</strong> : line}{i < (b.lines ?? []).length - 1 && <br />}</Fragment>)}</address>}
+          </Fragment>
+        ))}
+        {page.sections.map((s) => (
+          <section id={s.id} class="lg-section">
+            <h2>{s.title}</h2>
+            {blocks(s.blocks).map((b) => (
+              <Fragment>
+                {b.type === 'p' && <p>{sub(b.text ?? '')}</p>}
+                {b.type === 'html' && <p set:html={sub(b.html ?? '')} />}
+                {b.type === 'ul' && <ul>{(b.items ?? []).map((it) => <li>{sub(it)}</li>)}</ul>}
+                {b.type === 'address' && <address>{(b.lines ?? []).map((line, i) => <Fragment>{i === 0 ? <strong>{line}</strong> : line}{i < (b.lines ?? []).length - 1 && <br />}</Fragment>)}</address>}
+                {b.type === 'dl' && <dl class="lg-dl">{(b.terms ?? []).map((t) => <div><dt>{t.term}</dt><dd>{sub(t.text)}</dd></div>)}</dl>}
+                {b.type === 'table' && (
+                  <div class="lg-table-wrap">
+                    <table>
+                      <caption class="sr-only">{b.caption}</caption>
+                      <thead><tr>{(b.headers ?? []).map((h) => <th scope="col">{h}</th>)}</tr></thead>
+                      <tbody>{(b.rows ?? []).map((row) => <tr>{row.map((cell, i) => (i === 0 ? <th scope="row"><code>{sub(cell)}</code></th> : <td>{sub(cell)}</td>))}</tr>)}</tbody>
+                    </table>
+                  </div>
+                )}
+                {b.type === 'consentButton' && <p><button type="button" class="lg-consent-btn" data-consent-open>{c.footer.cookieSettings}</button></p>}
+              </Fragment>
+            ))}
+          </section>
+        ))}
+        <div class="lg-contact">
+          <p class="font-display font-bold text-ink">{l.common.contactTitle}</p>
+          <p class="mt-1" set:html={sub(l.common.contactLine).replace(site.email, `<a href="mailto:${site.email}">${site.email}</a>`)} />
+        </div>
+      </div>
+    </div>
+  </section>
+</PageShell>
+
+<style>
+  .lg-hero { padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4rem)); padding-bottom: clamp(2rem, 4vw, 3rem); }
+  .lg-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  @media (min-width: 64rem) { .lg-grid { grid-template-columns: 18rem minmax(0, 46rem); gap: 5rem; } .lg-aside { position: sticky; top: calc(var(--header-h) + 1.5rem); align-self: start; } }
+  .lg-toc, .lg-other { padding: 1.25rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .lg-other { margin-top: 1rem; }
+  .lg-toc-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.6rem; }
+  .lg-toc ol, .lg-other ul { display: grid; gap: 0.15rem; }
+  .lg-toc a, .lg-other a { display: block; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.875rem; color: var(--color-ink-3); transition: background-color 0.25s ease, color 0.25s ease; }
+  .lg-toc a:hover, .lg-other a:hover { background: var(--color-sand); color: var(--color-ink); }
+  .lg-note { padding: 0.85rem 1rem; border-radius: var(--radius-md); background: var(--color-accent-soft); color: var(--color-accent-deep); font-size: 0.875rem; }
+  .lg-section { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .lg-dl { display: grid; gap: 0.75rem; }
+  .lg-dl dt { font-weight: 650; color: var(--color-ink); }
+  .lg-dl dd { color: var(--color-ink-3); }
+  .lg-table-wrap { overflow-x: auto; border: 1px solid var(--color-line); border-radius: var(--radius-md); }
+  .lg-table-wrap table { display: table; min-width: 40rem; }
+  .lg-table-wrap th[scope='row'] { background: transparent; font-weight: 500; }
+  .lg-consent-btn { display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; background: var(--color-ink); color: #fff; font-weight: 650; font-size: 0.9rem; cursor: pointer; }
+  .lg-consent-btn:hover { background: var(--color-ink-3); }
+  .lg-contact { margin-top: 3rem; padding: 1.5rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); }
+</style>

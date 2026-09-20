@@ -1,0 +1,33 @@
+---
+import { ChevronRight } from '@lucide/astro';
+import { site } from '@/config/site';
+import JsonLd from '@/components/seo/JsonLd.astro';
+interface Crumb { label: string; href?: string }
+interface Props { items: Crumb[]; label: string; class?: string; light?: boolean }
+const { items, label, class: className = '', light = false } = Astro.props;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    ...(c.href ? { item: `${site.url}${c.href}` } : {}),
+  })),
+};
+---
+<nav aria-label={label} class:list={['text-sm', light ? 'text-white/70' : 'text-slate', className]}>
+  <ol class="flex flex-wrap items-center gap-1.5">
+    {items.map((c, i) => (
+      <li class="inline-flex items-center gap-1.5">
+        {i > 0 && <ChevronRight class="size-3.5 opacity-60" aria-hidden="true" />}
+        {c.href && i < items.length - 1 ? (
+          <a href={c.href} class:list={['hover:underline underline-offset-4', light ? 'hover:text-white' : 'hover:text-ink']}>{c.label}</a>
+        ) : (
+          <span aria-current="page" class:list={[light ? 'text-white' : 'text-ink', 'font-medium']}>{c.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<JsonLd data={jsonLd} />

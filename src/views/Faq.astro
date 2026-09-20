@@ -1,0 +1,110 @@
+---
+/** FAQ: grouped questions with search, topic navigation and FAQPage structured data. */
+import { Search, X } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import Button from '@/components/ui/Button.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const f = d.faq;
+const c = d.common;
+const total = f.groups.reduce((n, g) => n + g.items.length, 0);
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: f.groups.flatMap((g) => g.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a.replace(/\n\n/g, ' ') } }))),
+};
+const paragraphs = (a: string) => a.split(/\n\n+/);
+---
+<PageShell lang={lang} pageKey="faq" title={f.meta.title} description={f.meta.description} jsonLd={[faqLd]}>
+  <PageHero lang={lang} eyebrow={f.hero.eyebrow} title={f.hero.title} text={f.hero.text} crumbs={[{ label: c.nav.faq }]} variant="ivory" align="center" />
+
+  <section class="section bg-white pt-0 lg:pt-0" data-faq>
+    <div class="container-site faq-grid">
+      <aside class="faq-side">
+        <label class="faq-search" for="faq-search">
+          <span class="sr-only">{f.search.label}</span>
+          <Search class="size-4 text-mist" aria-hidden="true" />
+          <input id="faq-search" type="search" placeholder={f.search.placeholder} autocomplete="off" data-faq-search />
+          <button type="button" class="faq-clear" data-faq-clear hidden aria-label={f.search.clear}><X class="size-4" aria-hidden="true" /></button>
+        </label>
+        <p class="faq-status" aria-live="polite" data-faq-status data-template={f.search.results}>{fmt(f.search.results, { count: total, total })}</p>
+        <nav class="faq-nav" aria-label={f.search.navLabel}>
+          <p class="faq-nav-label">{f.search.navLabel}</p>
+          <ul role="list">{f.groups.map((g) => <li><a href={`#${g.id}`} class="faq-nav-link">{g.title}<span class="faq-nav-count">{g.items.length}</span></a></li>)}</ul>
+        </nav>
+        <div class="faq-side-cta">
+          <p class="font-display font-bold text-ink">{f.still.title}</p>
+          <div class="mt-4"><Button href={localizePath('contact', lang, 'book')} size="sm" icon="calendar" cursor="book">{f.still.secondary}</Button></div>
+        </div>
+      </aside>
+
+      <div class="faq-main">
+        {f.groups.map((g) => (
+          <section id={g.id} class="faq-group" data-faq-group aria-labelledby={`${g.id}-title`}>
+            <h2 id={`${g.id}-title`} class="font-display text-display-sm text-ink" data-reveal>{g.title}</h2>
+            <div class="faq-list mt-4" data-reveal data-reveal-delay="1">
+              {g.items.map((it, i) => (
+                <Accordion question={it.q} name={`faq-${g.id}`} open={i === 0} id={`${g.id}-${i + 1}`} class="faq-item" data-faq-item="">
+                  <div data-faq-item-body>{paragraphs(it.a).map((p) => <p>{p}</p>)}</div>
+                </Accordion>
+              ))}
+            </div>
+          </section>
+        ))}
+        <p class="faq-empty" data-faq-empty data-template={f.search.noResults} hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site text-center">
+      <p class="eyebrow justify-center" data-reveal>{f.still.eyebrow}</p>
+      <h2 class="font-display text-display-md text-ink mt-4 mx-auto max-w-3xl" data-reveal data-reveal-delay="1">{f.still.title}</h2>
+      <p class="text-lead text-slate mt-5 mx-auto max-w-2xl" data-reveal data-reveal-delay="2">{f.still.text}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal data-reveal-delay="3">
+        <Button href={localizePath('contact', lang)} variant="secondary" size="lg">{f.still.button}</Button>
+        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{f.still.secondary}</Button>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+  <JsonLd data={[]} />
+</PageShell>
+
+<style>
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 1rem; }
+  @media (min-width: 64rem) { .faq-grid { grid-template-columns: 18rem minmax(0, 1fr); gap: 4rem; padding-top: 2rem; } .faq-side { position: sticky; top: calc(var(--header-h) + 1.5rem); align-self: start; } }
+  .faq-search { display: flex; align-items: center; gap: 0.6rem; padding: 0 0.9rem; height: 3rem; border-radius: 999px; background: var(--color-white); border: 1px solid var(--color-line-strong); transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .faq-search:focus-within { border-color: var(--color-accent); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15); }
+  .faq-search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 0.95rem; }
+  .faq-search input::-webkit-search-cancel-button { display: none; }
+  .faq-clear { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 0; background: var(--color-sand); color: var(--color-ink-3); cursor: pointer; }
+  .faq-status { margin-top: 0.6rem; font-size: 0.8rem; color: var(--color-mist); }
+  .faq-nav { margin-top: 1.5rem; }
+  .faq-nav-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.5rem; }
+  .faq-nav ul { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  @media (min-width: 64rem) { .faq-nav ul { flex-direction: column; gap: 0.1rem; } }
+  .faq-nav-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--color-line); font-size: 0.85rem; font-weight: 600; color: var(--color-ink-3); background: var(--color-white); transition: background-color 0.3s ease, color 0.3s ease; }
+  @media (min-width: 64rem) { .faq-nav-link { border: 0; border-radius: var(--radius-sm); width: 100%; } }
+  .faq-nav-link:hover { background: var(--color-sand); color: var(--color-ink); }
+  .faq-nav-count { font-size: 0.7rem; font-weight: 700; color: var(--color-accent-ink); background: var(--color-accent-soft); padding: 0.1rem 0.45rem; border-radius: 999px; }
+  .faq-side-cta { display: none; }
+  @media (min-width: 64rem) { .faq-side-cta { display: block; margin-top: 1.5rem; padding: 1.25rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); } }
+  .faq-main { display: grid; gap: 3rem; }
+  .faq-group { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .faq-list { border-top: 1px solid var(--color-line); }
+  .faq-empty { padding: 2rem; border-radius: var(--radius-lg); background: var(--color-sand); color: var(--color-ink-2); text-align: center; }
+  [data-faq][data-filtering='true'] .faq-group h2 { font-size: 1.25rem; }
+</style>
+<script>
+  import '@/scripts/faq-filter';
+</script>

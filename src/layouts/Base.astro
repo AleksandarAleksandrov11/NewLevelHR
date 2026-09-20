@@ -1,0 +1,101 @@
+---
+import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import { site } from '@/config/site';
+import { localeMeta, type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+import Seo from '@/components/seo/Seo.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import type { SeoInput } from '@/lib/seo';
+
+interface Props extends Omit<SeoInput, 'lang'> {
+  lang: Locale;
+  /** JSON-LD graph(s) to add to the page */
+  jsonLd?: Array<Record<string, unknown>>;
+  /** Header starts transparent over a hero */
+  transparentHeader?: boolean;
+  /** Body class hook */
+  bodyClass?: string;
+  pageKey?: string;
+  /** Labels for the custom cursor, keyed by data-cursor value */
+  cursorLabels?: Record<string, string>;
+  preloaderKey?: string;
+}
+
+const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', cursorLabels, preloaderKey = site.storage.preloaderKey, ...seo } = Astro.props;
+const dict = getDict(lang);
+const meta = localeMeta[lang];
+const fontPreloads = lang === 'bg'
+  ? ['/fonts/manrope-cyrillic-wght-normal.woff2', '/fonts/inter-cyrillic-wght-normal.woff2', '/fonts/manrope-latin-wght-normal.woff2', '/fonts/inter-latin-wght-normal.woff2']
+  : ['/fonts/manrope-latin-wght-normal.woff2', '/fonts/inter-latin-wght-normal.woff2'];
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${site.url}/#organization`,
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  logo: `${site.url}/icons/icon-512.png`,
+  image: `${site.url}/og/${lang}/default.png`,
+  description: dict.common.meta.defaultDescription,
+  slogan: dict.common.meta.tagline,
+  founder: { '@type': 'Person', name: site.founder.name, jobTitle: site.founder.role },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    postalCode: site.address.postalCode,
+    addressLocality: site.address.city,
+    addressCountry: site.address.countryCode,
+  },
+  areaServed: ['Bulgaria', 'Germany', 'Austria', 'Switzerland', 'Europe'],
+  availableLanguage: ['en', 'de', 'bg'],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: site.hours.open,
+    closes: site.hours.close,
+  },
+  priceRange: '$$',
+};
+---
+<!doctype html>
+<html lang={meta.htmlLang} dir="ltr" data-lang={lang} data-page={pageKey} data-cursor-labels={JSON.stringify(cursorLabels ?? dict.common.cursor)} data-preloader-key={preloaderKey}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbf8f4" />
+    <meta name="color-scheme" content="light" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="format-detection" content="telephone=no" />
+    <Seo lang={lang} {...seo} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    {fontPreloads.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin="anonymous" />)}
+    <JsonLd data={[organization, ...jsonLd]} />
+    <script is:inline>
+      // Motion capability flag, set before paint so reveal styles apply only when allowed.
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce) document.documentElement.classList.add('js-motion');
+        document.documentElement.classList.add('js');
+        try {
+          if (!reduce && !localStorage.getItem(document.documentElement.dataset.preloaderKey || 'nlhr_seen')) document.documentElement.classList.add('is-preloading');
+        } catch (e) {}
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body class:list={['bg-ivory text-ink antialiased', bodyClass, { 'has-transparent-header': transparentHeader }]}>
+    <a href="#main" class="skip-link">{dict.common.nav.skipToContent}</a>
+    <slot name="header" />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+    <slot name="overlays" />
+  </body>
+</html>

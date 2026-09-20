@@ -1,0 +1,40 @@
+---
+/** Numbered process steps with a connecting line, animated reveal. */
+import { fmt } from '@/i18n';
+interface Step { tag?: string; title: string; body: string; duration?: string; outcome?: string }
+interface Props { steps: readonly Step[]; stepLabel?: string; dark?: boolean; class?: string }
+const { steps, stepLabel = 'Step {n}', dark = false, class: className = '' } = Astro.props;
+---
+<ol class:list={['steps', dark && 'steps-dark', className]} role="list">
+  {steps.map((s, i) => (
+    <li class="step" data-reveal data-reveal-delay={String((i % 5) + 1)}>
+      <div class="step-marker" aria-hidden="true"><span class="step-num font-display">{String(i + 1).padStart(2, '0')}</span></div>
+      <div class="step-body">
+        <p class="step-label">{s.tag ?? fmt(stepLabel, { n: i + 1 })}{s.duration && <span class="step-duration"> · {s.duration}</span>}</p>
+        <h3 class="step-title font-display">{s.title}</h3>
+        <p class="step-text">{s.body}</p>
+        {s.outcome && <p class="step-outcome">{s.outcome}</p>}
+      </div>
+    </li>
+  ))}
+</ol>
+<style>
+  .steps { position: relative; display: grid; gap: 0; }
+  .step { position: relative; display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 1.25rem; padding-bottom: 2.25rem; }
+  .step::before { content: ''; position: absolute; left: 1.6rem; top: 3.5rem; bottom: 0; width: 2px; background: linear-gradient(to bottom, rgba(255, 107, 53, 0.5), rgba(20, 20, 28, 0.08)); }
+  .step:last-child::before { display: none; }
+  .step:last-child { padding-bottom: 0; }
+  .step-marker { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 1rem; background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-soft); color: var(--color-accent-ink); }
+  .step-num { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.02em; }
+  .step-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-ink); padding-top: 0.35rem; }
+  .step-duration { text-transform: none; letter-spacing: 0; color: var(--color-mist); font-weight: 600; }
+  .step-title { margin-top: 0.4rem; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; color: var(--color-ink); }
+  .step-text { margin-top: 0.5rem; color: var(--color-slate); line-height: 1.6; max-width: 40rem; }
+  .step-outcome { margin-top: 0.6rem; font-size: 0.9rem; font-weight: 600; color: var(--color-teal-ink); }
+  .steps-dark .step-marker { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.14); color: var(--color-accent-3); box-shadow: none; }
+  .steps-dark .step-label { color: var(--color-accent-3); }
+  .steps-dark .step-title { color: #fff; }
+  .steps-dark .step-text { color: rgba(255, 255, 255, 0.72); }
+  .steps-dark .step::before { background: linear-gradient(to bottom, rgba(255, 179, 71, 0.5), rgba(255, 255, 255, 0.08)); }
+  @media (min-width: 48rem) { .step { grid-template-columns: 4rem minmax(0, 1fr); gap: 1.75rem; } .step::before { left: 2rem; top: 4.25rem; } .step-marker { width: 4rem; height: 4rem; border-radius: 1.2rem; } .step-num { font-size: 1.1rem; } }
+</style>

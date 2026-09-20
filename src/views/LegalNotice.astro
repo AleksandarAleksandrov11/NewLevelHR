@@ -1,0 +1,8 @@
+---
+import LegalLayout from '@/components/pages/LegalLayout.astro';
+import type { Locale } from '@/i18n/config';
+import type { PageKey } from '@/i18n/routes';
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+---
+<LegalLayout lang={lang} pageKey="legalNotice" />

@@ -1,0 +1,22 @@
+---
+/**
+ * Root: sends visitors to the default language (/en/). This is a plain default,
+ * not a forced language redirect; the language suggestion banner on each page
+ * offers the visitor's browser language without ever forcing it.
+ */
+const target = '/en/';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={`https://newlevelhr.com${target}`} />
+    <meta name="robots" content="noindex" />
+    <title>NewLevelHR</title>
+    <script is:inline define:vars={{ target }}>window.location.replace(target);</script>
+  </head>
+  <body>
+    <p>Redirecting to <a href={target}>NewLevelHR</a>…</p>
+  </body>
+</html>

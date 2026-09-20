@@ -1,0 +1,13 @@
+export { common } from './common';
+export { home } from './home';
+export { services } from './services';
+export { problems } from './problems';
+export { about } from './about';
+export { howWeWork } from './howWeWork';
+export { blog } from './blog';
+export { faq } from './faq';
+export { contact } from './contact';
+export { legal } from './legal';
+export { cookies } from './cookies';
+export { quiz } from './quiz';
+export { calculator } from './calculator';

@@ -1,0 +1,24 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const m = getDict(lang).home.manifesto;
+---
+<section id="manifesto" class="manifesto section bg-ink text-white" aria-labelledby="manifesto-title">
+  <div class="manifesto-glow" aria-hidden="true"></div>
+  <div class="container-site">
+    <p class="eyebrow text-accent-3 mb-8" data-reveal>{m.eyebrow}</p>
+    <h2 id="manifesto-title" class="sr-only">{m.text}</h2>
+    <p class="manifesto-text font-display" data-illuminate aria-hidden="true">{m.text}</p>
+  </div>
+</section>
+<style>
+  .manifesto { position: relative; overflow: hidden; }
+  .manifesto-glow { position: absolute; width: 60vw; height: 60vw; max-width: 50rem; max-height: 50rem; right: -20vw; top: -20vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.28), transparent 65%); filter: blur(20px); pointer-events: none; }
+  .manifesto-text { font-size: clamp(1.6rem, 1.1rem + 2.6vw, 3.6rem); line-height: 1.22; letter-spacing: -0.02em; font-weight: 600; max-width: 62rem; }
+  /* Dimmed words stay at AA contrast (≈5:1 on ink) before they light up. */
+  .manifesto-text :global(.ill-w) { --lit: 0; color: rgba(255, 255, 255, calc(0.5 + var(--lit) * 0.5)); transition: color 0.1s linear; }
+  .manifesto-text :global(.ill-w.is-lit) { color: #fff; }
+  html:not(.js-motion) .manifesto-text :global(.ill-w) { color: #fff; }
+</style>

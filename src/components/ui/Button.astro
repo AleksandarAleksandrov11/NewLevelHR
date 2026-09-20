@@ -1,0 +1,82 @@
+---
+import { ArrowRight, ArrowUpRight, Calendar, Send } from '@lucide/astro';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'light' | 'light-ghost' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  icon?: 'arrow' | 'external' | 'calendar' | 'send' | 'none';
+  magnetic?: boolean;
+  external?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+  cursor?: string;
+  ariaLabel?: string;
+  id?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon = 'arrow',
+  magnetic = true,
+  external = false,
+  type = 'button',
+  class: className = '',
+  cursor,
+  ariaLabel,
+  id,
+  ...rest
+} = Astro.props;
+
+const base =
+  'btn group relative inline-flex items-center justify-center gap-2 font-semibold rounded-full select-none whitespace-nowrap transition-[transform,box-shadow,background-color,color,border-color] duration-500 ease-out-expo will-change-transform';
+const sizes = {
+  sm: 'h-10 px-4 text-sm',
+  md: 'h-12 px-6 text-[0.95rem]',
+  lg: 'h-14 px-8 text-base',
+};
+const variants = {
+  primary: 'btn-primary text-ink shadow-[0_10px_30px_-10px_rgba(255,107,53,0.6)] hover:shadow-[0_18px_40px_-12px_rgba(255,107,53,0.75)] hover:-translate-y-0.5',
+  secondary: 'bg-ink text-white hover:bg-ink-2 hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(20,20,28,0.5)]',
+  ghost: 'bg-transparent text-ink border border-line-strong hover:border-ink hover:bg-white/60',
+  light: 'bg-white text-ink hover:bg-ivory hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]',
+  'light-ghost': 'bg-transparent text-white border border-white/30 hover:border-white hover:bg-white/10',
+  link: 'h-auto px-0 text-accent-ink hover:text-accent-deep underline-offset-4 hover:underline rounded-none',
+};
+const Tag = href ? 'a' : 'button';
+const iconClass = 'size-[1.1em] shrink-0 transition-transform duration-500 ease-out-expo';
+---
+<Tag
+  id={id}
+  href={href}
+  type={href ? undefined : type}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  aria-label={ariaLabel}
+  data-magnetic={magnetic ? '' : undefined}
+  data-cursor={cursor}
+  class:list={[base, sizes[size], variants[variant], className]}
+  {...rest}
+>
+  <span class="relative z-10 inline-flex items-center gap-2">
+    <slot />
+    {icon === 'arrow' && <ArrowRight class={`${iconClass} group-hover:translate-x-1`} aria-hidden="true" />}
+    {icon === 'external' && <ArrowUpRight class={`${iconClass} group-hover:translate-x-0.5 group-hover:-translate-y-0.5`} aria-hidden="true" />}
+    {icon === 'calendar' && <Calendar class={iconClass} aria-hidden="true" />}
+    {icon === 'send' && <Send class={`${iconClass} group-hover:translate-x-1 group-hover:-translate-y-0.5`} aria-hidden="true" />}
+  </span>
+</Tag>
+
+<style>
+  .btn-primary {
+    background-image: linear-gradient(120deg, #ff6b35 0%, #f7931e 60%, #ffb347 100%);
+    background-size: 160% 100%;
+    background-position: 0% 50%;
+    transition: background-position 0.7s var(--ease-out-expo), transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+  }
+  .btn-primary:hover { background-position: 100% 50%; }
+  .btn:active { transform: translateY(0) scale(0.98); transition-duration: 0.1s; }
+</style>

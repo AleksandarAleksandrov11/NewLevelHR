@@ -1,0 +1,51 @@
+---
+/**
+ * Portrait slot for the founder. Until the client supplies a photo it renders an
+ * elegant monogram placeholder (never a stock photo standing in for a real person).
+ */
+import { Picture } from 'astro:assets';
+import { type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+import { site } from '@/config/site';
+import { getPhoto } from '@/lib/images';
+
+interface Props { lang: Locale; name: string; role: string; class?: string }
+const { lang, name, role, class: className = '' } = Astro.props;
+const d = getDict(lang);
+const photo = site.founder.portrait ? getPhoto(site.founder.portrait) : undefined;
+const initials = name.split(/\s+/).map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+---
+<figure class:list={['portrait', className]}>
+  <div class="portrait-frame">
+    {photo ? (
+      <Picture src={photo} alt={name} widths={[480, 768, 1024]} sizes="(min-width: 64rem) 40vw, 90vw" formats={['avif', 'webp']} class="portrait-img" loading="lazy" decoding="async" />
+    ) : (
+      <div class="portrait-placeholder" role="img" aria-label={d.common.misc.photoPlaceholder}>
+        <svg class="portrait-steps" viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="8" y="76" width="28" height="36" rx="7" fill="#ffb347" />
+          <rect x="46" y="48" width="28" height="64" rx="7" fill="#f7931e" />
+          <rect x="84" y="12" width="28" height="100" rx="7" fill="#ff6b35" />
+        </svg>
+        <span class="portrait-initials font-display" aria-hidden="true">{initials}</span>
+      </div>
+    )}
+  </div>
+  <figcaption class="portrait-caption">
+    <span class="portrait-name font-display">{name}</span>
+    <span class="portrait-role">{role}</span>
+    {!photo && <span class="portrait-todo">{d.common.misc.photoPlaceholder}</span>}
+  </figcaption>
+</figure>
+<style>
+  .portrait { position: relative; }
+  .portrait-frame { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lift); border: 1px solid var(--color-line); background: var(--color-white); }
+  .portrait-frame :global(.portrait-img) { width: 100%; height: 100%; object-fit: cover; }
+  .portrait-placeholder { position: relative; width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(70% 60% at 30% 20%, #fff1ea 0%, #f4eee6 55%, #e2f0f1 100%); isolation: isolate; }
+  .portrait-placeholder::after { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.6; pointer-events: none; }
+  .portrait-steps { position: absolute; right: 8%; bottom: 8%; width: 42%; opacity: 0.9; }
+  .portrait-initials { position: relative; z-index: 1; font-size: clamp(5rem, 4rem + 6vw, 8rem); font-weight: 800; letter-spacing: -0.06em; line-height: 1; color: var(--color-ink); transform: translate(-12%, -8%); }
+  .portrait-caption { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.15rem; }
+  .portrait-name { font-weight: 700; font-size: 1.05rem; color: var(--color-ink); }
+  .portrait-role { font-size: 0.9rem; color: var(--color-slate); }
+  .portrait-todo { margin-top: 0.4rem; font-size: 0.75rem; color: var(--color-mist); font-style: italic; }
+</style>

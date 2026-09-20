@@ -1,0 +1,94 @@
+---
+/**
+ * Client voices. Renders nothing until real quotes are supplied in
+ * src/config/site.ts (site.testimonials); the optional logo strip follows the same rule.
+ */
+import { ChevronLeft, ChevronRight, Quote } from '@lucide/astro';
+import { type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+import { site } from '@/config/site';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.home.testimonials;
+const c = d.common;
+const quotes: ReadonlyArray<{ quote: string; name: string; role: string; company: string }> = site.testimonials.items;
+const logos: ReadonlyArray<{ name: string; src: string }> = site.clientLogos.enabled ? site.clientLogos.items : [];
+const show = site.testimonials.enabled && quotes.length > 0;
+---
+{show && (
+  <section id="testimonials" class="testimonials section bg-ivory bg-grain" data-testimonials>
+    <div class="container-site">
+      <div class="testi-head">
+        <SectionHeading eyebrow={t.eyebrow} title={t.title} />
+        <div class="testi-nav" data-reveal data-reveal-delay="1">
+          <button type="button" class="testi-btn" data-testi-prev aria-label={c.misc.previous}><ChevronLeft class="size-5" aria-hidden="true" /></button>
+          <button type="button" class="testi-btn" data-testi-next aria-label={c.misc.next}><ChevronRight class="size-5" aria-hidden="true" /></button>
+        </div>
+      </div>
+
+      <ul class="testi-track no-scrollbar" role="list" data-testi-track data-lenis-prevent-wheel>
+        {quotes.map((q, i) => (
+          <li class="testi-item" data-reveal data-reveal-delay={String((i % 3) + 1)}>
+            <figure class="testi-card">
+              <Quote class="testi-mark size-7" aria-hidden="true" />
+              <blockquote class="testi-quote"><p>{q.quote}</p></blockquote>
+              <figcaption class="testi-by">
+                <span class="testi-name">{q.name}</span>
+                <span class="testi-role">{q.role}, {q.company}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+
+      {logos.length > 0 && (
+        <ul class="testi-logos" role="list" data-reveal>
+          {logos.map((logo) => (
+            <li><img src={logo.src} alt={logo.name} loading="lazy" decoding="async" height="40" /></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+)}
+
+<script>
+  import '@/scripts/home-testimonials';
+</script>
+
+<style>
+  .testi-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem 3rem; }
+  .testi-nav { display: flex; gap: 0.6rem; }
+  .testi-btn {
+    display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px;
+    border: 1px solid var(--color-line-strong); background: transparent; color: var(--color-ink); cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+  }
+  .testi-btn:hover { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+  .testi-btn:disabled { opacity: 0.35; cursor: default; background: transparent; border-color: var(--color-line-strong); color: var(--color-ink); }
+
+  .testi-track {
+    display: flex; gap: 1.25rem;
+    margin: 3rem -0.5rem 0; padding: 0.5rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .testi-item { flex: 0 0 min(100%, 26rem); scroll-snap-align: start; display: grid; }
+  .testi-card {
+    display: flex; flex-direction: column; gap: 1.25rem; height: 100%;
+    padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--color-line); background: var(--color-white); box-shadow: var(--shadow-soft);
+  }
+  .testi-card :global(.testi-mark) { color: var(--color-accent); }
+  .testi-quote { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.5; font-weight: 600; letter-spacing: -0.01em; color: var(--color-ink); text-wrap: pretty; }
+  .testi-by { margin-top: auto; display: flex; flex-direction: column; gap: 0.15rem; padding-top: 1.25rem; border-top: 1px solid var(--color-line); }
+  .testi-name { font-weight: 700; color: var(--color-ink); }
+  .testi-role { font-size: 0.875rem; color: var(--color-slate); }
+
+  .testi-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2rem 3rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--color-line); }
+  .testi-logos img { height: 2.25rem; width: auto; opacity: 0.65; filter: grayscale(1); transition: opacity 0.3s ease, filter 0.3s ease; }
+  .testi-logos img:hover { opacity: 1; filter: none; }
+</style>

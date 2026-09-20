@@ -1,0 +1,40 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getDict } from '@/i18n';
+interface Props { lang: Locale; dark?: boolean }
+const { lang, dark = false } = Astro.props;
+const items = getDict(lang).home.marquee;
+const doubled = [...items, ...items, ...items];
+---
+<div class:list={['marquee mask-fade-x', dark && 'marquee-dark']} aria-label={items.join(', ')} role="marquee">
+  <div class="marquee-track" data-marquee>
+    {doubled.map((it, i) => (
+      <span class="marquee-item" aria-hidden={i >= items.length ? 'true' : undefined}>
+        <span class="marquee-dot" aria-hidden="true"></span>{it}
+      </span>
+    ))}
+  </div>
+</div>
+<style>
+  .marquee { overflow: hidden; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); background: #fff; padding: 1.1rem 0; --marquee-factor: 1; }
+  .marquee-dark { background: var(--color-ink); border-color: var(--color-line-dark); }
+  .marquee-track { display: flex; width: max-content; gap: 3rem; animation: marquee 38s linear infinite; animation-timeline: auto; }
+  .marquee-item { display: inline-flex; align-items: center; gap: 1rem; font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 0.9rem + 0.6vw, 1.35rem); letter-spacing: -0.01em; color: var(--color-ink); white-space: nowrap; }
+  .marquee-dark .marquee-item { color: #fff; }
+  .marquee-dot { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--grad-accent); }
+  @keyframes marquee { to { transform: translateX(calc(-100% / 3)); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; gap: 1rem 2rem; } .marquee { mask-image: none; -webkit-mask-image: none; } }
+</style>
+<script>
+  // Scroll-reactive speed: the motion core writes --marquee-factor; we map it to playback rate.
+  const tracks = document.querySelectorAll<HTMLElement>('[data-marquee]');
+  const apply = () => {
+    tracks.forEach((t) => {
+      const f = parseFloat(getComputedStyle(t).getPropertyValue('--marquee-factor')) || 1;
+      const anims = t.getAnimations();
+      anims.forEach((a) => { a.playbackRate = Math.max(-3, Math.min(3, f)); });
+    });
+    requestAnimationFrame(apply);
+  };
+  if (tracks.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(apply);
+</script>

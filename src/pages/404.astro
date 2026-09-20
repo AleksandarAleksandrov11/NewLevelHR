@@ -1,0 +1,29 @@
+---
+/**
+ * Root 404 served by the host for any unknown URL. Contains all three languages as a
+ * no-JavaScript fallback; an inline script sends /de/… and /bg/… URLs to the fully
+ * localized 404 pages (/de/404/, /bg/404/) that the router builds.
+ */
+import PageShell from '@/components/layout/PageShell.astro';
+import NotFoundContent from '@/components/pages/NotFoundContent.astro';
+import { getDict } from '@/i18n';
+const n = getDict('en').common.notFound;
+---
+<PageShell lang="en" pageKey="notFound" path="/404.html" title={n.title} description={n.text} noindex>
+  <div data-lang-block="en"><NotFoundContent lang="en" /></div>
+  <div data-lang-block="de" hidden><NotFoundContent lang="de" /></div>
+  <div data-lang-block="bg" hidden><NotFoundContent lang="bg" /></div>
+  <script is:inline>
+    // German and Bulgarian URLs continue to the fully localized 404 page (header, footer and
+    // cookie dialog included); the HTTP status of this response stays 404 for crawlers.
+    // Without JavaScript the matching block above is shown inside the English shell.
+    (function () {
+      var m = location.pathname.match(/^\/(de|bg)(\/|$)/);
+      if (!m) return;
+      var lang = m[1];
+      if (location.pathname !== '/' + lang + '/404/') { location.replace('/' + lang + '/404/'); return; }
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang-block]').forEach(function (el) { el.hidden = el.getAttribute('data-lang-block') !== lang; });
+    })();
+  </script>
+</PageShell>

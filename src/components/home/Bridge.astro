@@ -1,0 +1,141 @@
+---
+/**
+ * The 90-Day Success Bridge as a pinned scroll story (dark contrast section).
+ * src/scripts/home.ts (initBridge) pins [data-bridge-track], scales [data-bridge-fill]
+ * horizontally with the scroll progress, counts [data-bridge-day] from 1 to 90 and
+ * toggles .is-active / .is-current on the [data-bridge-item] cards. Below 1024px and
+ * with reduced motion nothing is pinned and every milestone is shown lit.
+ */
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath } from '@/i18n';
+import { site } from '@/config/site';
+import Button from '@/components/ui/Button.astro';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const b = d.home.bridge;
+const c = d.common;
+/** Day numbers of the four milestones in home.bridge.milestones (Day 1, 30, 60, 90). */
+const days = [1, 30, 60, 90] as const;
+const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.bridgeDays }));
+---
+<section id="bridge" class="bridge bg-ink text-white" aria-labelledby="bridge-title" data-bridge>
+  <div class="bridge-track" data-bridge-track>
+    <div class="bridge-bg" aria-hidden="true"><span class="bridge-glow"></span><span class="bridge-glow bridge-glow-2"></span></div>
+    <div class="container-site bridge-inner">
+      <div class="bridge-head">
+        <div class="bridge-copy">
+          <p class="eyebrow text-accent-3" data-reveal>{b.eyebrow}</p>
+          <h2 id="bridge-title" class="bridge-title font-display" data-split>{b.title}</h2>
+          <p class="bridge-text" data-reveal data-reveal-delay="1">{b.text}</p>
+          <div class="bridge-cta" data-reveal data-reveal-delay="2">
+            <Button href={localizePath('serviceBridge', lang)} variant="light" cursor="view">{b.cta}</Button>
+          </div>
+        </div>
+        <div class="bridge-counter" aria-hidden="true" data-reveal data-reveal-delay="2">
+          <span class="bridge-counter-label">{c.facts.bridge.label}</span>
+          <span class="bridge-counter-value font-display">
+            <span class="bridge-day gradient-text tabular" data-bridge-day>1</span><span class="bridge-counter-of">/{site.bridgeDays}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bridge-timeline" data-reveal data-reveal-delay="3">
+        <div class="bridge-rail" aria-hidden="true"><span class="bridge-fill" data-bridge-fill></span></div>
+        <ol class="bridge-items" role="list">
+          {milestones.map((m) => (
+            <li class="bridge-item" data-bridge-item={String(m.value)}>
+              <span class="bridge-dot" aria-hidden="true"></span>
+              <p class="bridge-item-day">{m.day}</p>
+              <h3 class="bridge-item-title font-display">{m.title}</h3>
+              <p class="bridge-item-body">{m.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The section gets its height from the track (plus the pin spacer that ScrollTrigger adds). */
+  .bridge { position: relative; }
+  .bridge-track { position: relative; padding-block: var(--section-y); }
+  .bridge-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .bridge-glow { position: absolute; width: 70vw; height: 70vw; max-width: 56rem; max-height: 56rem; left: -28vw; bottom: -30vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.26), transparent 65%); filter: blur(24px); }
+  .bridge-glow-2 { left: auto; bottom: auto; right: -22vw; top: -26vw; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(31, 111, 120, 0.35), transparent 65%); }
+  .bridge-inner { position: relative; }
+
+  /* Heading row */
+  .bridge-head { display: grid; gap: 2rem; }
+  .bridge-title { margin-top: 1.25rem; max-width: 40rem; font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
+  .bridge-text { margin-top: 1.25rem; max-width: 32rem; font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); line-height: 1.6; color: rgba(255, 255, 255, 0.75); }
+  .bridge-cta { margin-top: 1.75rem; }
+  .bridge-counter { display: none; }
+
+  /* Timeline: vertical rail on the left (mobile, tablet, reduced motion) */
+  .bridge-timeline { position: relative; margin-top: 2.5rem; }
+  .bridge-rail { position: absolute; left: 7px; top: 1rem; bottom: 1rem; width: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.14); }
+  .bridge-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--grad-accent-v); transform-origin: top; box-shadow: 0 0 18px rgba(255, 107, 53, 0.55); }
+  .bridge-items { display: grid; gap: 1rem; padding-left: 2.5rem; }
+  .bridge-item {
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --card-fg: #fff;
+    --card-muted: rgba(255, 255, 255, 0.7);
+    --card-day: var(--color-accent-3);
+    position: relative; padding: 1.25rem 1.35rem; border-radius: var(--radius-lg);
+    background: var(--card-bg); border: 1px solid var(--card-border); color: var(--card-fg);
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease, transform 0.7s var(--ease-out-expo), box-shadow 0.7s var(--ease-out-expo);
+  }
+  .bridge-dot { position: absolute; left: calc(-2.5rem - 1px); top: 1.5rem; width: 16px; height: 16px; border-radius: 50%; background: var(--color-ink); border: 2px solid rgba(255, 255, 255, 0.35); transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
+  .bridge-item-day { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--card-day); transition: color 0.5s ease; }
+  .bridge-item-title { margin-top: 0.55rem; font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; }
+  .bridge-item-body { margin-top: 0.55rem; font-size: 0.9rem; line-height: 1.55; color: var(--card-muted); transition: color 0.5s ease; }
+
+  /* Lit states: the script adds .is-active to every card below 1024px, in sequence on desktop. */
+  .bridge-item.is-active { --card-bg: #fff; --card-border: #fff; --card-fg: var(--color-ink); --card-muted: var(--color-slate); --card-day: var(--color-accent-ink); }
+  .bridge-item.is-active .bridge-dot { background: var(--color-accent); border-color: #fff; box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.25); }
+  /* Without motion (no JS or reduced motion) nothing is dimmed, so the content is always readable. */
+  .js-motion .bridge-item:not(.is-active) { opacity: 0.45; }
+  .js-motion .bridge-item.is-active { opacity: 1; }
+  .bridge-item.is-current { box-shadow: var(--shadow-glow); }
+
+  /* Desktop: pinned full-viewport scene, horizontal bridge from day 1 to day 90 */
+  @media (min-width: 64rem) {
+    .bridge-track { min-height: 100svh; display: grid; align-content: center; padding-block: calc(var(--header-h) + 1.5rem) 2rem; }
+    .pin-spacer > .bridge-track { will-change: transform; }
+    .bridge-head { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 3rem; }
+    .bridge-counter { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1; padding-bottom: 0.25rem; }
+    .bridge-counter-label { margin-bottom: 0.9rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
+    .bridge-counter-value { display: inline-flex; align-items: baseline; font-size: clamp(6rem, 4rem + 5vw, 9.5rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; }
+    .bridge-day { display: inline-block; min-width: 2ch; text-align: right; }
+    .bridge-counter-of { margin-left: 0.08em; font-size: 0.28em; font-weight: 700; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.4); }
+
+    .bridge-timeline { margin-top: 3rem; }
+    .bridge-rail { left: 0; right: 0; top: 7px; bottom: auto; width: auto; height: 2px; }
+    .bridge-fill { background: var(--grad-accent); transform-origin: left; transform: scaleX(0); }
+    html:not(.js-motion) .bridge-fill { transform: none; }
+    .bridge-items { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; padding-left: 0; padding-top: 2.25rem; }
+    .bridge-dot { left: 0; top: -2.25rem; }
+    .bridge-item { padding: 1.35rem 1.4rem 1.5rem; }
+    .bridge-item-body { font-size: 0.875rem; line-height: 1.5; }
+    .bridge-item.is-current { transform: translateY(-6px) scale(1.02); border-color: rgba(255, 107, 53, 0.5); }
+  }
+  /* Shorter desktop viewports: keep the whole scene inside the pinned viewport. */
+  @media (min-width: 64rem) and (max-height: 50rem) {
+    .bridge-track { padding-block: calc(var(--header-h) + 0.75rem) 1.25rem; }
+    .bridge-title { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem); max-width: 34rem; }
+    .bridge-text { margin-top: 0.85rem; font-size: 0.95rem; }
+    .bridge-cta { margin-top: 1.1rem; }
+    .bridge-counter-value { font-size: clamp(4.5rem, 3rem + 4vw, 7rem); }
+    .bridge-timeline { margin-top: 1.75rem; }
+    .bridge-item { padding: 1rem 1.1rem 1.1rem; }
+    .bridge-item-title { font-size: 1.05rem; }
+    .bridge-item-body { font-size: 0.82rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bridge-item, .bridge-dot, .bridge-item-day, .bridge-item-body { transition: none; }
+  }
+</style>

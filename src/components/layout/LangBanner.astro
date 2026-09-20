@@ -1,0 +1,45 @@
+---
+/**
+ * Non-intrusive language suggestion. The texts for every locale are embedded so
+ * the banner can speak the visitor's language; JS decides whether to show it.
+ */
+import { X, Languages } from '@lucide/astro';
+import { locales, localeMeta, type Locale } from '@/i18n/config';
+import { getDict, fmt } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; alternates: Record<Locale, string> }
+const { lang, alternates } = Astro.props;
+
+const texts = Object.fromEntries(
+  locales.map((l) => {
+    const d = getDict(l).common.langBanner;
+    return [l, { text: fmt(d.text, { language: localeMeta[l].name }), switch: fmt(d.switch, { language: localeMeta[l].name }), dismiss: getDict(lang).common.langBanner.dismiss, close: d.close }];
+  }),
+);
+---
+<div id="lang-banner" class="lang-banner" hidden data-lang-banner data-current={lang} data-storage-key={site.storage.langBannerKey} data-texts={JSON.stringify(texts)} data-alternates={JSON.stringify(alternates)} role="region" aria-live="polite">
+  <div class="lang-banner-inner glass">
+    <Languages class="size-4 shrink-0 text-accent-ink" aria-hidden="true" />
+    <p class="lang-banner-text" data-lb-text></p>
+    <div class="lang-banner-actions">
+      <a class="lang-banner-switch" data-lb-switch href="#" data-astro-reload></a>
+      <button type="button" class="lang-banner-dismiss" data-lb-dismiss></button>
+      <button type="button" class="lang-banner-close" data-lb-close aria-label="Close"><X class="size-4" aria-hidden="true" /></button>
+    </div>
+  </div>
+</div>
+<style>
+  .lang-banner { position: fixed; z-index: 85; left: var(--gutter); right: var(--gutter); bottom: max(1rem, env(safe-area-inset-bottom)); display: flex; justify-content: center; pointer-events: none; }
+  .lang-banner[hidden], html.menu-open .lang-banner { display: none; }
+  @media (min-width: 64rem) { .lang-banner { bottom: 1.5rem; left: auto; right: 1.5rem; justify-content: flex-end; } }
+  .lang-banner-inner { pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; padding: 0.7rem 0.9rem 0.7rem 1rem; border-radius: 999px; background: rgba(255, 255, 255, 0.9); box-shadow: var(--shadow-lift); animation: lb-in 0.7s var(--ease-out-expo); max-width: 100%; }
+  @keyframes lb-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+  .lang-banner-text { font-size: 0.85rem; font-weight: 550; color: var(--color-ink); }
+  .lang-banner-actions { display: flex; align-items: center; gap: 0.4rem; margin-left: auto; }
+  .lang-banner-switch { display: inline-flex; align-items: center; height: 2.1rem; padding: 0 0.8rem; border-radius: 999px; background: var(--color-ink); color: #fff; font-size: 0.78rem; font-weight: 650; }
+  .lang-banner-dismiss { height: 2.1rem; padding: 0 0.7rem; border-radius: 999px; background: transparent; border: 1px solid var(--color-line-strong); font-size: 0.78rem; font-weight: 600; color: var(--color-ink-3); cursor: pointer; }
+  .lang-banner-close { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 999px; border: 0; background: transparent; color: var(--color-slate); cursor: pointer; }
+  .lang-banner-close:hover { background: var(--color-sand); color: var(--color-ink); }
+  @media (max-width: 40rem) { .lang-banner-inner { border-radius: var(--radius-lg); } .lang-banner-actions { margin-left: 0; width: 100%; } .lang-banner-switch { flex: 1; justify-content: center; } }
+</style>

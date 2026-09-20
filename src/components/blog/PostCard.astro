@@ -1,0 +1,51 @@
+---
+/** Blog post card used on the home teaser, the blog index and related posts. */
+import { Clock } from '@lucide/astro';
+import { type Locale, formatDate } from '@/i18n/config';
+import { getDict, fmt, blogPostPath } from '@/i18n';
+import { entrySlug, readingTime, type BlogEntry } from '@/lib/blog';
+import Photo from '@/components/ui/Photo.astro';
+
+interface Props { post: BlogEntry; lang: Locale; headingLevel?: 'h2' | 'h3'; featured?: boolean; delay?: number }
+const { post, lang, headingLevel: Heading = 'h3', featured = false, delay = 1 } = Astro.props;
+const d = getDict(lang);
+const categories = (d.blog as { categories?: Record<string, string> }).categories ?? {};
+const category = categories[post.data.category] ?? post.data.category;
+const minutes = readingTime(post.body, post.data.readingTime);
+const href = blogPostPath(lang, entrySlug(post));
+---
+<article class:list={['post-card', featured && 'post-card-featured']} data-post data-category={post.data.category} data-reveal data-reveal-delay={String(delay)}>
+  <a href={href} class="post-link" data-cursor="read">
+    <div class="post-media">
+      <Photo name={post.data.cover ?? 'notebook-desk'} alt={post.data.coverAlt ?? post.data.title} ratio={featured ? '16/9' : '3/2'} sizes={featured ? '(min-width: 64rem) 66vw, 100vw' : '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw'} />
+      <span class="post-cat pill pill-accent">{category}</span>
+    </div>
+    <div class="post-body">
+      <Heading class="post-title font-display">{post.data.title}</Heading>
+      <p class="post-desc">{post.data.description}</p>
+      <p class="post-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, lang)}</time>
+        <span aria-hidden="true">·</span>
+        <span class="inline-flex items-center gap-1"><Clock class="size-3.5" aria-hidden="true" />{fmt(d.common.misc.readingTime, { minutes })}</span>
+      </p>
+    </div>
+  </a>
+</article>
+<style>
+  .post-card { display: grid; }
+  .post-link { display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-soft); overflow: hidden; color: inherit; transition: transform 0.7s var(--ease-out-expo), box-shadow 0.7s var(--ease-out-expo), border-color 0.4s ease; }
+  .post-link:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 3px; }
+  .post-media { position: relative; }
+  .post-media :global(.photo-img) { transition: transform 1.2s var(--ease-out-expo); }
+  .post-cat { position: absolute; left: 1rem; top: 1rem; z-index: 1; background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .post-body { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.25rem 1.35rem 1.5rem; flex: 1; }
+  .post-title { font-size: 1.2rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; color: var(--color-ink); }
+  .post-card-featured .post-title { font-size: var(--text-display-sm); }
+  .post-desc { font-size: 0.95rem; line-height: 1.55; color: var(--color-slate); }
+  .post-meta { margin-top: auto; padding-top: 0.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--color-mist); }
+  @media (hover: hover) and (pointer: fine) {
+    .post-link:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: rgba(255, 107, 53, 0.35); }
+    .post-link:hover .post-media :global(.photo-img) { transform: scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) { .post-link, .post-media :global(.photo-img) { transition: none; } }
+</style>

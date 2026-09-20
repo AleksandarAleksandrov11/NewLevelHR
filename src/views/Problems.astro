@@ -1,0 +1,144 @@
+---
+/** "What we fix": the eight problems in depth with a sticky side navigation. */
+import { ArrowRight, AlertTriangle, Coins, Wrench } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import Button from '@/components/ui/Button.astro';
+import CheckList from '@/components/services/CheckList.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const p = d.problems;
+const c = d.common;
+const base = d.home.problems.items;
+type Id = keyof typeof p.items;
+const shortOf: Record<string, 'fractional' | 'hiring' | 'bridge' | 'coaching'> = { serviceFractional: 'fractional', serviceHiring: 'hiring', serviceBridge: 'bridge', serviceCoaching: 'coaching' };
+const items = base.map((b, i) => {
+  const ext = p.items[b.id as Id];
+  const service = b.service as PageKey;
+  const also: PageKey[] = b.id === 'hiring' ? ['serviceBridge'] : [];
+  return { ...b, ...ext, n: i + 1, index: String(i + 1).padStart(2, '0'), serviceKey: service, serviceName: c.services[shortOf[service]].name, serviceHref: localizePath(service, lang), also: also.map((k) => ({ name: c.services[shortOf[k]].name, href: localizePath(k, lang) })) };
+});
+---
+<PageShell lang={lang} pageKey="problems" title={p.meta.title} description={p.meta.description}>
+  <PageHero lang={lang} eyebrow={p.hero.eyebrow} title={p.hero.title} text={p.hero.text} crumbs={[{ label: c.nav.problems }]} photo={{ name: 'whiteboard-planning', alt: p.hero.imageAlt }} variant="ivory" />
+
+  <section class="section bg-white pt-0 lg:pt-0">
+    <div class="container-site pb-grid">
+      <nav class="pb-nav" aria-label={p.navLabel} data-problems-nav>
+        <p class="pb-nav-label">{p.navLabel}</p>
+        <ol class="pb-nav-list" role="list">
+          {items.map((it) => (
+            <li><a href={`#${it.id}`} class="pb-nav-link"><span class="pb-nav-num">{it.index}</span><span>{it.title}</span></a></li>
+          ))}
+        </ol>
+        <div class="pb-nav-cta">
+          <p class="font-display font-bold text-ink">{p.labels.sideCtaTitle}</p>
+          <p class="mt-1 text-sm text-slate">{p.labels.sideCtaText}</p>
+          <div class="mt-4"><Button href={localizePath('contact', lang, 'book')} size="sm" icon="calendar" cursor="book">{c.cta.bookCall}</Button></div>
+        </div>
+      </nav>
+
+      <div class="pb-list">
+        {items.map((it, i) => (
+          <article id={it.id} class:list={['pb-item', i % 2 === 1 && 'pb-item-alt']} aria-labelledby={`${it.id}-title`}>
+            <header class="pb-head" data-reveal>
+              <p class="pb-kicker"><span class="pb-index font-display">{it.index}</span><span class="text-mist">{fmt(p.labels.problem, { n: it.n, total: items.length })}</span></p>
+              <h2 id={`${it.id}-title`} class="font-display text-display-md text-ink mt-3">{it.title}</h2>
+              <p class="text-lead text-slate mt-4 max-w-2xl">{it.body}</p>
+              <ul class="mt-5 flex flex-wrap gap-2" role="list">{it.tags.map((t) => <li class="pill">{t}</li>)}</ul>
+            </header>
+            <div class="pb-body">
+              <div class="pb-col" data-reveal data-reveal-delay="1">
+                <h3 class="pb-h3"><AlertTriangle class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.symptoms}</h3>
+                <CheckList items={it.symptoms} kind="no" class="mt-4" />
+              </div>
+              <div class="pb-col pb-cost" data-reveal data-reveal-delay="2">
+                <h3 class="pb-h3"><Coins class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.cost}</h3>
+                <p class="mt-4 text-ink-2 leading-relaxed">{it.cost}</p>
+              </div>
+              <div class="pb-fix" data-reveal data-reveal-delay="3" data-spotlight>
+                <h3 class="pb-h3 text-accent-3"><Wrench class="size-4" aria-hidden="true" />{p.labels.fix}</h3>
+                <p class="font-display text-xl font-bold text-white mt-3">{it.fix.title}</p>
+                <p class="mt-3 text-white/75 leading-relaxed">{it.fix.text}</p>
+                <CheckList items={it.fix.points} class="mt-5" dark />
+                <div class="pb-fix-cta">
+                  <p class="text-sm text-white/60">{it.serviceLabel}</p>
+                  <div class="mt-3 flex flex-wrap items-center gap-3">
+                    <Button href={it.serviceHref} variant="light" size="sm" cursor="open">{it.serviceName}</Button>
+                    {it.also.map((a) => <a href={a.href} class="pb-also">{p.labels.alsoSee} <strong>{a.name}</strong><ArrowRight class="size-3.5" aria-hidden="true" /></a>)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink text-white relative overflow-hidden">
+    <div class="pb-glow" aria-hidden="true"></div>
+    <div class="container-site text-center">
+      <p class="eyebrow justify-center text-accent-3" data-reveal>{p.closing.eyebrow}</p>
+      <h2 class="font-display text-display-lg mt-4 mx-auto max-w-3xl" data-split>{p.closing.title}</h2>
+      <p class="text-lead text-white/75 mt-6 mx-auto max-w-2xl" data-reveal data-reveal-delay="1">{p.closing.text}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal data-reveal-delay="2">
+        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{c.cta.bookCall}</Button>
+        <Button href={localizePath('services', lang)} variant="light-ghost" size="lg">{p.closing.button}</Button>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<style>
+  .pb-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 2rem; }
+  .pb-nav { min-width: 0; max-width: 100%; }
+  @media (min-width: 64rem) { .pb-grid { grid-template-columns: 17rem minmax(0, 1fr); gap: 4rem; padding-top: 3rem; } }
+  .pb-nav { position: sticky; top: var(--header-h); z-index: 5; background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); margin-inline: calc(-1 * var(--gutter)); padding: 0.75rem var(--gutter); border-bottom: 1px solid var(--color-line); }
+  .pb-nav-label { display: none; }
+  .pb-nav-list { display: flex; gap: 0.5rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.1rem; }
+  .pb-nav-list::-webkit-scrollbar { display: none; }
+  .pb-nav-link { display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; padding: 0.45rem 0.85rem; border-radius: 999px; border: 1px solid var(--color-line); font-size: 0.8rem; font-weight: 600; color: var(--color-ink-3); background: var(--color-white); transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .pb-nav-link.is-active { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
+  .pb-nav-num { font-size: 0.7rem; font-weight: 800; color: var(--color-accent-ink); }
+  .pb-nav-link.is-active .pb-nav-num { color: var(--color-accent-3); }
+  .pb-nav-cta { display: none; }
+  @media (min-width: 64rem) {
+    .pb-nav { top: calc(var(--header-h) + 1.5rem); align-self: start; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; margin: 0; padding: 0; border: 0; }
+    .pb-nav-label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.75rem; }
+    .pb-nav-list { flex-direction: column; gap: 0.15rem; overflow: visible; }
+    .pb-nav-link { border: 0; background: transparent; border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; white-space: normal; font-size: 0.875rem; }
+    .pb-nav-link:hover { background: var(--color-sand); color: var(--color-ink); }
+    .pb-nav-link.is-active { background: var(--color-accent-soft); color: var(--color-ink); border-color: transparent; }
+    .pb-nav-link.is-active .pb-nav-num { color: var(--color-accent-ink); }
+    .pb-nav-cta { display: block; margin-top: 1.5rem; padding: 1.25rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  }
+  .pb-list { display: grid; gap: clamp(3rem, 6vw, 6rem); }
+  .pb-item { scroll-margin-top: calc(var(--header-h) + 4.5rem); }
+  @media (min-width: 64rem) { .pb-item { scroll-margin-top: calc(var(--header-h) + 2rem); } }
+  .pb-kicker { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; font-weight: 600; }
+  .pb-index { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--color-accent-ink); }
+  .pb-body { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  @media (min-width: 48rem) { .pb-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .pb-fix { grid-column: 1 / -1; } }
+  @media (min-width: 80rem) { .pb-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); } .pb-fix { grid-column: auto; } }
+  .pb-col { padding: 1.5rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .pb-cost { background: var(--color-sand); }
+  .pb-h3 { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-3); }
+  .pb-fix { position: relative; padding: 1.75rem; border-radius: var(--radius-xl); background: var(--color-ink); color: #fff; overflow: hidden; isolation: isolate; }
+  .pb-fix::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(24rem circle at var(--mx, 80%) var(--my, 0%), rgba(255, 107, 53, 0.28), transparent 60%); }
+  .pb-fix-cta { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  .pb-also { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
+  .pb-also strong { color: #fff; }
+  .pb-also:hover strong { color: var(--color-accent-3); }
+  .pb-glow { position: absolute; width: 60vw; height: 60vw; max-width: 50rem; max-height: 50rem; left: 50%; top: -30vw; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.22), transparent 65%); filter: blur(20px); pointer-events: none; }
+</style>
+<script>
+  import '@/scripts/problems-nav';
+</script>

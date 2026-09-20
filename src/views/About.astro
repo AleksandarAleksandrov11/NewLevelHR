@@ -1,0 +1,169 @@
+---
+/** About: the founder speaks in the first person. */
+import { Zap, HeartHandshake, Target, X, Check, MessageCircle, Search, ShieldCheck } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import Photo from '@/components/ui/Photo.astro';
+import FounderPortrait from '@/components/ui/FounderPortrait.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, type PageKey } from '@/i18n';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const a = d.about;
+const c = d.common;
+const valueIcons = [Zap, HeartHandshake, Target];
+const workIcons = [MessageCircle, Search, ShieldCheck];
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.url}/#founder`,
+  name: site.founder.name,
+  jobTitle: site.founder.role,
+  worksFor: { '@id': `${site.url}/#organization` },
+  knowsLanguage: ['en', 'de', 'bg'],
+  url: `${site.url}${localizePath('about', lang)}`,
+};
+const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name: a.meta.title, url: `${site.url}${localizePath('about', lang)}`, about: { '@id': `${site.url}/#organization` } };
+---
+<PageShell lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description} jsonLd={[person, aboutPage]}>
+  <section class="ab-hero bg-mesh">
+    <div class="container-site ab-hero-grid">
+      <div class="ab-hero-copy">
+        <Breadcrumbs items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.about }]} label={c.nav.breadcrumbs} class="mb-8" />
+        <p class="eyebrow" data-reveal>{a.hero.eyebrow}</p>
+        <h1 class="font-display text-display-lg text-ink mt-5" data-split="immediate">{a.hero.title}</h1>
+        <p class="text-lead text-slate mt-6 max-w-2xl" data-reveal data-reveal-delay="2">{a.hero.text}</p>
+        <div class="mt-8 flex flex-wrap gap-4" data-reveal data-reveal-delay="3">
+          <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{a.cta.button}</Button>
+          <Button href={localizePath('howWeWork', lang)} variant="ghost">{c.nav.howWeWork}</Button>
+        </div>
+      </div>
+      <div class="ab-hero-media" data-reveal data-reveal-delay="2" data-parallax-scope>
+        <div data-parallax="0.1"><FounderPortrait lang={lang} name={site.founder.name} role={c.misc.founder} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-prose">
+      <p class="eyebrow" data-reveal>{a.story.eyebrow}</p>
+      <h2 class="font-display text-display-md text-ink mt-4" data-reveal data-reveal-delay="1">{a.story.title}</h2>
+      <div class="ab-story">
+        {a.story.paragraphs.map((text, i) => (i === 2 ? <p class="ab-story-key font-display" data-illuminate>{text}</p> : <p data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>{text}</p>))}
+      </div>
+      <p class="ab-signature font-display" data-reveal>{a.story.signature}</p>
+    </div>
+  </section>
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site">
+      <SectionHeading eyebrow={a.values.eyebrow} title={a.values.title} size="md" />
+      <ul class="ab-values" role="list">
+        {a.values.items.map((v, i) => { const Icon = valueIcons[i] ?? Zap; return (
+          <li class="card card-hover ab-value" data-reveal data-reveal-delay={String(i + 1)} data-tilt="4">
+            <span class="ab-value-icon"><Icon class="size-5" aria-hidden="true" /></span>
+            <h3 class="font-display text-xl font-bold text-ink mt-5">{v.title}</h3>
+            <p class="mt-2 text-slate leading-relaxed">{v.body}</p>
+          </li>
+        ); })}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-ink text-white relative overflow-hidden">
+    <div class="ab-glow" aria-hidden="true"></div>
+    <div class="container-site">
+      <SectionHeading eyebrow={a.manifesto.eyebrow} title={a.manifesto.title} text={a.manifesto.text} dark />
+      <ul class="ab-manifesto" role="list">
+        {a.manifesto.points.map((pt, i) => (
+          <li class="ab-pair" data-reveal data-reveal-delay={String(i + 1)}>
+            <div class="ab-not"><span class="ab-pair-label"><X class="size-3.5" aria-hidden="true" />{a.manifesto.notLabel}</span><p>{pt.not}</p></div>
+            <div class="ab-but"><span class="ab-pair-label"><Check class="size-3.5" aria-hidden="true" />{a.manifesto.butLabel}</span><p>{pt.but}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site ab-work">
+      <div class="ab-work-media" data-reveal data-parallax-scope>
+        <div data-parallax="0.12"><Photo name="founder-thinking" alt={a.howIWork.imageAlt} ratio="4/5" sizes="(min-width: 64rem) 40vw, 100vw" class="rounded-xl shadow-lift" /></div>
+      </div>
+      <div>
+        <SectionHeading eyebrow={a.howIWork.eyebrow} title={a.howIWork.title} size="md" />
+        <ol class="ab-work-list" role="list">
+          {a.howIWork.items.map((it, i) => { const Icon = workIcons[i] ?? MessageCircle; return (
+            <li data-reveal data-reveal-delay={String(i + 1)}>
+              <span class="ab-work-icon"><Icon class="size-5" aria-hidden="true" /></span>
+              <div><h3 class="font-display text-lg font-bold text-ink">{it.title}</h3><p class="mt-2 text-slate leading-relaxed">{it.body}</p></div>
+            </li>
+          ); })}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sand">
+    <div class="container-site">
+      <h2 class="font-display text-display-sm text-ink" data-reveal>{a.facts.title}</h2>
+      <dl class="ab-facts">
+        {a.facts.items.map((f, i) => (
+          <div class="ab-fact" data-reveal data-reveal-delay={String(i + 1)}>
+            <dt>{f.label}</dt><dd class="font-display">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} title={a.cta.title} text={a.cta.text} />
+</PageShell>
+
+<style>
+  .ab-hero { position: relative; overflow: hidden; padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)); padding-bottom: clamp(3rem, 5vw, 5rem); }
+  .ab-hero-grid { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 64rem) { .ab-hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 5rem; } }
+  .ab-hero-media { max-width: 24rem; margin-inline: auto; width: 100%; }
+  @media (min-width: 64rem) { .ab-hero-media { max-width: none; } }
+  .ab-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .ab-hero h1 :global(.split-i) { display: inline-block; }
+  .ab-story { margin-top: 2rem; display: grid; gap: 1.5rem; font-size: 1.125rem; line-height: 1.75; color: var(--color-ink-2); }
+  .ab-story-key { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; color: var(--color-ink); padding: 1.5rem 0 1.5rem 1.5rem; border-left: 3px solid var(--color-accent); }
+  .ab-story-key :global(.ill-w) { --lit: 0; color: rgba(20, 20, 28, calc(0.6 + var(--lit) * 0.4)); }
+  html:not(.js-motion) .ab-story-key :global(.ill-w) { color: var(--color-ink); }
+  .ab-signature { margin-top: 2rem; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: var(--color-accent-ink); }
+  .ab-values { display: grid; gap: 1.25rem; margin-top: 3rem; }
+  @media (min-width: 48rem) { .ab-values { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
+  .ab-value { padding: 2rem; }
+  .ab-value-icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 1rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
+  .ab-glow { position: absolute; width: 50vw; height: 50vw; max-width: 44rem; max-height: 44rem; right: -18vw; top: -18vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.22), transparent 65%); filter: blur(20px); pointer-events: none; }
+  .ab-manifesto { display: grid; gap: 1rem; margin-top: 3rem; }
+  .ab-pair { display: grid; gap: 0.75rem; }
+  @media (min-width: 48rem) { .ab-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1rem; } }
+  .ab-not, .ab-but { padding: 1.25rem 1.4rem; border-radius: var(--radius-lg); }
+  .ab-not { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); text-decoration: line-through; text-decoration-color: rgba(255, 255, 255, 0.35); }
+  .ab-but { background: #fff; color: var(--color-ink); font-weight: 600; }
+  .ab-pair-label { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5rem; text-decoration: none; }
+  .ab-not .ab-pair-label { color: rgba(255, 255, 255, 0.45); }
+  .ab-but .ab-pair-label { color: var(--color-accent-ink); }
+  .ab-work { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 64rem) { .ab-work { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; } }
+  .ab-work-media { max-width: 28rem; margin-inline: auto; width: 100%; }
+  @media (min-width: 64rem) { .ab-work-media { max-width: none; } }
+  .ab-work-list { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
+  .ab-work-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .ab-work-icon { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
+  .ab-facts { display: grid; gap: 1.5rem; margin-top: 2rem; }
+  @media (min-width: 40rem) { .ab-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .ab-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .ab-fact { padding-top: 1rem; border-top: 1px solid var(--color-line-strong); }
+  .ab-fact dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-mist); }
+  .ab-fact dd { margin-top: 0.5rem; font-weight: 700; font-size: 1.05rem; color: var(--color-ink); }
+</style>

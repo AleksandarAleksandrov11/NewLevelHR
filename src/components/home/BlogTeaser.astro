@@ -1,0 +1,35 @@
+---
+/** Latest three blog posts. Renders nothing if the language has no published post. */
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath } from '@/i18n';
+import { getPosts } from '@/lib/blog';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.home.blogTeaser;
+const posts = (await getPosts(lang)).slice(0, 3);
+---
+{posts.length > 0 && (
+  <section id="blog-teaser" class="blog-t section bg-white" aria-labelledby="blog-t-title">
+    <div class="container-site">
+      <div class="blog-t-head">
+        <SectionHeading eyebrow={t.eyebrow} title={t.title} as="h2" size="md" />
+        <div class="blog-t-cta" data-reveal data-reveal-delay="1"><Button href={localizePath('blog', lang)} variant="ghost">{t.cta}</Button></div>
+      </div>
+      <div class="blog-t-grid">
+        {posts.map((post, i) => <PostCard post={post} lang={lang} delay={i + 1} />)}
+      </div>
+    </div>
+  </section>
+)}
+<style>
+  .blog-t-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem 3rem; }
+  .blog-t-head :global(.section-heading h2) { margin-top: 0; }
+  .blog-t-grid { display: grid; gap: 1.5rem; margin-top: 3rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 40rem) { .blog-t-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .blog-t-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; } }
+</style>
