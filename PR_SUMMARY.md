@@ -12,7 +12,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Pages per language | Home, Services + 4 service pages, What We Fix, About, How We Work, FAQ, Contact, Legal notice, Terms, Privacy, Cookie policy, 404 |
 | Total | 45 indexable pages + 3 localized 404 pages + root redirect; 45 sitemap entries with reciprocal `hreflang` and `x-default` |
 | Home sections | Sticky glass header with mega menu · lazy Three.js hero · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
-| Contact | `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages; `.env.example` documents the switch |
+| Contact | Four-step form (topic, message, who, reply address) with a custom topic listbox; `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages |
 | Cookies / GDPR | Own consent dialog (Accept / Reject / Configure), nothing optional before consent, revocable from the footer, first-party cookie `nlhr_consent`, no remote fonts or third-party requests |
 | SEO | Unique title/description per page and language, canonical, `hreflang`, Open Graph + Twitter with generated 1200×630 images (satori/resvg, Cyrillic-capable), JSON-LD (Organization/ProfessionalService, Service, FAQPage, BreadcrumbList, HowTo, Person), sitemap, robots, favicons, web manifest |
 | Deployment | `vercel.json` (redirects, headers, function) and `public/.htaccess` (Apache: redirects, 404, caching, security headers, CSP) |
@@ -43,7 +43,10 @@ PHP hosting, SEO plumbing and a QA suite.
 6. **Motion with an off switch.** Lenis + GSAP ScrollTrigger drive reveals, the pinned 90-day bridge, counters
    and parallax through `data-*` hooks; `prefers-reduced-motion` disables all of it, the preloader and the
    custom cursor, and content is never hidden without JavaScript.
-7. **Contact form contract.** The client posts JSON `{ name, email, company, topic, message, consent, website
+7. **Contact form: one question at a time.** Four steps with a progress bar, per-step validation and a listbox
+   that replaces the native topic select for styling. The native select stays in the markup, so the page still
+   works and posts without JavaScript, and the form column stays in view while the booking panel scrolls past.
+   The client posts JSON `{ name, email, company, topic, message, consent, website
    (honeypot), ts, lang, token }` and expects `{ ok: true }` or `{ ok: false, error, fields }`. Both backends
    implement the same contract, so switching hosts is a one-variable change (`PUBLIC_FORM_ENDPOINT`).
 8. **Shorter pages.** The home page lost the facts strip, the about teaser and the blog teaser and shows four of
@@ -53,16 +56,12 @@ PHP hosting, SEO plumbing and a QA suite.
 9. **No decorative badges, no dashes.** The pill tags on the home cards, the service heroes and the What We Fix
    page are gone, so each card leads with its headline. Em and en dashes were replaced with colons, commas or
    full stops across all three languages, which also removes the punctuation that reads as machine-written.
-10. **Native cursor with a pixel trail.** `src/scripts/cursor.ts` paints grid-snapped squares along the pointer
-   path on a full-screen canvas: emission follows the segment between two moves, alpha and size fade in discrete
-   steps, and the loop stops when the pointer does. Fine pointers only, never with reduced motion, and the system
-   cursor is never hidden.
-11. **Formal address everywhere.** DE uses *Sie*, BG uses *Вие*, on every page and in every form message.
-12. **One 404 document, three languages.** Static hosts serve a single `404.html`. It carries the English shell
+10. **Formal address everywhere.** DE uses *Sie*, BG uses *Вие*, on every page and in every form message.
+11. **One 404 document, three languages.** Static hosts serve a single `404.html`. It carries the English shell
     with all three localized messages as a no-JavaScript fallback, and a tiny inline script continues `/de/…`
     and `/bg/…` URLs to the fully localized `/de/404/` and `/bg/404/` pages (header, footer and cookie dialog
     in the right language) while the HTTP status of the original response stays 404 for crawlers.
-13. **QA that runs by itself.** The QA scripts serve `dist/` through a small compressing static server, so no
+12. **QA that runs by itself.** The QA scripts serve `dist/` through a small compressing static server, so no
     preview server is needed and Lighthouse measures the site rather than the compressor. Screenshots are taken
     after wheel-driven scrolling so Lenis, IntersectionObserver reveals and ScrollTrigger pins all run first.
 
@@ -74,7 +73,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Dictionary parity EN/DE/BG | `npm run check:i18n` | 12 namespaces, 1 413 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 50 pages, 0 errors |
-| End-to-end behaviour (cookies, banner, switcher, sticky header, form, quiz, calculator, FAQ, cursor trail, 404, reduced motion, view transitions) | `npm run qa:e2e` | 23/23 passed (`docs/qa/e2e.md`) |
+| End-to-end behaviour (cookies, banner, switcher, sticky header, four-step form, quiz, calculator, FAQ, 404, reduced motion, view transitions) | `npm run qa:e2e` | 22/22 passed (`docs/qa/e2e.md`) |
 | Screenshots 390/1440 px, overflow at 360 to 1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the seven widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 

@@ -71,8 +71,7 @@ Sections alternate deliberately so that each one reads as a new "level":
 * Counters: `data-counter="90" data-suffix="%"`.
 * Parallax: `data-parallax="0.3"` inside a `data-parallax-scope`.
 * Interactions: `data-magnetic`, `data-tilt`, `data-spotlight`, `data-flip` / `data-flip-toggle`.
-* Cursor: the native pointer stays visible; `src/scripts/cursor.ts` paints a grid-snapped pixel trail on a
-  full-screen canvas (fine pointers only, off with reduced motion, idle when the pointer stops).
+* Cursor: the browser's own pointer, never replaced or hidden.
 * Everything respects `prefers-reduced-motion`; the `.js-motion` class on `<html>` gates initial hidden states so
   content is never invisible without JavaScript.
 
@@ -84,6 +83,8 @@ Sections alternate deliberately so that each one reads as a new "level":
 * `ui/Breadcrumbs.astro` — with BreadcrumbList JSON-LD.
 * `ui/Wordmark.astro` — the typographic logo with step glyph.
 * `ui/Photo.astro` — `<Picture>` (AVIF/WebP) by image name with a graceful gradient fallback when a file is missing.
+* Contact form — one question per step (four steps), a progress bar and a listbox that replaces the native
+  topic select. The select stays in the markup, so the form still posts without JavaScript.
 * `ui/FounderPortrait.astro` — monogram placeholder until the client provides a portrait (`site.founder.portrait`).
 * `layout/PageShell.astro` — wraps every page: SEO, hreflang, header, footer, cookie banner, language banner, cursor, preloader.
 * `layout/LangSwitcher.astro` — dropdown (header) or inline pills (footer, 404); every link targets the same page in the other language.

@@ -210,6 +210,15 @@ export const common = {
       spam: 'The message was rejected. Please try again.',
     },
     honeypotLabel: 'Leave this field empty',
+    step: 'Question {current} of {total}',
+    next: 'Next',
+    back: 'Back',
+    steps: {
+      topic: { title: 'What can we help you with?', hint: 'Pick the closest topic. We sort out the details together.' },
+      message: { title: 'What is going on?', hint: 'A few sentences are enough: the situation, the size of the team, what you need.' },
+      who: { title: 'Who are we talking to?', hint: 'Your name, and the company if you want us to read up before we reply.' },
+      reply: { title: 'Where do we reply?', hint: 'We answer within 24 hours on business days.' },
+    },
   },
 } as const;
 

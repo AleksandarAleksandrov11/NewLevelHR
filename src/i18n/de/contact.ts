@@ -31,12 +31,4 @@ export const contact: ContactDict = {
     languagesValue: 'Englisch, Deutsch, Bulgarisch',
     address: 'Adresse',
   },
-  next: {
-    title: 'Was passiert, nachdem Sie geschrieben haben',
-    items: [
-      { title: 'Wir lesen es. Ein Mensch, kein Bot.', body: 'Ihre Nachricht landet direkt bei Mariyana, nicht in einer Ticket-Warteschlange.' },
-      { title: 'Sie erhalten innerhalb von 24 Stunden eine Antwort.', body: 'An Werktagen, in der Sprache, in der Sie geschrieben haben: Englisch, Deutsch oder Bulgarisch.' },
-      { title: 'Wir schlagen den nächsten Schritt vor.', body: 'Meist das kostenlose 30-Minuten-Gespräch, manchmal eine direkte Antwort, gelegentlich eine Fachperson, an die wir Sie verweisen können.' },
-    ],
-  },
 };

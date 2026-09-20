@@ -12,6 +12,8 @@ interface Props {
   class?: string;
   ariaLabel?: string;
   id?: string;
+  /** Rendered hidden; scripts reveal it (the stepped contact form does this). */
+  hidden?: boolean;
   [key: `data-${string}`]: string | undefined;
 }
 
@@ -26,6 +28,7 @@ const {
   class: className = '',
   ariaLabel,
   id,
+  hidden,
   ...rest
 } = Astro.props;
 
@@ -54,6 +57,7 @@ const iconClass = 'size-[1.1em] shrink-0 transition-transform duration-500 ease-
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   aria-label={ariaLabel}
+  hidden={hidden}
   data-magnetic={magnetic ? '' : undefined}
   class:list={[base, sizes[size], variants[variant], className]}
   {...rest}

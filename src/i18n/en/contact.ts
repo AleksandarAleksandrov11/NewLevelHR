@@ -31,13 +31,5 @@ export const contact = {
     languagesValue: 'English, German, Bulgarian',
     address: 'Address',
   },
-  next: {
-    title: 'What happens after you write',
-    items: [
-      { title: 'We read it. A person, not a bot.', body: 'Your message lands with Mariyana directly, not in a ticket queue.' },
-      { title: 'You get a reply within 24 hours.', body: 'On business days, in the language you wrote in: English, German or Bulgarian.' },
-      { title: 'We suggest the next step.', body: 'Usually the free 30-minute call, sometimes a direct answer, occasionally a specialist we can point you to.' },
-    ],
-  },
 } as const;
 export type ContactDict = Widen<typeof contact>;

@@ -109,8 +109,6 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
           <p class="calc-total-value font-display tabular" data-calc-total data-value={total}>{money(total)}</p>
           <p class="calc-multiple" data-calc-multiple data-template={t.multipleLabel}>{fmt(t.multipleLabel, { multiple })}</p>
         </div>
-        <p class="calc-formula"><code>{t.formula}</code></p>
-        <p class="calc-note">{t.note}</p>
         <div class="calc-actions">
           <Button href={localizePath('contact', lang, 'book')} icon="calendar">{t.cta}</Button>
           <button type="button" class="calc-reset" data-calc-reset><RotateCcw class="size-4" aria-hidden="true" /><span>{t.reset}</span></button>
@@ -187,9 +185,6 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
   .calc-total-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-slate); }
   .calc-total-value { margin-top: 0.35rem; font-size: clamp(2.1rem, 1.4rem + 2.4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--color-ink); overflow-wrap: normal; }
   .calc-multiple { margin-top: 0.6rem; font-size: 0.95rem; font-weight: 500; color: var(--color-accent-ink); }
-  .calc-formula { margin-top: 1.25rem; padding: 0.85rem 1rem; border-radius: var(--radius-md); background: var(--color-sand); }
-  .calc-formula code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.74rem; line-height: 1.55; color: var(--color-ink-3); overflow-wrap: anywhere; }
-  .calc-note { margin-top: 1rem; font-size: 0.85rem; line-height: 1.55; color: var(--color-slate); }
   .calc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
   .calc-reset { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.25rem; font-size: 0.9rem; font-weight: 600; color: var(--color-slate); border-radius: 999px; transition: color 0.3s ease; }
   .calc-reset:hover { color: var(--color-ink); }

@@ -27,8 +27,6 @@ export const calculator: CalculatorDict = {
     vacancy: 'Unbesetzte Stelle (Gehaltsäquivalent)',
     total: 'Geschätzte Gesamtkosten',
   },
-  formula: 'Gesamt = Gehalt × Monate / 12 + Recruiting + Stunden der Führungskraft × Wochen × Stundensatz + Gehalt × Abfindung / 12 + Recruiting erneut + Gehalt × Vakanz / 12',
-  note: 'Dies ist ein vereinfachtes Modell zur Orientierung. Es lässt entgangenen Umsatz, Teammoral und Auswirkungen auf Kunden außer Acht. Die reale Zahl liegt daher meist höher.',
   cta: 'Die nächste vermeiden: Sprechen Sie mit uns',
   reset: 'Auf Standardwerte zurücksetzen',
   multipleLabel: 'Das entspricht etwa dem {multiple}-Fachen des Jahresgehalts.',
