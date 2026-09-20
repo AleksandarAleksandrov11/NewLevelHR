@@ -80,24 +80,6 @@ export const home: HomeDict = {
       { label: 'Erreichbarkeit', fractional: 'Auf Abruf in Ihrem Slack, Mo-Fr 9-18 Uhr MEZ', fullTime: 'Vollzeit vor Ort' },
     ],
   },
-  facts: {
-    eyebrow: 'Worauf Sie sich verlassen können',
-    title: 'Keine geschönten Kennzahlen. Nur so arbeiten wir.',
-    text: 'Wir veröffentlichen nur Zahlen, hinter denen wir stehen.',
-  },
-  aboutTeaser: {
-    eyebrow: 'Über uns',
-    title: 'Kein Dienstleister, den man einmal im Jahr anruft.',
-    quote: 'Ich bin die Partnerin in Ihrem Slack-Channel, die Beraterin an Ihrer Seite bei einer schwierigen Einstellung und das Sicherheitsnetz für Ihre ersten 90 Tage.',
-    name: 'Mariyana Velkova',
-    role: 'Gründerin & Geschäftsführerin',
-    cta: 'Die Gründerin kennenlernen',
-    values: [
-      { title: 'Geschwindigkeit statt Bürokratie', body: 'Recruiting sollte Tage dauern, nicht Monate.' },
-      { title: 'Menschlichkeit statt Automatisierung', body: 'Sie brauchen kein weiteres KI-Dashboard, sondern einen Partner, der Ihre Herausforderungen versteht.' },
-      { title: 'Strategische Präzision', body: 'Der Kopf eines Senior-Partners, ohne das Gehalt einer Führungskraft.' },
-    ],
-  },
   testimonials: {
     eyebrow: 'Was Kunden sagen',
     title: 'Echte Worte von echten Teams.',

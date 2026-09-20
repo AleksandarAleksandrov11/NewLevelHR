@@ -81,24 +81,6 @@ export const home = {
       { label: 'Availability', fractional: 'On-call in your Slack, Mon-Fri 9-18 CET', fullTime: 'Full-time presence' },
     ],
   },
-  facts: {
-    eyebrow: 'What you can count on',
-    title: 'No vanity metrics. Just how we work.',
-    text: 'We publish the numbers we can stand behind.',
-  },
-  aboutTeaser: {
-    eyebrow: 'About',
-    title: 'Not a vendor you call once a year.',
-    quote: 'I’m the partner in your Slack channel, the advisor in your ear during a tough hire, and the safety net for your first 90 days.',
-    name: 'Mariyana Velkova',
-    role: 'Founder & Managing Director',
-    cta: 'Meet the founder',
-    values: [
-      { title: 'Velocity over Bureaucracy', body: 'Hiring should take days, not months.' },
-      { title: 'Humanity over Automation', body: 'You don’t need another AI dashboard; you need a partner who understands your struggle.' },
-      { title: 'Strategic Precision', body: 'The brain of a senior partner without the executive price tag.' },
-    ],
-  },
   testimonials: {
     eyebrow: 'What clients say',
     title: 'Real words from real teams.',
