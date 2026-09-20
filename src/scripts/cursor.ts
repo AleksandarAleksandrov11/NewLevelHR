@@ -11,13 +11,13 @@
  */
 
 /** Pixel grid in CSS pixels: positions and sizes snap to it. */
-const GRID = 6;
-const MAX_PIXELS = 260;
+const GRID = 5;
+const MAX_PIXELS = 420;
 /** Lifetime in milliseconds; alpha is quantised into ALPHA_STEPS levels. */
-const LIFE = 620;
-const ALPHA_STEPS = 5;
+const LIFE = 900;
+const ALPHA_STEPS = 6;
 /** A cell cannot be re-lit faster than this, which keeps slow moves from clumping. */
-const CELL_COOLDOWN = 90;
+const CELL_COOLDOWN = 60;
 
 const COLORS = ['255, 107, 53', '247, 147, 30', '255, 179, 71', '255, 214, 170'];
 
@@ -54,8 +54,13 @@ export function initCursor() {
   let dpr = Math.min(2, window.devicePixelRatio || 1);
   const resize = () => {
     dpr = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = Math.floor(window.innerWidth * dpr);
-    canvas.height = Math.floor(window.innerHeight * dpr);
+    const w = Math.floor(window.innerWidth * dpr);
+    const h = Math.floor(window.innerHeight * dpr);
+    // Setting width or height clears the canvas, so only touch it on a real size change
+    // (a scrollbar appearing also fires resize).
+    if (canvas.width === w && canvas.height === h) return;
+    canvas.width = w;
+    canvas.height = h;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.imageSmoothingEnabled = false;
   };
@@ -80,7 +85,7 @@ export function initCursor() {
     cells.set(key, now);
     if (cells.size > 600) cells.clear();
 
-    const count = hot ? 2 : 1;
+    const count = hot ? 3 : 2;
     for (let i = 0; i < count; i++) {
       // A little scatter on the grid keeps the trail from looking like a ruler.
       const jitterX = (Math.round(Math.random() * 2) - 1) * GRID;
@@ -88,7 +93,7 @@ export function initCursor() {
       pixels.push({
         x: cx + (i === 0 ? 0 : jitterX),
         y: cy + (i === 0 ? 0 : jitterY),
-        size: i === 0 ? GRID : GRID - 2,
+        size: i === 0 ? GRID + 1 : GRID - 2,
         born: now,
         life: LIFE * (0.65 + Math.random() * 0.5),
         color: COLORS[(Math.random() * (hot ? 3 : COLORS.length)) | 0],
