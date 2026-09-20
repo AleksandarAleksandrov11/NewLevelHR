@@ -55,7 +55,6 @@ const blocks = (list: readonly Block[]) => list;
       </aside>
 
       <div class="lg-body prose-nl">
-        <p class="lg-note">{l.common.todoNote}</p>
         {blocks(page.intro).map((b) => (
           <Fragment>
             {b.type === 'p' && <p>{sub(b.text ?? '')}</p>}
@@ -106,7 +105,6 @@ const blocks = (list: readonly Block[]) => list;
   .lg-toc ol, .lg-other ul { display: grid; gap: 0.15rem; }
   .lg-toc a, .lg-other a { display: block; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.875rem; color: var(--color-ink-3); transition: background-color 0.25s ease, color 0.25s ease; }
   .lg-toc a:hover, .lg-other a:hover { background: var(--color-sand); color: var(--color-ink); }
-  .lg-note { padding: 0.85rem 1rem; border-radius: var(--radius-md); background: var(--color-accent-soft); color: var(--color-accent-deep); font-size: 0.875rem; }
   .lg-section { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
   .lg-dl { display: grid; gap: 0.75rem; }
   .lg-dl dt { font-weight: 650; color: var(--color-ink); }

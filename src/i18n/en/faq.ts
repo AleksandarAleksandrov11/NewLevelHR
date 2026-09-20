@@ -1,12 +1,12 @@
 import type { Widen } from '../types';
 /**
- * Namespace "faq" — English is the type reference for de/ and bg/.
+ * Namespace "faq": English is the type reference for de/ and bg/.
  * Answers may contain "\n\n" to split into paragraphs. Group `id`s are
  * anchors and must stay untranslated.
  */
 export const faq = {
   meta: {
-    title: 'FAQ – Fractional HR, hiring and compliance questions answered',
+    title: 'FAQ: Fractional HR, hiring and compliance questions answered',
     description:
       'Answers to the questions founders ask us first: what fractional HR is, how pricing and the free call work, how the 90-Day Success Bridge runs, what the EU Pay Transparency Directive means for SMEs, and what we do not do.',
   },

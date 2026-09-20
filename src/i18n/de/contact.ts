@@ -2,7 +2,7 @@ import type { ContactDict } from '../en/contact';
 
 export const contact: ContactDict = {
   meta: {
-    title: 'Kontakt – kostenlose 30-minütige HR-Beratung buchen',
+    title: 'Kontakt: kostenlose 30-minütige HR-Beratung buchen',
     description: 'Sprechen Sie mit NewLevelHR: Nachricht senden oder eine kostenlose 30-minütige Beratung buchen. Fraktionale HR, Recruiting, die 90-Tage-Brücke und Manager-Coaching, auf Englisch, Deutsch und Bulgarisch. Antwort innerhalb von 24 Stunden.',
   },
   hero: {
@@ -26,7 +26,7 @@ export const contact: ContactDict = {
     response: 'Antwortzeit',
     responseValue: 'Innerhalb von 24 Stunden an Werktagen',
     hours: 'Zeiten',
-    hoursValue: 'Montag bis Freitag, 9–18 Uhr MEZ',
+    hoursValue: 'Montag bis Freitag, 9-18 Uhr MEZ',
     languages: 'Sprachen',
     languagesValue: 'Englisch, Deutsch, Bulgarisch',
     address: 'Adresse',

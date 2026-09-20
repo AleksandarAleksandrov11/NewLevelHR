@@ -17,12 +17,10 @@ interface Props extends Omit<SeoInput, 'lang'> {
   /** Body class hook */
   bodyClass?: string;
   pageKey?: string;
-  /** Labels for the custom cursor, keyed by data-cursor value */
-  cursorLabels?: Record<string, string>;
   preloaderKey?: string;
 }
 
-const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', cursorLabels, preloaderKey = site.storage.preloaderKey, ...seo } = Astro.props;
+const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', preloaderKey = site.storage.preloaderKey, ...seo } = Astro.props;
 const dict = getDict(lang);
 const meta = localeMeta[lang];
 const fontPreloads = lang === 'bg'
@@ -60,7 +58,7 @@ const organization = {
 };
 ---
 <!doctype html>
-<html lang={meta.htmlLang} dir="ltr" data-lang={lang} data-page={pageKey} data-cursor-labels={JSON.stringify(cursorLabels ?? dict.common.cursor)} data-preloader-key={preloaderKey}>
+<html lang={meta.htmlLang} dir="ltr" data-lang={lang} data-page={pageKey} data-preloader-key={preloaderKey}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />

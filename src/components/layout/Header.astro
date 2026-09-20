@@ -10,7 +10,7 @@ import LangSwitcher from '@/components/layout/LangSwitcher.astro';
 interface Props {
   lang: Locale;
   alternates: Record<Locale, string>;
-  currentKey?: PageKey | 'blogPost';
+  currentKey?: PageKey;
   transparent?: boolean;
 }
 const { lang, alternates, currentKey, transparent = false } = Astro.props;
@@ -29,7 +29,6 @@ const primaryLinks: Array<{ key: PageKey; label: string }> = [
   { key: 'problems', label: c.nav.problems },
   { key: 'howWeWork', label: c.nav.howWeWork },
   { key: 'about', label: c.nav.about },
-  { key: 'blog', label: c.nav.blog },
 ];
 const mobileLinks: Array<{ key: PageKey; label: string }> = [
   { key: 'services', label: c.nav.services },
@@ -37,7 +36,7 @@ const mobileLinks: Array<{ key: PageKey; label: string }> = [
   { key: 'faq', label: c.nav.faq },
   { key: 'contact', label: c.nav.contact },
 ];
-const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof currentKey === 'string' && currentKey.startsWith('service')) || (k === 'blog' && currentKey === 'blogPost');
+const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof currentKey === 'string' && currentKey.startsWith('service'));
 ---
 <header id="site-header" class="site-header">
   <div class:list={['header-bar', transparent && 'is-transparent-top']} data-header>
@@ -59,7 +58,7 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
                 <ul class="mega-list" role="list">
                   {services.map((s) => (
                     <li>
-                      <a href={p(s.key)} class:list={['mega-card group', isActive(s.key) && 'is-active']} data-cursor="open">
+                      <a href={p(s.key)} class:list={['mega-card group', isActive(s.key) && 'is-active']}>
                         <span class="mega-icon"><s.icon class="size-5" aria-hidden="true" /></span>
                         <span class="mega-text">
                           <span class="mega-name">{s.name}</span>
@@ -158,7 +157,6 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
     backdrop-filter: none;
   }
   .header-bar.is-scrolled { border-bottom-color: var(--color-line); box-shadow: 0 8px 30px -20px rgba(20, 20, 28, 0.25); }
-  .header-bar.is-hidden { transform: translateY(-100%); }
   .header-bar.is-menu-open { transform: none; background: var(--color-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: transparent; box-shadow: none; }
 
   .progress { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: transparent; pointer-events: none; }

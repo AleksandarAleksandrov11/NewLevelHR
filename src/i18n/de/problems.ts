@@ -2,7 +2,7 @@ import type { ProblemsDict } from '../en/problems';
 
 export const problems: ProblemsDict = {
   meta: {
-    title: 'Was wir lösen – acht People-Probleme in wachsenden Unternehmen',
+    title: 'Was wir lösen: acht People-Probleme in wachsenden Unternehmen',
     description: 'Gründer-Überlastung, ungeschulte Führungskräfte, Gehalt nach Bauchgefühl, Fehlbesetzungen, Prüfungsangst, chaotisches Wachstum, riskante Kündigungen und uneinige Führung: was jedes davon Sie kostet und wie NewLevelHR es löst.',
   },
   hero: {
@@ -29,7 +29,7 @@ export const problems: ProblemsDict = {
         'Jede HR-Frage, vom Urlaubstag bis zur Gehaltserhöhung, landet auf Ihrem Schreibtisch.',
         'Personalentscheidungen werden aufgeschoben, weil nie Zeit ist, sie zu Ende zu denken.',
       ],
-      cost: 'Gründerstunden sind die teuersten Stunden im Unternehmen. Jeder Nachmittag, der mit Schlichten oder Papierkram vergeht, ist ein Nachmittag, den das Produkt, die Kunden und die nächste Finanzierungsrunde nicht bekommen. Und Entscheidungen in Eile kommen meist als größere Probleme zurück.',
+      cost: 'Gründerstunden sind die teuersten Stunden im Unternehmen. Jeder Nachmittag, der mit Schlichten oder Papierkram vergeht, ist ein Nachmittag, den das Produkt, die Kunden und die nächste Finanzierungsrunde nicht bekommen.',
       fix: {
         title: 'Eine Senior-Partnerin, die Ihnen die People-Administration abnimmt.',
         text: 'Sie bekommen eine HR-Partnerin auf Abruf, ohne Vollzeitgehalt. Wir bauen die Strukturen einmal auf und betreiben dann das Tagesgeschäft mit Ihnen, in Ihrem Slack-Channel, in Ihrer Sprache.',
@@ -48,7 +48,7 @@ export const problems: ProblemsDict = {
         'Kleine Spannungen wachsen zu Kündigungen, weil niemand sie früh angesprochen hat.',
         'Leads eskalieren jede Entscheidung zu Ihnen, statt ihr Team zu verantworten.',
       ],
-      cost: 'Menschen kündigen selten einem Unternehmen. Sie kündigen einer Führungskraft, der nie beigebracht wurde, wie man führt. Ein einziger ungeschulter Lead kann Sie die stärksten Leute seines Teams kosten, und der Lead selbst brennt oft aus, während er versucht, alles allein herauszufinden.',
+      cost: 'Menschen kündigen selten einem Unternehmen. Sie kündigen einer Führungskraft, der nie beigebracht wurde, wie man führt.',
       fix: {
         title: 'Praktisches Coaching, das aus Experten Führungskräfte macht.',
         text: 'Wir coachen Ihre Leads zu den Situationen, vor denen sie diesen Monat wirklich stehen: das Feedback, dem sie ausweichen, der Konflikt im Team, die Delegation, die sie nicht machen. Werkzeuge zuerst, Theorie nur, wo sie hilft.',
@@ -67,7 +67,7 @@ export const problems: ProblemsDict = {
         'Gehaltserhöhungen werden entschieden, wenn jemand mit Kündigung droht.',
         'Sie sind nicht sicher, was die EU-Entgelttransparenzrichtlinie von Ihnen verlangen wird.',
       ],
-      cost: 'Unerklärbares Gehalt zerstört Vertrauen schneller als niedriges Gehalt. Sobald Gehälter verglichen werden, und das werden sie immer, werden inkonsistente Angebote zu Groll, Gegenangeboten und Kündigungen. Mit den Transparenzregeln, die EU-weit kommen, wird Raten außerdem zum Compliance-Risiko.',
+      cost: 'Unerklärbares Gehalt zerstört Vertrauen schneller als niedriges Gehalt. Sobald Gehälter verglichen werden, und das werden sie immer, werden inkonsistente Angebote zu Groll, Gegenangeboten und Kündigungen.',
       fix: {
         title: 'Einfache Gehaltsbänder und Benefit-Regeln, die jeder erklären kann.',
         text: 'Wir bauen eine Vergütungsstruktur, die zu einem Unternehmen Ihrer Größe passt: klare Level, Gehaltsspannen pro Rolle, Benefit-Regeln und ein Prozess für Erhöhungen. Transparent genug für die Richtlinie, einfach genug, um wirklich genutzt zu werden.',
@@ -105,7 +105,7 @@ export const problems: ProblemsDict = {
         'Personalakten sind unvollständig, und Sie wüssten nicht, wo Sie suchen sollten.',
         'Bei den Worten „Arbeitsinspektion“ zieht sich Ihr Magen zusammen.',
       ],
-      cost: 'Prüfungsangst kostet Sie doppelt. Zuerst in Bußgeldern und Nachzahlungen, wenn eine Prüfung eine Lücke findet. Dann in den leiseren Kosten: Führungsaufmerksamkeit, die in Sorgen fließt statt in Aufbau, und Mitarbeitende, die merken, dass die Basics nicht in Ordnung sind.',
+      cost: 'Prüfungsangst kostet Sie doppelt: in Bußgeldern und Nachzahlungen, wenn eine Prüfung eine Lücke findet, und in den Stunden, die Ihr Team damit verliert, Unterlagen zu rekonstruieren, die längst bereit sein sollten.',
       fix: {
         title: 'Eine Compliance-Basis, über die Sie sich keine Sorgen mehr machen müssen.',
         text: 'Wir prüfen Ihre Verträge, Richtlinien und Akten, schließen die Lücken und richten einen einfachen Rhythmus ein, um alles aktuell zu halten. Wo Rechtsberatung nötig ist, arbeiten wir mit Ihrer Anwältin oder Ihrem Anwalt zusammen; wir ersetzen sie nicht.',
@@ -143,7 +143,7 @@ export const problems: ProblemsDict = {
         'Sie haben Angst, dass ein falscher Schritt in einer Klage endet.',
         'Der Rest des Teams verliert die Geduld, während Sie warten.',
       ],
-      cost: 'Jede Woche Warten kostet Gehalt, Teammoral und Ihre Glaubwürdigkeit als Führungskraft. Die Stärksten merken zuerst, wenn Minderleistung keine Konsequenzen hat. Und eine Trennung in Eile, ohne Dokumentation, ist genau die, die im Streit endet.',
+      cost: 'Jede Woche Warten kostet Gehalt, Teammoral und Ihre Glaubwürdigkeit als Führungskraft. Die Stärksten merken zuerst, wenn Minderleistung keine Konsequenzen hat.',
       fix: {
         title: 'Ein fairer, dokumentierter Prozess und ein ruhiger Trennungsplan.',
         text: 'Wir setzen einen klaren Leistungsprozess auf: Erwartungen schriftlich, ehrliche Gespräche, eine definierte Verbesserungsphase und dokumentierte Ergebnisse. Wenn eine Trennung die richtige Entscheidung ist, bereiten wir sie mit Ihrer Rechtsberatung vor und helfen Ihnen, sie würdevoll umzusetzen.',
@@ -174,11 +174,5 @@ export const problems: ProblemsDict = {
       },
       serviceLabel: 'Moderiert innerhalb von:',
     },
-  },
-  closing: {
-    eyebrow: 'Mehr als eines wiedererkannt?',
-    title: 'Das ist normal. Und es ist lösbar.',
-    text: 'Diese Probleme kommen selten allein. In einem kostenlosen 30-Minuten-Gespräch schauen wir, welches davon Sie gerade am meisten kostet und was zuerst helfen würde, ob Sie mit uns arbeiten oder nicht.',
-    button: 'Alle vier Leistungen ansehen',
   },
 };

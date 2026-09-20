@@ -1,8 +1,8 @@
 # QA screenshots
 
-Generated 2026-09-19 21:01 UTC from `http://127.0.0.1:4174` with `npm run qa:screenshots`.
+Generated 2026-09-20 11:32 UTC from `http://127.0.0.1:4174` with `npm run qa:screenshots`.
 
-* 60 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
+* 45 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
 * Console errors while capturing: **0**.
 * Captures that failed: **0**.
@@ -17,16 +17,6 @@ not a blank section. The Three.js hero loads on first interaction or after 6.5 s
 | --- | --- | --- | --- | --- |
 | /bg/ | 390 | no | 0 | [bg/home@390.jpg](./bg/home@390.jpg) |
 | /bg/ | 1440 | no | 0 | [bg/home@1440.jpg](./bg/home@1440.jpg) |
-| /bg/blog/ | 390 | no | 0 | [bg/blog@390.jpg](./bg/blog@390.jpg) |
-| /bg/blog/ | 1440 | no | 0 | [bg/blog@1440.jpg](./bg/blog@1440.jpg) |
-| /bg/blog/bewerbung-mit-meme/ | 390 | no | 0 | [bg/blog-bewerbung-mit-meme@390.jpg](./bg/blog-bewerbung-mit-meme@390.jpg) |
-| /bg/blog/bewerbung-mit-meme/ | 1440 | no | 0 | [bg/blog-bewerbung-mit-meme@1440.jpg](./bg/blog-bewerbung-mit-meme@1440.jpg) |
-| /bg/blog/kaffeeautomat-mitarbeiter-des-monats/ | 390 | no | 0 | [bg/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg](./bg/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg) |
-| /bg/blog/kaffeeautomat-mitarbeiter-des-monats/ | 1440 | no | 0 | [bg/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg](./bg/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg) |
-| /bg/blog/kurzes-feedback-uebersetzung/ | 390 | no | 0 | [bg/blog-kurzes-feedback-uebersetzung@390.jpg](./bg/blog-kurzes-feedback-uebersetzung@390.jpg) |
-| /bg/blog/kurzes-feedback-uebersetzung/ | 1440 | no | 0 | [bg/blog-kurzes-feedback-uebersetzung@1440.jpg](./bg/blog-kurzes-feedback-uebersetzung@1440.jpg) |
-| /bg/blog/onboarding-bingo-buzzwords/ | 390 | no | 0 | [bg/blog-onboarding-bingo-buzzwords@390.jpg](./bg/blog-onboarding-bingo-buzzwords@390.jpg) |
-| /bg/blog/onboarding-bingo-buzzwords/ | 1440 | no | 0 | [bg/blog-onboarding-bingo-buzzwords@1440.jpg](./bg/blog-onboarding-bingo-buzzwords@1440.jpg) |
 | /bg/faq/ | 390 | no | 0 | [bg/faq@390.jpg](./bg/faq@390.jpg) |
 | /bg/faq/ | 1440 | no | 0 | [bg/faq@1440.jpg](./bg/faq@1440.jpg) |
 | /bg/kak-rabotim/ | 390 | no | 0 | [bg/kak-rabotim@390.jpg](./bg/kak-rabotim@390.jpg) |
@@ -59,16 +49,6 @@ not a blank section. The Three.js hero loads on first interaction or after 6.5 s
 | /de/ | 1440 | no | 0 | [de/home@1440.jpg](./de/home@1440.jpg) |
 | /de/agb/ | 390 | no | 0 | [de/agb@390.jpg](./de/agb@390.jpg) |
 | /de/agb/ | 1440 | no | 0 | [de/agb@1440.jpg](./de/agb@1440.jpg) |
-| /de/blog/ | 390 | no | 0 | [de/blog@390.jpg](./de/blog@390.jpg) |
-| /de/blog/ | 1440 | no | 0 | [de/blog@1440.jpg](./de/blog@1440.jpg) |
-| /de/blog/bewerbung-mit-meme/ | 390 | no | 0 | [de/blog-bewerbung-mit-meme@390.jpg](./de/blog-bewerbung-mit-meme@390.jpg) |
-| /de/blog/bewerbung-mit-meme/ | 1440 | no | 0 | [de/blog-bewerbung-mit-meme@1440.jpg](./de/blog-bewerbung-mit-meme@1440.jpg) |
-| /de/blog/kaffeeautomat-mitarbeiter-des-monats/ | 390 | no | 0 | [de/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg](./de/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg) |
-| /de/blog/kaffeeautomat-mitarbeiter-des-monats/ | 1440 | no | 0 | [de/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg](./de/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg) |
-| /de/blog/kurzes-feedback-uebersetzung/ | 390 | no | 0 | [de/blog-kurzes-feedback-uebersetzung@390.jpg](./de/blog-kurzes-feedback-uebersetzung@390.jpg) |
-| /de/blog/kurzes-feedback-uebersetzung/ | 1440 | no | 0 | [de/blog-kurzes-feedback-uebersetzung@1440.jpg](./de/blog-kurzes-feedback-uebersetzung@1440.jpg) |
-| /de/blog/onboarding-bingo-buzzwords/ | 390 | no | 0 | [de/blog-onboarding-bingo-buzzwords@390.jpg](./de/blog-onboarding-bingo-buzzwords@390.jpg) |
-| /de/blog/onboarding-bingo-buzzwords/ | 1440 | no | 0 | [de/blog-onboarding-bingo-buzzwords@1440.jpg](./de/blog-onboarding-bingo-buzzwords@1440.jpg) |
 | /de/cookie-richtlinie/ | 390 | no | 0 | [de/cookie-richtlinie@390.jpg](./de/cookie-richtlinie@390.jpg) |
 | /de/cookie-richtlinie/ | 1440 | no | 0 | [de/cookie-richtlinie@1440.jpg](./de/cookie-richtlinie@1440.jpg) |
 | /de/datenschutz/ | 390 | no | 0 | [de/datenschutz@390.jpg](./de/datenschutz@390.jpg) |
@@ -99,16 +79,6 @@ not a blank section. The Three.js hero loads on first interaction or after 6.5 s
 | /en/ | 1440 | no | 0 | [en/home@1440.jpg](./en/home@1440.jpg) |
 | /en/about/ | 390 | no | 0 | [en/about@390.jpg](./en/about@390.jpg) |
 | /en/about/ | 1440 | no | 0 | [en/about@1440.jpg](./en/about@1440.jpg) |
-| /en/blog/ | 390 | no | 0 | [en/blog@390.jpg](./en/blog@390.jpg) |
-| /en/blog/ | 1440 | no | 0 | [en/blog@1440.jpg](./en/blog@1440.jpg) |
-| /en/blog/bewerbung-mit-meme/ | 390 | no | 0 | [en/blog-bewerbung-mit-meme@390.jpg](./en/blog-bewerbung-mit-meme@390.jpg) |
-| /en/blog/bewerbung-mit-meme/ | 1440 | no | 0 | [en/blog-bewerbung-mit-meme@1440.jpg](./en/blog-bewerbung-mit-meme@1440.jpg) |
-| /en/blog/kaffeeautomat-mitarbeiter-des-monats/ | 390 | no | 0 | [en/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg](./en/blog-kaffeeautomat-mitarbeiter-des-monats@390.jpg) |
-| /en/blog/kaffeeautomat-mitarbeiter-des-monats/ | 1440 | no | 0 | [en/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg](./en/blog-kaffeeautomat-mitarbeiter-des-monats@1440.jpg) |
-| /en/blog/kurzes-feedback-uebersetzung/ | 390 | no | 0 | [en/blog-kurzes-feedback-uebersetzung@390.jpg](./en/blog-kurzes-feedback-uebersetzung@390.jpg) |
-| /en/blog/kurzes-feedback-uebersetzung/ | 1440 | no | 0 | [en/blog-kurzes-feedback-uebersetzung@1440.jpg](./en/blog-kurzes-feedback-uebersetzung@1440.jpg) |
-| /en/blog/onboarding-bingo-buzzwords/ | 390 | no | 0 | [en/blog-onboarding-bingo-buzzwords@390.jpg](./en/blog-onboarding-bingo-buzzwords@390.jpg) |
-| /en/blog/onboarding-bingo-buzzwords/ | 1440 | no | 0 | [en/blog-onboarding-bingo-buzzwords@1440.jpg](./en/blog-onboarding-bingo-buzzwords@1440.jpg) |
 | /en/contact/ | 390 | no | 0 | [en/contact@390.jpg](./en/contact@390.jpg) |
 | /en/contact/ | 1440 | no | 0 | [en/contact@1440.jpg](./en/contact@1440.jpg) |
 | /en/cookie-policy/ | 390 | no | 0 | [en/cookie-policy@390.jpg](./en/cookie-policy@390.jpg) |

@@ -2,7 +2,7 @@ import type { FaqDict } from '../en/faq';
 
 export const faq: FaqDict = {
   meta: {
-    title: 'FAQ – Antworten zu Fraktionaler HR, Recruiting und Compliance',
+    title: 'FAQ: Antworten zu Fraktionaler HR, Recruiting und Compliance',
     description:
       'Antworten auf die Fragen, die Gründer uns zuerst stellen: Was Fraktionale HR ist, wie Preise und das kostenlose Gespräch funktionieren, wie die 90-Tage-Erfolgsbrücke abläuft, was die EU-Entgelttransparenzrichtlinie für KMU bedeutet und was wir nicht tun.',
   },
@@ -22,7 +22,7 @@ export const faq: FaqDict = {
   groups: [
     {
       id: 'basics',
-      title: 'Fraktionale HR – die Grundlagen',
+      title: 'Fraktionale HR: die Grundlagen',
       items: [
         {
           q: 'Was genau ist Fraktionale HR?',

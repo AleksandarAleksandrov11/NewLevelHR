@@ -22,7 +22,7 @@ const c = getDict(lang).common;
     <h2 id="final-cta-title" class="font-display text-display-xl text-ink mx-auto max-w-4xl" data-split>{title ?? c.finalCta.title}</h2>
     <p class="mx-auto mt-6 max-w-2xl text-lead text-ink/80" data-reveal data-reveal-delay="1">{text ?? c.finalCta.text}</p>
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4" data-reveal data-reveal-delay="2">
-      <Button href={localizePath('contact', lang, 'book')} variant="secondary" size="lg" icon="calendar" cursor="book">{c.finalCta.button}</Button>
+      <Button href={localizePath('contact', lang, 'book')} variant="secondary" size="lg" icon="calendar">{c.finalCta.button}</Button>
       <Button href={localizePath('contact', lang)} variant="ghost" size="lg" class="!border-ink/30 hover:!border-ink !text-ink hover:!bg-white/40">{c.finalCta.secondary}</Button>
     </div>
     <p class="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm font-medium text-ink/70" data-reveal data-reveal-delay="3">

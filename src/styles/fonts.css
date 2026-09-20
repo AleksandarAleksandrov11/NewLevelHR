@@ -1,7 +1,7 @@
 /* Self-hosted variable fonts (no third-party font requests, GDPR-friendly).
    Files live in /public/fonts and are copied from the Fontsource packages:
-   - Inter Variable  (SIL OFL 1.1) — body text
-   - Manrope Variable (SIL OFL 1.1) — display / headings
+   - Inter Variable  (SIL OFL 1.1): body text
+   - Manrope Variable (SIL OFL 1.1): display and headings
    Subsets: latin, latin-ext, cyrillic, cyrillic-ext. */
 
 /* Inter ---------------------------------------------------------------- */

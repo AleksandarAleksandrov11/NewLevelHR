@@ -16,8 +16,9 @@
     { "source": "/", "destination": "/en/", "permanent": false },
     { "source": "/index.html", "destination": "/en/", "permanent": true },
     { "source": "/legal.html", "destination": "/en/legal-notice/", "permanent": true },
-    { "source": "/blog-post.php", "destination": "/en/blog/", "permanent": true },
-    { "source": "/api-posts.php", "destination": "/en/blog/", "permanent": true },
+    { "source": "/blog.html", "destination": "/en/", "permanent": true },
+    { "source": "/blog-post.php", "destination": "/en/", "permanent": true },
+    { "source": "/api-posts.php", "destination": "/en/", "permanent": true },
     { "source": "/contact.php", "destination": "/api/contact", "permanent": false }
   ],
   "headers": [

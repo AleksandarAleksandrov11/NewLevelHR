@@ -1,13 +1,11 @@
 ---
 /**
  * Localised catch-all router.
- * Every static page (see src/i18n/routes.ts) and every published blog post is
- * generated here for each language, with its translated slug.
+ * Every static page (see src/i18n/routes.ts) is generated here for each
+ * language, with its translated slug.
  */
-import { getCollection } from 'astro:content';
 import { locales, type Locale } from '@/i18n/config';
-import { pageKeys, routes, blogPostPath, type PageKey } from '@/i18n/routes';
-import { entryLang, entrySlug, postLanguages } from '@/lib/blog';
+import { pageKeys, routes, type PageKey } from '@/i18n/routes';
 
 import Home from '@/views/Home.astro';
 import Services from '@/views/Services.astro';
@@ -15,8 +13,6 @@ import ServiceDetail from '@/views/ServiceDetail.astro';
 import Problems from '@/views/Problems.astro';
 import About from '@/views/About.astro';
 import HowWeWork from '@/views/HowWeWork.astro';
-import Blog from '@/views/Blog.astro';
-import BlogPost from '@/views/BlogPost.astro';
 import Faq from '@/views/Faq.astro';
 import Contact from '@/views/Contact.astro';
 import LegalNotice from '@/views/LegalNotice.astro';
@@ -27,13 +23,10 @@ import NotFound from '@/views/NotFound.astro';
 
 interface PageProps {
   lang: Locale;
-  view: PageKey | 'blogPost';
-  postId?: string;
-  /** For blog posts: paths of the translations that exist */
-  alternates?: Record<Locale, string>;
+  view: PageKey;
 }
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   const paths: Array<{ params: { lang: Locale; path: string | undefined }; props: PageProps }> = [];
   for (const lang of locales) {
     for (const key of pageKeys) {
@@ -41,23 +34,10 @@ export async function getStaticPaths() {
       paths.push({ params: { lang, path: slug || undefined }, props: { lang, view: key } });
     }
   }
-  const posts = await getCollection('blog', (e) => !e.data.draft);
-  for (const post of posts) {
-    const lang = entryLang(post);
-    if (!locales.includes(lang)) continue;
-    const slug = entrySlug(post);
-    const available = await postLanguages(slug);
-    // Languages without a translation point to their blog index.
-    const alternates = Object.fromEntries(
-      locales.map((l) => [l, available.includes(l) ? blogPostPath(l, slug) : `/${l}/${routes.blog[l]}/`]),
-    ) as Record<Locale, string>;
-    paths.push({ params: { lang, path: `${routes.blog[lang]}/${slug}` }, props: { lang, view: 'blogPost', postId: post.id, alternates } });
-  }
   return paths;
 }
 
-const { lang, view, postId, alternates } = Astro.props as PageProps;
-const path = view === 'blogPost' && alternates ? alternates[lang] : undefined;
+const { lang, view } = Astro.props as PageProps;
 ---
 {view === 'home' && <Home lang={lang} />}
 {view === 'services' && <Services lang={lang} pageKey={view} />}
@@ -65,8 +45,6 @@ const path = view === 'blogPost' && alternates ? alternates[lang] : undefined;
 {view === 'problems' && <Problems lang={lang} pageKey={view} />}
 {view === 'about' && <About lang={lang} pageKey={view} />}
 {view === 'howWeWork' && <HowWeWork lang={lang} pageKey={view} />}
-{view === 'blog' && <Blog lang={lang} pageKey={view} />}
-{view === 'blogPost' && <BlogPost lang={lang} pageKey={view} postId={postId} path={path} alternates={alternates} />}
 {view === 'faq' && <Faq lang={lang} pageKey={view} />}
 {view === 'contact' && <Contact lang={lang} pageKey={view} />}
 {view === 'legalNotice' && <LegalNotice lang={lang} pageKey={view} />}

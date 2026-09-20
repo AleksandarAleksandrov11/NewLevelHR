@@ -1,7 +1,7 @@
 ---
 /**
  * Four service cards. Names and taglines come from common.services so they stay
- * identical across the site; the home dictionary adds body, tags and the photo.
+ * identical across the site; the home dictionary adds the body copy and the photo.
  * The image follows the cursor slightly (src/scripts/home.ts, [data-service-img]).
  */
 import { ArrowRight } from '@lucide/astro';
@@ -39,7 +39,7 @@ const cards = s.items.map((item, i) => {
     <ul class="services-grid" role="list">
       {cards.map((card, i) => (
         <li data-reveal data-reveal-delay={String((i % 2) + 1)}>
-          <a href={card.href} class="svc-card" data-service-card data-cursor="open">
+          <a href={card.href} class="svc-card" data-service-card>
             <div class="svc-media">
               <div class="svc-img" data-service-img>
                 <Photo name={card.image} alt={card.name} ratio="16/10" sizes="(min-width: 64rem) 50vw, 100vw" />
@@ -51,9 +51,6 @@ const cards = s.items.map((item, i) => {
               <h3 class="svc-name font-display">{card.name}</h3>
               <p class="svc-text">{card.body}</p>
               <div class="svc-foot">
-                <ul class="svc-tags" role="list">
-                  {card.tags.map((tag) => <li class="pill">{tag}</li>)}
-                </ul>
                 <span class="svc-chip" data-magnetic="0.25" aria-hidden="true">
                   <span class="svc-chip-in"><ArrowRight class="size-5" /></span>
                 </span>
@@ -111,8 +108,6 @@ const cards = s.items.map((item, i) => {
   .svc-name { font-size: var(--text-display-sm); line-height: 1.15; letter-spacing: -0.02em; font-weight: 750; color: var(--color-ink); text-wrap: balance; }
   .svc-text { color: var(--color-slate); line-height: 1.6; max-width: 38rem; }
   .svc-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 0.75rem; }
-  .svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .svc-tags .pill { white-space: normal; max-width: 100%; }
   .svc-chip { flex: 0 0 auto; display: block; }
   .svc-chip-in {
     display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px;

@@ -4,13 +4,11 @@ import type { Widen } from '../types';
  *
  * The Impressum, the AGB and the original Privacy Policy sections are reproduced
  * VERBATIM from the previous site (docs/reference/live-content/legal-*.html),
- * including every "TO BE ADDED" placeholder. The additional privacy sections and
  * the Cookie Policy are new. Legal wording must not be reworded without review.
  *
  * Content model (rendered by src/components/pages/LegalLayout.astro):
  *   { type: 'p', text }                       plain paragraph
- *   { type: 'html', html }                    paragraph with inline HTML (links, <strong>, <br>,
- *                                             <span class="todo-client">…</span> for client placeholders)
+ *   { type: 'html', html }                    paragraph with inline HTML: links, <strong>, <br>
  *   { type: 'ul', items }                     plain list
  *   { type: 'address', lines }                postal address, first line bold
  *   { type: 'dl', terms: [{ term, text }] }   definition list
@@ -32,11 +30,10 @@ export const legal = {
     otherPages: 'Other legal pages',
     contactTitle: 'Questions about this page?',
     contactLine: 'Write to us at {email}. On business days we reply within 24 hours.',
-    todoNote: 'Highlighted entries are still to be completed or confirmed by NewLevelHR before publication.',
   },
 
   /* ------------------------------------------------------------------ */
-  /* Legal Notice (Impressum) — verbatim                                 */
+  /* Legal Notice (Impressum): verbatim                                 */
   /* ------------------------------------------------------------------ */
   legalNotice: {
     meta: {
@@ -54,7 +51,7 @@ export const legal = {
       {
         id: 'represented-by',
         title: 'Represented by',
-        blocks: [{ type: 'p', text: 'Mariyana Velkova — Managing Director' }],
+        blocks: [{ type: 'p', text: 'Mariyana Velkova, Managing Director' }],
       },
       {
         id: 'contact',
@@ -68,15 +65,13 @@ export const legal = {
         title: 'Company Registration',
         blocks: [
           { type: 'p', text: 'Commercial Register / Registry Agency of Bulgaria' },
-          { type: 'html', html: 'Unified Identification Code (UIC / EIK): <span class="todo-client">TO BE ADDED</span>' },
-          { type: 'html', html: 'VAT Identification Number (if applicable): <span class="todo-client">TO BE ADDED</span>' },
         ],
       },
     ],
   },
 
   /* ------------------------------------------------------------------ */
-  /* General Terms and Conditions (AGB) — verbatim                       */
+  /* General Terms and Conditions (AGB): verbatim                       */
   /* ------------------------------------------------------------------ */
   terms: {
     meta: {
@@ -114,7 +109,7 @@ export const legal = {
         title: '§ 4 Fees and Terms of Payment',
         blocks: [
           { type: 'p', text: 'All prices and fees are subject to statutory VAT (where applicable) unless stated otherwise.' },
-          { type: 'html', html: 'Invoices are payable within <span class="todo-client">TO BE ADDED — e.g. 14 days</span> from the invoice date without deductions, unless otherwise agreed in writing.' },
+          { type: 'html', html: 'Invoices are payable within 14 days of the invoice date without deductions, unless otherwise agreed in writing.' },
         ],
       },
       {
@@ -136,7 +131,7 @@ export const legal = {
   },
 
   /* ------------------------------------------------------------------ */
-  /* Privacy Policy — sections 1, 3, 10 and 11 verbatim; the rest new    */
+  /* Privacy Policy: sections 1, 3, 10 and 11 verbatim; the rest new    */
   /* ------------------------------------------------------------------ */
   privacy: {
     meta: {
@@ -177,9 +172,9 @@ export const legal = {
         id: 'hosting',
         title: '4. Hosting and Server Log Files',
         blocks: [
-          { type: 'html', html: 'This website is a static website delivered by a hosting provider (<span class="todo-client">[hosting provider — TO BE ADDED]</span>). Each time the site is accessed, the hosting provider automatically processes the following data in server log files: the IP address of the requesting device, the browser type and version (user agent), the date and time of the request and the requested URL.' },
+          { type: 'html', html: 'This website is a static website delivered by our hosting provider. Each time the site is accessed, the hosting provider automatically processes the following data in server log files: the IP address of the requesting device, the browser type and version (user agent), the date and time of the request and the requested URL.' },
           { type: 'p', text: 'This data is processed to ensure the secure and stable operation of the website, to detect and defend against attacks and to analyse technical faults. The legal basis is Art. 6(1)(f) GDPR (our legitimate interest in the security and availability of the website). The log data is not merged with other data sources.' },
-          { type: 'html', html: 'Retention period: <span class="todo-client">[typically up to 30 days — TO BE CONFIRMED]</span>. Log data that must be retained for evidential purposes is excluded from deletion until the relevant incident has been finally clarified.' },
+          { type: 'html', html: 'Retention period: up to 30 days. Log data that must be retained for evidential purposes is excluded from deletion until the relevant incident has been finally clarified.' },
         ],
       },
       {
@@ -189,9 +184,9 @@ export const legal = {
           { type: 'p', text: 'If you use the contact form on this website, we process the data you enter in the form fields:' },
           { type: 'ul', items: ['Name', 'Email address', 'Company (optional)', 'Topic', 'Message', 'Your consent to this Privacy Policy'] },
           { type: 'p', text: 'In addition, your IP address and the time of submission are processed. These two data points are used solely for spam protection and rate limiting and are not used for any other purpose.' },
-          { type: 'html', html: 'Your message is transmitted to us by email to <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a> via the mail service of our hosting provider or a transactional email provider (<span class="todo-client">[e.g. Resend — TO BE CONFIRMED]</span>) and is then processed in our email system.' },
+          { type: 'html', html: 'Your message is transmitted to us by email to <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a> via the mail service of our hosting provider or a transactional email provider and is then processed in our email system.' },
           { type: 'p', text: 'The legal basis is Art. 6(1)(b) GDPR where your inquiry is aimed at concluding a contract or relates to pre-contractual measures, and otherwise Art. 6(1)(f) GDPR (our legitimate interest in responding to inquiries addressed to us).' },
-          { type: 'html', html: 'Retention period: <span class="todo-client">[12 months after the last contact unless a business relationship follows — TO BE CONFIRMED]</span>. Statutory retention obligations remain unaffected.' },
+          { type: 'html', html: 'Retention period: 12 months after the last contact, unless a business relationship follows. Statutory retention obligations remain unaffected.' },
           { type: 'p', text: 'We do not share the data from your inquiry with third parties for marketing purposes.' },
         ],
       },
@@ -200,7 +195,7 @@ export const legal = {
         title: '6. Booking a Call (Calendly)',
         blocks: [
           { type: 'p', text: 'To book a free consultation, we provide a link to the scheduling service Calendly (Calendly LLC, USA), which opens in a new tab. No data is transmitted to Calendly by merely visiting our website. Only when you use the booking link and enter your details on Calendly’s pages are the data you provide there (such as your name, email address and the selected appointment) processed by Calendly.' },
-          { type: 'html', html: 'The legal basis is Art. 6(1)(b) GDPR (pre-contractual measures taken at your request) and Art. 6(1)(f) GDPR (our legitimate interest in simple appointment scheduling). Calendly processes data in the United States. The transfer is based on the EU standard contractual clauses and/or Calendly’s certification under the EU-US Data Privacy Framework <span class="todo-client">[to be confirmed]</span>. Details can be found in Calendly’s privacy policy: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">calendly.com/privacy</a>.' },
+          { type: 'html', html: 'The legal basis is Art. 6(1)(b) GDPR (pre-contractual measures taken at your request) and Art. 6(1)(f) GDPR (our legitimate interest in simple appointment scheduling). Calendly processes data in the United States. The transfer is based on the EU standard contractual clauses and/or Calendly’s certification under the EU-US Data Privacy Framework. Details can be found in Calendly’s privacy policy: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">calendly.com/privacy</a>.' },
         ],
       },
       {
@@ -258,7 +253,7 @@ export const legal = {
               'Right to object (Art. 21 GDPR)',
             ],
           },
-          { type: 'html', html: 'If you wish to exercise any of these rights, please contact us at <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a>. You also have the right to lodge a complaint with the competent supervisory authority (in Bulgaria: Commission for Personal Data Protection – CPDP).' },
+          { type: 'html', html: 'If you wish to exercise any of these rights, please contact us at <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a>. You also have the right to lodge a complaint with the competent supervisory authority (in Bulgaria: Commission for Personal Data Protection, CPDP).' },
         ],
       },
       {
@@ -276,14 +271,14 @@ export const legal = {
         title: '13. Changes to This Privacy Policy',
         blocks: [
           { type: 'p', text: 'We reserve the right to amend this Privacy Policy so that it always reflects the current legal requirements or changes to our services, for example when new services are introduced. The version published on this website at the time of your visit applies.' },
-          { type: 'html', html: 'Effective date: <span class="todo-client">[date — TO BE ADDED]</span>.' },
+          { type: 'html', html: 'Effective date: September 2026.' },
         ],
       },
     ],
   },
 
   /* ------------------------------------------------------------------ */
-  /* Cookie Policy — new                                                 */
+  /* Cookie Policy: new                                                 */
   /* ------------------------------------------------------------------ */
   cookies: {
     meta: {

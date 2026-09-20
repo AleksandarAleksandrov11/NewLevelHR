@@ -14,7 +14,7 @@ import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
 import { site } from '@/config/site';
 
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const h = d.howWeWork;
@@ -31,7 +31,7 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
 ---
 <PageShell lang={lang} pageKey="howWeWork" title={h.meta.title} description={h.meta.description} jsonLd={[howTo, faqLd]}>
   <PageHero lang={lang} eyebrow={h.hero.eyebrow} title={h.hero.title} text={h.hero.text} crumbs={[{ label: c.nav.howWeWork }]} photo={{ name: 'office-light', alt: h.hero.imageAlt }}>
-    <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{h.firstCall.button}</Button>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{h.firstCall.button}</Button>
   </PageHero>
 
   <section class="section bg-white">
@@ -53,7 +53,7 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
         <h2 class="font-display text-display-md text-ink mt-4">{h.firstCall.title}</h2>
         <p class="text-lead text-slate mt-4">{h.firstCall.text}</p>
         <CheckList items={h.firstCall.points} class="mt-6" />
-        <div class="mt-8"><Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar" cursor="book">{h.firstCall.button}</Button></div>
+        <div class="mt-8"><Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{h.firstCall.button}</Button></div>
         <p class="mt-4 text-sm text-slate">{c.proof.consultation} · {c.proof.reply} · {c.proof.languages}</p>
       </div>
     </div>

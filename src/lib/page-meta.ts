@@ -43,7 +43,6 @@ export function getPageMeta(lang: Locale, key: MetaKey): PageMeta {
     case 'problems':
     case 'about':
     case 'howWeWork':
-    case 'blog':
     case 'faq':
     case 'contact':
       return { title: c.nav[key], subtitle: tagline };

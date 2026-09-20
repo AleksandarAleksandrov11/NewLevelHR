@@ -12,7 +12,7 @@ import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
 import { site } from '@/config/site';
 
-interface Props { lang: Locale; pageKey: PageKey | 'blogPost' }
+interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const s = d.services;
@@ -29,7 +29,7 @@ const itemList = {
 ---
 <PageShell lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description} jsonLd={[itemList]}>
   <PageHero lang={lang} eyebrow={s.hero.eyebrow} title={s.hero.title} text={s.hero.text} crumbs={[{ label: c.nav.services }]} photo={{ name: 'team-celebration', alt: s.hero.imageAlt }}>
-    <Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{s.labels.bookCall}</Button>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{s.labels.bookCall}</Button>
     <Button href="#services-list" variant="ghost" icon="none">{s.cardsSection.eyebrow}<ArrowRight class="size-4 rotate-90" aria-hidden="true" /></Button>
   </PageHero>
 
@@ -39,7 +39,7 @@ const itemList = {
       <div class="svc-rows">
         {cards.map((card, i) => (
           <article class:list={['svc-row', i % 2 === 1 && 'is-reverse']} data-reveal>
-            <a href={card.href} class="svc-row-media" aria-hidden="true" tabindex="-1" data-cursor="open">
+            <a href={card.href} class="svc-row-media" aria-hidden="true" tabindex="-1">
               <Photo name={card.image} alt="" ratio="4/3" sizes="(min-width: 64rem) 45vw, 100vw" class="rounded-xl" />
               <span class="svc-row-index font-display">{card.index}</span>
             </a>
@@ -48,7 +48,6 @@ const itemList = {
               <h3 class="font-display text-display-sm text-ink mt-3"><a href={card.href} class="svc-row-link">{card.name}</a></h3>
               <p class="text-slate mt-4 leading-relaxed">{card.summary}</p>
               <CheckList items={card.bullets} class="mt-6" />
-              <ul class="mt-6 flex flex-wrap gap-2" role="list">{card.tags.map((t) => <li class="pill">{t}</li>)}</ul>
               <div class="mt-7"><Button href={card.href} variant="secondary">{s.labels.exploreService}</Button></div>
             </div>
           </article>
@@ -90,7 +89,7 @@ const itemList = {
           <ul class="svc-options" role="list">
             {s.howToChoose.options.map((o, i) => { const short = o.service as Short; return (
               <li data-reveal data-reveal-delay={String(i + 1)}>
-                <a href={localizePath(keyOf[short], lang)} class="svc-option group" data-cursor="open">
+                <a href={localizePath(keyOf[short], lang)} class="svc-option group">
                   <span class="svc-option-when">{o.when}</span>
                   <span class="svc-option-to"><span class="text-mist text-xs font-bold uppercase tracking-wider">{s.howToChoose.optionLabel}</span><span class="font-display font-bold text-ink">{c.services[short].name}</span><ArrowRight class="size-4 text-accent-ink transition-transform group-hover:translate-x-1" aria-hidden="true" /></span>
                 </a>
@@ -103,7 +102,7 @@ const itemList = {
             <MessageCircle class="size-6 text-accent-ink" aria-hidden="true" />
             <h3 class="font-display text-xl font-bold mt-4">{s.howToChoose.callTitle}</h3>
             <p class="mt-2 text-slate leading-relaxed">{s.howToChoose.callText}</p>
-            <div class="mt-5"><Button href={localizePath('contact', lang, 'book')} icon="calendar" cursor="book">{s.howToChoose.callButton}</Button></div>
+            <div class="mt-5"><Button href={localizePath('contact', lang, 'book')} icon="calendar">{s.howToChoose.callButton}</Button></div>
           </div>
           <div class="svc-aside-card" data-reveal data-reveal-delay="3">
             <h3 class="font-display text-xl font-bold">{s.howToChoose.checkTitle}</h3>

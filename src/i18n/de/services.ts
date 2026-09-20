@@ -2,7 +2,7 @@ import type { ServicesDict } from '../en/services';
 
 export const services: ServicesDict = {
   meta: {
-    title: 'Leistungen – Fraktionale HR, Recruiting, 90-Tage-Brücke & Manager-Coaching',
+    title: 'Leistungen: Fraktionale HR, Recruiting, 90-Tage-Brücke und Manager-Coaching',
     description:
       'Vier Wege, mit NewLevelHR zu arbeiten: fraktionale HR-Partnerschaft, High-Velocity Hiring, die 90-Tage-Erfolgsbrücke und Manager-Coaching. Senior-HR-Unterstützung für Startups und KMU in Europa, als Retainer oder Projekt.',
   },
@@ -26,7 +26,7 @@ export const services: ServicesDict = {
         'Richtlinien, Verträge und Compliance, geprüft gemeinsam mit Ihrer Rechtsberatung',
         'Gehaltsbänder und faire Angebote, im Einklang mit der EU-Entgelttransparenzrichtlinie',
       ],
-      tags: ['Richtlinien & Struktur', 'Bei Bedarf', 'Kosteneffizient'],
+     
       image: 'one-on-one',
       imageAlt: 'HR-Partnerin im Vieraugengespräch mit einem Gründer',
     },
@@ -38,7 +38,7 @@ export const services: ServicesDict = {
         'Ein strukturierter, schneller Prozess, den Kandidatinnen und Kandidaten respektieren',
         'Die 90-Tage-Erfolgsbrücke ist bei jeder Einstellung inklusive',
       ],
-      tags: ['Schnelles Recruiting', '3-Monats-Brücke', 'Klare Erwartungen'],
+     
       image: 'interview',
       imageAlt: 'Ein strukturiertes Vorstellungsgespräch zwischen Kandidatin und Hiring Manager',
     },
@@ -50,7 +50,7 @@ export const services: ServicesDict = {
         'Tag 30 und 60: Feedbackschleifen und Kurskorrektur',
         'Tag 90: bestätigte Passung, Probezeitentscheidung, Entwicklungsplan',
       ],
-      tags: ['Tag 1 bis Tag 90', 'Fachkraft & Führungskraft', 'Bindung'],
+     
       image: 'onboarding-welcome',
       imageAlt: 'Ein neues Teammitglied wird am ersten Tag willkommen geheißen',
     },
@@ -62,7 +62,7 @@ export const services: ServicesDict = {
         'Ein Coach an ihrer Seite bei den ersten harten Entscheidungen',
         'Leadership-Alignment, damit das Team eine Botschaft hört',
       ],
-      tags: ['Leadership-Coaching', 'Konfliktmanagement', 'Teambuilding'],
+     
       image: 'coaching-mentoring',
       imageAlt: 'Eine Führungskraft und ein Coach im Mentoring-Gespräch',
     },
@@ -78,7 +78,7 @@ export const services: ServicesDict = {
       },
       {
         title: 'Die Partnerin in Ihrem Slack',
-        body: 'Eine Person in Ihrem Channel, die die unbequemen Fragen beantwortet, Montag bis Freitag, 9–18 Uhr MEZ, auf Englisch, Deutsch oder Bulgarisch. Antwort innerhalb von 24 Stunden.',
+        body: 'Eine Person in Ihrem Channel, die die unbequemen Fragen beantwortet, Montag bis Freitag, 9-18 Uhr MEZ, auf Englisch, Deutsch oder Bulgarisch. Antwort innerhalb von 24 Stunden.',
       },
       {
         title: 'Zuerst ein kostenloses 30-Minuten-Gespräch',
@@ -125,14 +125,12 @@ export const services: ServicesDict = {
     relatedEyebrow: 'Passend dazu',
     relatedTitle: 'Leistungen, die sich damit kombinieren lassen',
     relatedText: 'Eine Partnerin, vier Formen der Zusammenarbeit. Diese gehen meist Hand in Hand.',
-    problemsTitle: 'Probleme, die diese Leistung löst',
-    problemsText: 'Jedes Problem verlinkt auf die ausführliche Beschreibung auf der Seite „Was wir lösen“.',
     stepLabel: 'Schritt {n}',
   },
   pages: {
     fractional: {
       meta: {
-        title: 'Fraktionale HR-Partnerschaft – Senior-HR ohne Festanstellung',
+        title: 'Fraktionale HR-Partnerschaft: Senior-HR ohne Festanstellung',
         description:
           'Bedarfsgerechte Senior-HR-Unterstützung für Startups und KMU: Teamstruktur, Richtlinien, Gehaltsbänder, Compliance gemeinsam mit Ihrer Rechtsberatung und Leadership-Alignment. Als Retainer oder Projekt, auf EN, DE und BG.',
       },
@@ -143,7 +141,7 @@ export const services: ServicesDict = {
         sub: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf Ihre Unternehmensziele auszurichten. Sie bekommen den Kopf einer Senior-Partnerin in Ihrem Slack-Channel, ohne das Gehalt einer Führungskraft.',
         image: 'one-on-one',
         imageAlt: 'Gründer und HR-Partnerin klären eine Personalfrage im Vieraugengespräch',
-        tags: ['Richtlinien & Struktur', 'Bei Bedarf', 'Kosteneffizient'],
+       
       },
       problem: {
         eyebrow: 'Die Situation',
@@ -178,7 +176,7 @@ export const services: ServicesDict = {
           { title: 'Leistung & schwierige Gespräche', body: 'Ein dokumentierter Leistungsprozess, Feedback-Vorlagen und ein ruhiger Trennungsplan, damit niemand monatelang mit dem Handeln wartet.' },
           { title: 'Leadership-Alignment', body: 'Arbeitssitzungen mit Gründern und Führungskräften, damit Entscheidungen einmal getroffen werden und das Team eine Botschaft hört.' },
           { title: 'Mitarbeiterthemen & Mediation', body: 'Konflikte, Beschwerden und sensible Fälle mit einer neutralen, erfahrenen Partnerin am Tisch.' },
-          { title: 'Beratung auf Abruf', body: 'Eine Person in Ihrem Slack für Fragen, die nicht warten können: Montag bis Freitag, 9–18 Uhr MEZ, Antwort innerhalb von 24 Stunden.' },
+          { title: 'Beratung auf Abruf', body: 'Eine Person in Ihrem Slack für Fragen, die nicht warten können: Montag bis Freitag, 9-18 Uhr MEZ, Antwort innerhalb von 24 Stunden.' },
         ],
       },
       process: {
@@ -187,7 +185,7 @@ export const services: ServicesDict = {
         steps: [
           { tag: 'Kostenloses Gespräch', title: 'Diagnose', body: 'Ein 30-minütiges Gespräch darüber, wo das People-Setup am meisten schmerzt. Sie gehen mit einem klaren Bild heraus, ob wir zusammenarbeiten oder nicht.' },
           { tag: 'Woche 1', title: 'Audit', body: 'Wir prüfen Verträge, Richtlinien, Gehaltslogik und Organigramm, sprechen mit dem Führungsteam und listen die Lücken nach Risiko und Aufwand.' },
-          { tag: 'Woche 2–4', title: 'Das Dringende schließen', body: 'Punkte, die jetzt rechtliches oder personelles Risiko erzeugen, werden zuerst geschlossen, bei Bedarf gemeinsam mit Ihrer Rechtsberatung.' },
+          { tag: 'Woche 2-4', title: 'Das Dringende schließen', body: 'Punkte, die jetzt rechtliches oder personelles Risiko erzeugen, werden zuerst geschlossen, bei Bedarf gemeinsam mit Ihrer Rechtsberatung.' },
           { tag: 'Ab Monat 2', title: 'Das System aufbauen', body: 'Struktur, Richtlinien, Gehaltsbänder und Rituale gehen nacheinander live, jedes erklärt den Menschen, die damit arbeiten werden.' },
           { tag: 'Laufend', title: 'Gemeinsam betreiben', body: 'Ein fester Wochenrhythmus, eine Partnerin in Ihrem Slack und ein monatlicher Blick darauf, was das Unternehmen als Nächstes braucht.' },
         ],
@@ -237,11 +235,10 @@ export const services: ServicesDict = {
         button: 'Kostenloses Gespräch buchen',
       },
       related: ['hiring', 'coaching', 'bridge'],
-      problems: ['overwhelm', 'pay', 'audit', 'growth', 'terminations', 'leadership'],
     },
     hiring: {
       meta: {
-        title: 'High-Velocity Hiring – schnelles, strukturiertes Recruiting mit 90-Tage-Brücke',
+        title: 'High-Velocity Hiring: schnelles, strukturiertes Recruiting mit 90-Tage-Brücke',
         description:
           'Schluss mit „Einstellen und Hoffen“. Strukturiertes Recruiting im Big-Tech-Tempo für Startups und KMU, mit klaren Erwartungen, einer Rollen-Scorecard und der 90-Tage-Erfolgsbrücke bei jeder Einstellung.',
       },
@@ -252,7 +249,7 @@ export const services: ServicesDict = {
         sub: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird. Klare Erwartungen vor dem ersten Interview, ein Prozess, den Kandidatinnen und Kandidaten respektieren, und eine Partnerin, die nach der Unterschrift bleibt.',
         image: 'interview',
         imageAlt: 'Ein strukturiertes Vorstellungsgespräch zwischen Kandidatin und Hiring Manager',
-        tags: ['Schnelles Recruiting', '3-Monats-Brücke', 'Klare Erwartungen'],
+       
       },
       problem: {
         eyebrow: 'Die Situation',
@@ -297,7 +294,7 @@ export const services: ServicesDict = {
           { tag: 'Sourcing', title: 'Finden & ansprechen', body: 'Aktive Suche, persönliche Ansprache und eine erste Shortlist, die wir gemeinsam durchgehen, mit ehrlichem Feedback zum Markt.' },
           { tag: 'Interviews', title: 'Strukturierter Ablauf', body: 'Eine schlanke Interview-Sequenz mit definierten Fragen und Feedback am selben Tag, damit niemand im Ungewissen wartet.' },
           { tag: 'Angebot', title: 'Entscheiden & abschließen', body: 'Eine klare Entscheidung, ein Angebot auf Basis Ihrer Gehaltsbänder und eine Verhandlung, nach der sich beide Seiten auf Tag eins freuen.' },
-          { tag: 'Tag 1–90', title: 'Erfolgsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90.' },
+          { tag: 'Tag 1-90', title: 'Erfolgsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90.' },
         ],
       },
       forWhom: {
@@ -345,11 +342,10 @@ export const services: ServicesDict = {
         button: 'Kostenloses Gespräch buchen',
       },
       related: ['bridge', 'fractional', 'coaching'],
-      problems: ['hiring'],
     },
     bridge: {
       meta: {
-        title: '90-Tage-Erfolgsbrücke – Onboarding-Begleitung für neue Fachkräfte und Führungskräfte',
+        title: '90-Tage-Erfolgsbrücke: Onboarding-Begleitung für neue Fachkräfte und Führungskräfte',
         description:
           'Unsere Arbeit endet nicht mit der Vertragsunterschrift. Wir coachen neue Fachkraft und Führungskraft durch die ersten 90 Tage: klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90. Bei unserem Recruiting inklusive, auch eigenständig buchbar.',
       },
@@ -360,7 +356,7 @@ export const services: ServicesDict = {
         sub: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt. Klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, eine bestätigte Entscheidung an Tag 90.',
         image: 'onboarding-welcome',
         imageAlt: 'Ein neues Teammitglied wird am ersten Tag willkommen geheißen',
-        tags: ['Tag 1 bis Tag 90', 'Fachkraft & Führungskraft', 'Bindung'],
+       
       },
       problem: {
         eyebrow: 'Die Situation',
@@ -450,11 +446,10 @@ export const services: ServicesDict = {
         button: 'Kostenloses Gespräch buchen',
       },
       related: ['hiring', 'coaching', 'fractional'],
-      problems: ['hiring', 'managers'],
     },
     coaching: {
       meta: {
-        title: 'Manager-Coaching – aus Experten werden Führungskräfte',
+        title: 'Manager-Coaching: aus Experten werden Führungskräfte',
         description:
           'Coaching für neue und erfahrene Führungskräfte in Startups und KMU: praktische Werkzeuge für Feedback, Konflikte, Delegation und Leadership-Alignment, mit einem Coach an ihrer Seite bei den ersten schwierigen Gesprächen.',
       },
@@ -465,7 +460,7 @@ export const services: ServicesDict = {
         sub: 'Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen. Für den Entwickler, der letztes Quartal Lead geworden ist, und für das Führungsteam, das mit einer Stimme sprechen muss.',
         image: 'coaching-mentoring',
         imageAlt: 'Eine Führungskraft und ein Coach im Mentoring-Gespräch',
-        tags: ['Leadership-Coaching', 'Konfliktmanagement', 'Teambuilding'],
+       
       },
       problem: {
         eyebrow: 'Die Situation',
@@ -499,7 +494,7 @@ export const services: ServicesDict = {
           { title: 'Delegation & Zielsetzung', body: 'Die Expertenarbeit loslassen, klare Ziele setzen und Verantwortung einfordern, ohne Mikromanagement.' },
           { title: 'Teambuilding', body: 'Arbeitssitzungen mit dem ganzen Team zu Rollen, Ritualen und den Regeln der Zusammenarbeit.' },
           { title: 'Leadership-Alignment', body: 'Sitzungen mit Gründern und Führungskräften zu Zielen, Entscheidungsregeln und der Botschaft, die das Team hören soll.' },
-          { title: 'Unterstützung auf Abruf', body: 'Eine Nachricht in Slack vor dem schwierigen Gespräch, ein Debrief danach. Montag bis Freitag, 9–18 Uhr MEZ.' },
+          { title: 'Unterstützung auf Abruf', body: 'Eine Nachricht in Slack vor dem schwierigen Gespräch, ein Debrief danach. Montag bis Freitag, 9-18 Uhr MEZ.' },
         ],
       },
       process: {
@@ -557,7 +552,6 @@ export const services: ServicesDict = {
         button: 'Kostenloses Gespräch buchen',
       },
       related: ['fractional', 'bridge', 'hiring'],
-      problems: ['managers', 'leadership'],
     },
   },
 };

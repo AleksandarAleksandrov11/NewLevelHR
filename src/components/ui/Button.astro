@@ -10,7 +10,6 @@ interface Props {
   external?: boolean;
   type?: 'button' | 'submit';
   class?: string;
-  cursor?: string;
   ariaLabel?: string;
   id?: string;
   [key: `data-${string}`]: string | undefined;
@@ -25,7 +24,6 @@ const {
   external = false,
   type = 'button',
   class: className = '',
-  cursor,
   ariaLabel,
   id,
   ...rest
@@ -57,7 +55,6 @@ const iconClass = 'size-[1.1em] shrink-0 transition-transform duration-500 ease-
   rel={external ? 'noopener noreferrer' : undefined}
   aria-label={ariaLabel}
   data-magnetic={magnetic ? '' : undefined}
-  data-cursor={cursor}
   class:list={[base, sizes[size], variants[variant], className]}
   {...rest}
 >

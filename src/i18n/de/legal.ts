@@ -15,7 +15,6 @@ export const legal: LegalDict = {
     otherPages: 'Weitere rechtliche Seiten',
     contactTitle: 'Fragen zu dieser Seite?',
     contactLine: 'Schreiben Sie uns an {email}. An Werktagen antworten wir innerhalb von 24 Stunden.',
-    todoNote: 'Hervorgehobene Einträge sind von NewLevelHR vor der Veröffentlichung noch zu ergänzen oder zu bestätigen.',
   },
   legalNotice: {
     meta: {
@@ -30,15 +29,13 @@ export const legal: LegalDict = {
       { type: 'address', lines: ['NewLevelHR', 'Orfei 1', '2700 Blagoewgrad', 'Bulgarien'] },
     ],
     sections: [
-      { id: 'represented-by', title: 'Vertreten durch', blocks: [{ type: 'p', text: 'Mariyana Velkova – Geschäftsführerin' }] },
+      { id: 'represented-by', title: 'Vertreten durch', blocks: [{ type: 'p', text: 'Mariyana Velkova, Geschäftsführerin' }] },
       { id: 'contact', title: 'Kontakt', blocks: [{ type: 'html', html: 'E-Mail: <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a><br>Website: <a href="https://newlevelhr.com">newlevelhr.com</a>' }] },
       {
         id: 'registration',
         title: 'Handelsregistereintrag',
         blocks: [
           { type: 'p', text: 'Handelsregister / Registeragentur Bulgariens' },
-          { type: 'html', html: 'Einheitlicher Identifikationscode (EIK): <span class="todo-client">TO BE ADDED</span>' },
-          { type: 'html', html: 'Umsatzsteuer-Identifikationsnummer (falls zutreffend): <span class="todo-client">TO BE ADDED</span>' },
         ],
       },
     ],
@@ -61,7 +58,7 @@ export const legal: LegalDict = {
         title: '§ 4 Vergütung und Zahlungsbedingungen',
         blocks: [
           { type: 'p', text: 'Alle Preise und Honorare verstehen sich zzgl. der gesetzlichen Umsatzsteuer (soweit anwendbar), sofern nicht anders angegeben.' },
-          { type: 'html', html: 'Rechnungen sind innerhalb von <span class="todo-client">TO BE ADDED — z. B. 14 Tage</span> ab Rechnungsdatum ohne Abzug zahlbar, sofern nichts anderes schriftlich vereinbart wurde.' },
+          { type: 'html', html: 'Rechnungen sind innerhalb von 14 Tagen ab Rechnungsdatum ohne Abzug zahlbar, sofern nichts anderes schriftlich vereinbart wurde.' },
         ],
       },
       {
@@ -108,9 +105,9 @@ export const legal: LegalDict = {
         id: 'hosting',
         title: '4. Hosting und Server-Log-Dateien',
         blocks: [
-          { type: 'html', html: 'Diese Website ist eine statische Website, die von einem Hosting-Anbieter (<span class="todo-client">[Hosting-Anbieter — TO BE ADDED]</span>) ausgeliefert wird. Bei jedem Aufruf verarbeitet der Hosting-Anbieter automatisch folgende Daten in Server-Log-Dateien: die IP-Adresse des anfragenden Geräts, Browsertyp und -version (User Agent), Datum und Uhrzeit der Anfrage sowie die aufgerufene URL.' },
+          { type: 'html', html: 'Diese Website ist eine statische Website, die von unserem Hosting-Anbieter ausgeliefert wird. Bei jedem Aufruf verarbeitet der Hosting-Anbieter automatisch folgende Daten in Server-Log-Dateien: die IP-Adresse des anfragenden Geräts, Browsertyp und -version (User Agent), Datum und Uhrzeit der Anfrage sowie die aufgerufene URL.' },
           { type: 'p', text: 'Die Verarbeitung dient dem sicheren und stabilen Betrieb der Website, der Erkennung und Abwehr von Angriffen sowie der Analyse technischer Störungen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (unser berechtigtes Interesse an der Sicherheit und Verfügbarkeit der Website). Die Log-Daten werden nicht mit anderen Datenquellen zusammengeführt.' },
-          { type: 'html', html: 'Speicherdauer: <span class="todo-client">[in der Regel bis zu 30 Tage — TO BE CONFIRMED]</span>. Log-Daten, die zu Beweiszwecken aufbewahrt werden müssen, sind bis zur endgültigen Klärung des jeweiligen Vorfalls von der Löschung ausgenommen.' },
+          { type: 'html', html: 'Speicherdauer: bis zu 30 Tage. Log-Daten, die zu Beweiszwecken aufbewahrt werden müssen, sind bis zur endgültigen Klärung des jeweiligen Vorfalls von der Löschung ausgenommen.' },
         ],
       },
       {
@@ -120,9 +117,9 @@ export const legal: LegalDict = {
           { type: 'p', text: 'Wenn Sie das Kontaktformular auf dieser Website nutzen, verarbeiten wir die Daten, die Sie in die Formularfelder eingeben:' },
           { type: 'ul', items: ['Name', 'E-Mail-Adresse', 'Unternehmen (optional)', 'Thema', 'Nachricht', 'Ihre Zustimmung zu dieser Datenschutzerklärung'] },
           { type: 'p', text: 'Zusätzlich werden Ihre IP-Adresse und der Zeitpunkt der Absendung verarbeitet. Diese beiden Angaben dienen ausschließlich dem Spam-Schutz und der Begrenzung der Anfragehäufigkeit und werden für keinen anderen Zweck verwendet.' },
-          { type: 'html', html: 'Ihre Nachricht wird per E-Mail an <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a> über den Maildienst unseres Hosting-Anbieters oder einen Anbieter für Transaktions-E-Mails (<span class="todo-client">[z. B. Resend — TO BE CONFIRMED]</span>) übermittelt und anschließend in unserem E-Mail-System verarbeitet.' },
+          { type: 'html', html: 'Ihre Nachricht wird per E-Mail an <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a> über den Maildienst unseres Hosting-Anbieters oder einen Anbieter für Transaktions-E-Mails übermittelt und anschließend in unserem E-Mail-System verarbeitet.' },
           { type: 'p', text: 'Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf den Abschluss eines Vertrags gerichtet ist oder vorvertragliche Maßnahmen betrifft, im Übrigen Art. 6 Abs. 1 lit. f DSGVO (unser berechtigtes Interesse an der Beantwortung der an uns gerichteten Anfragen).' },
-          { type: 'html', html: 'Speicherdauer: <span class="todo-client">[12 Monate nach dem letzten Kontakt, sofern keine Geschäftsbeziehung folgt — TO BE CONFIRMED]</span>. Gesetzliche Aufbewahrungspflichten bleiben unberührt.' },
+          { type: 'html', html: 'Speicherdauer: 12 Monate nach dem letzten Kontakt, sofern keine Geschäftsbeziehung folgt. Gesetzliche Aufbewahrungspflichten bleiben unberührt.' },
           { type: 'p', text: 'Wir geben die Daten aus Ihrer Anfrage nicht zu Marketingzwecken an Dritte weiter.' },
         ],
       },
@@ -131,7 +128,7 @@ export const legal: LegalDict = {
         title: '6. Terminbuchung (Calendly)',
         blocks: [
           { type: 'p', text: 'Zur Buchung einer kostenlosen Beratung stellen wir einen Link zum Terminplanungsdienst Calendly (Calendly LLC, USA) bereit, der sich in einem neuen Tab öffnet. Durch den bloßen Besuch unserer Website werden keine Daten an Calendly übermittelt. Erst wenn Sie den Buchungslink nutzen und Ihre Angaben auf den Seiten von Calendly eingeben, werden die dort angegebenen Daten (etwa Name, E-Mail-Adresse und der gewählte Termin) von Calendly verarbeitet.' },
-          { type: 'html', html: 'Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen auf Ihre Anfrage) sowie Art. 6 Abs. 1 lit. f DSGVO (unser berechtigtes Interesse an einer einfachen Terminvereinbarung). Calendly verarbeitet Daten in den USA. Die Übermittlung stützt sich auf die EU-Standardvertragsklauseln und/oder die Zertifizierung von Calendly nach dem EU-US Data Privacy Framework <span class="todo-client">[zu bestätigen]</span>. Einzelheiten finden Sie in der Datenschutzerklärung von Calendly: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">calendly.com/privacy</a>.' },
+          { type: 'html', html: 'Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen auf Ihre Anfrage) sowie Art. 6 Abs. 1 lit. f DSGVO (unser berechtigtes Interesse an einer einfachen Terminvereinbarung). Calendly verarbeitet Daten in den USA. Die Übermittlung stützt sich auf die EU-Standardvertragsklauseln und/oder die Zertifizierung von Calendly nach dem EU-US Data Privacy Framework. Einzelheiten finden Sie in der Datenschutzerklärung von Calendly: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">calendly.com/privacy</a>.' },
         ],
       },
       {
@@ -189,7 +186,7 @@ export const legal: LegalDict = {
               'Widerspruchsrecht (Art. 21 DSGVO)',
             ],
           },
-          { type: 'html', html: 'Zur Ausübung dieser Rechte kontaktieren Sie uns bitte unter <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a>. Außerdem haben Sie das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren (in Bulgarien: Kommission für den Schutz personenbezogener Daten – CPDP).' },
+          { type: 'html', html: 'Zur Ausübung dieser Rechte kontaktieren Sie uns bitte unter <a href="mailto:info@newlevelhr.com">info@newlevelhr.com</a>. Außerdem haben Sie das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren (in Bulgarien: Kommission für den Schutz personenbezogener Daten, CPDP).' },
         ],
       },
       {
@@ -207,7 +204,7 @@ export const legal: LegalDict = {
         title: '13. Änderungen dieser Datenschutzerklärung',
         blocks: [
           { type: 'p', text: 'Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder Änderungen unserer Leistungen abbildet, etwa bei der Einführung neuer Dienste. Es gilt die zum Zeitpunkt Ihres Besuchs auf dieser Website veröffentlichte Fassung.' },
-          { type: 'html', html: 'Stand: <span class="todo-client">[Datum — TO BE ADDED]</span>.' },
+          { type: 'html', html: 'Stand: September 2026.' },
         ],
       },
     ],

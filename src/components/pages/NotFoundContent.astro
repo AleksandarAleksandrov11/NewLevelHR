@@ -8,14 +8,6 @@ interface Props { lang: Locale }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const n = d.common.notFound;
-const c = d.common;
-const popular = [
-  { label: c.nav.services, href: localizePath('services', lang) },
-  { label: c.nav.problems, href: localizePath('problems', lang) },
-  { label: c.nav.howWeWork, href: localizePath('howWeWork', lang) },
-  { label: c.nav.blog, href: localizePath('blog', lang) },
-  { label: c.nav.faq, href: localizePath('faq', lang) },
-];
 ---
 <section class="nf bg-mesh" lang={lang}>
   <div class="container-site nf-grid">
@@ -30,9 +22,6 @@ const popular = [
         <Button href={localizePath('services', lang)} variant="secondary">{n.services}</Button>
         <Button href={localizePath('contact', lang)} variant="ghost">{n.contact}</Button>
       </div>
-      <ul class="nf-popular" role="list" data-reveal data-reveal-delay="5">
-        {popular.map((p) => <li><a href={p.href} class="pill">{p.label}</a></li>)}
-      </ul>
     </div>
     <svg class="nf-art" viewBox="0 0 320 260" aria-hidden="true" data-reveal data-reveal-delay="2">
       <defs><linearGradient id="nf-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6b35" /><stop offset="1" stop-color="#ffb347" /></linearGradient></defs>
@@ -49,8 +38,6 @@ const popular = [
   .nf-grid { display: grid; gap: 3rem; align-items: center; }
   @media (min-width: 64rem) { .nf-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 5rem; } }
   .nf-code { font-size: clamp(5rem, 4rem + 8vw, 11rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.06em; background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 0.5rem; }
-  .nf-popular { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-  .nf-popular .pill:hover { background: var(--color-accent-soft); color: var(--color-accent-ink); }
   .nf-art { width: min(100%, 22rem); margin-inline: auto; }
   .nf-missing { animation: nf-blink 2.4s ease-in-out infinite; }
   @keyframes nf-blink { 50% { opacity: 0.35; } }

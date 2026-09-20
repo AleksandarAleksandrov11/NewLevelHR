@@ -14,11 +14,10 @@ interface Props {
   crumbs: Crumb[];
   photo?: { name: string; alt: string };
   variant?: 'ivory' | 'mesh' | 'dark' | 'white';
-  tags?: readonly string[];
   align?: 'left' | 'center';
   class?: string;
 }
-const { lang, eyebrow, title, text, crumbs, photo, variant = 'mesh', tags = [], align = 'left', class: className = '' } = Astro.props;
+const { lang, eyebrow, title, text, crumbs, photo, variant = 'mesh', align = 'left', class: className = '' } = Astro.props;
 const c = getDict(lang).common;
 const allCrumbs: Crumb[] = [{ label: c.nav.home, href: localizePath('home' as PageKey, lang) }, ...crumbs];
 const dark = variant === 'dark';
@@ -31,11 +30,6 @@ const bg = { ivory: 'bg-ivory bg-grain', mesh: 'bg-mesh', dark: 'bg-ink text-whi
       {eyebrow && <p class:list={['eyebrow', dark && 'text-accent-3']} data-reveal>{eyebrow}</p>}
       <h1 class:list={['font-display text-display-lg mt-5', dark ? 'text-white' : 'text-ink']} data-split="immediate">{title}</h1>
       {text && <p class:list={['text-lead mt-6 max-w-2xl', dark ? 'text-white/75' : 'text-slate', align === 'center' && 'mx-auto']} data-reveal data-reveal-delay="2">{text}</p>}
-      {tags.length > 0 && (
-        <ul class="mt-6 flex flex-wrap gap-2" role="list" data-reveal data-reveal-delay="3">
-          {tags.map((t) => <li class:list={['pill', dark ? 'pill-dark' : 'pill-accent']}>{t}</li>)}
-        </ul>
-      )}
       <div class="page-hero-actions" data-reveal data-reveal-delay="4"><slot /></div>
     </div>
     {photo && (
