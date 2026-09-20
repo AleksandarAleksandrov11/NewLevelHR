@@ -228,34 +228,6 @@ await test('cost calculator: the track fill follows the slider', desktop, async 
   expect(parseFloat(after) > parseFloat(before), `fill did not stay (${after})`);
 });
 
-await test('pixel cursor trail draws on mouse movement and leaves the native cursor alone', desktop, async (page) => {
-  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
-  await settleBanners(page);
-  await page.reload({ waitUntil: 'networkidle' });
-  await page.waitForTimeout(800); // the trail attaches on astro:page-load
-  expect(await page.locator('[data-cursor-canvas]').count(), 'no trail canvas');
-  expect(await page.evaluate(() => document.documentElement.classList.contains('has-cursor-trail')), 'trail not enabled');
-  const cursorStyle = await page.evaluate(() => getComputedStyle(document.body).cursor);
-  expect(cursorStyle !== 'none', `the native cursor is hidden (body cursor: ${cursorStyle})`);
-  // Read through page.evaluate: a locator evaluate runs in another world and sees an empty canvas.
-  const lit = () => page.evaluate(() => {
-    const el = document.querySelector('[data-cursor-canvas]');
-    const { data } = el.getContext('2d').getImageData(0, 0, el.width, el.height);
-    let n = 0;
-    for (let i = 3; i < data.length; i += 4) if (data[i] > 0) n++;
-    return n;
-  });
-  let painted = 0;
-  for (let round = 0; round < 5 && painted <= 200; round++) {
-    for (let i = 0; i < 12; i++) { await page.mouse.move(300 + i * 40 + round * 3, 400 + i * 12); await page.waitForTimeout(16); }
-    painted = await lit();
-  }
-  expect(painted > 200, `trail painted ${painted} pixels`);
-  // The trail must not survive a pointer that never moves again.
-  await page.waitForTimeout(1500);
-  expect((await lit()) === 0, 'trail never fades out');
-});
-
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');
@@ -266,34 +238,58 @@ await test('skip link and landmarks exist', desktop, async (page) => {
   expect((await page.$$('h1')).length === 1, 'page must have exactly one h1');
 });
 
-await test('contact form: validation messages, honeypot blocks bots, success with a mocked endpoint', desktop, async (page) => {
+await test('contact form: four steps, custom topic dropdown, validation and a mocked send', desktop, async (page) => {
   await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const form = page.locator('[data-contact-form]');
-  await form.locator('[data-submit]').click();
+  const steps = form.locator('[data-form-step]');
+  expect((await steps.count()) === 4, `expected 4 steps, found ${await steps.count()}`);
+  expect((await form.locator('[data-form-step]:visible').count()) === 1, 'more than one step visible');
+
+  // Step 1: the native select is replaced by a listbox, and Next is blocked until it is answered.
+  await form.locator('[data-step-next]').click();
+  await page.waitForTimeout(250);
+  expect(await form.locator('[data-error-for="topic"]').textContent(), 'no error on the empty topic');
+  const combo = form.locator('.select-btn');
+  expect(await combo.count(), 'the topic select was not enhanced');
+  await combo.click();
+  await form.locator('.select-option').nth(1).click();
+  expect(await form.locator('select[name="topic"]').inputValue(), 'the native select did not follow the listbox');
+  await form.locator('[data-step-next]').click();
   await page.waitForTimeout(300);
-  const invalid = await form.locator('[aria-invalid="true"]').count();
-  expect(invalid >= 3, `expected validation errors, got ${invalid}`);
+
+  // Step 2: message, with the minimum length enforced before moving on.
+  await form.locator('[name="message"]').fill('too short');
+  await form.locator('[data-step-next]').click();
+  await page.waitForTimeout(250);
+  expect(await form.locator('[data-error-for="message"]').textContent(), 'short message accepted');
+  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
+  await form.locator('[data-step-next]').click();
+  await page.waitForTimeout(300);
+
+  // Step 3: name and optional company.
+  await form.locator('[name="name"]').fill('Test Person');
+  await form.locator('[name="company"]').fill('Example GmbH');
+  await form.locator('[data-step-next]').click();
+  await page.waitForTimeout(300);
+
+  // Step 4: email, consent and submit.
+  expect(await form.locator('[data-submit]').isVisible(), 'no submit button on the last step');
+  expect(!(await form.locator('[data-step-next]').isVisible()), 'Next still shown on the last step');
   const posts = [];
   await page.route('**/api/contact', async (route) => {
-    const body = route.request().postDataJSON();
-    posts.push(body);
-    if (body.website) return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'spam' }) });
+    posts.push(route.request().postDataJSON());
     return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true }) });
   });
-  await form.locator('[name="name"]').fill('Test Person');
   await form.locator('[name="email"]').fill('test@example.com');
-  await form.locator('[name="company"]').fill('Example GmbH');
-  const topic = form.locator('select[name="topic"]');
-  if (await topic.count()) await topic.selectOption({ index: 1 });
-  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
   await form.locator('[name="consent"]').check();
   await page.waitForTimeout(3200); // the anti-bot timer requires a few seconds on the page
   await form.locator('[data-submit]').click();
   await page.locator('[data-form-success]').waitFor({ state: 'visible', timeout: 8000 });
-  expect(posts.length === 1 && posts[0].email === 'test@example.com' && posts[0].consent === true && posts[0].lang === 'en' && typeof posts[0].ts === 'number', `payload ${JSON.stringify(posts[0])}`);
-  expect('website' in posts[0] && !posts[0].website, 'honeypot field missing or filled');
+  const sent = posts[0] || {};
+  expect(posts.length === 1 && sent.email === 'test@example.com' && sent.name === 'Test Person' && sent.consent === true && sent.lang === 'en' && typeof sent.ts === 'number' && Boolean(sent.topic), `payload ${JSON.stringify(sent)}`);
+  expect('website' in sent && !sent.website, 'honeypot field missing or filled');
 });
 
 await test('contact form: server error and rate limit are shown in the page language', desktop, async (page) => {
@@ -303,11 +299,14 @@ await test('contact form: server error and rate limit are shown in the page lang
   const form = page.locator('[data-contact-form]');
   let n = 0;
   await page.route('**/api/contact', (route) => route.fulfill({ status: n++ === 0 ? 429 : 500, contentType: 'application/json', body: JSON.stringify({ ok: false, error: n === 1 ? 'rate_limit' : 'send' }) }));
-  await form.locator('[name="name"]').fill('Test Person');
-  await form.locator('[name="email"]').fill('test@example.com');
-  const topic = form.locator('select[name="topic"]');
-  if (await topic.count()) await topic.selectOption({ index: 1 });
+  await form.locator('.select-btn').click();
+  await form.locator('.select-option').first().click();
+  await form.locator('[data-step-next]').click();
   await form.locator('[name="message"]').fill('Guten Tag, dies ist eine Testnachricht mit ausreichend vielen Zeichen.');
+  await form.locator('[data-step-next]').click();
+  await form.locator('[name="name"]').fill('Test Person');
+  await form.locator('[data-step-next]').click();
+  await form.locator('[name="email"]').fill('test@example.com');
   await form.locator('[name="consent"]').check();
   await page.waitForTimeout(3200);
   await form.locator('[data-submit]').click();

@@ -1,6 +1,6 @@
 ---
-/** Contact: message form, direct booking, contact details and what happens next. */
-import { Mail, Clock, Zap, MapPin, Languages, Check, CalendarDays, AlertCircle, ExternalLink } from '@lucide/astro';
+/** Contact: a four-step message form, direct booking and the contact details. */
+import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, ArrowLeft, AlertCircle, ExternalLink } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -20,7 +20,6 @@ const consentHtml = escape(fm.consent).replace('{privacyLink}', `<a href="${loca
 const messages = { required: fm.errors.required, email: fm.errors.email, minLength: fm.errors.minLength, consent: fm.errors.consent, rateLimit: fm.errors.rateLimit, spam: fm.errors.spam, errorText: fmt(fm.errorText, { email: site.email }) };
 const topics = Object.entries(fm.topics) as Array<[string, string]>;
 const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', name: t.meta.title, url: `${site.url}${localizePath('contact', lang)}`, mainEntity: { '@id': `${site.url}/#organization` } };
-const nextIcons = [Mail, Clock, Check];
 ---
 <PageShell lang={lang} pageKey="contact" title={t.meta.title} description={t.meta.description} jsonLd={[contactLd]}>
   <section class="ct-hero bg-mesh">
@@ -38,46 +37,91 @@ const nextIcons = [Mail, Clock, Check];
         <h2 class="font-display text-display-sm text-ink">{t.form.title}</h2>
         <p class="text-slate mt-2">{t.form.text}</p>
 
-        <form class="ct-form mt-8" method="post" action={site.formEndpoint} novalidate data-contact-form data-endpoint={site.formEndpoint} data-messages={JSON.stringify(messages)}>
-          <div class="ct-row">
+        <form class="ct-form mt-7" method="post" action={site.formEndpoint} novalidate data-contact-form data-endpoint={site.formEndpoint} data-messages={JSON.stringify(messages)}>
+          <div class="ct-progress" data-step-progress hidden>
+            <p class="ct-step-count" data-step-count aria-live="polite" data-template={fm.step}></p>
+            <div class="ct-progress-track" aria-hidden="true"><span class="ct-progress-fill" data-step-bar></span></div>
+          </div>
+
+          <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-topic">
+            <h3 id="ct-step-topic" class="ct-step-title font-display" tabindex="-1">{fm.steps.topic.title}</h3>
+            <p class="ct-step-hint">{fm.steps.topic.hint}</p>
+            <div class="field field-select" data-select>
+              <select id="ct-topic" name="topic" required aria-describedby="ct-topic-err" data-field>
+                <option value="" disabled selected>{fm.topicPlaceholder}</option>
+                {topics.map(([value, label]) => <option value={value}>{label}</option>)}
+              </select>
+              <label id="ct-topic-label" for="ct-topic" class="is-static">{fm.topic}</label>
+              {/* The listbox is rendered here so it carries the scoped styles; the script
+                  reveals it and keeps the select above in sync. Without JavaScript the
+                  native select stays and the form posts normally. */}
+              <button
+                type="button"
+                class="select-btn"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="ct-topic-list"
+                aria-labelledby="ct-topic-label ct-topic-value"
+                aria-describedby="ct-topic-err"
+                data-select-button
+                hidden
+              >
+                <span class="select-value is-placeholder" id="ct-topic-value" data-select-value data-placeholder={fm.topicPlaceholder}>{fm.topicPlaceholder}</span>
+                <ChevronDown class="select-chevron size-4" aria-hidden="true" />
+              </button>
+              <ul class="select-list" id="ct-topic-list" role="listbox" aria-labelledby="ct-topic-label" data-select-list hidden>
+                {topics.map(([value, label], i) => (
+                  <li class="select-option" id={`ct-topic-opt-${i}`} role="option" aria-selected="false" data-value={value} data-select-option>
+                    <span>{label}</span><Check class="select-check size-4" aria-hidden="true" />
+                  </li>
+                ))}
+              </ul>
+              <p id="ct-topic-err" class="field-error" aria-live="polite" data-error-for="topic"></p>
+            </div>
+          </div>
+
+          <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-message">
+            <h3 id="ct-step-message" class="ct-step-title font-display" tabindex="-1">{fm.steps.message.title}</h3>
+            <p class="ct-step-hint">{fm.steps.message.hint}</p>
+            <div class="field">
+              <textarea id="ct-message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder=" " aria-describedby="ct-message-err" data-field></textarea>
+              <label for="ct-message">{fm.message}</label>
+              <p id="ct-message-err" class="field-error" aria-live="polite" data-error-for="message"></p>
+            </div>
+          </div>
+
+          <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-who">
+            <h3 id="ct-step-who" class="ct-step-title font-display" tabindex="-1">{fm.steps.who.title}</h3>
+            <p class="ct-step-hint">{fm.steps.who.hint}</p>
             <div class="field">
               <input id="ct-name" name="name" type="text" required maxlength="120" placeholder=" " autocomplete="name" aria-describedby="ct-name-err" data-field />
               <label for="ct-name">{fm.name}</label>
               <p id="ct-name-err" class="field-error" aria-live="polite" data-error-for="name"></p>
             </div>
             <div class="field">
-              <input id="ct-email" name="email" type="email" required maxlength="200" placeholder=" " autocomplete="email" inputmode="email" aria-describedby="ct-email-err" data-field />
-              <label for="ct-email">{fm.email}</label>
-              <p id="ct-email-err" class="field-error" aria-live="polite" data-error-for="email"></p>
-            </div>
-          </div>
-          <div class="ct-row">
-            <div class="field">
               <input id="ct-company" name="company" type="text" maxlength="160" placeholder=" " autocomplete="organization" data-field />
               <label for="ct-company">{fm.company} <span class="field-opt">({c.misc.optional})</span></label>
               <p class="field-error" aria-live="polite" data-error-for="company"></p>
             </div>
-            <div class="field field-select">
-              <select id="ct-topic" name="topic" required aria-describedby="ct-topic-err" data-field>
-                <option value="" disabled selected>{fm.topicPlaceholder}</option>
-                {topics.map(([value, label]) => <option value={value}>{label}</option>)}
-              </select>
-              <label for="ct-topic" class="is-static">{fm.topic}</label>
-              <p id="ct-topic-err" class="field-error" aria-live="polite" data-error-for="topic"></p>
+          </div>
+
+          <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-reply">
+            <h3 id="ct-step-reply" class="ct-step-title font-display" tabindex="-1">{fm.steps.reply.title}</h3>
+            <p class="ct-step-hint">{fm.steps.reply.hint}</p>
+            <div class="field">
+              <input id="ct-email" name="email" type="email" required maxlength="200" placeholder=" " autocomplete="email" inputmode="email" aria-describedby="ct-email-err" data-field />
+              <label for="ct-email">{fm.email}</label>
+              <p id="ct-email-err" class="field-error" aria-live="polite" data-error-for="email"></p>
             </div>
-          </div>
-          <div class="field">
-            <textarea id="ct-message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder=" " aria-describedby="ct-message-err" data-field></textarea>
-            <label for="ct-message">{fm.message}</label>
-            <p id="ct-message-err" class="field-error" aria-live="polite" data-error-for="message"></p>
-          </div>
-          <div class="field field-check">
-            <label class="check">
-              <input id="ct-consent" name="consent" type="checkbox" required aria-describedby="ct-consent-err" data-field />
-              <span class="check-box" aria-hidden="true"><Check class="size-3.5" /></span>
-              <span class="check-text" set:html={consentHtml}></span>
-            </label>
-            <p id="ct-consent-err" class="field-error" aria-live="polite" data-error-for="consent"></p>
+            <div class="field field-check">
+              <label class="check">
+                <input id="ct-consent" name="consent" type="checkbox" required aria-describedby="ct-consent-err" data-field />
+                <span class="check-box" aria-hidden="true"><Check class="size-3.5" /></span>
+                <span class="check-text" set:html={consentHtml}></span>
+              </label>
+              <p id="ct-consent-err" class="field-error" aria-live="polite" data-error-for="consent"></p>
+            </div>
           </div>
 
           <div class="hp" aria-hidden="true">
@@ -88,9 +132,13 @@ const nextIcons = [Mail, Clock, Check];
           <input type="hidden" name="lang" value={lang} />
           <input type="hidden" name="token" value={site.formToken} />
 
-          <div class="ct-submit">
-            <Button type="submit" size="lg" icon="send" magnetic={false} data-submit="" data-label-idle={fm.submit} data-label-sending={fm.sending}><span data-submit-label>{fm.submit}</span></Button>
-            <p class="text-xs text-mist">{c.proof.reply}</p>
+          <div class="ct-nav">
+            <button type="button" class="ct-back" data-step-back hidden><ArrowLeft class="size-4" aria-hidden="true" />{fm.back}</button>
+            <div class="ct-nav-main">
+              <Button type="button" size="lg" icon="arrow" magnetic={false} data-step-next hidden>{fm.next}</Button>
+              <Button type="submit" size="lg" icon="send" magnetic={false} data-submit="" data-label-idle={fm.submit} data-label-sending={fm.sending}><span data-submit-label>{fm.submit}</span></Button>
+              <p class="text-xs text-mist">{c.proof.reply}</p>
+            </div>
           </div>
         </form>
 
@@ -127,14 +175,6 @@ const nextIcons = [Mail, Clock, Check];
           </dl>
         </div>
 
-        <div class="ct-next" data-reveal data-reveal-delay="3">
-          <h2 class="font-display text-xl font-bold text-ink">{t.next.title}</h2>
-          <ol class="ct-next-list" role="list">
-            {t.next.items.map((it, i) => { const Icon = nextIcons[i] ?? Check; return (
-              <li><span class="ct-next-icon"><Icon class="size-4" aria-hidden="true" /></span><div><p class="font-semibold text-ink">{it.title}</p><p class="mt-0.5 text-sm text-slate">{it.body}</p></div></li>
-            ); })}
-          </ol>
-        </div>
       </aside>
     </div>
   </section>
@@ -149,9 +189,26 @@ const nextIcons = [Mail, Clock, Check];
   .ct-grid { display: grid; gap: 2rem; }
   @media (min-width: 64rem) { .ct-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 3rem; align-items: start; } }
   .ct-form-card { position: relative; padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-lift); }
+  @media (min-width: 64rem) {
+    /* The form follows the reader while the booking and contact details scroll past. */
+    .ct-form-card { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  }
   .ct-form { display: grid; gap: 1.25rem; }
-  .ct-row { display: grid; gap: 1.25rem; }
-  @media (min-width: 40rem) { .ct-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .ct-progress { display: grid; gap: 0.5rem; }
+  .ct-step-count { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-mist); }
+  .ct-progress-track { height: 3px; border-radius: 999px; background: var(--color-sand-2); overflow: hidden; }
+  .ct-progress-fill { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(0.25); background: var(--grad-accent); transition: transform 0.5s var(--ease-out-expo); }
+  .ct-step { display: grid; gap: 1.1rem; }
+  .ct-step[hidden] { display: none; }
+  .ct-step-title { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem); font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
+  .ct-step-title:focus { outline: none; }
+  .ct-step-hint { margin-top: -0.6rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-slate); }
+  .js-motion .ct-step.is-entering { animation: stepIn 0.45s var(--ease-out-expo); }
+  @keyframes stepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.25rem; }
+  .ct-nav-main { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+  .ct-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 600; color: var(--color-ink-3); border-radius: var(--radius-sm); padding: 0.4rem 0.2rem; transition: color 0.25s ease; }
+  .ct-back:hover { color: var(--color-ink); }
   .field { position: relative; }
   .field input:not([type='checkbox']), .field textarea, .field select {
     width: 100%; padding: 1.55rem 1rem 0.6rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-line-strong); background: var(--color-ivory); color: var(--color-ink); font-size: 1rem; line-height: 1.4;
@@ -160,6 +217,36 @@ const nextIcons = [Mail, Clock, Check];
   .field textarea { resize: vertical; min-height: 9rem; }
   .field select { appearance: none; -webkit-appearance: none; padding-right: 2.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235b5b6c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
   .field select:invalid { color: var(--color-mist); }
+
+  /* Custom dropdown: the native select stays in the DOM (and in the no-script form) but
+     is taken out of the layout once src/scripts/contact-form.ts builds the listbox. */
+  .field-select { position: relative; }
+  .field-select.is-enhanced select { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; clip-path: inset(50%); overflow: hidden; }
+  .field-select .select-btn[hidden], .field-select .select-list[hidden] { display: none; }
+  .field-select.is-enhanced > label.is-static { z-index: 1; }
+  .select-btn {
+    position: relative; display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.75rem;
+    padding: 1.55rem 1rem 0.6rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-line-strong);
+    background: var(--color-ivory); color: var(--color-ink); font-size: 1rem; line-height: 1.4; text-align: left;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  .select-btn:hover { border-color: var(--color-ink-4); }
+  .select-btn[aria-expanded='true'], .select-btn:focus-visible { outline: none; border-color: var(--color-accent); background: var(--color-white); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15); }
+  .select-value.is-placeholder { color: var(--color-mist); }
+  .select-chevron { flex: none; color: var(--color-slate); transition: transform 0.3s var(--ease-out-expo); }
+  .select-btn[aria-expanded='true'] .select-chevron { transform: rotate(180deg); }
+  .has-error .select-btn { border-color: var(--color-error); }
+  .select-list {
+    position: absolute; left: 0; right: 0; top: calc(100% + 0.4rem); z-index: 20; max-height: 16rem; overflow-y: auto;
+    padding: 0.35rem; border-radius: var(--radius-md); border: 1px solid var(--color-line); background: var(--color-white);
+    box-shadow: var(--shadow-lift);
+  }
+  .select-list[hidden] { display: none; }
+  .select-option { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.6rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.95rem; color: var(--color-ink-2); cursor: pointer; }
+  .select-option:hover, .select-option.is-active { background: var(--color-sand); color: var(--color-ink); }
+  .select-option[aria-selected='true'] { font-weight: 600; color: var(--color-ink); }
+  .select-check { flex: none; opacity: 0; color: var(--color-accent-ink); }
+  .select-option[aria-selected='true'] .select-check { opacity: 1; }
   .field label:not(.check) { position: absolute; left: 1rem; top: 1.05rem; font-size: 1rem; color: var(--color-slate); pointer-events: none; transform-origin: left top; transition: transform 0.25s var(--ease-out-expo), color 0.25s ease; }
   .field input:focus ~ label, .field input:not(:placeholder-shown) ~ label, .field textarea:focus ~ label, .field textarea:not(:placeholder-shown) ~ label, .field label.is-static { transform: translateY(-0.7rem) scale(0.78); color: var(--color-ink-3); }
   .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--color-accent); background: var(--color-white); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15); }
@@ -175,7 +262,6 @@ const nextIcons = [Mail, Clock, Check];
   .check input:focus-visible ~ .check-box { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
   .has-error .check-box { border-color: var(--color-error); }
   .hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-  .ct-submit { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.5rem; }
   .ct-success { padding: 2.5rem 1rem; text-align: center; }
   .ct-success:focus { outline: none; }
   .ct-success-icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; border-radius: 999px; background: var(--grad-accent); color: var(--color-ink); animation: pop 0.7s var(--ease-spring); }
@@ -184,15 +270,12 @@ const nextIcons = [Mail, Clock, Check];
   .ct-aside { display: grid; gap: 1.5rem; }
   .ct-book { padding: 2rem; border-radius: var(--radius-xl); background: var(--color-ink); color: #fff; scroll-margin-top: calc(var(--header-h) + 1rem); position: relative; overflow: hidden; isolation: isolate; }
   .ct-book::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(22rem circle at 90% 0%, rgba(255, 107, 53, 0.3), transparent 60%); }
-  .ct-info, .ct-next { padding: 1.75rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); }
+  .ct-info { padding: 1.75rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); }
   .ct-info-list { display: grid; gap: 1rem; margin-top: 1.25rem; }
   .ct-info-list dt { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist); }
   .ct-info-list dt :global(svg) { color: var(--color-accent-ink); }
   .ct-info-list dd { margin-top: 0.2rem; font-weight: 600; color: var(--color-ink); }
   .ct-link { color: var(--color-accent-ink); text-decoration: underline; text-underline-offset: 3px; }
-  .ct-next-list { display: grid; gap: 1rem; margin-top: 1.25rem; }
-  .ct-next-list li { display: flex; gap: 0.85rem; align-items: flex-start; }
-  .ct-next-icon { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 999px; background: var(--color-white); border: 1px solid var(--color-line); color: var(--color-accent-ink); }
 </style>
 <script>
   import '@/scripts/contact-form';

@@ -14,7 +14,7 @@ endpoint for the contact form.
 | Motion | GSAP + ScrollTrigger, Lenis smooth scroll, Three.js (hero, loaded lazily) |
 | Fonts | Inter Variable + Manrope Variable, self-hosted (latin, latin-ext, cyrillic) |
 | Images | `astro:assets` (AVIF/WebP, `srcset`, lazy loading) |
-| Forms | `api/contact.js` (Vercel, Resend) or `public/contact.php` (classic PHP hosting) |
+| Forms | Four-step contact form; `api/contact.js` (Vercel, Resend) or `public/contact.php` (classic PHP hosting) |
 | QA | Playwright screenshots and end-to-end checks, Lighthouse, link/hreflang/i18n checks |
 
 ## Requirements
@@ -74,7 +74,7 @@ public/                      Static files copied as-is: fonts, icons, contact.ph
 src/
   assets/images/             Photography (see docs/image-credits.md)
   components/
-    layout/                  PageShell, Header, Footer, LangSwitcher, LangBanner, CookieBanner, Cursor, Preloader
+    layout/                  PageShell, Header, Footer, LangSwitcher, LangBanner, CookieBanner, Preloader
     home/                    Home page sections
     ui/                      Button, SectionHeading, Accordion, Breadcrumbs, Photo, Wordmark
     sections/                Shared sections (FinalCta)
@@ -153,7 +153,7 @@ check). For the full visual and functional QA run, after `npm run build`:
 
 | Command | Output |
 | --- | --- |
-| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, contact form (mocked endpoint), quiz, calculator, FAQ, pixel cursor trail, 404, reduced motion, view transitions |
+| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, contact form (mocked endpoint), quiz, calculator, FAQ, 404, reduced motion, view transitions |
 | `npm run qa:screenshots` | `docs/qa-screenshots/`: every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
 | `npm run qa:lighthouse` | `docs/qa/lighthouse.md`: mobile Lighthouse for home, services, a service page, What We Fix, about, FAQ and contact in the three languages (target ≥ 90 everywhere) |
 

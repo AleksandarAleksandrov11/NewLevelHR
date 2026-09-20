@@ -7,7 +7,6 @@ import { initHeader } from './header';
 import { initInteractions } from './interactions';
 import { initConsent } from './consent';
 import { initLangBanner, watchLanguageLinks } from './lang-banner';
-import { initCursor } from './cursor';
 import { initPreloader } from './preloader';
 
 function boot() {
@@ -16,7 +15,6 @@ function boot() {
   initInteractions();
   initConsent();
   initLangBanner();
-  initCursor();
   document.dispatchEvent(new CustomEvent('nlhr:ready'));
 }
 

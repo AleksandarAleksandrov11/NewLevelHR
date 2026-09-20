@@ -1,6 +1,6 @@
 import type { Widen } from '../types';
 /**
- * Cost of a bad hire. Every input is editable and the formula is shown on screen.
+ * Cost of a bad hire. Every input is editable and every line of the result is shown.
  * Default values are assumptions, not statistics.
  */
 export const calculator = {
@@ -31,8 +31,6 @@ export const calculator = {
     vacancy: 'Empty seat (salary equivalent)',
     total: 'Estimated total',
   },
-  formula: 'Total = salary × months / 12 + recruiting + manager hours × weeks × rate + salary × severance / 12 + recruiting again + salary × vacancy / 12',
-  note: 'This is a simplified model for orientation. It ignores lost revenue, team morale and customer impact, which usually make the real number higher.',
   cta: 'Avoid the next one: talk to us',
   reset: 'Reset to defaults',
   multipleLabel: 'That is roughly {multiple}× the annual salary.',
