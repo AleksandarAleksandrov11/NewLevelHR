@@ -70,7 +70,9 @@ Sections alternate deliberately so that each one reads as a new "level":
 * Word illumination: `data-illuminate` on a paragraph.
 * Counters: `data-counter="90" data-suffix="%"`.
 * Parallax: `data-parallax="0.3"` inside a `data-parallax-scope`.
-* Interactions: `data-magnetic`, `data-tilt`, `data-spotlight`, `data-flip` / `data-flip-toggle`, `data-cursor="view|read|book|open"`.
+* Interactions: `data-magnetic`, `data-tilt`, `data-spotlight`, `data-flip` / `data-flip-toggle`.
+* Cursor: the native pointer stays visible; `src/scripts/cursor.ts` paints a grid-snapped pixel trail on a
+  full-screen canvas (fine pointers only, off with reduced motion, idle when the pointer stops).
 * Everything respects `prefers-reduced-motion`; the `.js-motion` class on `<html>` gates initial hidden states so
   content is never invisible without JavaScript.
 
@@ -89,7 +91,6 @@ Sections alternate deliberately so that each one reads as a new "level":
 * `pages/PageHero.astro` — inner-page hero with eyebrow, title, lead, breadcrumbs, optional photo and `ivory|mesh|dark|white` variants.
 * `pages/LegalLayout.astro` — renders the legal block model (paragraphs, lists, definition lists, tables, consent button) with a sticky table of contents.
 * `services/ProcessSteps.astro`, `services/CheckList.astro` — numbered process and yes/no/neutral check lists for the service pages.
-* `blog/PostCard.astro` — article card with category, cover, reading time and localized date.
 * `sections/FinalCta.astro` — orange full-bleed CTA.
 
 ## Open Graph images

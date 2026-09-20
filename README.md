@@ -80,15 +80,14 @@ src/
     sections/                Shared sections (FinalCta)
     seo/                     Seo (meta, canonical, hreflang, Open Graph) and JsonLd
   config/site.ts             Company data, feature flags (KPIs, testimonials), storage names
-  content/blog/<lang>/       Blog posts in Markdown, one folder per language, same slug across languages
   i18n/
     config.ts, routes.ts     Locales and the translated slug registry
     en/ de/ bg/              Dictionaries, one file per namespace; English is the type reference
   layouts/Base.astro         Document shell
-  lib/                       Helpers (blog, seo, images, og, page-meta)
+  lib/                       Helpers (seo, images, og, page-meta)
   pages/
     index.astro              Root redirect to /en/
-    [lang]/[...path].astro   Localised router for all pages and blog posts
+    [lang]/[...path].astro   Localised router for every page
     404.astro                Root 404: English shell + localized fallback; DE/BG URLs continue to /de/404/, /bg/404/
     sitemap.xml.ts, robots.txt.ts, og/…  Generated SEO files and Open Graph images
   scripts/                   Client-side TypeScript (motion core, header, consent, cursor, tools)
@@ -105,15 +104,7 @@ docs/                        Design system, image credits, QA reports and screen
   `npm run check:i18n` performs the same check at runtime and also flags untranslated values.
 * `src/i18n/routes.ts` maps every page to its slug per language. Use `localizePath(key, lang)` for links.
   The language switcher always links to the same page in the other language.
-* Blog posts share a slug across `src/content/blog/en|de|bg/`. A post that exists in only some languages
-  links to the blog index in the others.
 * `hreflang` and `x-default` alternates, canonical URLs and the multilingual sitemap are generated automatically.
-
-### Adding a blog post
-
-Create `src/content/blog/<lang>/<slug>.md` for each language with the frontmatter defined in
-`src/content.config.ts` (title, description, date, category, tags, cover, coverAlt, draft). `draft: true`
-keeps a post out of the build. Covers are referenced by name from `src/assets/images/`.
 
 ### Enabling KPIs, testimonials and client logos
 
@@ -162,9 +153,9 @@ check). For the full visual and functional QA run, after `npm run build`:
 
 | Command | Output |
 | --- | --- |
-| `npm run qa:e2e` | `docs/qa/e2e.md` — cookie consent, language banner and switcher, header, contact form (mocked endpoint), quiz, calculator, FAQ, blog, 404, reduced motion, view transitions |
-| `npm run qa:screenshots` | `docs/qa-screenshots/` — every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
-| `npm run qa:lighthouse` | `docs/qa/lighthouse.md` — mobile Lighthouse for home, services, a service page, about, blog, a post and contact in the three languages (target ≥ 90 everywhere) |
+| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, contact form (mocked endpoint), quiz, calculator, FAQ, pixel cursor trail, 404, reduced motion, view transitions |
+| `npm run qa:screenshots` | `docs/qa-screenshots/`: every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
+| `npm run qa:lighthouse` | `docs/qa/lighthouse.md`: mobile Lighthouse for home, services, a service page, What We Fix, about, FAQ and contact in the three languages (target ≥ 90 everywhere) |
 
 Each script exits with a non-zero code when a check fails, so they can run in CI. The Chromium bundled with
 Playwright is used; set `CHROMIUM_PATH` to use another binary.

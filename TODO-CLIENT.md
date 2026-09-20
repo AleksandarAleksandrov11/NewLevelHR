@@ -30,7 +30,7 @@ Items marked **visible** are rendered on the live site until replaced.
 
 | Item | Where | Status |
 | --- | --- | --- |
-| Portrait photo of Mariyana Velkova (landscape and portrait crops, at least 1600 px) | Home "About" teaser, About page | **visible** elegant placeholder with initials |
+| Higher-resolution portrait of Mariyana Velkova (at least 1600 px, ideally 4:5) | About page hero | the supplied phone photo is in use, cropped to 896 × 1120 px |
 | Real, verifiable KPI figures (hiring success rate, average time-to-hire, client retention) | `src/config/site.ts` → `kpis` | hidden until provided; the previous site showed unverified counters |
 | Client testimonials (quote, name, role, company, written permission) | `src/config/site.ts` → `testimonials` | hidden until provided |
 | Client logos (SVG, permission to use) | `src/config/site.ts` → `clientLogos` | hidden until provided |
@@ -40,12 +40,7 @@ Items marked **visible** are rendered on the live site until replaced.
 
 | Item | Where | Status |
 | --- | --- | --- |
-| Provenance and license of the four inherited blog cover images (underwater diver, Lisbon trams, Italian street, Santorini) | Blog | unknown; replace or confirm rights |
-| The four published blog posts were expanded from the one-paragraph originals; please review the additions | Blog | to review |
-| The three announced topics (EU Pay Transparency Directive, first manager hire, 90-day bridge case study) exist as unpublished outlines (`draft: true`) | `src/content/blog/*/` | write or brief; the case study needs a real client story and permission |
 | Optional privacy-friendly analytics (e.g. Plausible) | `.env` `PUBLIC_ANALYTICS*` | decision; off by default, loads only after consent |
-| Tone of the German and Bulgarian blog posts: the site uses the formal address (Sie / Вие) everywhere, including the translated posts. The originals were informal in places; confirm the formal voice or ask for an informal blog voice. | Blog | decision |
-| Blog post dates: the four inherited posts carry the publication date of the previous site. Adjust if they should look new. | `src/content/blog/*/` frontmatter | to confirm |
 
 ## 5. Hosting decisions
 
