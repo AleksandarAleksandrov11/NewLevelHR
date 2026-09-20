@@ -75,7 +75,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 50 pages, 0 errors |
 | End-to-end behaviour (cookies, banner, switcher, sticky header, form, quiz, calculator, FAQ, cursor trail, 404, reduced motion, view transitions) | `npm run qa:e2e` | 23/23 passed (`docs/qa/e2e.md`) |
-| Screenshots 390/1440 px, overflow at 360–1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the 7 widths (`docs/qa-screenshots/README.md`) |
+| Screenshots 390/1440 px, overflow at 360 to 1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the seven widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 
 ### Lighthouse (mobile, simulated throttling)
