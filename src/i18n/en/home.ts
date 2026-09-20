@@ -46,10 +46,10 @@ export const home = {
     text: 'Four ways to work with us, from an on-call partner to a full hiring engine.',
     all: 'All services',
     items: [
-      { key: 'serviceFractional', body: 'The alternative to a full-time hire. On-demand support to fix your team structure, handle policy, and align your people with your business goals.', image: 'one-on-one' },
-      { key: 'serviceHiring', body: 'Stop the “hire and hope” cycle. Big Tech hiring speed combined with a 3-month success bridge so your new hire doesn’t just start, they succeed.', image: 'interview' },
-      { key: 'serviceBridge', body: 'Our job doesn’t end when the contract is signed. We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.', image: 'onboarding-welcome' },
-      { key: 'serviceCoaching', body: 'Turning experts into leaders. Coaching managers and giving them tools to handle conflict, give feedback, and lead high-performing teams independently.', image: 'coaching-mentoring' },
+      { key: 'serviceFractional', body: 'On-demand support to fix your team structure, handle policy, and align your people with your business goals.', image: 'one-on-one' },
+      { key: 'serviceHiring', body: 'Big Tech hiring speed combined with a 3-month success bridge so your new hire doesn’t just start, they succeed.', image: 'interview' },
+      { key: 'serviceBridge', body: 'We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.', image: 'onboarding-welcome' },
+      { key: 'serviceCoaching', body: 'Coaching managers and giving them tools to handle conflict, give feedback, and lead high-performing teams independently.', image: 'coaching-mentoring' },
     ],
   },
   bridge: {

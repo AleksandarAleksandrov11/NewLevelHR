@@ -45,10 +45,10 @@ export const home: HomeDict = {
     text: 'Vier Wege, mit uns zu arbeiten, vom Partner auf Abruf bis zur kompletten Recruiting-Maschine.',
     all: 'Alle Leistungen',
     items: [
-      { key: 'serviceFractional', body: 'Die Alternative zur Festanstellung. Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf die Unternehmensziele auszurichten.', image: 'one-on-one' },
-      { key: 'serviceHiring', body: 'Schluss mit „Einstellen und Hoffen“. Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern ankommt.', image: 'interview' },
-      { key: 'serviceBridge', body: 'Unsere Arbeit endet nicht mit der Vertragsunterschrift. Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt.', image: 'onboarding-welcome' },
-      { key: 'serviceCoaching', body: 'Aus Experten werden Führungskräfte. Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen.', image: 'coaching-mentoring' },
+      { key: 'serviceFractional', body: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf die Unternehmensziele auszurichten.', image: 'one-on-one' },
+      { key: 'serviceHiring', body: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern ankommt.', image: 'interview' },
+      { key: 'serviceBridge', body: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt.', image: 'onboarding-welcome' },
+      { key: 'serviceCoaching', body: 'Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen.', image: 'coaching-mentoring' },
     ],
   },
   bridge: {

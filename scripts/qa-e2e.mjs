@@ -20,7 +20,11 @@ const results = [];
 const desktop = { viewport: { width: 1440, height: 900 } };
 const phone = { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true };
 
+/** --only=<substring> runs a single check, which helps when debugging one of them. */
+const onlyArg = process.argv.find((a) => a.startsWith('--only='))?.slice(7);
+
 async function test(name, opts, fn) {
+  if (onlyArg && !name.toLowerCase().includes(onlyArg.toLowerCase())) return;
   const ctx = await browser.newContext({ deviceScaleFactor: 1, ...opts });
   const page = await ctx.newPage();
   const errors = [];
@@ -186,6 +190,70 @@ await test('header: mobile menu opens, links are focusable, closes with Escape',
   await page.keyboard.press('Escape');
   await page.waitForTimeout(500);
   expect((await burger.getAttribute('aria-expanded')) === 'false', 'menu still open after Escape');
+});
+
+await test('header stays visible while scrolling down', desktop, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  const header = page.locator('[data-header]');
+  const top = async () => header.evaluate((el) => el.getBoundingClientRect().top);
+  expect(Math.round(await top()) === 0, `header starts at ${await top()}`);
+  await page.mouse.move(700, 450);
+  for (let i = 0; i < 8; i++) { await page.mouse.wheel(0, 700); await page.waitForTimeout(90); }
+  await page.waitForTimeout(900);
+  expect(await page.evaluate(() => window.scrollY) > 1000, 'page did not scroll');
+  expect(Math.round(await top()) === 0, `header moved to ${await top()} after scrolling`);
+  expect(await header.isVisible(), 'header hidden after scrolling');
+});
+
+await test('cost calculator: the track fill follows the slider', desktop, async (page) => {
+  await page.goto(base + '/en/#bad-hire-calculator', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  const range = page.locator('[data-calc-range]').first();
+  await range.scrollIntoViewIfNeeded();
+  const fill = () => range.evaluate((el) => el.style.getPropertyValue('--p'));
+  const before = await fill();
+  expect(before.endsWith('%'), `no fill painted on load (${before})`);
+  const box = await range.boundingBox();
+  await page.mouse.move(box.x + box.width * 0.2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.85, box.y + box.height / 2, { steps: 12 });
+  const during = await fill();
+  await page.mouse.up();
+  await page.waitForTimeout(200);
+  const after = await fill();
+  expect(parseFloat(during) > parseFloat(before), `fill did not follow the drag (${before} -> ${during})`);
+  expect(parseFloat(after) > parseFloat(before), `fill did not stay (${after})`);
+});
+
+await test('pixel cursor trail draws on mouse movement and leaves the native cursor alone', desktop, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(800); // the trail attaches on astro:page-load
+  expect(await page.locator('[data-cursor-canvas]').count(), 'no trail canvas');
+  expect(await page.evaluate(() => document.documentElement.classList.contains('has-cursor-trail')), 'trail not enabled');
+  const cursorStyle = await page.evaluate(() => getComputedStyle(document.body).cursor);
+  expect(cursorStyle !== 'none', `the native cursor is hidden (body cursor: ${cursorStyle})`);
+  // Read through page.evaluate: a locator evaluate runs in another world and sees an empty canvas.
+  const lit = () => page.evaluate(() => {
+    const el = document.querySelector('[data-cursor-canvas]');
+    const { data } = el.getContext('2d').getImageData(0, 0, el.width, el.height);
+    let n = 0;
+    for (let i = 3; i < data.length; i += 4) if (data[i] > 0) n++;
+    return n;
+  });
+  let painted = 0;
+  for (let round = 0; round < 5 && painted <= 200; round++) {
+    for (let i = 0; i < 12; i++) { await page.mouse.move(300 + i * 40 + round * 3, 400 + i * 12); await page.waitForTimeout(16); }
+    painted = await lit();
+  }
+  expect(painted > 200, `trail painted ${painted} pixels`);
+  // The trail must not survive a pointer that never moves again.
+  await page.waitForTimeout(1500);
+  expect((await lit()) === 0, 'trail never fades out');
 });
 
 await test('skip link and landmarks exist', desktop, async (page) => {

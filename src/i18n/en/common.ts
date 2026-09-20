@@ -46,7 +46,7 @@ export const common = {
     hiring: {
       name: 'High-Velocity Hiring',
       short: 'High-Velocity Hiring',
-      tagline: 'Stop the "hire and hope" cycle.',
+      tagline: 'Stop the “hire and hope” cycle.',
       menuDesc: 'Big-tech hiring speed with a 3-month success bridge built in.',
     },
     bridge: {
