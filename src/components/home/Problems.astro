@@ -107,6 +107,17 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem-back { transform: rotateY(180deg); visibility: hidden; background: linear-gradient(160deg, var(--color-accent-soft) 0%, var(--color-white) 65%); border-color: rgba(255, 107, 53, 0.22); transition: var(--face-t), visibility 0s linear 0.4s; }
   .problem-card.is-flipped .problem-back { visibility: visible; transition: var(--face-t), visibility 0s linear 0s; }
 
+  /* Phones and tablets: the card is only as tall as the face you can see, so no empty
+     strip is left under the button. On desktop both faces keep sharing the cell,
+     because a card growing mid-row would shift the ones beside it. */
+  @media (max-width: 63.99rem) {
+    .problem-card { min-height: 0; }
+    .problem-inner { position: relative; }
+    .problem-back { position: absolute; inset: 0; }
+    .problem-card.is-flipped .problem-back { position: relative; inset: auto; }
+    .problem-card.is-flipped .problem-front { position: absolute; inset: 0; }
+  }
+
   /* Cursor spotlight (the core sets --mx / --my on the card) */
   .problem-face::before {
     content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
