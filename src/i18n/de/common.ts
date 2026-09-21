@@ -211,10 +211,10 @@ export const common: CommonDict = {
     next: 'Weiter',
     back: 'Zurück',
     steps: {
-      topic: { title: 'Womit können wir helfen?', hint: 'Wählen Sie das passendste Thema. Die Details klären wir gemeinsam.' },
-      message: { title: 'Worum geht es?', hint: 'Ein paar Sätze genügen: die Situation, die Teamgröße, was Sie brauchen.' },
-      who: { title: 'Mit wem sprechen wir?', hint: 'Ihr Name, und das Unternehmen, falls wir uns vorab einlesen sollen.' },
-      reply: { title: 'Wohin antworten wir?', hint: 'Wir antworten an Werktagen innerhalb von 24 Stunden.' },
+      topic: { title: 'Womit können wir helfen?' },
+      message: { title: 'Worum geht es?' },
+      who: { title: 'Mit wem sprechen wir?' },
+      reply: { title: 'Wohin antworten wir?' },
     },
   },
 };

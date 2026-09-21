@@ -8,7 +8,7 @@ export const about: AboutDict = {
   hero: {
     eyebrow: 'Über uns',
     title: 'Eine menschliche Partnerin, kein weiteres HR-Tool.',
-    text: 'Ich bin Mariyana Velkova, Gründerin und Geschäftsführerin von NewLevelHR. Ich arbeite mit Gründerinnen, Gründern und Führungsteams von Startups und KMU in ganz Europa an der People-Seite des Wachstums: Recruiting, Struktur, Führungskräfte und die schwierigen Gespräche dazwischen.',
+    text: 'Ich bin Mariyana Velkova, Gründerin von NewLevelHR. Ich arbeite mit Gründungs- und Führungsteams an der People-Seite des Wachstums: Recruiting, Struktur, Führungskräfte und die schwierigen Gespräche dazwischen.',
     monogram: 'MV',
     portraitLabel: 'Gründerin',
   },
@@ -39,21 +39,21 @@ export const about: AboutDict = {
     items: [
       {
         title: 'Die Partnerin in Ihrem Slack-Channel',
-        body: 'Im Alltag bin ich eine Nachricht entfernt. Eine Vertragsfrage, ein heikles 1:1 morgen, eine Kündigung, die gerade eingetroffen ist: Sie schreiben, ich antworte an Werktagen innerhalb von 24 Stunden.',
+        body: 'Im Alltag bin ich eine Nachricht entfernt. Sie schreiben, ich antworte an Werktagen innerhalb von 24 Stunden.',
       },
       {
         title: 'Die Beraterin an Ihrer Seite bei einer schwierigen Einstellung',
-        body: 'Wenn eine Rolle zählt und die Kandidatinnen und Kandidaten schwer einzuschätzen sind, sitze ich mit Ihnen im Prozess: Scorecard, Interviews, Referenzen, das Angebotsgespräch und die ehrliche zweite Meinung, bevor Sie unterschreiben.',
+        body: 'Wenn eine Rolle zählt, sitze ich mit Ihnen im Prozess: Scorecard, Interviews, Referenzen und die ehrliche zweite Meinung, bevor Sie unterschreiben.',
       },
       {
         title: 'Das Sicherheitsnetz für Ihre ersten 90 Tage',
-        body: 'Eine Einstellung ist an Tag eins kein Erfolg. Ich bleibe die ersten drei Monate an Bord und spreche regelmäßig mit der neuen Person und ihrer Führungskraft, damit kleine Reibungen behoben werden, bevor sie zur Kündigung führen.',
+        body: 'Eine Einstellung ist an Tag eins kein Erfolg. Ich bleibe die ersten drei Monate an Bord und spreche regelmäßig mit der neuen Person und ihrer Führungskraft.',
       },
     ],
   },
   cta: {
     title: 'Finden wir heraus, was Ihr Team als Nächstes braucht.',
-    text: 'Ein kostenloses 30-Minuten-Gespräch, kein Pitch. Sie beschreiben Ihre Situation, ich stelle viele Fragen, und Sie gehen mit einem klaren Bild heraus, ob wir zusammenarbeiten oder nicht.',
+    text: 'Ein kostenloses 30-Minuten-Gespräch, kein Pitch. Sie gehen mit einem klaren Bild heraus, ob wir zusammenarbeiten oder nicht.',
     button: 'Kostenloses Gespräch mit mir buchen',
   },
 };

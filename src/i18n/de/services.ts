@@ -9,7 +9,7 @@ export const services: ServicesDict = {
   hero: {
     eyebrow: 'Unsere Leistungen',
     title: 'Senior-HR-Unterstützung, passend zur Größe Ihres Unternehmens.',
-    text: 'Fraktionale HR-Partnerschaft, High-Velocity Hiring, eine 90-Tage-Erfolgsbrücke und Manager-Coaching. Wählen Sie eine Leistung, kombinieren Sie sie oder starten Sie mit einem kostenlosen Gespräch, in dem wir Ihnen sagen, was Sie wirklich brauchen.',
+    text: 'Fraktionale HR-Partnerschaft, High-Velocity Hiring, eine 90-Tage-Erfolgsbrücke und Manager-Coaching.',
     imageAlt: 'Ein Team feiert gemeinsam einen Meilenstein in einem hellen Büro',
   },
   cardsSection: {
@@ -138,7 +138,7 @@ export const services: ServicesDict = {
       hero: {
         eyebrow: 'Fraktionale HR-Partnerschaft',
         title: 'Senior-HR auf Abruf. Die Alternative zur Festanstellung.',
-        sub: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf Ihre Unternehmensziele auszurichten. Sie bekommen den Kopf einer Senior-Partnerin in Ihrem Slack-Channel, ohne das Gehalt einer Führungskraft.',
+        sub: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf Ihre Unternehmensziele auszurichten.',
         image: 'one-on-one',
         imageAlt: 'Gründer und HR-Partnerin klären eine Personalfrage im Vieraugengespräch',
        
@@ -146,7 +146,7 @@ export const services: ServicesDict = {
       problem: {
         eyebrow: 'Die Situation',
         title: 'HR passiert Ihnen, statt für Sie zu arbeiten.',
-        text: 'Irgendwo zwischen zehn und hundert Mitarbeitenden hört das Thema Menschen auf, eine Nebenaufgabe zu sein. Gründerinnen und Gründer werden zur unfreiwilligen Personalabteilung, und die Lücken beginnen, echtes Geld zu kosten.',
+        text: 'Irgendwo zwischen zehn und hundert Mitarbeitenden hört das Thema Menschen auf, eine Nebenaufgabe zu sein.',
         points: [
           'Mitarbeiterfragen, Papierkram und Streitigkeiten fressen die Stunden, die für Produkt und Kunden gedacht waren.',
           'Gehälter und Benefits werden von Angebot zu Angebot entschieden, sodass keine zwei Personen nach derselben Logik bezahlt werden.',
@@ -246,7 +246,7 @@ export const services: ServicesDict = {
       hero: {
         eyebrow: 'High-Velocity Hiring',
         title: 'Schluss mit „Einstellen und Hoffen“.',
-        sub: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird. Klare Erwartungen vor dem ersten Interview, ein Prozess, den Kandidatinnen und Kandidaten respektieren, und eine Partnerin, die nach der Unterschrift bleibt.',
+        sub: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird.',
         image: 'interview',
         imageAlt: 'Ein strukturiertes Vorstellungsgespräch zwischen Kandidatin und Hiring Manager',
        
@@ -254,7 +254,7 @@ export const services: ServicesDict = {
       problem: {
         eyebrow: 'Die Situation',
         title: 'Einstellen nach Bauchgefühl kostet doppelt: einmal bei der Einstellung, noch einmal bei der Kündigung.',
-        text: 'Eine Stelle bleibt monatelang offen, dann wird jemand eingestellt, weil der Kalender mehr schmerzt als die Zweifel. Drei Monate später ist die Person weg, und die Einarbeitung beginnt von vorn.',
+        text: 'Eine Stelle bleibt monatelang offen, dann wird jemand eingestellt, weil der Kalender mehr schmerzt als die Zweifel.',
         points: [
           'Keine schriftliche Scorecard, also misst jede Interviewerin etwas anderes.',
           'Langsame, unstrukturierte Prozesse verlieren die stärksten Kandidaten an schnellere Unternehmen.',
@@ -265,7 +265,7 @@ export const services: ServicesDict = {
       solution: {
         eyebrow: 'Der Motor',
         title: 'Ein Recruiting-Prozess für Tempo, und eine Brücke für Bindung.',
-        text: 'Wir führen die Suche so, wie es starke Tech-Unternehmen tun: eine klare Scorecard, ein schlanker Interview-Ablauf, schnelle Entscheidungen und eine Candidate Experience, die für Ihr Unternehmen wirbt. Danach bleiben wir 90 Tage.',
+        text: 'Wir führen die Suche so, wie es starke Tech-Unternehmen tun: eine klare Scorecard, ein schlanker Interview-Ablauf, schnelle Entscheidungen und eine Candidate Experience, die für Ihr Unternehmen wirbt.',
         points: [
           'Rollen-Scorecard und Erfolgskriterien mit dem Hiring Manager vereinbart, bevor die Suche beginnt.',
           'Strukturierte Interviews mit definierten Fragen, damit Entscheidungen vergleichbar und schnell sind.',
@@ -353,7 +353,7 @@ export const services: ServicesDict = {
       hero: {
         eyebrow: '90-Tage-Erfolgsbrücke',
         title: 'Unsere Arbeit endet nicht mit der Vertragsunterschrift.',
-        sub: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt. Klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, eine bestätigte Entscheidung an Tag 90.',
+        sub: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt.',
         image: 'onboarding-welcome',
         imageAlt: 'Ein neues Teammitglied wird am ersten Tag willkommen geheißen',
        
@@ -361,7 +361,7 @@ export const services: ServicesDict = {
       problem: {
         eyebrow: 'Die Situation',
         title: 'Die ersten Wochen entscheiden, ob die Einstellung gelungen ist. Niemand schaut hin.',
-        text: 'Die meisten frühen Kündigungen sind lange vor dem Ende der Probezeit entschieden: unklare Erwartungen, eine Führungskraft ohne Zeit, kleine Reibungen, die niemand anspricht. Wenn es sich in einer Kündigung zeigt, ist die Einarbeitung verloren.',
+        text: 'Die meisten frühen Kündigungen sind lange vor dem Ende der Probezeit entschieden: unklare Erwartungen, eine Führungskraft ohne Zeit, kleine Reibungen, die niemand anspricht.',
         points: [
           'Die neue Fachkraft hat einen Laptop und einen Slack-Zugang, aber keine klare Definition von Erfolg.',
           'Die Führungskraft ist beschäftigt und nimmt an, dass Schweigen bedeutet, alles sei in Ordnung.',
@@ -372,7 +372,7 @@ export const services: ServicesDict = {
       solution: {
         eyebrow: 'Die Brücke',
         title: 'Eine Partnerin auf beiden Seiten des Tisches, 90 Tage lang.',
-        text: 'Wir coachen neue Fachkraft und Führungskraft parallel, mit einer Scorecard, einem festen Check-in-Rhythmus und ehrlichen Feedbackschleifen. Das Ziel ist eine bestätigte Passung oder eine klare, frühe Entscheidung, nie eine Überraschung.',
+        text: 'Wir coachen neue Fachkraft und Führungskraft parallel, mit einer Scorecard, einem festen Check-in-Rhythmus und ehrlichen Feedbackschleifen.',
         points: [
           'Tag 1: Erwartungen, Scorecard und Ziele für den ersten Monat von beiden Seiten vereinbart.',
           'Tag 30: erste strukturierte Feedbackschleife; Reibung wird angesprochen, solange sie klein ist.',
@@ -457,7 +457,7 @@ export const services: ServicesDict = {
       hero: {
         eyebrow: 'Manager-Coaching',
         title: 'Aus Experten werden Führungskräfte.',
-        sub: 'Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen. Für den Entwickler, der letztes Quartal Lead geworden ist, und für das Führungsteam, das mit einer Stimme sprechen muss.',
+        sub: 'Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen.',
         image: 'coaching-mentoring',
         imageAlt: 'Eine Führungskraft und ein Coach im Mentoring-Gespräch',
        
@@ -465,7 +465,7 @@ export const services: ServicesDict = {
       problem: {
         eyebrow: 'Die Situation',
         title: 'Ihr bester Experte wurde befördert. Niemand hat ihm den Job beigebracht.',
-        text: 'Fachliche Exzellenz bringt die Beförderung; Menschen zu führen ist ein anderes Handwerk. Ohne Unterstützung weichen neue Führungskräfte Feedback aus, schlucken Konflikte und brennen aus, und das Team zahlt dafür.',
+        text: 'Fachliche Exzellenz bringt die Beförderung; Menschen zu führen ist ein anderes Handwerk.',
         points: [
           'Feedbackgespräche werden aufgeschoben, bis sie zu Leistungsproblemen werden.',
           'Konflikte im Team werden „gemanagt“, indem man hofft, dass sie verschwinden.',

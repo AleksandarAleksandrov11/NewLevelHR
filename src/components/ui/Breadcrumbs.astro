@@ -22,7 +22,7 @@ const jsonLd = {
       <li class="inline-flex items-center gap-1.5">
         {i > 0 && <ChevronRight class="size-3.5 opacity-60" aria-hidden="true" />}
         {c.href && i < items.length - 1 ? (
-          <a href={c.href} class:list={['hover:underline underline-offset-4', light ? 'hover:text-white' : 'hover:text-ink']}>{c.label}</a>
+          <a href={c.href} class:list={['inline-flex items-center min-h-6 py-0.5 hover:underline underline-offset-4', light ? 'hover:text-white' : 'hover:text-ink']}>{c.label}</a>
         ) : (
           <span aria-current="page" class:list={[light ? 'text-white' : 'text-ink', 'font-medium']}>{c.label}</span>
         )}

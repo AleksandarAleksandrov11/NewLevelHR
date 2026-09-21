@@ -139,12 +139,5 @@ export const faq = {
       ],
     },
   ],
-  still: {
-    eyebrow: 'Still have questions?',
-    title: 'Ask us directly. A human answers.',
-    text: 'Send a message or book the free 30-minute call. Either way you get a real answer within 24 hours on business days, in English, German or Bulgarian.',
-    button: 'Contact us',
-    secondary: 'Book a free call',
-  },
 } as const;
 export type FaqDict = Widen<typeof faq>;

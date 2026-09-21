@@ -9,7 +9,7 @@ function canRun3D(): boolean {
   if (prefersReducedMotion()) return false;
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean; effectiveType?: string } };
   if (nav.connection?.saveData) return false;
-  if (nav.deviceMemory && nav.deviceMemory < 4) return false;
+  if (nav.deviceMemory && nav.deviceMemory < 2) return false;
   if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return false;
   try {
     const c = document.createElement('canvas');
@@ -36,7 +36,7 @@ function initHero() {
   const handler = () => { start(); };
   const events: Array<[string, () => void]> = [['pointermove', handler], ['touchstart', handler], ['scroll', handler], ['keydown', handler]];
   events.forEach(([ev, h]) => window.addEventListener(ev, h, { passive: true, once: true } as AddEventListenerOptions));
-  const timer = window.setTimeout(start, 6500);
+  const timer = window.setTimeout(start, 2500);
   cleanup.push(() => { events.forEach(([ev, h]) => window.removeEventListener(ev, h)); window.clearTimeout(timer); scene?.destroy(); scene = null; });
 }
 

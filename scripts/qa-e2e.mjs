@@ -277,6 +277,62 @@ await test('anchors in the URL land under the sticky header', desktop, async (pa
   }
 });
 
+await test('mobile menu: the whole panel is reachable on a short phone', { viewport: { width: 360, height: 640 }, isMobile: true, hasTouch: true }, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.locator('[data-burger]').click();
+  await page.waitForTimeout(900);
+  // The panel is taller than the screen, so it has to scroll on its own. Lenis is
+  // stopped while the menu is open and cancels every wheel event it sees, which is
+  // why the panel carries data-lenis-prevent.
+  await page.mouse.move(180, 320);
+  for (let i = 0; i < 8; i++) { await page.mouse.wheel(0, 300); await page.waitForTimeout(90); }
+  await page.waitForTimeout(500);
+  const r = await page.evaluate(() => {
+    const menu = document.querySelector('[data-mobile-menu]');
+    const last = menu.querySelector('.mobile-footer p a');
+    return { scrolled: Math.round(menu.scrollTop), bottom: Math.round(last.getBoundingClientRect().bottom), vh: window.innerHeight };
+  });
+  expect(r.scrolled > 100, `the panel did not scroll (scrollTop ${r.scrolled})`);
+  expect(r.bottom <= r.vh, `the last line sits at ${r.bottom} in a ${r.vh}px viewport`);
+});
+
+await test('contact: the topic dropdown opens fully on screen on a phone', phone, async (page) => {
+  await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(700);
+  await page.mouse.move(195, 500);
+  for (let i = 0; i < 6; i++) { await page.mouse.wheel(0, 260); await page.waitForTimeout(90); }
+  await page.waitForTimeout(600);
+  await page.locator('[data-select-button]').click();
+  await page.waitForTimeout(400);
+  const box = await page.locator('[data-select-list]').boundingBox();
+  const vh = await page.evaluate(() => window.innerHeight);
+  expect(box.y >= 0 && box.y + box.height <= vh + 1, `the sheet covers ${Math.round(box.y)}..${Math.round(box.y + box.height)} in a ${vh}px viewport`);
+  const last = await page.locator('[data-select-option]').last().boundingBox();
+  expect(last.y + last.height <= vh + 1, `the last option ends at ${Math.round(last.y + last.height)}`);
+});
+
+await test('primary calls to action land on the right page', desktop, async (page) => {
+  const hops = [
+    ['/en/', '.hero-actions a:nth-child(1)', '/en/contact/'],
+    ['/en/', '.hero-actions a:nth-child(2)', '/en/services/'],
+    ['/en/services/', 'header a[href$="/en/what-we-fix/"]', '/en/what-we-fix/'],
+    ['/en/about/', 'footer a[href$="/en/faq/"]', '/en/faq/'],
+  ];
+  for (const [from, selector, expected] of hops) {
+    await page.goto(base + from, { waitUntil: 'networkidle' });
+    await settleBanners(page);
+    await page.locator(selector).first().click();
+    await page.waitForURL((u) => new URL(u).pathname === expected, { timeout: 8000 }).catch(() => {});
+    const landed = new URL(page.url()).pathname;
+    expect(landed === expected, `${from} ${selector} landed on ${landed}, expected ${expected}`);
+    expect((await page.locator('h1').count()) === 1, `${expected} does not have exactly one h1`);
+  }
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

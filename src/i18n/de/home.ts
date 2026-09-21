@@ -6,20 +6,19 @@ export const home: HomeDict = {
     description: 'Echte HR-Unterstützung ohne Festanstellung. Fraktionale HR, High-Velocity Hiring, 90-Tage-Erfolgsbrücke und Manager-Coaching für Startups und KMU in Europa.',
   },
   hero: {
-    eyebrow: 'Der HR-Partner, den Ihr Unternehmen wirklich braucht',
     titleLine1: 'Echter HR-Support.',
     titleLine2: 'Ohne die',
     titleAccent: 'feste Stelle.',
-    sub: 'Wir übernehmen die heiklen Personalthemen: Compliance, Recruiting, Mitarbeiterfragen, richtig gemacht, damit Ihr Unternehmen rund läuft. Praktisch. Erreichbar. Immer an Ihrer Seite.',
+    sub: 'Recruiting, Compliance und die schwierigen Gespräche, übernommen von einem Partner, der Ihr Team kennt.',
     cta1: 'Kostenlose Beratung sichern',
     cta2: 'Unsere Leistungen',
     scroll: 'Scrollen',
-    sceneLabel: 'Dekorative 3D-Szene: gläserne Stufen, die zum Licht aufsteigen',
+    sceneLabel: 'Dekorative 3D-Szene: vier Balken, die Stufe für Stufe ansteigen',
   },
   marquee: ['Fraktionale HR', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Compliance', 'Leadership', 'Teambuilding'],
   manifesto: {
     eyebrow: 'Warum es uns gibt',
-    text: 'In einer Welt voller automatisierter HR-Tools und KI-Bots bieten wir etwas anderes: einen menschlichen Partner, der Ihr Team beim Namen kennt. Wir geben Ihnen kein Dashboard. Wir geben Ihnen Lösungen.',
+    text: 'In einer Welt voller automatisierter HR-Tools und KI-Bots bieten wir etwas anderes: einen menschlichen Partner, der Ihr Team beim Namen kennt. Kein Dashboard. Lösungen.',
   },
   problems: {
     eyebrow: 'Was wir lösen',

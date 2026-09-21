@@ -1,5 +1,5 @@
 ---
-import { ArrowDown, Check } from '@lucide/astro';
+import { ArrowDown } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath } from '@/i18n';
 import Button from '@/components/ui/Button.astro';
@@ -8,98 +8,110 @@ interface Props { lang: Locale }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const h = d.home.hero;
-const c = d.common;
 ---
 <section class="hero" aria-labelledby="hero-title" data-hero>
   <div class="hero-bg bg-mesh" aria-hidden="true"></div>
-  <div class="hero-grid bg-grid" aria-hidden="true"></div>
-
-  <div class="hero-scene" data-hero-3d role="img" aria-label={h.sceneLabel}>
-    <!-- Static fallback (also the first paint before WebGL loads) -->
-    <svg class="hero-fallback" viewBox="0 0 640 520" aria-hidden="true">
-      <defs>
-        <linearGradient id="hf-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.95" /><stop offset="1" stop-color="#f4eee6" stop-opacity="0.9" /></linearGradient>
-        <linearGradient id="hf-accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6b35" /><stop offset="0.6" stop-color="#f7931e" /><stop offset="1" stop-color="#ffb347" /></linearGradient>
-        <filter id="hf-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#14141c" flood-opacity="0.12" /></filter>
-        <radialGradient id="hf-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ff6b35" stop-opacity="0.45" /><stop offset="1" stop-color="#ff6b35" stop-opacity="0" /></radialGradient>
-      </defs>
-      <circle cx="470" cy="150" r="170" fill="url(#hf-glow)" />
-      <g filter="url(#hf-shadow)">
-        <rect class="hf-step" x="40" y="360" width="110" height="120" rx="18" fill="url(#hf-glass)" stroke="rgba(20,20,28,0.08)" />
-        <rect class="hf-step" x="160" y="300" width="110" height="180" rx="18" fill="url(#hf-glass)" stroke="rgba(20,20,28,0.08)" />
-        <rect class="hf-step" x="280" y="230" width="110" height="250" rx="18" fill="url(#hf-glass)" stroke="rgba(20,20,28,0.08)" />
-        <rect class="hf-step" x="400" y="150" width="110" height="330" rx="18" fill="url(#hf-glass)" stroke="rgba(20,20,28,0.08)" />
-        <rect class="hf-step hf-top" x="520" y="60" width="110" height="420" rx="18" fill="url(#hf-accent)" />
-      </g>
-      <circle class="hf-orb" cx="120" cy="150" r="16" fill="#ffb347" />
-      <circle class="hf-orb" cx="350" cy="90" r="9" fill="#ff6b35" />
-      <circle class="hf-orb" cx="600" cy="500" r="12" fill="#ffb347" />
-    </svg>
-  </div>
 
   <div class="container-site hero-inner">
     <div class="hero-content">
-      <p class="eyebrow" data-reveal>{h.eyebrow}</p>
-      <h1 id="hero-title" class="hero-title font-display text-display-xl mt-5" data-split="immediate">
+      <h1 id="hero-title" class="hero-title font-display text-display-lg" data-split="immediate">
         {h.titleLine1}<br />{h.titleLine2} <span class="accent">{h.titleAccent}</span>
       </h1>
-      <p class="hero-sub text-lead text-slate mt-7 max-w-xl" data-reveal data-reveal-delay="3">{h.sub}</p>
-      <div class="mt-9 flex flex-wrap items-center gap-4" data-reveal data-reveal-delay="4">
+      <p class="hero-sub text-lead text-slate mt-6" data-reveal data-reveal-delay="2">{h.sub}</p>
+      <div class="hero-actions mt-8" data-reveal data-reveal-delay="3">
         <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{h.cta1}</Button>
         <Button href={localizePath('services', lang)} variant="ghost" size="lg">{h.cta2}</Button>
       </div>
-      <ul class="hero-proof mt-8" role="list" data-reveal data-reveal-delay="5">
-        {[c.proof.consultation, c.proof.reply, c.proof.languages].map((p) => (
-          <li><Check class="size-4 text-accent-ink" aria-hidden="true" /><span>{p}</span></li>
-        ))}
-      </ul>
+    </div>
+
+    <div class="hero-visual" data-hero-3d role="img" aria-label={h.sceneLabel}>
+      {/* First paint and the permanent fallback when WebGL is unavailable. */}
+      <svg class="hero-fallback" viewBox="0 0 520 420" aria-hidden="true">
+        <defs>
+          <linearGradient id="hf-accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff8a4c" /><stop offset="1" stop-color="#ff6b35" />
+          </linearGradient>
+          <radialGradient id="hf-glow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#ff6b35" stop-opacity="0.32" /><stop offset="1" stop-color="#ff6b35" stop-opacity="0" />
+          </radialGradient>
+          <filter id="hf-shadow" x="-25%" y="-15%" width="150%" height="145%">
+            <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#14141c" flood-opacity="0.13" />
+          </filter>
+        </defs>
+        <circle cx="360" cy="170" r="180" fill="url(#hf-glow)" />
+        <g filter="url(#hf-shadow)">
+          <rect class="hf-bar" x="60" y="252" width="86" height="98" rx="16" fill="#ffffff" stroke="rgba(20,20,28,0.07)" />
+          <rect class="hf-bar" x="166" y="196" width="86" height="154" rx="16" fill="#fdf3e9" stroke="rgba(20,20,28,0.07)" />
+          <rect class="hf-bar" x="272" y="126" width="86" height="224" rx="16" fill="#ffc9a3" />
+          <rect class="hf-bar" x="378" y="42" width="86" height="308" rx="16" fill="url(#hf-accent)" />
+        </g>
+      </svg>
     </div>
   </div>
 
-  <a href="#manifesto" class="hero-scroll" aria-label={h.scroll} data-reveal data-reveal-delay="6">
+  <a href="#manifesto" class="hero-scroll" aria-label={h.scroll}>
     <span class="hero-scroll-text" aria-hidden="true">{h.scroll}</span>
     <ArrowDown class="size-4" aria-hidden="true" />
   </a>
 </section>
 
 <style>
-  .hero { position: relative; min-height: 100svh; display: grid; align-items: center; overflow: hidden; padding-top: calc(var(--header-h) + 3rem); padding-bottom: 5rem; isolation: isolate; }
-  .hero-bg { position: absolute; inset: 0; z-index: -3; }
-  .hero-grid { position: absolute; inset: 0; z-index: -2; opacity: 0.55; }
-  .hero-scene { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-  .hero-scene :global(canvas) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 1.2s ease; }
-  .hero-scene.is-3d-ready :global(canvas) { opacity: 1; }
-  .hero-fallback { position: absolute; right: -4%; bottom: 6%; width: min(60vw, 48rem); height: auto; opacity: 0.95; transition: opacity 1s ease; }
-  .hero-scene.is-3d-ready .hero-fallback { opacity: 0; }
-  .hf-step { transform-origin: 50% 100%; transform-box: fill-box; animation: hf-float 6s ease-in-out infinite alternate; }
-  .hf-step:nth-child(2) { animation-delay: 0.4s; } .hf-step:nth-child(3) { animation-delay: 0.8s; } .hf-step:nth-child(4) { animation-delay: 1.2s; } .hf-step:nth-child(5) { animation-delay: 1.6s; }
-  .hf-orb { animation: hf-orb 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
-  .hf-orb:nth-of-type(2) { animation-delay: 1s; } .hf-orb:nth-of-type(3) { animation-delay: 2s; }
-  @keyframes hf-float { from { transform: translateY(0); } to { transform: translateY(-10px); } }
-  @keyframes hf-orb { from { transform: translate(0, 0); } to { transform: translate(6px, -14px); } }
+  .hero {
+    position: relative; display: grid; align-items: center; isolation: isolate; overflow: hidden;
+    padding-top: calc(var(--header-h) + 2.5rem); padding-bottom: 4.5rem;
+  }
+  .hero-bg { position: absolute; inset: 0; z-index: -1; }
 
-  .hero-inner { position: relative; z-index: 1; }
-  .hero-content { max-width: 40rem; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem 0.4rem 0.6rem; border-radius: 999px; background: rgba(255, 255, 255, 0.7); border: 1px solid var(--color-line); font-size: 0.78rem; font-weight: 600; color: var(--color-ink-3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-  .hero-badge-dot { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--color-accent); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2); animation: pulse 2.2s ease-in-out infinite; }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(255, 107, 53, 0.05); } }
+  .hero-inner { display: grid; gap: 2.5rem; align-items: center; }
+  .hero-content { max-width: 36rem; }
   .hero-title { color: var(--color-ink); }
   .hero-title .accent { color: var(--color-accent-ink); }
-  /* Gradient per word so it survives the split-text wrappers */
-  .hero-title .accent :global(.split-i), html:not(.js) .hero-title .accent { background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-right: 0.02em; }
+  /* Gradient per word so it survives the split-text wrappers. */
+  .hero-title .accent :global(.split-i), html:not(.js) .hero-title .accent {
+    background: var(--grad-accent); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; padding-right: 0.02em;
+  }
   /* Split words never break inside (overflow-wrap: anywhere would orphan trailing punctuation). */
   .hero-title :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; overflow-wrap: normal; word-break: keep-all; hyphens: manual; }
   .hero-title :global(.split-i) { display: inline-block; }
-  .hero-proof { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; font-size: 0.875rem; font-weight: 550; color: var(--color-ink-3); }
-  .hero-proof li { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
-  .hero-scroll { position: absolute; left: 50%; bottom: 1.5rem; transform: translateX(-50%); display: inline-flex; flex-direction: column; align-items: center; gap: 0.35rem; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-slate); z-index: 1; }
+  .hero-sub { max-width: 32rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
+
+  /* The scene lives in its own cell, so it can never sit under the headline. */
+  .hero-visual { position: relative; width: 100%; aspect-ratio: 5 / 4; max-height: 60svh; }
+  .hero-visual :global(canvas) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 1s ease; }
+  .hero-visual.is-3d-ready :global(canvas) { opacity: 1; }
+  .hero-fallback { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 0.8s ease; }
+  .hero-visual.is-3d-ready .hero-fallback { opacity: 0; }
+  .hf-bar { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-float 6s ease-in-out infinite alternate; }
+  .hf-bar:nth-child(2) { animation-delay: 0.35s; }
+  .hf-bar:nth-child(3) { animation-delay: 0.7s; }
+  .hf-bar:nth-child(4) { animation-delay: 1.05s; }
+  @keyframes hf-float { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+
+  .hero-scroll {
+    position: absolute; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
+    display: none; flex-direction: column; align-items: center; gap: 0.35rem;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-slate); z-index: 1;
+  }
   .hero-scroll :global(svg) { animation: bob 1.8s ease-in-out infinite; }
   @keyframes bob { 50% { transform: translateY(4px); } }
-  @media (max-width: 47.99rem) {
-    .hero { padding-top: calc(var(--header-h) + 2rem); padding-bottom: 6rem; min-height: auto; }
-    .hero-fallback { width: 110vw; right: -35vw; bottom: auto; top: 2rem; opacity: 0.35; }
-    .hero-scene.is-3d-ready :global(canvas) { opacity: 0.6; }
-    .hero-scroll { display: none; }
+
+  @media (min-width: 48rem) {
+    .hero-visual { max-height: 26rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .hf-step, .hf-orb, .hero-badge-dot, .hero-scroll :global(svg) { animation: none; } }
+  @media (min-width: 64rem) {
+    .hero { min-height: 100svh; padding-bottom: 6rem; }
+    .hero-inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 3.5rem; }
+    .hero-visual { aspect-ratio: 1 / 1; max-height: 32rem; }
+    .hero-scroll { display: inline-flex; }
+  }
+  @media (max-width: 47.99rem) {
+    .hero { padding-top: calc(var(--header-h) + 1.75rem); padding-bottom: 3rem; }
+    .hero-inner { gap: 2rem; }
+    .hero-visual { aspect-ratio: 4 / 3; margin-inline: calc(-0.5 * var(--gutter)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hf-bar, .hero-scroll :global(svg) { animation: none; }
+  }
 </style>

@@ -8,13 +8,13 @@ export const howWeWork: HowWeWorkDict = {
   hero: {
     eyebrow: 'So arbeiten wir',
     title: 'Fünf Schritte. Kein Pitch. Eine Partnerin, die bleibt.',
-    text: 'Jede Zusammenarbeit folgt demselben einfachen Weg: ein kostenloses Gespräch, eine ehrliche Diagnose, ein Plan, den Sie verstehen, eine Umsetzung, die Sie sehen, und eine Partnerin, die danach an Bord bleibt.',
+    text: 'Jede Zusammenarbeit folgt demselben Weg: ein kostenloses Gespräch, eine ehrliche Diagnose, ein Plan, den Sie verstehen, und eine Partnerin, die bleibt.',
     imageAlt: 'Ein helles, ruhiges Büro mit Pflanzen und Tageslicht',
   },
   steps: {
     eyebrow: 'Der Ablauf',
     title: 'Vom ersten Gespräch zu einem laufenden Rhythmus.',
-    text: 'Die Schritte sind dieselben, ob Sie eine fraktionale Partnerin, eine Einstellung, eine 90-Tage-Brücke oder Coaching für Ihre Führungskräfte brauchen. Nur die Tiefe ändert sich.',
+    text: 'Die Schritte sind bei jeder Leistung dieselben. Nur die Tiefe ändert sich.',
     items: [
       { title: 'Kostenlose 30-Minuten-Beratung', duration: '30 Minuten', body: 'Sie beschreiben Ihre Situation, wir stellen viele Fragen. Kein Pitch, kein Druck. Sie gehen mit einem klaren Bild davon heraus, was zuerst helfen würde, ob wir zusammenarbeiten oder nicht.', outcome: 'Ergebnis: ein klares Bild, auf Wunsch schriftlich.' },
       { title: 'Diagnose', duration: 'Wenige Tage', body: 'Wir schauen auf die Realität, nicht auf das Organigramm: Verträge, Richtlinien, Gehaltslogik, die offenen Stellen, die Führungskräfte, die Gespräche, denen ausgewichen wird. Kurze Interviews mit dem Führungsteam, wo sinnvoll.', outcome: 'Ergebnis: eine priorisierte Liste der Lücken, nach Risiko und Aufwand.' },
@@ -41,12 +41,12 @@ export const howWeWork: HowWeWorkDict = {
     items: [
       {
         title: 'Retainer',
-        body: 'Eine laufende Partnerschaft mit festem monatlichem Umfang. Die Partnerin in Ihrem Slack-Channel, die die wiederkehrende People-Arbeit und die Überraschungen dazwischen übernimmt.',
+        body: 'Eine laufende Partnerschaft mit festem monatlichem Umfang, für die wiederkehrende People-Arbeit und die Überraschungen dazwischen.',
         bullets: ['Feste Anzahl Tage pro Monat, monatlich überprüft', 'Auf Abruf für Fragen und dringende Mitarbeiterthemen', 'Ein monatlicher Review, was das Unternehmen als Nächstes braucht'],
       },
       {
         title: 'Projekt',
-        body: 'Ein klar definiertes Arbeitspaket mit Anfang und Ende: eine Überarbeitung der Richtlinien, eine Gehaltsstruktur, eine Recruiting-Kampagne, ein Coaching-Programm für eine Gruppe von Führungskräften.',
+        body: 'Ein klar definiertes Arbeitspaket mit Anfang und Ende: eine Überarbeitung der Richtlinien, eine Gehaltsstruktur, eine Recruiting-Kampagne.',
         bullets: ['Definierter Umfang, Ergebnisse und Zeitplan', 'Festpreis, vor dem Start vereinbart', 'Kann zum Retainer werden, muss aber nicht'],
       },
     ],

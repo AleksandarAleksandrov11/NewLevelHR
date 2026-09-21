@@ -8,7 +8,7 @@ export const contact = {
   hero: {
     eyebrow: 'Let’s talk',
     title: 'Your next level starts here.',
-    text: 'Even if you’re unsure if your needs fit our services, or if you just want support handling messy HR admin and advice on the EU Pay Transparency Directive, let’s talk. We’re here to help you figure it out.',
+    text: 'Not sure your needs fit our services? Tell us anyway. We will point you to what would help first.',
   },
   form: {
     title: 'Send us a message',

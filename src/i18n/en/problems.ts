@@ -56,7 +56,7 @@ export const problems = {
       cost: 'People rarely quit a company. They quit a manager who was never taught how to lead.',
       fix: {
         title: 'Practical coaching that turns experts into leaders.',
-        text: 'We coach your leads on the situations they actually face this month: the feedback they are avoiding, the conflict in their team, the delegation they are not doing. Tools first, theory only where it helps.',
+        text: 'We coach your leads on the situations they actually face this month: the feedback they are avoiding, the conflict in their team, the delegation they are not doing.',
         points: [
           'One-to-one coaching built around real cases from their team, not generic leadership slides.',
           'Simple frameworks for feedback, 1:1s, delegation and difficult conversations they can use the next day.',
@@ -75,7 +75,7 @@ export const problems = {
       cost: 'Unexplainable pay erodes trust faster than low pay. The moment salaries are compared, and they always are, inconsistent offers turn into resentment, counter-offers and exits.',
       fix: {
         title: 'Simple salary bands and benefit rules everyone can explain.',
-        text: 'We build a compensation structure that fits a company of your size: clear levels, salary ranges per role, benefit rules and a process for raises. Transparent enough for the directive, simple enough to actually use.',
+        text: 'We build a compensation structure that fits a company of your size: clear levels, salary ranges per role, benefit rules and a process for raises.',
         points: [
           'Role levels and salary bands based on your budget and your market, documented in one place.',
           'A raise and promotion process with fixed moments in the year, so pay stops being a reaction to threats.',
@@ -94,7 +94,7 @@ export const problems = {
       cost: 'A mis-hire is paid for three times: the months of searching, the months of ramp-up, and the months of doing it all again. Meanwhile the team that covered the gap is tired, and the manager has lost trust in the process.',
       fix: {
         title: 'Structured, fast hiring, then a bridge across the first 90 days.',
-        text: 'We run hiring the way the best tech companies do: a clear role scorecard, a tight process, structured interviews and a decision within days, not weeks. Then we stay on board for the first three months so the hire does not just start, they succeed.',
+        text: 'We run hiring the way the best tech companies do: a clear role scorecard, a tight process, structured interviews and a decision within days, not weeks.',
         points: [
           'A role scorecard and interview plan agreed before the first CV is opened.',
           'A fast, respectful candidate process that keeps strong people from dropping out.',
@@ -132,7 +132,7 @@ export const problems = {
       cost: 'Growth without structure multiplies mistakes. Each new person copies the confusion of the last one, decisions slow down as more people wait on the founders, and the culture you were proud of becomes something nobody can describe anymore.',
       fix: {
         title: 'A people roadmap for the next twelve months.',
-        text: 'We turn your business plan into a people plan: which roles, in which order, reporting to whom, and which rituals keep a bigger team aligned. Structure that supports speed instead of slowing it down.',
+        text: 'We turn your business plan into a people plan: which roles, in which order, reporting to whom, and which rituals keep a bigger team aligned.',
         points: [
           'An org design for the next stage: roles, levels, reporting lines and decision rights.',
           'A hiring sequence tied to your goals and budget, so you hire what the business needs next.',
@@ -170,7 +170,7 @@ export const problems = {
       cost: 'Misalignment at the top is invisible in the boardroom and very visible in the team. People stop taking initiative when the message keeps changing, your best managers start managing upward instead of leading, and hiring, pay and promotions become political.',
       fix: {
         title: 'One message from the top, and clear rules for how decisions are made.',
-        text: 'We facilitate leadership alignment sessions where founders and executives agree on priorities, roles and decision rules, and put them in writing. Then we help you carry that clarity into the team.',
+        text: 'We facilitate leadership alignment sessions where founders and executives agree on priorities, roles and decision rules, and put them in writing.',
         points: [
           'Facilitated alignment sessions on goals, roles and what “done” means for the leadership team.',
           'Simple decision rules for the recurring people topics: who decides, who is consulted, who is informed.',
