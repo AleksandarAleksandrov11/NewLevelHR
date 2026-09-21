@@ -78,7 +78,7 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
 
   <section class="section bg-sand">
     <div class="container-site hw-two">
-      <div>
+      <div class="hw-tools-col">
         <h2 class="font-display text-display-sm text-ink" data-reveal>{h.tools.title}</h2>
         <ul class="hw-tools" role="list">
           {h.tools.items.map((t, i) => { const Icon = toolIcons[i] ?? MessageSquare; return (
@@ -120,7 +120,12 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
   .hw-model-primary { background: var(--color-ink); color: #fff; border-color: var(--color-ink); box-shadow: var(--shadow-lift); }
   .hw-model:not(.hw-model-primary) :global(.text-accent-3) { color: var(--color-accent-ink); }
   .hw-two { display: grid; gap: 3rem; }
-  @media (min-width: 64rem) { .hw-two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5rem; } }
+  @media (min-width: 64rem) {
+    .hw-two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5rem; align-items: start; }
+    /* The card next to it has 2rem of padding and a 1px border: the same offset here
+       puts both headings on the same line. */
+    .hw-tools-col { padding-top: calc(2rem + 1px); }
+  }
   .hw-tools { display: grid; gap: 1.25rem; margin-top: 2rem; }
   .hw-tools li { display: flex; gap: 1rem; align-items: flex-start; }
   .hw-tool-icon { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; background: var(--color-white); border: 1px solid var(--color-line); color: var(--color-accent-ink); }

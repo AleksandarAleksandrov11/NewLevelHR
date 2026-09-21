@@ -281,6 +281,7 @@ export const services: ServicesDict = {
           { title: 'Sourcing & Ansprache', body: 'Aktive Suche und persönliche Ansprache auf EN, DE oder BG, plus eine Stellenbeschreibung, die Kandidatinnen und Kandidaten wirklich lesen wollen.' },
           { title: 'Strukturierter Interview-Ablauf', body: 'Eine schlanke Abfolge von Interviews mit definierten Fragen, Bewertung und einer schnellen Feedback-Regel für jede Interviewerin.' },
           { title: 'Candidate Experience', body: 'Klare Kommunikation, schnelle Antworten und ehrliche Zeitpläne; die stärksten Kandidaten erinnern sich daran, wie sie behandelt wurden.' },
+          { title: 'Referenzgespräche', body: 'Strukturierte Gespräche mit früheren Führungskräften, mit vorab abgestimmten Fragen, damit am Ende Belege stehen und keine Formalität.' },
           { title: 'Angebot & Verhandlung', body: 'Ein Angebot auf Basis Ihrer Gehaltslogik, so präsentiert und verhandelt, dass beide Seiten mit Vertrauen starten.' },
           { title: 'Coaching für den Hiring Manager', body: 'Interview-Training und Entscheidungsunterstützung für die Führungskraft, damit der Prozess auch nach uns gut läuft.' },
           { title: '90-Tage-Erfolgsbrücke', body: 'Erwartungen an Tag 1, Check-ins an Tag 30 und 60 und eine klare Probezeitentscheidung an Tag 90, mit Coaching für beide Seiten.' },
@@ -391,6 +392,7 @@ export const services: ServicesDict = {
           { title: 'Feedbackschleifen an Tag 30 und 60', body: 'Strukturierte Gespräche mit beiden Seiten, eine schriftliche Zusammenfassung und vereinbarte Anpassungen.' },
           { title: 'Probezeitgespräch an Tag 90', body: 'Eine klare, dokumentierte Entscheidung auf Basis der Scorecard, mit einem Entwicklungsplan für die bestätigte Fachkraft.' },
           { title: 'Dokumentation', body: 'Jeder Check-in hinterlässt ein kurzes schriftliches Protokoll, nützlich für den Entwicklungsplan und, falls nötig, für eine faire Probezeitentscheidung, vorbereitet mit Ihrer Rechtsberatung.' },
+          { title: 'Unterstützung zwischen den Terminen', body: 'Beide Seiten erreichen uns auch zwischen den festen Terminen, damit ein schwieriger erster Monat nicht bis zum nächsten Meilenstein wartet.' },
         ],
       },
       process: {
@@ -495,6 +497,7 @@ export const services: ServicesDict = {
           { title: 'Teambuilding', body: 'Arbeitssitzungen mit dem ganzen Team zu Rollen, Ritualen und den Regeln der Zusammenarbeit.' },
           { title: 'Leadership-Alignment', body: 'Sitzungen mit Gründern und Führungskräften zu Zielen, Entscheidungsregeln und der Botschaft, die das Team hören soll.' },
           { title: 'Unterstützung auf Abruf', body: 'Eine Nachricht in Slack vor dem schwierigen Gespräch, ein Debrief danach. Montag bis Freitag, 9-18 Uhr MEZ.' },
+          { title: 'Fortschrittsgespräch', body: 'Ein Gespräch am Ende des Programms: was sich verändert hat, was offen ist und woran die Führungskraft als Nächstes arbeitet, abgestimmt mit ihrer eigenen Führungskraft.' },
         ],
       },
       process: {
