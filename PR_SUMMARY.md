@@ -11,7 +11,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Languages | EN (default), DE (formal *Sie*), BG (formal *Вие*); translated slugs (`/en/services/…`, `/de/leistungen/…`, `/bg/uslugi/…`); `/` → `/en/` plus a dismissible browser-language suggestion, never a forced redirect |
 | Pages per language | Home, Services + 4 service pages, What We Fix, About, How We Work, FAQ, Contact, Legal notice, Terms, Privacy, Cookie policy, 404 |
 | Total | 45 indexable pages + 3 localized 404 pages + root redirect; 45 sitemap entries with reciprocal `hreflang` and `x-default` |
-| Home sections | Sticky glass header with mega menu · two-column hero with a lazy Three.js scene · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
+| Home sections | Sticky glass header with mega menu · two-column hero with an SVG illustration · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
 | Contact | Four-step form (topic, message, who, reply address) with a custom topic listbox; `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages |
 | Cookies / GDPR | Own consent dialog (Accept / Reject / Configure), nothing optional before consent, revocable from the footer, first-party cookie `nlhr_consent`, no remote fonts or third-party requests |
 | SEO | Unique title/description per page and language, canonical, `hreflang`, Open Graph + Twitter with generated 1200×630 images (satori/resvg, Cyrillic-capable), JSON-LD (Organization/ProfessionalService, Service, FAQPage, BreadcrumbList, HowTo, Person), sitemap, robots, favicons, web manifest |
@@ -23,8 +23,7 @@ PHP hosting, SEO plumbing and a QA suite.
 1. **Astro 7 static output, no client framework.** Every interactive piece (header, consent, quiz, calculator, FAQ
    search, form) is a small TypeScript module that initialises on `astro:page-load` and cleans up on
    `astro:before-swap`, so View Transitions work without leaks. Total JS on the home page stays well under the
-   budget; Three.js is a separate chunk loaded on first interaction or after 2.5 s and skipped on weak devices,
-   with reduced motion, or without WebGL.
+   budget, and there is no WebGL or 3D library on any page.
 2. **Dictionaries, not inline strings.** `src/i18n/<lang>/<namespace>.ts`; English exports the type, DE/BG are
    typed against it, and `scripts/check-i18n.mjs` fails on missing keys, array-length mismatches, placeholder
    differences or sentence-length strings identical to English. A deep-merge fallback prevents `undefined`
@@ -53,11 +52,11 @@ PHP hosting, SEO plumbing and a QA suite.
    the eight problems; What We Fix uses compact two-column cards with trimmed copy and a single closing CTA;
    About lost the human-versus-automation and practical-details sections; service pages lost the problems chips.
    The blog was removed entirely, and the legacy blog URLs now redirect to the home page.
-9. **A hero that fits every screen.** The headline and the 3D scene sit in separate grid cells (stacked on a
-   phone, side by side from 1024 px), so the scene can never end up behind the text and the section needs no
-   per-breakpoint nudging. The scene is four rounded bars rising step by step: standard materials, two lights
-   and no environment map, which is cheap enough to run on a phone, and an inline SVG of the same shape covers
-   the first paint, reduced motion and devices without WebGL.
+9. **A hero that fits every screen.** The headline and the artwork sit in separate grid cells (stacked on a
+   phone, side by side from 1024 px), so the artwork can never end up behind the text and the section needs no
+   per-breakpoint nudging. The artwork is an inline SVG of four bars rising step by step, gently floating: it
+   costs nothing to render, is identical on every device and needs no WebGL, so the hero is complete on the
+   first paint.
 10. **Less copy on every page.** The closing sentence of the longest paragraph on the home, about, how we work,
     what we fix, services and contact pages is gone, in all three languages. Paragraphs that carry the legal
     framing (HR advisory alongside your counsel, never legal advice) are kept in full, and so are the FAQ
