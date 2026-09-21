@@ -109,13 +109,19 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
       <nav aria-label={c.nav.mainNavigation} class="mobile-nav">
         <ul role="list" class="mobile-list">
           {mobileLinks.map((l, i) => (
-            <li class="mobile-item" style={`--i:${i}`}>
-              <a href={p(l.key)} class:list={['mobile-link', isActive(l.key) && 'is-active']} aria-current={isActive(l.key) ? 'page' : undefined}>
+            <li class:list={['mobile-item', l.key === 'services' && 'mobile-group']} style={`--i:${i}`} data-mobile-group={l.key === 'services' ? '' : undefined}>
+              <a
+                href={p(l.key)}
+                class:list={['mobile-link', isActive(l.key) && 'is-active']}
+                aria-current={isActive(l.key) ? 'page' : undefined}
+                aria-controls={l.key === 'services' ? 'mobile-services' : undefined}
+              >
                 <span class="mobile-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <span>{l.label}</span>
+                {l.key === 'services' && <ChevronDown class="mobile-caret size-5" aria-hidden="true" />}
               </a>
               {l.key === 'services' && (
-                <ul role="list" class="mobile-sub">
+                <ul role="list" class="mobile-sub" id="mobile-services">
                   {services.map((s) => (
                     <li><a href={p(s.key)} class="mobile-sub-link"><s.icon class="size-4" aria-hidden="true" /><span>{s.name}</span></a></li>
                   ))}
@@ -256,6 +262,11 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
   .mobile-link.is-active { color: var(--color-accent-ink); }
   .mobile-num { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; color: var(--color-accent-ink); letter-spacing: 0.1em; }
   .mobile-sub { display: grid; gap: 0.1rem; padding: 0.5rem 0 0.75rem 2.2rem; border-bottom: 1px solid var(--color-line); }
+  .mobile-sub[hidden] { display: none; }
+  /* The caret only appears once the script has taken over the first tap. */
+  .mobile-caret { display: none; margin-left: auto; color: var(--color-mist); transition: transform 0.35s var(--ease-out-expo); }
+  .mobile-group.is-collapsible .mobile-caret { display: block; }
+  .mobile-group.is-expanded .mobile-caret { transform: rotate(180deg); color: var(--color-accent-ink); }
   .mobile-sub-link { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0; font-size: 1rem; font-weight: 550; color: var(--color-ink-3); }
   .mobile-sub-link :global(svg) { color: var(--color-accent-ink); }
   @media (min-width: 64rem) { .mobile-menu { display: none; } .burger { display: none; } }

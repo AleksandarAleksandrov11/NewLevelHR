@@ -82,7 +82,7 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem { display: grid; }
 
   /* 3D stage: the card is tilted by the core, the inner element flips. */
-  .problem-card { position: relative; display: grid; min-height: 24rem; perspective: 1400px; transform-style: preserve-3d; }
+  .problem-card { position: relative; display: grid; min-height: 19rem; perspective: 1400px; transform-style: preserve-3d; }
   .problem-inner { display: grid; transform-style: preserve-3d; transition: transform 0.8s var(--ease-out-expo); }
   .problem-card.is-flipped .problem-inner { transform: rotateY(180deg); }
 
@@ -127,7 +127,7 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem-title { font-size: 1.25rem; font-weight: 750; letter-spacing: -0.015em; line-height: 1.2; color: var(--color-ink); text-wrap: balance; }
   .problem-body { font-size: 0.9375rem; line-height: 1.55; color: var(--color-slate); }
   .problem-toggle {
-    margin-top: auto; align-self: flex-start;
+    margin-top: 0.15rem; align-self: flex-start;
     display: inline-flex; align-items: center; gap: 0.6rem;
     padding: 0.35rem 0.25rem 0.35rem 0; border: 0; background: none; cursor: pointer;
     font-size: 0.875rem; font-weight: 650; color: var(--color-accent-ink); border-radius: 999px;
@@ -145,7 +145,7 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem-back-label { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-ink); }
   .problem-back-label::before { content: ''; width: 1.5rem; height: 2px; border-radius: 2px; background: var(--grad-accent); }
   .problem-fix { font-size: 0.9375rem; line-height: 1.55; font-weight: 500; color: var(--color-ink-2); }
-  .problem-back-actions { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding-top: 0.5rem; }
+  .problem-back-actions { margin-top: 0.35rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding-top: 0.5rem; }
   .problem-toggle-back { color: var(--color-ink-3); }
   .problem-steps { position: absolute; right: -0.5rem; bottom: -0.5rem; width: 6rem; height: auto; fill: var(--color-accent); opacity: 0.1; pointer-events: none; z-index: 0; }
 

@@ -83,6 +83,7 @@ export function initHeader() {
       header.classList.toggle('is-menu-open', v);
       document.documentElement.classList.toggle('menu-open', v);
       lockScroll(v);
+      if (!v) setExpanded(false);
       if (v) window.setTimeout(() => focusables()[0]?.focus(), 250);
     };
     burger.dataset.labelOpen = burger.getAttribute('aria-label') || 'Open menu';
@@ -98,6 +99,37 @@ export function initHeader() {
       }
     };
     const onLink = (e: Event) => { if ((e.target as HTMLElement).closest('a')) setOpen(false); };
+
+    /* The services entry starts collapsed: the first tap opens the four services,
+       the second one follows the link to the services page. Without this script the
+       sub-list stays open, so the links are always reachable. */
+    const group = mobile.querySelector<HTMLElement>('[data-mobile-group]');
+    const groupLink = group?.querySelector<HTMLAnchorElement>('.mobile-link');
+    const groupSub = group?.querySelector<HTMLElement>('.mobile-sub');
+    const setExpanded = (v: boolean) => {
+      if (!group || !groupLink || !groupSub) return;
+      group.classList.toggle('is-expanded', v);
+      groupLink.setAttribute('aria-expanded', String(v));
+      groupSub.hidden = !v;
+    };
+    const onGroupClick = (e: MouseEvent) => {
+      if (group?.classList.contains('is-expanded')) return;
+      e.preventDefault();
+      // Stops the click reaching the panel handler that closes the whole menu.
+      e.stopPropagation();
+      setExpanded(true);
+    };
+    if (group && groupLink && groupSub) {
+      group.classList.add('is-collapsible');
+      setExpanded(false);
+      groupLink.addEventListener('click', onGroupClick);
+      cleanup.push(() => {
+        groupLink.removeEventListener('click', onGroupClick);
+        group.classList.remove('is-collapsible', 'is-expanded');
+        groupLink.removeAttribute('aria-expanded');
+        groupSub.hidden = false;
+      });
+    }
     const mq = window.matchMedia('(min-width: 64rem)');
     const onMq = () => { if (mq.matches) setOpen(false); };
     burger.addEventListener('click', onBurger);

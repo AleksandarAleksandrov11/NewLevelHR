@@ -78,7 +78,17 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
 
   /* Timeline: vertical rail on the left (mobile, tablet, reduced motion) */
   .bridge-timeline { --bridge-gap: 1rem; position: relative; margin-top: 2.5rem; }
-  .bridge-rail { position: absolute; left: 7px; top: 1rem; bottom: 1rem; width: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.14); }
+  /* Phones and tablets draw the line per card, from this dot to the next, so it never
+     starts above the first dot or runs past the last one. The single rail below is the
+     desktop version, where the fill has to scale across the whole row. */
+  .bridge-rail { display: none; position: absolute; left: 7px; top: 1rem; bottom: 1rem; width: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.14); }
+  .bridge-item:not(:last-child)::before {
+    content: ''; position: absolute; z-index: 0;
+    left: calc(-2.5rem + 7px); top: calc(1.5rem + 8px);
+    width: 2px; height: calc(100% + var(--bridge-gap));
+    border-radius: 2px; background: var(--grad-accent-v);
+    box-shadow: 0 0 18px rgba(255, 107, 53, 0.55);
+  }
   .bridge-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--grad-accent-v); transform-origin: top; box-shadow: 0 0 18px rgba(255, 107, 53, 0.55); }
   .bridge-items { display: grid; gap: var(--bridge-gap); padding-left: 2.5rem; }
   /* The item only positions the dot; the card inside carries the visuals, so the
@@ -94,7 +104,7 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
     background: var(--card-bg); border: 1px solid var(--card-border); color: var(--card-fg);
     transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease, transform 0.7s var(--ease-out-expo), box-shadow 0.7s var(--ease-out-expo);
   }
-  .bridge-dot { position: absolute; left: calc(-2.5rem - 1px); top: 1.5rem; width: 16px; height: 16px; border-radius: 50%; background: var(--color-ink); border: 2px solid rgba(255, 255, 255, 0.35); transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
+  .bridge-dot { position: absolute; z-index: 1; left: -2.5rem; top: 1.5rem; width: 16px; height: 16px; border-radius: 50%; background: var(--color-ink); border: 2px solid rgba(255, 255, 255, 0.35); transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
   .bridge-item-day { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--card-day); transition: color 0.5s ease; }
   .bridge-item-title { margin-top: 0.55rem; font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; }
   .bridge-item-body { margin-top: 0.55rem; font-size: 0.9rem; line-height: 1.55; color: var(--card-muted); transition: color 0.5s ease; }
@@ -120,7 +130,8 @@ const milestones = b.milestones.map((m, i) => ({ ...m, value: days[i] ?? site.br
 
     .bridge-timeline { margin-top: 3rem; }
     /* The rail ends on the centre of the last dot, so the fill maps day 1 to day 90 exactly. */
-    .bridge-rail { left: 0; right: calc((100% - 3 * var(--bridge-gap)) / 4); top: 7px; bottom: auto; width: auto; height: 2px; }
+    .bridge-rail { display: block; left: 0; right: calc((100% - 3 * var(--bridge-gap)) / 4); top: 7px; bottom: auto; width: auto; height: 2px; }
+    .bridge-item:not(:last-child)::before { content: none; }
     .bridge-fill { background: var(--grad-accent); transform-origin: left; transform: scaleX(0); }
     html:not(.js-motion) .bridge-fill { transform: none; }
     .bridge-items { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-left: 0; padding-top: 2.25rem; }

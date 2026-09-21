@@ -231,27 +231,18 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
   .select-chevron { flex: none; color: var(--color-slate); transition: transform 0.3s var(--ease-out-expo); }
   .select-btn[aria-expanded='true'] .select-chevron { transform: rotate(180deg); }
   .has-error .select-btn { border-color: var(--color-error); }
+  /* A plain dropdown: it hangs off the button, sits above the rest of the page and
+     closes on any click outside. --select-max is set by the script from the room
+     that is actually left below (or above) the button. */
   .select-list {
-    position: absolute; left: 0; right: 0; top: calc(100% + 0.4rem); z-index: 20; max-height: 16rem; overflow-y: auto;
+    position: absolute; left: 0; right: 0; top: calc(100% + 0.4rem); z-index: 60;
+    max-height: var(--select-max, 16rem); overflow-y: auto; overscroll-behavior: contain;
     padding: 0.35rem; border-radius: var(--radius-md); border: 1px solid var(--color-line); background: var(--color-white);
     box-shadow: var(--shadow-lift);
   }
+  .field-select.is-up .select-list { top: auto; bottom: calc(100% + 0.4rem); }
   .select-list[hidden] { display: none; }
-  /* Phones: a sheet pinned to the bottom of the screen, so the whole list is always
-     on screen no matter where the question sits in the page. */
-  @media (max-width: 47.99rem) {
-    .field-select.is-open::after {
-      content: ''; position: fixed; inset: 0; z-index: 40; background: rgba(20, 20, 28, 0.35);
-      -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
-    }
-    .select-list {
-      position: fixed; z-index: 41; top: auto; left: 0.75rem; right: 0.75rem;
-      bottom: calc(0.75rem + env(safe-area-inset-bottom));
-      max-height: min(60svh, 24rem); padding: 0.4rem; border-radius: var(--radius-lg);
-      box-shadow: 0 -8px 40px rgba(20, 20, 28, 0.22);
-    }
-    .select-option { padding: 0.85rem 0.9rem; font-size: 1rem; }
-  }
+  @media (max-width: 47.99rem) { .select-option { padding: 0.75rem 0.85rem; font-size: 1rem; } }
   .select-option { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.6rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.95rem; color: var(--color-ink-2); cursor: pointer; }
   .select-option:hover, .select-option.is-active { background: var(--color-sand); color: var(--color-ink); }
   .select-option[aria-selected='true'] { font-weight: 600; color: var(--color-ink); }
