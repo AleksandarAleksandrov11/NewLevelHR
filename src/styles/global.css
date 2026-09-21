@@ -152,6 +152,10 @@
   }
   h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd { overflow-wrap: anywhere; }
   img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+
+  /* Anchor targets stop below the sticky header, with or without JavaScript.
+     :where() keeps specificity at zero so component rules can still override it. */
+  :where(section, article, aside, div, form, h1, h2, h3)[id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
   button, input, select, textarea { font: inherit; color: inherit; }
   ::selection { background: rgba(255, 107, 53, 0.3); color: var(--color-ink); }
 

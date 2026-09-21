@@ -228,6 +228,55 @@ await test('cost calculator: the track fill follows the slider', desktop, async 
   expect(parseFloat(after) > parseFloat(before), `fill did not stay (${after})`);
 });
 
+await test('what we fix: the problem bar is full width on phones, centres the active chip and jumps correctly', phone, async (page) => {
+  await page.goto(base + '/en/what-we-fix/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(700);
+  const nav = page.locator('[data-problems-nav]');
+  const box = await nav.boundingBox();
+  const vw = await page.evaluate(() => window.innerWidth);
+  expect(Math.round(box.x) === 0 && Math.round(box.width) === vw, `bar is ${Math.round(box.width)}px wide at x=${Math.round(box.x)} in a ${vw}px viewport`);
+
+  // It stays under the header while the page scrolls.
+  await page.mouse.move(Math.round(vw / 2), 500);
+  for (let i = 0; i < 4; i++) { await page.mouse.wheel(0, 420); await page.waitForTimeout(110); }
+  await page.waitForTimeout(700);
+  const headerH = await page.evaluate(() => Math.round(document.querySelector('[data-header]').getBoundingClientRect().height));
+  const stuck = Math.round((await nav.boundingBox()).y);
+  expect(Math.abs(stuck - (headerH - 1)) <= 2, `bar sits at ${stuck} with a ${headerH}px header`);
+
+  // The active chip follows the section in view, scrolling the row and not the page.
+  const state = () => page.evaluate(() => {
+    const list = document.querySelector('.pb-nav-list');
+    return { left: Math.round(list.scrollLeft), active: document.querySelector('.pb-nav-link.is-active')?.getAttribute('href') };
+  });
+  const before = await state();
+  for (let i = 0; i < 14; i++) { await page.mouse.wheel(0, 520); await page.waitForTimeout(80); }
+  await page.waitForTimeout(1000);
+  const after = await state();
+  expect(after.active !== before.active, `the active chip did not change (${after.active})`);
+  expect(after.left > before.left, `the chip row did not follow (${before.left} -> ${after.left})`);
+
+  // Tapping a chip lands the problem below the bar.
+  await page.locator('.pb-nav-link', { hasText: 'Audit Anxiety' }).click();
+  await page.waitForTimeout(1500);
+  const top = await page.evaluate(() => Math.round(document.getElementById('audit').getBoundingClientRect().top));
+  expect(top > headerH && top < headerH + 120, `the target landed at ${top} with a ${headerH}px header`);
+});
+
+await test('anchors in the URL land under the sticky header', desktop, async (page) => {
+  for (const [path, id] of [['/en/#health-check', 'health-check'], ['/en/contact/#book', 'book']]) {
+    await page.goto(base + path, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(2200);
+    const r = await page.evaluate((id) => ({
+      top: Math.round(document.getElementById(id).getBoundingClientRect().top),
+      header: Math.round(document.querySelector('[data-header]').getBoundingClientRect().height),
+    }), id);
+    expect(r.top > r.header && r.top < r.header + 120, `${path} landed at ${r.top} with a ${r.header}px header`);
+  }
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');
