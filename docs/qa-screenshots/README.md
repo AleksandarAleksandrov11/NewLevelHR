@@ -1,6 +1,6 @@
 # QA screenshots
 
-Generated 2026-09-20 13:55 UTC from `http://127.0.0.1:4174` with `npm run qa:screenshots`.
+Generated 2026-09-21 18:05 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
 
 * 45 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
