@@ -298,21 +298,61 @@ await test('mobile menu: the whole panel is reachable on a short phone', { viewp
   expect(r.bottom <= r.vh, `the last line sits at ${r.bottom} in a ${r.vh}px viewport`);
 });
 
-await test('contact: the topic dropdown opens fully on screen on a phone', phone, async (page) => {
+await test('contact: the topic dropdown hangs off the button and closes on an outside click', phone, async (page) => {
   await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForTimeout(700);
-  await page.mouse.move(195, 500);
-  for (let i = 0; i < 6; i++) { await page.mouse.wheel(0, 260); await page.waitForTimeout(90); }
-  await page.waitForTimeout(600);
+  // Park the field near the bottom of the screen: that is where a dropdown that only
+  // ever opens downwards would run off the viewport.
+  await page.mouse.move(195, 420);
+  for (let i = 0; i < 30; i++) {
+    const top = await page.evaluate(() => document.querySelector('[data-select-button]').getBoundingClientRect().top);
+    const delta = Math.round(top - 734);
+    if (Math.abs(delta) < 25) break;
+    await page.mouse.wheel(0, Math.max(-300, Math.min(300, delta)));
+    await page.waitForTimeout(110);
+  }
+  await page.waitForTimeout(500);
   await page.locator('[data-select-button]').click();
+  await page.waitForTimeout(350);
+  const r = await page.evaluate(() => {
+    const btn = document.querySelector('[data-select-button]').getBoundingClientRect();
+    const list = document.querySelector('[data-select-list]').getBoundingClientRect();
+    return {
+      btnTop: Math.round(btn.top), btnBottom: Math.round(btn.bottom),
+      top: Math.round(list.top), bottom: Math.round(list.bottom),
+      vh: window.innerHeight,
+      up: document.querySelector('[data-select]').classList.contains('is-up'),
+      backdrop: getComputedStyle(document.querySelector('[data-select]'), '::after').content,
+    };
+  });
+  const anchored = r.up ? Math.abs(r.bottom - r.btnTop) < 14 : Math.abs(r.top - r.btnBottom) < 14;
+  expect(anchored, `the list is not attached to the button (button ${r.btnTop}..${r.btnBottom}, list ${r.top}..${r.bottom})`);
+  expect(r.top >= -1 && r.bottom <= r.vh + 1, `the list covers ${r.top}..${r.bottom} in a ${r.vh}px viewport`);
+  expect(r.backdrop === 'none', `the field draws a backdrop (${r.backdrop})`);
+  await page.mouse.click(195, 90);
+  await page.waitForTimeout(300);
+  expect(await page.locator('[data-select-list]').isHidden(), 'an outside click did not close the list');
+});
+
+await test('mobile menu: services opens its sub-list first and follows the link on the second tap', phone, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.locator('[data-burger]').click();
+  await page.waitForTimeout(900);
+  const sub = page.locator('#mobile-services');
+  expect(await sub.isHidden(), 'the services sub-list is open before it is asked for');
+  const link = page.locator('[data-mobile-group] > .mobile-link');
+  await link.click();
   await page.waitForTimeout(400);
-  const box = await page.locator('[data-select-list]').boundingBox();
-  const vh = await page.evaluate(() => window.innerHeight);
-  expect(box.y >= 0 && box.y + box.height <= vh + 1, `the sheet covers ${Math.round(box.y)}..${Math.round(box.y + box.height)} in a ${vh}px viewport`);
-  const last = await page.locator('[data-select-option]').last().boundingBox();
-  expect(last.y + last.height <= vh + 1, `the last option ends at ${Math.round(last.y + last.height)}`);
+  expect(await sub.isVisible(), 'the first tap did not open the services');
+  expect(new URL(page.url()).pathname === '/en/', `the first tap navigated to ${new URL(page.url()).pathname}`);
+  expect(await page.locator('[data-mobile-menu]').evaluate((m) => m.classList.contains('is-open')), 'the first tap closed the menu');
+  await link.click();
+  await page.waitForTimeout(1500);
+  expect(new URL(page.url()).pathname === '/en/services/', `the second tap landed on ${new URL(page.url()).pathname}`);
 });
 
 await test('primary calls to action land on the right page', desktop, async (page) => {

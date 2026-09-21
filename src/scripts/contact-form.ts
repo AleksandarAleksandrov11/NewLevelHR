@@ -42,18 +42,29 @@ function enhanceSelect(wrap: HTMLElement, ac: AbortController) {
       current.scrollIntoView({ block: 'nearest' });
     }
   };
+  /** Opens downwards when there is room, upwards when there is not, and never taller
+      than the space it has, so the whole list stays on screen wherever the field sits. */
+  const place = () => {
+    const r = button.getBoundingClientRect();
+    const margin = 12;
+    const below = window.innerHeight - r.bottom - margin;
+    const above = r.top - margin;
+    const up = below < 180 && above > below;
+    wrap.classList.toggle('is-up', up);
+    list.style.setProperty('--select-max', `${Math.max(120, Math.round(up ? above : below))}px`);
+  };
   const open = () => {
     if (!list.hidden) return;
     list.hidden = false;
-    // Drives the phone sheet backdrop; on wider screens the class does nothing.
     wrap.classList.add('is-open');
+    place();
     button.setAttribute('aria-expanded', 'true');
     setActive(Math.max(0, items.findIndex((li) => li.getAttribute('aria-selected') === 'true')));
   };
   const close = (focusButton = true) => {
     if (list.hidden) return;
     list.hidden = true;
-    wrap.classList.remove('is-open');
+    wrap.classList.remove('is-open', 'is-up');
     button.setAttribute('aria-expanded', 'false');
     button.removeAttribute('aria-activedescendant');
     if (focusButton) button.focus();
@@ -94,11 +105,13 @@ function enhanceSelect(wrap: HTMLElement, ac: AbortController) {
   document.addEventListener('pointerdown', (e) => {
     if (!wrap.contains(e.target as Node)) close(false);
   }, { signal: ac.signal });
+  window.addEventListener('scroll', () => { if (!list.hidden) place(); }, { passive: true, signal: ac.signal });
+  window.addEventListener('resize', () => { if (!list.hidden) place(); }, { signal: ac.signal });
 
   cleanup.push(() => {
     button.hidden = true;
     list.hidden = true;
-    wrap.classList.remove('is-enhanced', 'is-open');
+    wrap.classList.remove('is-enhanced', 'is-open', 'is-up');
     select.removeAttribute('tabindex');
     select.removeAttribute('aria-hidden');
   });

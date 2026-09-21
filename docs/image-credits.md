@@ -15,7 +15,7 @@ photographs below never stand in for her or for clients.
 
 | Filename | Description | Photographer | Source URL (photo page) | License | Used on |
 | --- | --- | --- | --- | --- | --- |
-| `hero-team-bright.jpg` | Small diverse startup team collaborating over notebooks at a table in a bright office | Thirdman | https://www.pexels.com/photo/men-having-a-meeting-5256995/ | [Pexels License](https://www.pexels.com/license/) | Not used yet (the hero is a 3D scene); available for future sections |
+| `hero-team-bright.jpg` | Small diverse startup team collaborating over notebooks at a table in a bright office | Thirdman | https://www.pexels.com/photo/men-having-a-meeting-5256995/ | [Pexels License](https://www.pexels.com/license/) | Not used yet (the hero is an SVG illustration); available for future sections |
 | `one-on-one.jpg` | Two colleagues in a calm one-to-one conversation at a small table in warm daylight | Christina Morillo | https://www.pexels.com/photo/man-wearing-white-top-in-front-of-woman-wearing-blue-long-sleeved-top-1181715/ | [Pexels License](https://www.pexels.com/license/) | Home services cards, Fractional HR Partnership page |
 | `interview.jpg` | Candidate in a job interview with two interviewers in a modern office | Edmond Dantès | https://www.pexels.com/photo/woman-in-a-job-interview-4344878/ | [Pexels License](https://www.pexels.com/license/) | Home services cards, High-Velocity Hiring page |
 | `onboarding-welcome.jpg` | Colleagues welcoming and showing a new team member around on a first day | Mikhail Nilov | https://www.pexels.com/photo/photograph-of-colleagues-talking-8297443/ | [Pexels License](https://www.pexels.com/license/) | Home services cards, 90-Day Success Bridge page |

@@ -19,7 +19,6 @@ export const faq = {
     label: 'Search the questions',
     placeholder: 'Search, e.g. “pricing” or “90 days”',
     clear: 'Clear search',
-    navLabel: 'Jump to a topic',
     results: '{count} of {total} questions',
     noResults: 'No question matches “{query}”. Try another word, or just ask us directly.',
   },

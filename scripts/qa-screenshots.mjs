@@ -20,7 +20,7 @@ const filter = only ? new RegExp(only) : null;
 const { base, close } = await resolveBase();
 const launch = () => chromium.launch({ executablePath: chromiumPath() });
 let browser = await launch();
-/** A hung renderer (WebGL in software) would otherwise time out every following page: start a fresh browser. */
+/** A hung renderer would otherwise time out every following page: start a fresh browser. */
 async function relaunch() {
   try { await browser.close(); } catch { /* already gone */ }
   browser = await launch();
@@ -210,7 +210,7 @@ const lines = [
   '',
   'Pages are scrolled with wheel events before capture so scroll reveals have run. On desktop the home page shows the',
   'empty scroll space of the pinned 90-day timeline below the timeline itself; that is the pin spacer of the scroll story,',
-  'not a blank section. The Three.js hero loads on first interaction or after 6.5 s, so the hero shows its static state.',
+  'not a blank section.',
   '',
 ];
 if (failures.length) {

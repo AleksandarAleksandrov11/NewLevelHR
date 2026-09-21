@@ -15,7 +15,6 @@ export const faq: FaqDict = {
     label: 'Fragen durchsuchen',
     placeholder: 'Suchen, z. B. „Preise“ oder „90 Tage“',
     clear: 'Suche löschen',
-    navLabel: 'Zu einem Thema springen',
     results: '{count} von {total} Fragen',
     noResults: 'Keine Frage passt zu „{query}“. Versuchen Sie ein anderes Wort oder fragen Sie uns einfach direkt.',
   },

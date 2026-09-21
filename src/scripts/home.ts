@@ -1,44 +1,7 @@
-/** Home-page specific behaviour: lazy 3D hero and the pinned bridge timeline. */
+/** Home-page specific behaviour: the pinned bridge timeline and the section scenes. */
 import { gsap, ScrollTrigger, prefersReducedMotion } from './motion';
-import type { HeroScene } from './hero3d';
 
-let scene: HeroScene | null = null;
 let cleanup: Array<() => void> = [];
-
-function canRun3D(): boolean {
-  if (prefersReducedMotion()) return false;
-  const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean; effectiveType?: string } };
-  if (nav.connection?.saveData) return false;
-  if (nav.deviceMemory && nav.deviceMemory < 2) return false;
-  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return false;
-  try {
-    const c = document.createElement('canvas');
-    if (!(c.getContext('webgl2') || c.getContext('webgl'))) return false;
-  } catch { return false; }
-  return true;
-}
-
-function initHero() {
-  const container = document.querySelector<HTMLElement>('[data-hero-3d]');
-  if (!container || !canRun3D()) return;
-  let started = false;
-  const start = async () => {
-    if (started) return; started = true;
-    events.forEach(([ev, h]) => window.removeEventListener(ev, h));
-    window.clearTimeout(timer);
-    try {
-      const mod = await import('./hero3d');
-      if (!document.body.contains(container)) return;
-      scene = mod.createHeroScene(container);
-    } catch { /* keep the static fallback */ }
-  };
-  // Start on first interaction, or after the page has been idle for a while.
-  const handler = () => { start(); };
-  const events: Array<[string, () => void]> = [['pointermove', handler], ['touchstart', handler], ['scroll', handler], ['keydown', handler]];
-  events.forEach(([ev, h]) => window.addEventListener(ev, h, { passive: true, once: true } as AddEventListenerOptions));
-  const timer = window.setTimeout(start, 2500);
-  cleanup.push(() => { events.forEach(([ev, h]) => window.removeEventListener(ev, h)); window.clearTimeout(timer); scene?.destroy(); scene = null; });
-}
 
 /** Pinned 90-day timeline: the progress line and milestones advance with scroll. */
 function initBridge() {
@@ -91,7 +54,6 @@ function initServiceCards() {
 
 export function initHome() {
   destroyHome();
-  initHero();
   initBridge();
   initServiceCards();
 }

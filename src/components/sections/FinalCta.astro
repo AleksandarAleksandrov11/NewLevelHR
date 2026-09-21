@@ -11,11 +11,6 @@ const c = getDict(lang).common;
 <section class:list={['final-cta section', className]} aria-labelledby="final-cta-title">
   <div class="final-cta-bg" aria-hidden="true">
     <span class="orb orb-1"></span><span class="orb orb-2"></span><span class="orb orb-3"></span>
-    <svg class="steps" viewBox="0 0 400 300" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
-      <rect x="40" y="200" width="90" height="100" rx="10" fill="rgba(255,255,255,0.10)" />
-      <rect x="150" y="130" width="90" height="170" rx="10" fill="rgba(255,255,255,0.14)" />
-      <rect x="260" y="40" width="90" height="260" rx="10" fill="rgba(255,255,255,0.18)" />
-    </svg>
   </div>
   <div class="container-site relative text-center">
     <p class="eyebrow justify-center text-ink/80 mb-5" data-reveal><span class="!bg-ink"></span>{eyebrow ?? c.finalCta.eyebrow}</p>
@@ -40,7 +35,6 @@ const c = getDict(lang).common;
   .orb-2 { width: 30vw; height: 30vw; right: -5vw; bottom: -10vw; background: #ffd9a0; animation: orb 22s ease-in-out infinite alternate-reverse; }
   .orb-3 { width: 24vw; height: 24vw; left: 40%; top: 30%; background: #ff8a5c; opacity: 0.5; animation: orb 26s ease-in-out infinite alternate; }
   @keyframes orb { to { transform: translate(6vw, 4vw) scale(1.15); } }
-  .steps { position: absolute; right: 0; bottom: 0; width: min(40vw, 30rem); opacity: 0.9; }
   .final-cta .eyebrow::before { background: var(--color-ink); }
   .final-cta :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.08em; margin-bottom: -0.08em; }
   .final-cta :global(.split-i) { display: inline-block; }

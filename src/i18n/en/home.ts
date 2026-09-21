@@ -14,7 +14,7 @@ export const home = {
     cta1: 'Get a free consultation',
     cta2: 'Our services',
     scroll: 'Scroll',
-    sceneLabel: 'Decorative 3D scene: four bars rising step by step',
+    sceneLabel: 'Decorative illustration: four bars rising step by step',
   },
   marquee: ['Fractional HR', 'High-Velocity Hiring', 'Manager Coaching', '90-Day Bridge', 'Compliance', 'Leadership', 'Team Building'],
   manifesto: {

@@ -74,7 +74,7 @@ Sections alternate deliberately so that each one reads as a new "level":
 * Parallax: `data-parallax="0.3"` inside a `data-parallax-scope`.
 * Interactions: `data-magnetic`, `data-tilt`, `data-spotlight`, `data-flip` / `data-flip-toggle`.
 * Cursor: the browser's own pointer, never replaced or hidden.
-* Scrollable overlays (the mobile menu, the phone select sheet) need `data-lenis-prevent`: Lenis is stopped
+* Scrollable overlays (the mobile menu, the contact topic dropdown) need `data-lenis-prevent`: Lenis is stopped
   while they are open and cancels every wheel and touch event it sees, which would freeze them.
 * Everything respects `prefers-reduced-motion`; the `.js-motion` class on `<html>` gates initial hidden states so
   content is never invisible without JavaScript.

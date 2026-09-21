@@ -323,8 +323,8 @@
 
   /* Reveal helpers (initial state set by JS only when motion is allowed) */
   /* will-change only while the element still has to move: it creates a containing
-     block, which would anchor any fixed-position child (the phone select sheet)
-     to the revealed element instead of the viewport. */
+     block, which would anchor any fixed-position child to the revealed element
+     instead of to the viewport. */
   .js-motion [data-reveal]:not(.is-revealed) { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
   .js-motion [data-reveal].is-revealed { opacity: 1; transform: none; transition: opacity 0.9s var(--ease-out-expo), transform 1s var(--ease-out-expo); }
   .js-motion [data-reveal][data-reveal-delay='1'].is-revealed { transition-delay: 0.08s; }

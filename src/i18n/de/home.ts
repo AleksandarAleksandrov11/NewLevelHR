@@ -13,7 +13,7 @@ export const home: HomeDict = {
     cta1: 'Kostenlose Beratung sichern',
     cta2: 'Unsere Leistungen',
     scroll: 'Scrollen',
-    sceneLabel: 'Dekorative 3D-Szene: vier Balken, die Stufe für Stufe ansteigen',
+    sceneLabel: 'Dekorative Illustration: vier Balken, die Stufe für Stufe ansteigen',
   },
   marquee: ['Fraktionale HR', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Compliance', 'Leadership', 'Teambuilding'],
   manifesto: {

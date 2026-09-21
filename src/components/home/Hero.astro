@@ -24,26 +24,38 @@ const h = d.home.hero;
       </div>
     </div>
 
-    <div class="hero-visual" data-hero-3d role="img" aria-label={h.sceneLabel}>
-      {/* First paint and the permanent fallback when WebGL is unavailable. */}
-      <svg class="hero-fallback" viewBox="0 0 520 420" aria-hidden="true">
+    <div class="hero-visual" role="img" aria-label={h.sceneLabel}>
+      <svg class="hero-art" viewBox="0 0 520 420" aria-hidden="true">
         <defs>
-          <linearGradient id="hf-accent" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#ff8a4c" /><stop offset="1" stop-color="#ff6b35" />
+          <linearGradient id="hf-accent" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0" stop-color="#ff8a4c" /><stop offset="1" stop-color="#f2591f" />
+          </linearGradient>
+          <linearGradient id="hf-mid" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0" stop-color="#ffd3b4" /><stop offset="1" stop-color="#ffbe93" />
+          </linearGradient>
+          <linearGradient id="hf-pale" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0" stop-color="#fffaf5" /><stop offset="1" stop-color="#f7ece1" />
+          </linearGradient>
+          <linearGradient id="hf-light" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0" stop-color="#ffffff" /><stop offset="1" stop-color="#f4efe9" />
           </linearGradient>
           <radialGradient id="hf-glow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stop-color="#ff6b35" stop-opacity="0.32" /><stop offset="1" stop-color="#ff6b35" stop-opacity="0" />
+            <stop offset="0" stop-color="#ff6b35" stop-opacity="0.3" /><stop offset="1" stop-color="#ff6b35" stop-opacity="0" />
           </radialGradient>
-          <filter id="hf-shadow" x="-25%" y="-15%" width="150%" height="145%">
-            <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#14141c" flood-opacity="0.13" />
+          <radialGradient id="hf-ground" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#14141c" stop-opacity="0.16" /><stop offset="1" stop-color="#14141c" stop-opacity="0" />
+          </radialGradient>
+          <filter id="hf-shadow" x="-25%" y="-15%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#14141c" flood-opacity="0.12" />
           </filter>
         </defs>
-        <circle cx="360" cy="170" r="180" fill="url(#hf-glow)" />
+        <circle cx="352" cy="164" r="178" fill="url(#hf-glow)" />
+        <ellipse cx="270" cy="364" rx="220" ry="26" fill="url(#hf-ground)" />
         <g filter="url(#hf-shadow)">
-          <rect class="hf-bar" x="60" y="252" width="86" height="98" rx="16" fill="#ffffff" stroke="rgba(20,20,28,0.07)" />
-          <rect class="hf-bar" x="166" y="196" width="86" height="154" rx="16" fill="#fdf3e9" stroke="rgba(20,20,28,0.07)" />
-          <rect class="hf-bar" x="272" y="126" width="86" height="224" rx="16" fill="#ffc9a3" />
-          <rect class="hf-bar" x="378" y="42" width="86" height="308" rx="16" fill="url(#hf-accent)" />
+          <rect class="hf-bar" x="60" y="252" width="86" height="98" rx="18" fill="url(#hf-light)" />
+          <rect class="hf-bar" x="166" y="196" width="86" height="154" rx="18" fill="url(#hf-pale)" />
+          <rect class="hf-bar" x="272" y="126" width="86" height="224" rx="18" fill="url(#hf-mid)" />
+          <rect class="hf-bar" x="378" y="42" width="86" height="308" rx="18" fill="url(#hf-accent)" />
         </g>
       </svg>
     </div>
@@ -77,12 +89,9 @@ const h = d.home.hero;
   .hero-sub { max-width: 32rem; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
 
-  /* The scene lives in its own cell, so it can never sit under the headline. */
+  /* The artwork lives in its own cell, so it can never sit under the headline. */
   .hero-visual { position: relative; width: 100%; aspect-ratio: 5 / 4; max-height: 60svh; }
-  .hero-visual :global(canvas) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 1s ease; }
-  .hero-visual.is-3d-ready :global(canvas) { opacity: 1; }
-  .hero-fallback { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 0.8s ease; }
-  .hero-visual.is-3d-ready .hero-fallback { opacity: 0; }
+  .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hf-bar { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-float 6s ease-in-out infinite alternate; }
   .hf-bar:nth-child(2) { animation-delay: 0.35s; }
   .hf-bar:nth-child(3) { animation-delay: 0.7s; }

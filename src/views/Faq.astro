@@ -35,10 +35,6 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
           <button type="button" class="faq-clear" data-faq-clear hidden aria-label={f.search.clear}><X class="size-4" aria-hidden="true" /></button>
         </label>
         <p class="faq-status" aria-live="polite" data-faq-status data-template={f.search.results}>{fmt(f.search.results, { count: total, total })}</p>
-        <nav class="faq-nav" aria-label={f.search.navLabel}>
-          <p class="faq-nav-label">{f.search.navLabel}</p>
-          <ul role="list">{f.groups.map((g) => <li><a href={`#${g.id}`} class="faq-nav-link">{g.title}<span class="faq-nav-count">{g.items.length}</span></a></li>)}</ul>
-        </nav>
       </aside>
 
       <div class="faq-main">
@@ -72,14 +68,6 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
   .faq-search input::-webkit-search-cancel-button { display: none; }
   .faq-clear { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 0; background: var(--color-sand); color: var(--color-ink-3); cursor: pointer; }
   .faq-status { margin-top: 0.6rem; font-size: 0.8rem; color: var(--color-mist); }
-  .faq-nav { margin-top: 1.5rem; }
-  .faq-nav-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.5rem; }
-  .faq-nav ul { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  @media (min-width: 64rem) { .faq-nav ul { flex-direction: column; gap: 0.1rem; } }
-  .faq-nav-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.45rem 0.8rem; border-radius: 999px; border: 1px solid var(--color-line); font-size: 0.85rem; font-weight: 600; color: var(--color-ink-3); background: var(--color-white); transition: background-color 0.3s ease, color 0.3s ease; }
-  @media (min-width: 64rem) { .faq-nav-link { border: 0; border-radius: var(--radius-sm); width: 100%; } }
-  .faq-nav-link:hover { background: var(--color-sand); color: var(--color-ink); }
-  .faq-nav-count { font-size: 0.7rem; font-weight: 700; color: var(--color-accent-ink); background: var(--color-accent-soft); padding: 0.1rem 0.45rem; border-radius: 999px; }
   .faq-main { display: grid; gap: 3rem; }
   .faq-group { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
   .faq-list { border-top: 1px solid var(--color-line); }
