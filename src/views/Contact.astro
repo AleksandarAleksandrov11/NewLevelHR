@@ -45,7 +45,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
 
           <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-topic">
             <h3 id="ct-step-topic" class="ct-step-title font-display" tabindex="-1">{fm.steps.topic.title}</h3>
-            <p class="ct-step-hint">{fm.steps.topic.hint}</p>
             <div class="field field-select" data-select>
               <select id="ct-topic" name="topic" required aria-describedby="ct-topic-err" data-field>
                 <option value="" disabled selected>{fm.topicPlaceholder}</option>
@@ -70,7 +69,7 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
                 <span class="select-value is-placeholder" id="ct-topic-value" data-select-value data-placeholder={fm.topicPlaceholder}>{fm.topicPlaceholder}</span>
                 <ChevronDown class="select-chevron size-4" aria-hidden="true" />
               </button>
-              <ul class="select-list" id="ct-topic-list" role="listbox" aria-labelledby="ct-topic-label" data-select-list hidden>
+              <ul class="select-list" id="ct-topic-list" role="listbox" aria-labelledby="ct-topic-label" data-select-list data-lenis-prevent hidden>
                 {topics.map(([value, label], i) => (
                   <li class="select-option" id={`ct-topic-opt-${i}`} role="option" aria-selected="false" data-value={value} data-select-option>
                     <span>{label}</span><Check class="select-check size-4" aria-hidden="true" />
@@ -83,7 +82,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
 
           <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-message">
             <h3 id="ct-step-message" class="ct-step-title font-display" tabindex="-1">{fm.steps.message.title}</h3>
-            <p class="ct-step-hint">{fm.steps.message.hint}</p>
             <div class="field">
               <textarea id="ct-message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder=" " aria-describedby="ct-message-err" data-field></textarea>
               <label for="ct-message">{fm.message}</label>
@@ -93,7 +91,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
 
           <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-who">
             <h3 id="ct-step-who" class="ct-step-title font-display" tabindex="-1">{fm.steps.who.title}</h3>
-            <p class="ct-step-hint">{fm.steps.who.hint}</p>
             <div class="field">
               <input id="ct-name" name="name" type="text" required maxlength="120" placeholder=" " autocomplete="name" aria-describedby="ct-name-err" data-field />
               <label for="ct-name">{fm.name}</label>
@@ -108,7 +105,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
 
           <div class="ct-step" data-form-step role="group" aria-labelledby="ct-step-reply">
             <h3 id="ct-step-reply" class="ct-step-title font-display" tabindex="-1">{fm.steps.reply.title}</h3>
-            <p class="ct-step-hint">{fm.steps.reply.hint}</p>
             <div class="field">
               <input id="ct-email" name="email" type="email" required maxlength="200" placeholder=" " autocomplete="email" inputmode="email" aria-describedby="ct-email-err" data-field />
               <label for="ct-email">{fm.email}</label>
@@ -202,7 +198,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
   .ct-step[hidden] { display: none; }
   .ct-step-title { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem); font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
   .ct-step-title:focus { outline: none; }
-  .ct-step-hint { margin-top: -0.6rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-slate); }
   .js-motion .ct-step.is-entering { animation: stepIn 0.45s var(--ease-out-expo); }
   @keyframes stepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.25rem; }
@@ -242,6 +237,21 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
     box-shadow: var(--shadow-lift);
   }
   .select-list[hidden] { display: none; }
+  /* Phones: a sheet pinned to the bottom of the screen, so the whole list is always
+     on screen no matter where the question sits in the page. */
+  @media (max-width: 47.99rem) {
+    .field-select.is-open::after {
+      content: ''; position: fixed; inset: 0; z-index: 40; background: rgba(20, 20, 28, 0.35);
+      -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+    }
+    .select-list {
+      position: fixed; z-index: 41; top: auto; left: 0.75rem; right: 0.75rem;
+      bottom: calc(0.75rem + env(safe-area-inset-bottom));
+      max-height: min(60svh, 24rem); padding: 0.4rem; border-radius: var(--radius-lg);
+      box-shadow: 0 -8px 40px rgba(20, 20, 28, 0.22);
+    }
+    .select-option { padding: 0.85rem 0.9rem; font-size: 1rem; }
+  }
   .select-option { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.6rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.95rem; color: var(--color-ink-2); cursor: pointer; }
   .select-option:hover, .select-option.is-active { background: var(--color-sand); color: var(--color-ink); }
   .select-option[aria-selected='true'] { font-weight: 600; color: var(--color-ink); }

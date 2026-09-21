@@ -8,13 +8,13 @@ export const howWeWork = {
   hero: {
     eyebrow: 'How we work',
     title: 'Five steps. No pitch deck. A partner who stays.',
-    text: 'Every engagement follows the same simple path: a free call, an honest diagnosis, a plan you understand, execution you can see, and a partner who stays on board afterwards.',
+    text: 'Every engagement follows the same path: a free call, an honest diagnosis, a plan you understand, and a partner who stays.',
     imageAlt: 'A bright, calm office with plants and daylight',
   },
   steps: {
     eyebrow: 'The process',
     title: 'From the first call to a running rhythm.',
-    text: 'The steps are the same whether you need a fractional partner, a hire, a 90-day bridge or coaching for your managers. Only the depth changes.',
+    text: 'The steps are the same for every service. Only the depth changes.',
     items: [
       { title: 'Free 30-minute consultation', duration: '30 minutes', body: 'You describe your situation, we ask a lot of questions. No pitch, no pressure. You leave with a clear picture of what would help first, whether or not we work together.', outcome: 'Outcome: a clear picture, in writing if you want it.' },
       { title: 'Diagnosis', duration: 'A few days', body: 'We look at the reality, not the org chart: contracts, policies, pay logic, the open roles, the managers, the conversations that are being avoided. Short interviews with the leadership team where useful.', outcome: 'Outcome: a prioritised list of gaps, ranked by risk and effort.' },
@@ -41,12 +41,12 @@ export const howWeWork = {
     items: [
       {
         title: 'Retainer',
-        body: 'An ongoing partnership with a fixed monthly scope. The partner in your Slack channel who handles the recurring people work and the surprises in between.',
+        body: 'An ongoing partnership with a fixed monthly scope, for the recurring people work and the surprises in between.',
         bullets: ['Fixed number of days per month, reviewed monthly', 'On-call for questions and urgent employee issues', 'A monthly review of what the company needs next'],
       },
       {
         title: 'Project',
-        body: 'A clearly defined piece of work with a start and an end: a policy overhaul, a salary structure, a hiring campaign, a coaching programme for a group of managers.',
+        body: 'A clearly defined piece of work with a start and an end: a policy overhaul, a salary structure, a hiring campaign.',
         bullets: ['Defined scope, deliverables and timeline', 'Fixed price agreed before the start', 'Can grow into a retainer, but does not have to'],
       },
     ],

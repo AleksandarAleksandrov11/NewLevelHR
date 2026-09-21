@@ -4,11 +4,10 @@ import { Search, X } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
 import PageHero from '@/components/pages/PageHero.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
-import Button from '@/components/ui/Button.astro';
 import Accordion from '@/components/ui/Accordion.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import { type Locale } from '@/i18n/config';
-import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
+import { getDict, fmt, type PageKey } from '@/i18n';
 
 interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
@@ -40,10 +39,6 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
           <p class="faq-nav-label">{f.search.navLabel}</p>
           <ul role="list">{f.groups.map((g) => <li><a href={`#${g.id}`} class="faq-nav-link">{g.title}<span class="faq-nav-count">{g.items.length}</span></a></li>)}</ul>
         </nav>
-        <div class="faq-side-cta">
-          <p class="font-display font-bold text-ink">{f.still.title}</p>
-          <div class="mt-4"><Button href={localizePath('contact', lang, 'book')} size="sm" icon="calendar">{f.still.secondary}</Button></div>
-        </div>
       </aside>
 
       <div class="faq-main">
@@ -60,18 +55,6 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
           </section>
         ))}
         <p class="faq-empty" data-faq-empty data-template={f.search.noResults} hidden></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section bg-ivory bg-grain">
-    <div class="container-site text-center">
-      <p class="eyebrow justify-center" data-reveal>{f.still.eyebrow}</p>
-      <h2 class="font-display text-display-md text-ink mt-4 mx-auto max-w-3xl" data-reveal data-reveal-delay="1">{f.still.title}</h2>
-      <p class="text-lead text-slate mt-5 mx-auto max-w-2xl" data-reveal data-reveal-delay="2">{f.still.text}</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal data-reveal-delay="3">
-        <Button href={localizePath('contact', lang)} variant="secondary" size="lg">{f.still.button}</Button>
-        <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{f.still.secondary}</Button>
       </div>
     </div>
   </section>
@@ -97,8 +80,6 @@ const paragraphs = (a: string) => a.split(/\n\n+/);
   @media (min-width: 64rem) { .faq-nav-link { border: 0; border-radius: var(--radius-sm); width: 100%; } }
   .faq-nav-link:hover { background: var(--color-sand); color: var(--color-ink); }
   .faq-nav-count { font-size: 0.7rem; font-weight: 700; color: var(--color-accent-ink); background: var(--color-accent-soft); padding: 0.1rem 0.45rem; border-radius: 999px; }
-  .faq-side-cta { display: none; }
-  @media (min-width: 64rem) { .faq-side-cta { display: block; margin-top: 1.5rem; padding: 1.25rem; border-radius: var(--radius-lg); background: var(--color-ivory); border: 1px solid var(--color-line); } }
   .faq-main { display: grid; gap: 3rem; }
   .faq-group { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
   .faq-list { border-top: 1px solid var(--color-line); }

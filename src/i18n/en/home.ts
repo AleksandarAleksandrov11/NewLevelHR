@@ -6,21 +6,20 @@ export const home = {
     description: 'Real HR support without the full-time hire. Fractional HR, high-velocity hiring, a 90-day success bridge and manager coaching for startups and SMEs in Europe.',
   },
   hero: {
-    eyebrow: 'The HR Partner Your Business Actually Needs',
     /** Rendered as words; the accent phrase is wrapped in <span class="accent"> by the component */
     titleLine1: 'Real HR support.',
     titleLine2: 'Without the',
     titleAccent: 'full-time hire.',
-    sub: 'We handle the hard people stuff: compliance, hiring, employee issues, done right, so your business runs smoother. Practical. On-call. Always in your corner.',
+    sub: 'Hiring, compliance and the hard conversations, handled by a partner who knows your team by name.',
     cta1: 'Get a free consultation',
     cta2: 'Our services',
     scroll: 'Scroll',
-    sceneLabel: 'Decorative 3D scene: glass steps rising towards the light',
+    sceneLabel: 'Decorative 3D scene: four bars rising step by step',
   },
   marquee: ['Fractional HR', 'High-Velocity Hiring', 'Manager Coaching', '90-Day Bridge', 'Compliance', 'Leadership', 'Team Building'],
   manifesto: {
     eyebrow: 'Why we exist',
-    text: 'In a world full of automated HR tools and AI bots, we offer something different: a human partner who knows your team by name. We don’t give you a dashboard. We give you solutions.',
+    text: 'In a world full of automated HR tools and AI bots, we offer something different: a human partner who knows your team by name. Not a dashboard. Solutions.',
   },
   problems: {
     eyebrow: 'What we fix',

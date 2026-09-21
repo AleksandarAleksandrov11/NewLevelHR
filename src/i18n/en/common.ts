@@ -214,10 +214,10 @@ export const common = {
     next: 'Next',
     back: 'Back',
     steps: {
-      topic: { title: 'What can we help you with?', hint: 'Pick the closest topic. We sort out the details together.' },
-      message: { title: 'What is going on?', hint: 'A few sentences are enough: the situation, the size of the team, what you need.' },
-      who: { title: 'Who are we talking to?', hint: 'Your name, and the company if you want us to read up before we reply.' },
-      reply: { title: 'Where do we reply?', hint: 'We answer within 24 hours on business days.' },
+      topic: { title: 'What can we help you with?' },
+      message: { title: 'What is going on?' },
+      who: { title: 'Who are we talking to?' },
+      reply: { title: 'Where do we reply?' },
     },
   },
 } as const;

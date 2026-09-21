@@ -45,12 +45,15 @@ function enhanceSelect(wrap: HTMLElement, ac: AbortController) {
   const open = () => {
     if (!list.hidden) return;
     list.hidden = false;
+    // Drives the phone sheet backdrop; on wider screens the class does nothing.
+    wrap.classList.add('is-open');
     button.setAttribute('aria-expanded', 'true');
     setActive(Math.max(0, items.findIndex((li) => li.getAttribute('aria-selected') === 'true')));
   };
   const close = (focusButton = true) => {
     if (list.hidden) return;
     list.hidden = true;
+    wrap.classList.remove('is-open');
     button.setAttribute('aria-expanded', 'false');
     button.removeAttribute('aria-activedescendant');
     if (focusButton) button.focus();
@@ -95,7 +98,7 @@ function enhanceSelect(wrap: HTMLElement, ac: AbortController) {
   cleanup.push(() => {
     button.hidden = true;
     list.hidden = true;
-    wrap.classList.remove('is-enhanced');
+    wrap.classList.remove('is-enhanced', 'is-open');
     select.removeAttribute('tabindex');
     select.removeAttribute('aria-hidden');
   });

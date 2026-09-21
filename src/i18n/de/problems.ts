@@ -51,7 +51,7 @@ export const problems: ProblemsDict = {
       cost: 'Menschen kündigen selten einem Unternehmen. Sie kündigen einer Führungskraft, der nie beigebracht wurde, wie man führt.',
       fix: {
         title: 'Praktisches Coaching, das aus Experten Führungskräfte macht.',
-        text: 'Wir coachen Ihre Leads zu den Situationen, vor denen sie diesen Monat wirklich stehen: das Feedback, dem sie ausweichen, der Konflikt im Team, die Delegation, die sie nicht machen. Werkzeuge zuerst, Theorie nur, wo sie hilft.',
+        text: 'Wir coachen Ihre Leads zu den Situationen, vor denen sie diesen Monat wirklich stehen: das Feedback, dem sie ausweichen, der Konflikt im Team, die Delegation, die sie nicht machen.',
         points: [
           'Einzelcoaching rund um echte Fälle aus ihrem Team, keine generischen Leadership-Folien.',
           'Einfache Frameworks für Feedback, 1:1s, Delegation und schwierige Gespräche, die sie am nächsten Tag anwenden können.',
@@ -70,7 +70,7 @@ export const problems: ProblemsDict = {
       cost: 'Unerklärbares Gehalt zerstört Vertrauen schneller als niedriges Gehalt. Sobald Gehälter verglichen werden, und das werden sie immer, werden inkonsistente Angebote zu Groll, Gegenangeboten und Kündigungen.',
       fix: {
         title: 'Einfache Gehaltsbänder und Benefit-Regeln, die jeder erklären kann.',
-        text: 'Wir bauen eine Vergütungsstruktur, die zu einem Unternehmen Ihrer Größe passt: klare Level, Gehaltsspannen pro Rolle, Benefit-Regeln und ein Prozess für Erhöhungen. Transparent genug für die Richtlinie, einfach genug, um wirklich genutzt zu werden.',
+        text: 'Wir bauen eine Vergütungsstruktur, die zu einem Unternehmen Ihrer Größe passt: klare Level, Gehaltsspannen pro Rolle, Benefit-Regeln und ein Prozess für Erhöhungen.',
         points: [
           'Rollen-Level und Gehaltsbänder auf Basis Ihres Budgets und Ihres Marktes, an einem Ort dokumentiert.',
           'Ein Prozess für Erhöhungen und Beförderungen mit festen Zeitpunkten im Jahr, damit Gehalt keine Reaktion auf Drohungen mehr ist.',
@@ -89,7 +89,7 @@ export const problems: ProblemsDict = {
       cost: 'Eine Fehlbesetzung wird dreimal bezahlt: die Monate der Suche, die Monate der Einarbeitung und die Monate, in denen alles noch einmal gemacht wird. Währenddessen ist das Team, das die Lücke aufgefangen hat, erschöpft, und die Führungskraft hat das Vertrauen in den Prozess verloren.',
       fix: {
         title: 'Strukturiertes, schnelles Recruiting, dann eine Brücke über die ersten 90 Tage.',
-        text: 'Wir führen Recruiting so, wie es die besten Tech-Unternehmen tun: eine klare Rollen-Scorecard, ein straffer Prozess, strukturierte Interviews und eine Entscheidung in Tagen, nicht Wochen. Danach bleiben wir die ersten drei Monate an Bord, damit die Einstellung nicht nur startet, sondern gelingt.',
+        text: 'Wir führen Recruiting so, wie es die besten Tech-Unternehmen tun: eine klare Rollen-Scorecard, ein straffer Prozess, strukturierte Interviews und eine Entscheidung in Tagen, nicht Wochen.',
         points: [
           'Eine Rollen-Scorecard und ein Interviewplan, vereinbart bevor der erste Lebenslauf geöffnet wird.',
           'Ein schneller, respektvoller Kandidatenprozess, der starke Leute nicht abspringen lässt.',
@@ -127,7 +127,7 @@ export const problems: ProblemsDict = {
       cost: 'Wachstum ohne Struktur multipliziert Fehler. Jede neue Person kopiert die Verwirrung der letzten, Entscheidungen werden langsamer, weil mehr Leute auf die Gründer warten, und die Kultur, auf die Sie stolz waren, wird zu etwas, das niemand mehr beschreiben kann.',
       fix: {
         title: 'Eine People-Roadmap für die nächsten zwölf Monate.',
-        text: 'Wir übersetzen Ihren Businessplan in einen People-Plan: welche Rollen, in welcher Reihenfolge, mit welcher Berichtslinie, und welche Rituale ein größeres Team zusammenhalten. Struktur, die Tempo unterstützt, statt es zu bremsen.',
+        text: 'Wir übersetzen Ihren Businessplan in einen People-Plan: welche Rollen, in welcher Reihenfolge, mit welcher Berichtslinie, und welche Rituale ein größeres Team zusammenhalten.',
         points: [
           'Ein Organisationsdesign für die nächste Stufe: Rollen, Level, Berichtslinien und Entscheidungsrechte.',
           'Eine Einstellungsreihenfolge, die an Ihre Ziele und Ihr Budget gekoppelt ist, damit Sie das einstellen, was das Geschäft als Nächstes braucht.',
@@ -165,7 +165,7 @@ export const problems: ProblemsDict = {
       cost: 'Uneinigkeit an der Spitze ist im Sitzungsraum unsichtbar und im Team sehr sichtbar. Menschen hören auf, Initiative zu zeigen, wenn sich die Botschaft ständig ändert, Ihre besten Führungskräfte beginnen nach oben zu managen statt zu führen, und Einstellungen, Gehalt und Beförderungen werden politisch.',
       fix: {
         title: 'Eine Botschaft von oben und klare Regeln, wie Entscheidungen fallen.',
-        text: 'Wir moderieren Leadership-Alignment-Sitzungen, in denen Gründer und Führungskräfte Prioritäten, Rollen und Entscheidungsregeln vereinbaren und schriftlich festhalten. Dann helfen wir Ihnen, diese Klarheit ins Team zu tragen.',
+        text: 'Wir moderieren Leadership-Alignment-Sitzungen, in denen Gründer und Führungskräfte Prioritäten, Rollen und Entscheidungsregeln vereinbaren und schriftlich festhalten.',
         points: [
           'Moderierte Alignment-Sitzungen zu Zielen, Rollen und dem, was „fertig“ für das Führungsteam bedeutet.',
           'Einfache Entscheidungsregeln für die wiederkehrenden People-Themen: wer entscheidet, wer wird konsultiert, wer informiert.',

@@ -11,7 +11,7 @@ export const about = {
   hero: {
     eyebrow: 'About',
     title: 'A human partner, not another HR tool.',
-    text: 'I’m Mariyana Velkova, founder and Managing Director of NewLevelHR. I work with founders and leadership teams of startups and SMEs across Europe on the people side of growth: hiring, structure, managers, and the hard conversations in between.',
+    text: 'I’m Mariyana Velkova, founder of NewLevelHR. I work with founders and leadership teams on the people side of growth: hiring, structure, managers and the hard conversations in between.',
     monogram: 'MV',
     portraitLabel: 'Founder',
   },
@@ -42,21 +42,21 @@ export const about = {
     items: [
       {
         title: 'The partner in your Slack channel',
-        body: 'Day to day, I am one message away. A contract question, a tricky 1:1 tomorrow, a resignation that just landed: you write, I answer within 24 hours on business days.',
+        body: 'Day to day, I am one message away. You write, I answer within 24 hours on business days.',
       },
       {
         title: 'The advisor in your ear during a tough hire',
-        body: 'When a role matters and the candidates are hard to read, I sit in the process with you: scorecard, interviews, references, the offer conversation, and the honest second opinion before you sign.',
+        body: 'When a role matters, I sit in the process with you: scorecard, interviews, references and the honest second opinion before you sign.',
       },
       {
         title: 'The safety net for your first 90 days',
-        body: 'A hire is not a success on day one. I stay on board for the first three months, checking in with both the new person and their manager, so small frictions get fixed before they become an exit.',
+        body: 'A hire is not a success on day one. I stay for the first three months, checking in with the new person and their manager.',
       },
     ],
   },
   cta: {
     title: 'Let’s find out what your team needs next.',
-    text: 'A free 30-minute call, no pitch deck. You describe your situation, I ask a lot of questions, and you leave with a clear picture, whether or not we work together.',
+    text: 'A free 30-minute call, no pitch deck. You leave with a clear picture, whether or not we work together.',
     button: 'Book a free call with me',
   },
 } as const;

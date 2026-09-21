@@ -105,7 +105,9 @@ const wordmarkLetters = ['N', 'e', 'w', 'L', 'e', 'v', 'e', 'l', 'H', 'R'];
   @media (min-width: 40rem) { .footer-top { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
   @media (min-width: 64rem) { .footer-top { grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 3rem; } .footer-brand { grid-column: auto; } }
   .footer-h { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); margin-bottom: 1rem; }
-  .footer-col ul { display: grid; gap: 0.55rem; }
+  .footer-col ul { display: grid; gap: 0.1rem; }
+  /* Padding instead of gap, so every link is a 24px tap target. */
+  .footer-col ul .footer-link { display: inline-block; padding-block: 0.3rem; background-position: 0 calc(100% - 0.3rem); }
   .footer-link { color: rgba(255, 255, 255, 0.8); font-size: 0.95rem; transition: color 0.25s ease; background-image: linear-gradient(var(--color-accent-3), var(--color-accent-3)); background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 0.4s var(--ease-out-expo), color 0.25s ease; padding-bottom: 1px; }
   .footer-link:hover { color: #fff; background-size: 100% 1px; }
   .footer-contact li { display: flex; align-items: flex-start; gap: 0.7rem; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem; line-height: 1.45; }

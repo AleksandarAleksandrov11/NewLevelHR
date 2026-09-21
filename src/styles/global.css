@@ -152,6 +152,10 @@
   }
   h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd { overflow-wrap: anywhere; }
   img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+
+  /* Anchor targets stop below the sticky header, with or without JavaScript.
+     :where() keeps specificity at zero so component rules can still override it. */
+  :where(section, article, aside, div, form, h1, h2, h3)[id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
   button, input, select, textarea { font: inherit; color: inherit; }
   ::selection { background: rgba(255, 107, 53, 0.3); color: var(--color-ink); }
 
@@ -318,8 +322,10 @@
   .pill-dark { background: rgba(255, 255, 255, 0.08); color: #fff; border-color: rgba(255, 255, 255, 0.14); }
 
   /* Reveal helpers (initial state set by JS only when motion is allowed) */
-  [data-reveal] { will-change: transform, opacity; }
-  .js-motion [data-reveal]:not(.is-revealed) { opacity: 0; transform: translateY(28px); }
+  /* will-change only while the element still has to move: it creates a containing
+     block, which would anchor any fixed-position child (the phone select sheet)
+     to the revealed element instead of the viewport. */
+  .js-motion [data-reveal]:not(.is-revealed) { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
   .js-motion [data-reveal].is-revealed { opacity: 1; transform: none; transition: opacity 0.9s var(--ease-out-expo), transform 1s var(--ease-out-expo); }
   .js-motion [data-reveal][data-reveal-delay='1'].is-revealed { transition-delay: 0.08s; }
   .js-motion [data-reveal][data-reveal-delay='2'].is-revealed { transition-delay: 0.16s; }

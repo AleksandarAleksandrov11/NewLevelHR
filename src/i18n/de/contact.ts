@@ -8,7 +8,7 @@ export const contact: ContactDict = {
   hero: {
     eyebrow: 'Lassen Sie uns sprechen',
     title: 'Ihr nächstes Level beginnt hier.',
-    text: 'Auch wenn Sie unsicher sind, ob Ihre Anforderungen zu unseren Leistungen passen, oder einfach Unterstützung bei unübersichtlicher HR-Administration und Beratung zur EU-Entgelttransparenzrichtlinie brauchen: Lassen Sie uns sprechen. Wir helfen Ihnen, es herauszufinden.',
+    text: 'Nicht sicher, ob Ihr Anliegen zu unseren Leistungen passt? Schreiben Sie trotzdem. Wir sagen Ihnen, was zuerst helfen würde.',
   },
   form: {
     title: 'Schreiben Sie uns',

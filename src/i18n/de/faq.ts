@@ -135,11 +135,4 @@ export const faq: FaqDict = {
       ],
     },
   ],
-  still: {
-    eyebrow: 'Noch Fragen?',
-    title: 'Fragen Sie uns direkt. Ein Mensch antwortet.',
-    text: 'Schreiben Sie uns oder buchen Sie das kostenlose 30-Minuten-Gespräch. So oder so erhalten Sie an Werktagen innerhalb von 24 Stunden eine echte Antwort, auf Deutsch, Englisch oder Bulgarisch.',
-    button: 'Kontakt aufnehmen',
-    secondary: 'Kostenloses Gespräch buchen',
-  },
 };

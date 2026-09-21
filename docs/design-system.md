@@ -65,13 +65,17 @@ Sections alternate deliberately so that each one reads as a new "level":
 ## Motion
 
 * Easing tokens: `ease-out-expo` (0.16, 1, 0.3, 1) for reveals and hovers, `ease-spring` for playful elements.
-* Reveal on scroll: add `data-reveal` (+ `data-reveal-delay="1…8"`) to any element.
+* Reveal on scroll: add `data-reveal` (+ `data-reveal-delay="1…8"`) to any element. `will-change` only
+  applies before the reveal, because it would otherwise make the element a containing block and anchor any
+  fixed-position child to it instead of to the viewport.
 * Word reveal: `data-split` (on scroll) or `data-split="immediate"` (hero).
 * Word illumination: `data-illuminate` on a paragraph.
 * Counters: `data-counter="90" data-suffix="%"`.
 * Parallax: `data-parallax="0.3"` inside a `data-parallax-scope`.
 * Interactions: `data-magnetic`, `data-tilt`, `data-spotlight`, `data-flip` / `data-flip-toggle`.
 * Cursor: the browser's own pointer, never replaced or hidden.
+* Scrollable overlays (the mobile menu, the phone select sheet) need `data-lenis-prevent`: Lenis is stopped
+  while they are open and cancels every wheel and touch event it sees, which would freeze them.
 * Everything respects `prefers-reduced-motion`; the `.js-motion` class on `<html>` gates initial hidden states so
   content is never invisible without JavaScript.
 

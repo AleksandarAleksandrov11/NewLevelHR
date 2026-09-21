@@ -104,7 +104,7 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
   </div>
   </div>
 
-  <div id="mobile-menu" class="mobile-menu" data-mobile-menu aria-hidden="true">
+  <div id="mobile-menu" class="mobile-menu" data-mobile-menu aria-hidden="true" data-lenis-prevent>
     <div class="mobile-inner container-site">
       <nav aria-label={c.nav.mainNavigation} class="mobile-nav">
         <ul role="list" class="mobile-list">
@@ -234,15 +234,17 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
   .burger[aria-expanded='true'] .burger-line:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
 
   .mobile-menu {
-    position: fixed; inset: 0; z-index: 79; background: var(--color-ivory);
+    position: fixed; left: 0; right: 0; top: 0; z-index: 79; background: var(--color-ivory);
+    /* dvh, so the panel never hides behind the browser chrome on a phone. */
+    height: 100vh; height: 100dvh;
     padding-top: var(--header-h);
-    overflow-y: auto; overscroll-behavior: contain;
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
     opacity: 0; visibility: hidden;
     clip-path: inset(0 0 100% 0);
     transition: clip-path 0.7s var(--ease-out-expo), opacity 0.4s ease, visibility 0s linear 0.7s;
   }
   .mobile-menu.is-open { opacity: 1; visibility: visible; clip-path: inset(0 0 0 0); transition-delay: 0s; }
-  .mobile-inner { padding-block: 1.5rem 3rem; min-height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+  .mobile-inner { padding-block: 1.5rem calc(2.5rem + env(safe-area-inset-bottom)); min-height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
   .mobile-list { display: grid; }
   .mobile-item { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.7s var(--ease-out-expo); transition-delay: calc(0.08s + var(--i) * 0.05s); }
   .mobile-menu.is-open .mobile-item { opacity: 1; transform: none; }

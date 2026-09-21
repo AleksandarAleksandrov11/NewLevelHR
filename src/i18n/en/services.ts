@@ -13,7 +13,7 @@ export const services = {
   hero: {
     eyebrow: 'Our services',
     title: 'Senior HR support, sized to your company.',
-    text: 'Fractional HR partnership, high-velocity hiring, a 90-day success bridge and manager coaching. Pick one, combine them, or start with a free call and let us tell you which one you actually need.',
+    text: 'Fractional HR partnership, high-velocity hiring, a 90-day success bridge and manager coaching.',
     imageAlt: 'A team celebrating a milestone together in a bright office',
   },
   cardsSection: {
@@ -142,7 +142,7 @@ export const services = {
       hero: {
         eyebrow: 'Fractional HR Partnership',
         title: 'Senior HR on demand. The alternative to a full-time hire.',
-        sub: 'On-demand support to fix your team structure, handle policy and align your people with your business goals. You get the brain of a senior partner in your Slack channel, without the executive price tag.',
+        sub: 'On-demand support to fix your team structure, handle policy and align your people with your business goals.',
         image: 'one-on-one',
         imageAlt: 'Founder and HR partner working through a people question one-on-one',
        
@@ -150,7 +150,7 @@ export const services = {
       problem: {
         eyebrow: 'The situation',
         title: 'HR is happening to you, not for you.',
-        text: 'Somewhere between ten and a hundred people, the people stuff stops being a side task. Founders end up as the accidental HR department, and the gaps start to cost real money.',
+        text: 'Somewhere between ten and a hundred people, the people stuff stops being a side task.',
         points: [
           'Employee questions, paperwork and disputes eat the hours meant for product and customers.',
           'Salaries and benefits are decided offer by offer, so no two people are paid on the same logic.',
@@ -250,7 +250,7 @@ export const services = {
       hero: {
         eyebrow: 'High-Velocity Hiring',
         title: 'Stop the “hire and hope” cycle.',
-        sub: 'Big Tech hiring speed combined with a 3-month success bridge, so your new hire doesn’t just start, they succeed. Clear expectations before the first interview, a process candidates respect, and a partner who stays after the signature.',
+        sub: 'Big Tech hiring speed combined with a 3-month success bridge, so your new hire doesn’t just start, they succeed.',
         image: 'interview',
         imageAlt: 'A structured job interview between a candidate and a hiring manager',
        
@@ -258,7 +258,7 @@ export const services = {
       problem: {
         eyebrow: 'The situation',
         title: 'Hiring by gut feeling costs twice: once when you hire, again when they leave.',
-        text: 'A role stays open for months, then a candidate gets hired because the calendar hurts more than the doubts. Three months later the person is gone, and the ramp-up starts over.',
+        text: 'A role stays open for months, then a candidate gets hired because the calendar hurts more than the doubts.',
         points: [
           'No written scorecard, so every interviewer measures something different.',
           'Slow, unstructured processes lose the strongest candidates to faster companies.',
@@ -269,7 +269,7 @@ export const services = {
       solution: {
         eyebrow: 'The engine',
         title: 'A hiring process built for speed, and a bridge built for retention.',
-        text: 'We run the search the way strong tech companies do: a clear scorecard, a lean interview loop, fast decisions and a candidate experience that sells your company. Then we stay for 90 days.',
+        text: 'We run the search the way strong tech companies do: a clear scorecard, a lean interview loop, fast decisions and a candidate experience that sells your company.',
         points: [
           'Role scorecard and success criteria agreed with the hiring manager before sourcing starts.',
           'Structured interviews with defined questions, so decisions are comparable and quick.',
@@ -357,7 +357,7 @@ export const services = {
       hero: {
         eyebrow: '90-Day Success Bridge',
         title: 'Our job doesn’t end when the contract is signed.',
-        sub: 'We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit. Clear expectations on day 1, feedback loops on day 30 and 60, a confirmed decision on day 90.',
+        sub: 'We stay for the first 3 months, coaching the new hire and the manager to ensure a perfect fit.',
         image: 'onboarding-welcome',
         imageAlt: 'A new team member being welcomed on their first day',
        
@@ -365,7 +365,7 @@ export const services = {
       problem: {
         eyebrow: 'The situation',
         title: 'The first weeks decide whether the hire worked. Nobody is watching them.',
-        text: 'Most early exits are decided long before probation ends: unclear expectations, a manager with no time, small friction that nobody names. By the time it shows up in a resignation, the ramp-up is lost.',
+        text: 'Most early exits are decided long before probation ends: unclear expectations, a manager with no time, small friction that nobody names.',
         points: [
           'The new hire has a laptop and a Slack account, but no clear definition of success.',
           'The manager is busy and assumes silence means everything is fine.',
@@ -376,7 +376,7 @@ export const services = {
       solution: {
         eyebrow: 'The bridge',
         title: 'A partner on both sides of the table for 90 days.',
-        text: 'We coach the new hire and the manager in parallel, with a scorecard, a fixed check-in rhythm and honest feedback loops. The goal is a confirmed fit or a clear, early decision, never a surprise.',
+        text: 'We coach the new hire and the manager in parallel, with a scorecard, a fixed check-in rhythm and honest feedback loops.',
         points: [
           'Day 1: expectations, scorecard and first-month goals agreed by both sides.',
           'Day 30: first structured feedback loop; friction is named while it is small.',
@@ -461,7 +461,7 @@ export const services = {
       hero: {
         eyebrow: 'Manager Coaching',
         title: 'Turning experts into leaders.',
-        sub: 'Coaching managers and giving them tools to handle conflict, give feedback and lead high-performing teams independently. For the engineer who became a lead last quarter, and for the leadership team that needs to speak with one voice.',
+        sub: 'Coaching managers and giving them tools to handle conflict, give feedback and lead high-performing teams independently.',
         image: 'coaching-mentoring',
         imageAlt: 'A manager and a coach in a mentoring conversation',
        
@@ -469,7 +469,7 @@ export const services = {
       problem: {
         eyebrow: 'The situation',
         title: 'Your best expert got promoted. Nobody taught them the job.',
-        text: 'Technical excellence earns the promotion; leading people is a different craft. Without support, new managers avoid feedback, absorb conflict and burn out, and the team pays for it.',
+        text: 'Technical excellence earns the promotion; leading people is a different craft.',
         points: [
           'Feedback conversations get postponed until they become performance problems.',
           'Conflicts inside the team are managed by hoping they go away.',

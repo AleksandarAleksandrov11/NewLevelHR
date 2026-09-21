@@ -23,7 +23,9 @@ function onCleanup(fn: Cleanup) { cleanups.push(fn); }
 
 function initLenis() {
   if (prefersReducedMotion() || lenis) return;
-  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true, anchors: { offset: -80 } });
+  // Anchors are handled in initAnchors(): Lenis' own handler ignores scroll-margin-top
+  // and does not act on a hash that is already in the URL when the page loads.
+  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true });
   const raf = (time: number) => { lenis?.raf(time); rafId = requestAnimationFrame(raf); };
   rafId = requestAnimationFrame(raf);
   lenis.on('scroll', ScrollTrigger.update);
@@ -151,9 +153,81 @@ function initMarquee() {
 
 /** Sticky/pinned scenes registered by pages: [data-scene="bridge"] etc. are handled by page scripts. */
 
+/** Sticky-header offset used when an element has no scroll-margin-top of its own. */
+function headerOffset() {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--header-h');
+  return (parseFloat(raw) || 72) + 16;
+}
+
+/** Scrolls an element under the sticky header, honouring its scroll-margin-top. */
+export function scrollToElement(el: HTMLElement, instant = false) {
+  const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || headerOffset();
+  const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - margin);
+  if (lenis && !instant && !prefersReducedMotion()) lenis.scrollTo(top, { duration: 0.9 });
+  else window.scrollTo({ top, behavior: instant || prefersReducedMotion() ? 'auto' : 'smooth' });
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+}
+
+/**
+ * Same-page anchors: one handler for clicks and for a hash that is already in the
+ * URL when the page opens (for example the header CTA linking to /contact/#book).
+ */
+function initAnchors() {
+  const byHash = (hash: string) => {
+    const id = decodeURIComponent(hash.replace('#', ''));
+    return id ? document.getElementById(id) : null;
+  };
+  const onClick = (e: MouseEvent) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const link = (e.target as HTMLElement)?.closest?.<HTMLAnchorElement>('a[href*="#"]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.hash.length < 2) return;
+    const el = byHash(url.hash);
+    if (!el) return;
+    e.preventDefault();
+    history.pushState(null, '', url.hash);
+    // The click keeps bubbling: the mobile menu closes on it and releases the scroll
+    // lock, so the jump waits for the frame after every other handler has run.
+    requestAnimationFrame(() => scrollToElement(el));
+  };
+  // Capture phase, because the view transition router claims every same-origin link on
+  // the way up and would otherwise handle the hash itself.
+  document.addEventListener('click', onClick, true);
+  onCleanup(() => document.removeEventListener('click', onClick, true));
+
+  if (location.hash.length > 1) {
+    const el = byHash(location.hash);
+    if (el) {
+      // Fonts, images and the stepped contact form all change the page height after the
+      // first paint, so the landing is repeated until the layout settles, and dropped as
+      // soon as the visitor scrolls themselves.
+      let settled = false;
+      const stop = () => { settled = true; };
+      ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((type) => window.addEventListener(type, stop, { passive: true, once: true }));
+      const land = () => { if (!settled) scrollToElement(el, true); };
+      const timers = [60, 300, 900].map((ms) => window.setTimeout(land, ms));
+      const onLoad = () => land();
+      window.addEventListener('load', onLoad, { once: true });
+      if ('fonts' in document) (document as Document & { fonts: FontFaceSet }).fonts.ready.then(land).catch(() => {});
+      // A ScrollTrigger refresh restores the scroll position it saved before pinning,
+      // which would undo the landing on a cold load of the home page.
+      ScrollTrigger.addEventListener('refresh', land);
+      onCleanup(() => {
+        timers.forEach((t) => window.clearTimeout(t));
+        window.removeEventListener('load', onLoad);
+        ScrollTrigger.removeEventListener('refresh', land);
+        ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((type) => window.removeEventListener(type, stop));
+      });
+    }
+  }
+}
+
 export function initMotion() {
   destroyMotion();
   initLenis();
+  initAnchors();
   initReveal();
   initSplit();
   initIlluminate();

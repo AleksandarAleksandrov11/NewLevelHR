@@ -85,22 +85,51 @@ const items = base.map((b, i) => {
 
 <style>
   .pb-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 2rem; }
-  .pb-nav { min-width: 0; max-width: 100%; }
   @media (min-width: 64rem) { .pb-grid { grid-template-columns: 17rem minmax(0, 1fr); gap: 4rem; padding-top: 3rem; } }
-  .pb-nav { position: sticky; top: var(--header-h); z-index: 5; background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); margin-inline: calc(-1 * var(--gutter)); padding: 0.75rem var(--gutter); border-bottom: 1px solid var(--color-line); }
+
+  /* Mobile and tablet: a full-bleed bar under the header. The negative gutter margins
+     make it reach both screen edges without using 100vw, which would overflow once a
+     scrollbar is present. */
+  .pb-nav {
+    position: sticky; top: calc(var(--header-h) - 1px); z-index: 5;
+    min-width: 0;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-block: 0.6rem;
+    background: rgba(251, 248, 244, 0.94);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-line);
+  }
   .pb-nav-label { display: none; }
-  .pb-nav-list { display: flex; gap: 0.5rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.1rem; }
+  .pb-nav-list {
+    display: flex; gap: 0.5rem;
+    padding-inline: var(--gutter);
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--gutter);
+    /* The fade tells the reader there is more to the sides. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+  }
   .pb-nav-list::-webkit-scrollbar { display: none; }
-  .pb-nav-link { display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; padding: 0.45rem 0.85rem; border-radius: 999px; border: 1px solid var(--color-line); font-size: 0.8rem; font-weight: 600; color: var(--color-ink-3); background: var(--color-white); transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .pb-nav-list > li { scroll-snap-align: center; }
+  .pb-nav-link {
+    display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+    min-height: 2.5rem; padding: 0.5rem 0.9rem; border-radius: 999px;
+    border: 1px solid var(--color-line-strong); font-size: 0.85rem; font-weight: 600;
+    color: var(--color-ink-3); background: var(--color-white);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
   .pb-nav-link.is-active { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
-  .pb-nav-num { font-size: 0.7rem; font-weight: 800; color: var(--color-accent-ink); }
+  .pb-nav-num { font-size: 0.72rem; font-weight: 800; color: var(--color-accent-ink); }
   .pb-nav-link.is-active .pb-nav-num { color: var(--color-accent-3); }
   .pb-nav-cta { display: none; }
   @media (min-width: 64rem) {
     .pb-nav { top: calc(var(--header-h) + 1.5rem); align-self: start; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; margin: 0; padding: 0; border: 0; }
+    .pb-nav-list { padding-inline: 0; overflow: visible; scroll-snap-type: none; -webkit-mask-image: none; mask-image: none; }
     .pb-nav-label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.75rem; }
-    .pb-nav-list { flex-direction: column; gap: 0.15rem; overflow: visible; }
-    .pb-nav-link { border: 0; background: transparent; border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; white-space: normal; font-size: 0.875rem; }
+    .pb-nav-list { flex-direction: column; gap: 0.15rem; }
+    .pb-nav-link { min-height: 0; border: 0; background: transparent; border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; white-space: normal; font-size: 0.875rem; }
     .pb-nav-link:hover { background: var(--color-sand); color: var(--color-ink); }
     .pb-nav-link.is-active { background: var(--color-accent-soft); color: var(--color-ink); border-color: transparent; }
     .pb-nav-link.is-active .pb-nav-num { color: var(--color-accent-ink); }

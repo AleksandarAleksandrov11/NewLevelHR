@@ -159,10 +159,15 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
     appearance: none;
     display: block;
     width: 100%;
+    /* The transparent borders turn a 6px track into a 28px tap target. */
+    box-sizing: content-box;
     height: 6px;
-    margin-top: 1rem;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-top: 0.4rem;
     border-radius: 999px;
     background: linear-gradient(to right, var(--color-accent) 0%, var(--color-accent-3) var(--p, 0%), rgba(255, 255, 255, 0.16) var(--p, 0%), rgba(255, 255, 255, 0.16) 100%);
+    background-clip: padding-box;
     cursor: pointer;
     touch-action: pan-y;
   }
