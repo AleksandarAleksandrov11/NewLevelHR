@@ -285,6 +285,7 @@ export const services = {
           { title: 'Sourcing & outreach', body: 'Active search and personal outreach in EN, DE or BG, plus a job description candidates actually want to read.' },
           { title: 'Structured interview loop', body: 'A lean sequence of interviews with defined questions, scoring and a fast feedback rule for every interviewer.' },
           { title: 'Candidate experience', body: 'Clear communication, fast answers and honest timelines; the strongest candidates remember how they were treated.' },
+          { title: 'Reference checks', body: 'Structured calls with former managers, with the questions agreed beforehand, so the result is evidence and not a formality.' },
           { title: 'Offer & negotiation', body: 'An offer built on your pay logic, presented and negotiated so both sides start with trust.' },
           { title: 'Hiring manager coaching', body: 'Interview training and decision support for the manager, so the process runs well again after we leave.' },
           { title: '90-Day Success Bridge', body: 'Day 1 expectations, check-ins on day 30 and 60 and a clear probation decision on day 90, coaching both sides.' },
@@ -395,6 +396,7 @@ export const services = {
           { title: 'Day-30 and day-60 feedback loops', body: 'Structured conversations with both sides, a written summary and agreed adjustments.' },
           { title: 'Day-90 probation review', body: 'A clear decision based on the scorecard, documented, with a development plan for the confirmed hire.' },
           { title: 'Documentation', body: 'Every check-in leaves a short written record, useful for the development plan and, if needed, for a fair probation decision prepared with your legal counsel.' },
+          { title: 'Support between the check-ins', body: 'Both sides can reach us between the fixed dates, so a difficult first month does not wait for the next milestone.' },
         ],
       },
       process: {
@@ -499,6 +501,7 @@ export const services = {
           { title: 'Team building', body: 'Working sessions with the whole team on roles, rituals and the rules of working together.' },
           { title: 'Leadership alignment', body: 'Sessions with founders and executives on goals, decision rules and the message the team should hear.' },
           { title: 'On-call support', body: 'A message in Slack before the hard conversation, a debrief after. Monday to Friday, 9-18 CET.' },
+          { title: 'Progress review', body: 'A session at the end of the programme on what changed, what is still open and what the manager works on next, agreed with their own lead.' },
         ],
       },
       process: {

@@ -82,7 +82,7 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem { display: grid; }
 
   /* 3D stage: the card is tilted by the core, the inner element flips. */
-  .problem-card { position: relative; display: grid; min-height: 19rem; perspective: 1400px; transform-style: preserve-3d; }
+  .problem-card { position: relative; display: grid; perspective: 1400px; transform-style: preserve-3d; }
   .problem-inner { display: grid; transform-style: preserve-3d; transition: transform 0.8s var(--ease-out-expo); }
   .problem-card.is-flipped .problem-inner { transform: rotateY(180deg); }
 
@@ -107,16 +107,13 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem-back { transform: rotateY(180deg); visibility: hidden; background: linear-gradient(160deg, var(--color-accent-soft) 0%, var(--color-white) 65%); border-color: rgba(255, 107, 53, 0.22); transition: var(--face-t), visibility 0s linear 0.4s; }
   .problem-card.is-flipped .problem-back { visibility: visible; transition: var(--face-t), visibility 0s linear 0s; }
 
-  /* Phones and tablets: the card is only as tall as the face you can see, so no empty
-     strip is left under the button. On desktop both faces keep sharing the cell,
-     because a card growing mid-row would shift the ones beside it. */
-  @media (max-width: 63.99rem) {
-    .problem-card { min-height: 0; }
-    .problem-inner { position: relative; }
-    .problem-back { position: absolute; inset: 0; }
-    .problem-card.is-flipped .problem-back { position: relative; inset: auto; }
-    .problem-card.is-flipped .problem-front { position: absolute; inset: 0; }
-  }
+  /* The card is only as tall as the face you can see, so no empty strip is left under
+     the button. The hidden face is taken out of the flow and fills the cell instead. */
+  .problem-card { min-height: 0; }
+  .problem-inner { position: relative; }
+  .problem-back { position: absolute; inset: 0; }
+  .problem-card.is-flipped .problem-back { position: relative; inset: auto; }
+  .problem-card.is-flipped .problem-front { position: absolute; inset: 0; }
 
   /* Cursor spotlight (the core sets --mx / --my on the card) */
   .problem-face::before {
