@@ -1,6 +1,6 @@
 # QA screenshots
 
-Generated 2026-09-21 18:05 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
+Generated 2026-09-21 19:54 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
 
 * 45 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
@@ -9,7 +9,7 @@ Generated 2026-09-21 18:05 UTC from `http://127.0.0.1:4173` with `npm run qa:scr
 
 Pages are scrolled with wheel events before capture so scroll reveals have run. On desktop the home page shows the
 empty scroll space of the pinned 90-day timeline below the timeline itself; that is the pin spacer of the scroll story,
-not a blank section. The Three.js hero loads on first interaction or after 6.5 s, so the hero shows its static state.
+not a blank section.
 
 ## Files
 
