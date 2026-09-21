@@ -13,8 +13,6 @@ export const home = {
     sub: 'Hiring, compliance and the hard conversations, handled by a partner who knows your team by name.',
     cta1: 'Get a free consultation',
     cta2: 'Our services',
-    scroll: 'Scroll',
-    sceneLabel: 'Decorative illustration: four bars rising step by step',
   },
   marquee: ['Fractional HR', 'High-Velocity Hiring', 'Manager Coaching', '90-Day Bridge', 'Compliance', 'Leadership', 'Team Building'],
   manifesto: {

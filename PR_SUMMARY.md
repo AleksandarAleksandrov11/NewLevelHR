@@ -11,7 +11,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Languages | EN (default), DE (formal *Sie*), BG (formal *Вие*); translated slugs (`/en/services/…`, `/de/leistungen/…`, `/bg/uslugi/…`); `/` → `/en/` plus a dismissible browser-language suggestion, never a forced redirect |
 | Pages per language | Home, Services + 4 service pages, What We Fix, About, How We Work, FAQ, Contact, Legal notice, Terms, Privacy, Cookie policy, 404 |
 | Total | 45 indexable pages + 3 localized 404 pages + root redirect; 45 sitemap entries with reciprocal `hreflang` and `x-default` |
-| Home sections | Sticky glass header with mega menu · two-column hero with an SVG illustration · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
+| Home sections | Sticky glass header with mega menu · short text hero · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
 | Contact | Four-step form (topic, message, who, reply address) with a custom topic listbox; `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages |
 | Cookies / GDPR | Own consent dialog (Accept / Reject / Configure), nothing optional before consent, revocable from the footer, first-party cookie `nlhr_consent`, no remote fonts or third-party requests |
 | SEO | Unique title/description per page and language, canonical, `hreflang`, Open Graph + Twitter with generated 1200×630 images (satori/resvg, Cyrillic-capable), JSON-LD (Organization/ProfessionalService, Service, FAQPage, BreadcrumbList, HowTo, Person), sitemap, robots, favicons, web manifest |
@@ -52,11 +52,10 @@ PHP hosting, SEO plumbing and a QA suite.
    the eight problems; What We Fix uses compact two-column cards with trimmed copy and a single closing CTA;
    About lost the human-versus-automation and practical-details sections; service pages lost the problems chips.
    The blog was removed entirely, and the legacy blog URLs now redirect to the home page.
-9. **A hero that fits every screen.** The headline and the artwork sit in separate grid cells (stacked on a
-   phone, side by side from 1024 px), so the artwork can never end up behind the text and the section needs no
-   per-breakpoint nudging. The artwork is an inline SVG of four bars rising step by step, gently floating: it
-   costs nothing to render, is identical on every device and needs no WebGL, so the hero is complete on the
-   first paint.
+9. **A short text hero.** Headline, one line of copy and two buttons, with the mesh gradient behind them and
+   nothing else: no illustration, no canvas, no full-viewport height. It is around 530 px on a phone and 630 px
+   on a desktop, so the first section of the page is already in view, and there is nothing to load, gate or
+   fall back to.
 10. **Less copy on every page.** The closing sentence of the longest paragraph on the home, about, how we work,
     what we fix, services and contact pages is gone, in all three languages. Paragraphs that carry the legal
     framing (HR advisory alongside your counsel, never legal advice) are kept in full, and so are the FAQ
@@ -78,7 +77,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Check | Command | Result |
 | --- | --- | --- |
 | Type and template diagnostics | `npm run check` | 0 errors, 0 warnings |
-| Dictionary parity EN/DE/BG | `npm run check:i18n` | 12 namespaces, 1 404 strings, 0 errors |
+| Dictionary parity EN/DE/BG | `npm run check:i18n` | 12 namespaces, 1 402 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 50 pages, 0 errors |
 | End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, four-step form and its topic dropdown, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, view transitions) | `npm run qa:e2e` | 28/28 passed (`docs/qa/e2e.md`) |

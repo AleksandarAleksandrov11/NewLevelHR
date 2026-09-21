@@ -11,7 +11,7 @@ endpoint for the contact form.
 | Framework | [Astro 7](https://astro.build) (static output, content collections, View Transitions) |
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS v4 with design tokens in `src/styles/global.css` |
-| Motion | GSAP + ScrollTrigger, Lenis smooth scroll; all artwork is SVG, no WebGL |
+| Motion | GSAP + ScrollTrigger, Lenis smooth scroll; no WebGL and no 3D library |
 | Fonts | Inter Variable + Manrope Variable, self-hosted (latin, latin-ext, cyrillic) |
 | Images | `astro:assets` (AVIF/WebP, `srcset`, lazy loading) |
 | Forms | Four-step contact form; `api/contact.js` (Vercel, Resend) or `public/contact.php` (classic PHP hosting) |
