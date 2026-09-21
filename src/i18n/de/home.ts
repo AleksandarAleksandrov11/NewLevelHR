@@ -12,6 +12,7 @@ export const home: HomeDict = {
     sub: 'Recruiting, Compliance und die schwierigen Gespräche, übernommen von einem Partner, der Ihr Team kennt.',
     cta1: 'Kostenlose Beratung sichern',
     cta2: 'Unsere Leistungen',
+    scroll: 'Scrollen',
   },
   marquee: ['Fraktionale HR', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Compliance', 'Leadership', 'Teambuilding'],
   manifesto: {

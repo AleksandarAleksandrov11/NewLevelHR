@@ -26,7 +26,7 @@ const t = d.home.comparison;
         <thead>
           <tr>
             <th scope="col" class="cmp-th cmp-th-label"><span class="sr-only">{t.eyebrow}</span></th>
-            <th scope="col" class="cmp-th cmp-th-fractional"><span class="cmp-badge">{t.colFractional}</span></th>
+            <th scope="col" class="cmp-th cmp-th-fractional">{t.colFractional}</th>
             <th scope="col" class="cmp-th cmp-th-full">{t.colFullTime}</th>
           </tr>
         </thead>
@@ -55,8 +55,6 @@ const t = d.home.comparison;
   .cmp-table { width: 100%; border-collapse: collapse; }
   .cmp-th { padding: 1.25rem 1.5rem; text-align: left; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--color-ink); vertical-align: bottom; }
   .cmp-th-fractional { background: var(--color-accent-soft); }
-  .cmp-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; background: var(--color-ink); color: #fff; font-size: 0.9rem; }
-  .cmp-badge::before { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--grad-accent); }
   .cmp-row { border-top: 1px solid var(--color-line); }
   .cmp-label { padding: 1.1rem 1.5rem; text-align: left; font-weight: 650; font-size: 0.95rem; color: var(--color-ink-3); vertical-align: top; width: 20%; }
   .cmp-cell { padding: 1.1rem 1.5rem; display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.95rem; line-height: 1.5; color: var(--color-ink-2); vertical-align: top; }
