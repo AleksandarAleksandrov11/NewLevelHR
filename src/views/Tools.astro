@@ -1,0 +1,45 @@
+---
+/**
+ * Free tools: the HR Health Check and the cost-of-a-bad-hire calculator. Both
+ * used to sit on the home page, where the calculator's total was easy to read
+ * as a price. They live here so a visitor opens them on purpose.
+ */
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import HealthCheck from '@/components/home/HealthCheck.astro';
+import BadHireCalculator from '@/components/home/BadHireCalculator.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, type PageKey } from '@/i18n';
+
+interface Props { lang: Locale; pageKey: PageKey }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.tools;
+const c = d.common;
+---
+<PageShell lang={lang} pageKey="tools" title={t.meta.title} description={t.meta.description}>
+  <PageHero lang={lang} eyebrow={t.hero.eyebrow} title={t.hero.title} text={t.hero.text} crumbs={[{ label: c.nav.tools }]} variant="ivory" align="center" />
+
+  <section class="section bg-white pt-0 lg:pt-0">
+    <div class="container-site tl-intro" data-reveal>
+      <p>{t.intro.health}</p>
+      <p>{t.intro.cost}</p>
+    </div>
+  </section>
+
+  <HealthCheck lang={lang} />
+  <BadHireCalculator lang={lang} />
+
+  <section class="section bg-white">
+    <p class="container-prose tl-note" data-reveal>{t.note}</p>
+  </section>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<style>
+  .tl-intro { display: grid; gap: 1.25rem; padding-top: 2.5rem; max-width: 46rem; margin-inline: auto; text-align: center; color: var(--color-slate); line-height: 1.7; }
+  @media (min-width: 64rem) { .tl-intro { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 62rem; gap: 2.5rem; text-align: left; } }
+  .tl-note { text-align: center; font-size: 0.95rem; line-height: 1.7; color: var(--color-slate); }
+</style>

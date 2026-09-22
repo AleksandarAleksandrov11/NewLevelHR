@@ -137,7 +137,7 @@ for (const lang of ['en', 'de', 'bg']) {
   // Cookie settings view.
   await attempt(`${home} state`, () => withPage(1440, async (page) => {
     await page.goto(base + home, { waitUntil: 'networkidle' });
-    await page.evaluate(() => { try { localStorage.setItem('nlhr_seen', '1'); } catch {} });
+    await page.evaluate(() => { try { localStorage.setItem('nlhr_lang_banner', 'dismissed'); } catch {} });
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(800);
     await page.click('[data-consent-action="settings"]');

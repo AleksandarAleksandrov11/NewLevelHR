@@ -16,7 +16,7 @@ import type { Widen } from '../types';
  *   { type: 'consentButton' }                 <button data-consent-open> labelled common.footer.cookieSettings
  *
  * Placeholders replaced by the layout: {email}, {legalNoticeUrl}, {termsUrl}, {privacyUrl},
- * {cookiesUrl}, {consentCookie}, {langBannerKey}, {preloaderKey}, {cookieSettings}.
+ * {cookiesUrl}, {consentCookie}, {langBannerKey}, {cookieSettings}.
  *
  * English is the type reference for de/ and bg/: object shape and array lengths must match.
  */
@@ -310,7 +310,6 @@ export const legal = {
             rows: [
               ['{consentCookie}', 'First-party cookie', 'Stores your cookie choices.', '12 months', 'Necessary'],
               ['{langBannerKey}', 'localStorage', 'Remembers that you dismissed the language suggestion or chose a language.', 'Until deleted', 'Necessary'],
-              ['{preloaderKey}', 'localStorage', 'Remembers that the first-visit intro animation was shown.', 'Until deleted', 'Necessary'],
             ],
           },
           {

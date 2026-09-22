@@ -1,0 +1,124 @@
+---
+/** Blog index: every published post of this language, filterable by topic. */
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, blogPostPath, fmt, type PageKey } from '@/i18n';
+import { getPosts, postSlug, collectTags, formatDate, readingMinutes } from '@/lib/blog';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; pageKey: PageKey }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const b = d.blog;
+const c = d.common;
+
+const posts = await getPosts(lang);
+const tags = collectTags(posts);
+const listUrl = `${site.url}${localizePath('blog', lang)}`;
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: b.meta.title,
+  url: listUrl,
+  inLanguage: lang,
+  blogPost: posts.slice(0, 20).map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    description: p.data.description,
+    datePublished: p.data.date.toISOString(),
+    ...(p.data.updated ? { dateModified: p.data.updated.toISOString() } : {}),
+    url: `${site.url}${blogPostPath(lang, postSlug(p))}`,
+    author: { '@type': 'Person', name: b.post.author },
+  })),
+};
+---
+<PageShell lang={lang} pageKey="blog" title={b.meta.title} description={b.meta.description} jsonLd={[itemList]}>
+  <PageHero lang={lang} eyebrow={b.hero.eyebrow} title={b.hero.title} text={b.hero.text} crumbs={[{ label: c.nav.blog }]} variant="ivory" align="center" />
+
+  <section class="section bg-white pt-0 lg:pt-0" data-blog>
+    <div class="container-site">
+      {posts.length === 0 ? (
+        <p class="bl-empty">{b.list.emptyAll}</p>
+      ) : (
+        <>
+          {tags.length > 0 && (
+            <nav class="bl-filter" aria-label={b.list.filterLabel}>
+              <ul class="bl-filter-list" role="list">
+                <li><button type="button" class="bl-chip is-active" data-blog-tag="" aria-pressed="true">{b.list.allTags}</button></li>
+                {tags.map((tag) => (
+                  <li><button type="button" class="bl-chip" data-blog-tag={tag} aria-pressed="false">{tag}</button></li>
+                ))}
+              </ul>
+              <p class="bl-count" aria-live="polite" data-blog-count data-template={b.list.count}>{fmt(b.list.count, { count: posts.length, total: posts.length })}</p>
+            </nav>
+          )}
+
+          <ul class="bl-grid" role="list">
+            {posts.map((post, i) => {
+              const slug = postSlug(post);
+              const minutes = readingMinutes(post.body);
+              return (
+                <li class="bl-item" data-blog-post data-tags={post.data.tags.join('|')} data-reveal data-reveal-delay={String((i % 3) + 1)}>
+                  <article class="card card-hover bl-card">
+                    <p class="bl-meta">
+                      <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, lang)}</time>
+                      <span aria-hidden="true">·</span>
+                      <span>{fmt(b.post.readingTime, { minutes })}</span>
+                    </p>
+                    <h2 class="bl-title font-display">
+                      <a href={blogPostPath(lang, slug)}>{post.data.title}</a>
+                    </h2>
+                    <p class="bl-desc">{post.data.description}</p>
+                    {post.data.tags.length > 0 && (
+                      <ul class="bl-tags" role="list">{post.data.tags.map((t) => <li>{t}</li>)}</ul>
+                    )}
+                  </article>
+                </li>
+              );
+            })}
+          </ul>
+          <p class="bl-empty" data-blog-empty hidden>{b.list.empty}</p>
+        </>
+      )}
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<script>
+  import '@/scripts/blog-filter';
+</script>
+
+<style>
+  .bl-filter { padding-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+  .bl-filter-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .bl-chip {
+    display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0.4rem 0.9rem;
+    border-radius: 999px; border: 1px solid var(--color-line-strong); background: var(--color-white);
+    font-size: 0.85rem; font-weight: 600; color: var(--color-ink-3); cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .bl-chip:hover { border-color: var(--color-ink-4); color: var(--color-ink); }
+  .bl-chip.is-active { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+  .bl-chip:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }
+  .bl-count { font-size: 0.8rem; color: var(--color-mist); }
+
+  .bl-grid { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  @media (min-width: 48rem) { .bl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+  @media (min-width: 72rem) { .bl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .bl-item[hidden] { display: none; }
+  .bl-card { position: relative; height: 100%; padding: 1.75rem; display: flex; flex-direction: column; }
+  .bl-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-mist); }
+  .bl-title { margin-top: 0.85rem; font-size: 1.3rem; font-weight: 750; line-height: 1.25; letter-spacing: -0.015em; color: var(--color-ink); text-wrap: balance; }
+  .bl-title a { color: inherit; }
+  /* The card is the target; the link stays for keyboard and screen readers. */
+  .bl-title a::after { content: ''; position: absolute; inset: 0; }
+  .bl-card:hover .bl-title a { color: var(--color-accent-ink); }
+  .bl-desc { margin-top: 0.75rem; font-size: 0.95rem; line-height: 1.6; color: var(--color-slate); }
+  .bl-tags { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .bl-tags li { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-ink); background: var(--color-accent-soft); padding: 0.2rem 0.55rem; border-radius: 999px; }
+  .bl-empty { padding-block: 3rem; text-align: center; color: var(--color-slate); max-width: 34rem; margin-inline: auto; line-height: 1.7; }
+</style>

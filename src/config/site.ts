@@ -9,9 +9,18 @@ export const site = {
   legalName: 'NewLevelHR',
   url: (env.SITE_URL as string | undefined)?.replace(/\/$/, '') || 'https://newlevelhr.com',
   email: 'info@newlevelhr.com',
-  /** Booking link for the free call; see TODO-CLIENT.md. */
+  /**
+   * Booking link for the free call; see TODO-CLIENT.md. Point PUBLIC_BOOKING_URL
+   * at the Calendly event itself (https://calendly.com/<user>/<event>) and the
+   * contact page shows the calendar inline instead of only linking out.
+   */
   bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || 'https://calendly.com/',
   formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/api/contact',
+  /** True once the booking link points at a specific Calendly event, not just the domain. */
+  get bookingEmbedUrl(): string | null {
+    const url = this.bookingUrl;
+    return /^https:\/\/(www\.)?calendly\.com\/[^/]+\/[^/]+/.test(url) ? url : null;
+  },
   formToken: (env.PUBLIC_FORM_TOKEN as string | undefined) || '',
   analytics: {
     provider: (env.PUBLIC_ANALYTICS as string | undefined) || '',
@@ -65,7 +74,6 @@ export const site = {
     consentCookie: 'nlhr_consent',
     consentMaxAgeDays: 365,
     langBannerKey: 'nlhr_lang_banner',
-    preloaderKey: 'nlhr_seen',
   },
   copyrightYear: 2026,
 } as const;

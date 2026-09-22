@@ -1,47 +1,30 @@
 ---
 /**
- * Full-screen hero: drifting aurora, a slow orbit ring and the headline as the
- * artwork. Everything is CSS, sized in vmin, so it fills any screen without a
- * canvas, an image or a per-device layout.
+ * Hero: one screen, one message. A soft warm wash behind the headline and
+ * nothing else, and the whole block fades up once rather than word by word,
+ * so the page reads as finished on the first paint.
  */
-import { ArrowDown, Check } from '@lucide/astro';
+import { ArrowDown } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath } from '@/i18n';
 import Button from '@/components/ui/Button.astro';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const d = getDict(lang);
-const h = d.home.hero;
-const c = d.common;
+const h = getDict(lang).home.hero;
 ---
-<section class="hero bg-grain" aria-labelledby="hero-title" data-hero>
-  <div class="hero-bg" aria-hidden="true">
-    <span class="hero-aurora hero-aurora-1"></span>
-    <span class="hero-aurora hero-aurora-2"></span>
-    <span class="hero-aurora hero-aurora-3"></span>
-    <span class="hero-grid bg-grid"></span>
-    <span class="hero-orbit">
-      <span class="hero-ring hero-ring-1"><span class="hero-sat"></span></span>
-      <span class="hero-ring hero-ring-2"><span class="hero-sat hero-sat-2"></span></span>
-      <span class="hero-ring hero-ring-3"></span>
-    </span>
-  </div>
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero-wash" aria-hidden="true"></div>
 
   <div class="container-site hero-inner">
-    <h1 id="hero-title" class="hero-title font-display text-display-xl" data-split="immediate">
+    <h1 id="hero-title" class="hero-title font-display">
       {h.titleLine1}<br />{h.titleLine2} <span class="accent">{h.titleAccent}</span>
     </h1>
-    <p class="hero-sub text-lead text-slate" data-reveal data-reveal-delay="2">{h.sub}</p>
-    <div class="hero-actions" data-reveal data-reveal-delay="3">
+    <p class="hero-sub text-lead text-slate">{h.sub}</p>
+    <div class="hero-actions">
       <Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{h.cta1}</Button>
       <Button href={localizePath('services', lang)} variant="ghost" size="lg">{h.cta2}</Button>
     </div>
-    <ul class="hero-proof" role="list" data-reveal data-reveal-delay="4">
-      {[c.proof.consultation, c.proof.reply, c.proof.languages].map((item) => (
-        <li><Check class="size-4 text-accent-ink" aria-hidden="true" /><span>{item}</span></li>
-      ))}
-    </ul>
   </div>
 
   <a href="#manifesto" class="hero-scroll" aria-label={h.scroll}>
@@ -54,89 +37,58 @@ const c = d.common;
   .hero {
     position: relative; isolation: isolate; overflow: hidden;
     min-height: 100svh; display: grid; align-items: center;
-    padding-top: calc(var(--header-h) + 2rem); padding-bottom: 5.5rem;
-    background-color: var(--color-ivory);
+    padding-top: calc(var(--header-h) + 2rem); padding-bottom: 5rem;
+    background: var(--color-ivory);
   }
-  .hero-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-
-  /* Aurora: three soft colour fields drifting at different speeds. */
-  .hero-aurora { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
-  .hero-aurora-1 { width: 70vmin; height: 70vmin; left: -12vmin; top: -14vmin; background: rgba(255, 179, 71, 0.5); animation: drift-1 20s ease-in-out infinite alternate; }
-  .hero-aurora-2 { width: 62vmin; height: 62vmin; right: -10vmin; top: 4vmin; background: rgba(255, 107, 53, 0.34); animation: drift-2 26s ease-in-out infinite alternate; }
-  .hero-aurora-3 { width: 78vmin; height: 78vmin; left: 34%; bottom: -30vmin; background: rgba(31, 111, 120, 0.17); animation: drift-3 32s ease-in-out infinite alternate; }
-  @keyframes drift-1 { to { transform: translate(14vmin, 10vmin) scale(1.15); } }
-  @keyframes drift-2 { to { transform: translate(-12vmin, 14vmin) scale(1.1); } }
-  @keyframes drift-3 { to { transform: translate(-16vmin, -8vmin) scale(1.12); } }
-
-  .hero-grid { position: absolute; inset: 0; opacity: 0.5; }
-
-  /* Orbit: three thin rings with two dots running along them. */
-  .hero-orbit {
-    position: absolute; top: 50%; left: 50%; translate: -50% -50%;
-    width: min(92vmin, 54rem); aspect-ratio: 1; display: grid; place-items: center;
+  /* One warm wash, nothing moving: the headline is the only thing to look at. */
+  .hero-wash {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(255, 179, 71, 0.28) 0%, transparent 70%),
+      radial-gradient(45% 40% at 85% 25%, rgba(255, 107, 53, 0.14) 0%, transparent 70%);
   }
-  .hero-ring {
-    position: absolute; border-radius: 50%; border: 1px solid rgba(255, 107, 53, 0.22);
-    display: grid; place-items: start center;
-    animation: spin 40s linear infinite;
-  }
-  .hero-ring-1 { width: 100%; height: 100%; }
-  .hero-ring-2 { width: 74%; height: 74%; border-color: rgba(255, 107, 53, 0.16); animation-duration: 28s; animation-direction: reverse; }
-  .hero-ring-3 { width: 48%; height: 48%; border-color: rgba(20, 20, 28, 0.07); border-style: dashed; animation-duration: 60s; }
-  .hero-sat {
-    width: 0.7rem; height: 0.7rem; border-radius: 50%; margin-top: -0.35rem;
-    background: var(--grad-accent); box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.12), 0 4px 14px rgba(255, 107, 53, 0.4);
-  }
-  .hero-sat-2 { width: 0.45rem; height: 0.45rem; margin-top: -0.22rem; box-shadow: 0 0 0 5px rgba(255, 179, 71, 0.14); }
-  @keyframes spin { to { rotate: 360deg; } }
 
   .hero-inner { position: relative; text-align: center; }
-  .hero-title { color: var(--color-ink); margin-inline: auto; max-width: 20ch; }
-  .hero-title .accent { color: var(--color-accent-ink); }
-  /* Gradient per word so it survives the split-text wrappers. */
-  .hero-title .accent :global(.split-i), html:not(.js) .hero-title .accent {
+  /* The whole block arrives at once, in one short movement. */
+  .js-motion .hero-inner > * { animation: hero-in 0.7s var(--ease-out-expo) both; }
+  .js-motion .hero-sub { animation-delay: 0.06s; }
+  .js-motion .hero-actions { animation-delay: 0.12s; }
+  @keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .hero-title {
+    margin-inline: auto; max-width: 18ch; color: var(--color-ink);
+    font-size: clamp(2.35rem, 1.5rem + 4vw, 5.25rem); font-weight: 700;
+    line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance;
+  }
+  .hero-title .accent {
     background: var(--grad-accent); -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; padding-right: 0.02em;
+    -webkit-text-fill-color: transparent; color: var(--color-accent-ink);
   }
-  /* Split words never break inside (overflow-wrap: anywhere would orphan trailing punctuation). */
-  .hero-title :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; overflow-wrap: normal; word-break: keep-all; hyphens: manual; }
-  .hero-title :global(.split-i) { display: inline-block; }
-  .hero-sub { margin: 1.75rem auto 0; max-width: 40rem; }
-  .hero-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1rem; }
-  .hero-proof {
-    margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 0.6rem 1.75rem; font-size: 0.875rem; font-weight: 550; color: var(--color-ink-3);
-  }
-  .hero-proof li { display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap; }
+  .hero-sub { margin: 1.75rem auto 0; max-width: 34rem; }
+  .hero-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1rem; }
 
   .hero-scroll {
-    position: absolute; left: 50%; bottom: 1.5rem; translate: -50% 0;
+    position: absolute; left: 50%; bottom: 1.75rem; translate: -50% 0;
     display: inline-flex; flex-direction: column; align-items: center; gap: 0.4rem;
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-slate); z-index: 1;
+    font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-mist); z-index: 1;
   }
-  .hero-scroll :global(svg) { animation: bob 1.8s ease-in-out infinite; }
+  .hero-scroll :global(svg) { animation: bob 2s ease-in-out infinite; }
   @keyframes bob { 50% { transform: translateY(5px); } }
 
   @media (max-width: 47.99rem) {
     .hero { padding-top: calc(var(--header-h) + 1.5rem); padding-bottom: 4.5rem; }
-    /* A touch smaller than the global scale, so "Real HR support." stays on one line. */
-    .hero-title { max-width: none; font-size: clamp(2.1rem, 1rem + 5.4vw, 2.6rem); }
+    .hero-title { max-width: none; }
     .hero-sub { margin-top: 1.25rem; }
-    .hero-actions { margin-top: 1.75rem; }
-    .hero-proof { margin-top: 1.75rem; gap: 0.5rem 1.1rem; font-size: 0.8rem; }
-    /* The rings would crowd the headline on a narrow screen. */
-    .hero-orbit { width: 128vmin; opacity: 0.75; }
+    .hero-actions { margin-top: 2rem; }
   }
-  /* Short and wide (a small laptop window, a phone on its side): tighter spacing so the
-     section still fits the screen instead of growing past it. */
+  /* Short and wide (a small laptop window, a phone on its side). */
   @media (max-height: 40rem) and (min-width: 48rem) {
-    .hero { padding-top: calc(var(--header-h) + 1rem); padding-bottom: 4rem; }
+    .hero { padding-top: calc(var(--header-h) + 1rem); padding-bottom: 3.5rem; }
     .hero-title { font-size: clamp(2rem, 1rem + 3.2vw, 3rem); }
     .hero-sub { margin-top: 1rem; }
-    .hero-actions { margin-top: 1.5rem; }
-    .hero-proof { margin-top: 1.5rem; }
+    .hero-actions { margin-top: 1.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-aurora, .hero-ring, .hero-scroll :global(svg) { animation: none; }
+    .hero-scroll :global(svg) { animation: none; }
   }
 </style>

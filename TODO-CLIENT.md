@@ -22,7 +22,8 @@ Items marked **visible** are rendered on the live site until replaced.
 
 | Item | Where | Status |
 | --- | --- | --- |
-| Real Calendly event link | `PUBLIC_BOOKING_URL` in `.env` / Vercel settings; every "Book a free call" button | **placeholder** (generic calendly.com) |
+| Real Calendly event link | `PUBLIC_BOOKING_URL` in `.env` / Vercel settings; every "Book a free call" button, and the inline calendar on the contact page | **placeholder** (generic calendly.com) |
+| Calendly in the CSP: add `https://assets.calendly.com` to `script-src` and `https://calendly.com` to `frame-src` once the inline calendar goes live | `public/.htaccess` | needed with the real link |
 | Resend API key and verified sending domain (Vercel deployment) | `RESEND_API_KEY`, `CONTACT_FROM` | needed before the form works on Vercel |
 | Confirm recipient mailbox for the form | `CONTACT_TO` (default info@newlevelhr.com) | to confirm |
 

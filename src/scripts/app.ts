@@ -7,7 +7,6 @@ import { initHeader } from './header';
 import { initInteractions } from './interactions';
 import { initConsent } from './consent';
 import { initLangBanner, watchLanguageLinks } from './lang-banner';
-import { initPreloader } from './preloader';
 
 function boot() {
   initMotion();
@@ -21,4 +20,3 @@ function boot() {
 document.addEventListener('astro:page-load', boot);
 document.addEventListener('astro:before-swap', () => destroyMotion());
 watchLanguageLinks();
-initPreloader();

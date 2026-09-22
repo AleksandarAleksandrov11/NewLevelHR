@@ -71,10 +71,10 @@ export function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
-/** Marks the visitor as returning (no preloader) and consents so banners do not cover content. */
+/** Dismisses the language banner and stores consent so banners do not cover content. */
 export async function settleBanners(page, { consent = 'accept' } = {}) {
   await page.evaluate(({ consent }) => {
-    try { localStorage.setItem('nlhr_seen', '1'); localStorage.setItem('nlhr_lang_banner', 'dismissed'); } catch {}
+    try { localStorage.setItem('nlhr_lang_banner', 'dismissed'); } catch {}
     if (consent) {
       const c = { v: 1, necessary: true, analytics: consent === 'accept', marketing: consent === 'accept', ts: Date.now() };
       document.cookie = `nlhr_consent=${encodeURIComponent(JSON.stringify(c))}; Max-Age=31536000; Path=/; SameSite=Lax`;

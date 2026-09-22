@@ -10,7 +10,7 @@
  *   CONTACT_TOKEN   — optional shared secret; must match PUBLIC_FORM_TOKEN
  *
  * Request: POST application/json or multipart/x-www-form-urlencoded
- *   { name, email, company?, topic, message, consent: "on"|"true", website: "" (honeypot), ts, lang, token? }
+ *   { name, email, company, topic, message, consent: "on"|"true", website: "" (honeypot), ts, lang, token? }
  * Response: { ok: true } | { ok: false, error: "validation"|"spam"|"rate_limit"|"config"|"send", fields?: {...} }
  */
 
@@ -59,6 +59,7 @@ function validate(b) {
   const message = String(b.message ?? '').trim().slice(0, MAX.message);
   const consent = ['on', 'true', '1', 'yes'].includes(String(b.consent ?? '').toLowerCase());
   if (!name) fields.name = 'required';
+  if (!company) fields.company = 'required';
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) fields.email = 'email';
   if (!TOPICS.has(topic)) fields.topic = 'required';
   if (message.length < MIN_MESSAGE) fields.message = 'minLength';
@@ -93,9 +94,9 @@ export default async function handler(req, res) {
   if (!apiKey) { console.error('contact: RESEND_API_KEY is not configured'); return res.status(503).json({ ok: false, error: 'config' }); }
 
   const { name, email, company, topic, message } = v.data;
-  const subject = `[NewLevelHR] ${topic} — ${name}${company ? ` (${company})` : ''}`;
-  const text = [`Name: ${name}`, `Email: ${email}`, `Company: ${company || '-'}`, `Topic: ${topic}`, `Language: ${lang}`, `IP: ${ip}`, '', message].join('\n');
-  const html = `<p><strong>Name:</strong> ${escapeHtml(name)}<br><strong>Email:</strong> ${escapeHtml(email)}<br><strong>Company:</strong> ${escapeHtml(company || '-')}<br><strong>Topic:</strong> ${escapeHtml(topic)}<br><strong>Language:</strong> ${lang}</p><p style="white-space:pre-wrap">${escapeHtml(message)}</p>`;
+  const subject = `[NewLevelHR] ${topic} — ${name} (${company})`;
+  const text = [`Name: ${name}`, `Email: ${email}`, `Company: ${company}`, `Topic: ${topic}`, `Language: ${lang}`, `IP: ${ip}`, '', message].join('\n');
+  const html = `<p><strong>Name:</strong> ${escapeHtml(name)}<br><strong>Email:</strong> ${escapeHtml(email)}<br><strong>Company:</strong> ${escapeHtml(company)}<br><strong>Topic:</strong> ${escapeHtml(topic)}<br><strong>Language:</strong> ${lang}</p><p style="white-space:pre-wrap">${escapeHtml(message)}</p>`;
 
   try {
     const r = await fetch('https://api.resend.com/emails', {

@@ -18,6 +18,8 @@ export const pageKeys = [
   'about',
   'howWeWork',
   'faq',
+  'tools',
+  'blog',
   'contact',
   'legalNotice',
   'terms',
@@ -54,6 +56,8 @@ export const routes: Record<PageKey, Record<Locale, string>> = {
   about: { en: 'about', de: 'ueber-uns', bg: 'za-nas' },
   howWeWork: { en: 'how-we-work', de: 'so-arbeiten-wir', bg: 'kak-rabotim' },
   faq: { en: 'faq', de: 'faq', bg: 'faq' },
+  tools: { en: 'hr-tools', de: 'hr-tools', bg: 'hr-instrumenti' },
+  blog: { en: 'blog', de: 'blog', bg: 'blog' },
   contact: { en: 'contact', de: 'kontakt', bg: 'kontakti' },
   legalNotice: { en: 'legal-notice', de: 'impressum', bg: 'pravna-informatsia' },
   terms: { en: 'terms', de: 'agb', bg: 'obshti-usloviya' },
@@ -88,4 +92,9 @@ export function pageKeyFromSlug(lang: Locale, slug: string): PageKey | undefined
 /** Absolute URL helper */
 export function absoluteUrl(siteUrl: string, path: string): string {
   return `${siteUrl.replace(/\/$/, '')}${path}`;
+}
+
+/** Absolute path of a blog post (language prefix + blog slug + post slug). */
+export function blogPostPath(lang: Locale, slug: string): string {
+  return `/${lang}/${routes.blog[lang]}/${slug}/`;
 }

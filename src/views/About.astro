@@ -44,9 +44,6 @@ const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name
           <Button href={localizePath('howWeWork', lang)} variant="ghost">{c.nav.howWeWork}</Button>
         </div>
       </div>
-      <div class="ab-hero-media" data-reveal data-reveal-delay="2" data-parallax-scope>
-        <div data-parallax="0.1"><FounderPortrait lang={lang} name={site.founder.name} role={c.misc.founder} /></div>
-      </div>
     </div>
   </section>
 
@@ -55,15 +52,20 @@ const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name
       <p class="eyebrow" data-reveal>{a.story.eyebrow}</p>
       <h2 class="font-display text-display-md text-ink mt-4" data-reveal data-reveal-delay="1">{a.story.title}</h2>
       <div class="ab-story">
-        {a.story.paragraphs.map((text, i) => (i === 2 ? <p class="ab-story-key font-display" data-illuminate>{text}</p> : <p data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>{text}</p>))}
+        {a.story.paragraphs.map((text, i) => (i === 1 ? <p class="ab-story-key font-display" data-illuminate>{text}</p> : <p data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>{text}</p>))}
       </div>
       <p class="ab-signature font-display" data-reveal>{a.story.signature}</p>
     </div>
   </section>
 
   <section class="section bg-ivory bg-grain">
-    <div class="container-site">
+    <div class="container-site ab-portrait-band">
+      <div class="ab-portrait" data-reveal>
+        <FounderPortrait lang={lang} name={site.founder.name} role={c.misc.founder} />
+      </div>
       <SectionHeading eyebrow={a.values.eyebrow} title={a.values.title} size="md" />
+    </div>
+    <div class="container-site">
       <ul class="ab-values" role="list">
         {a.values.items.map((v, i) => { const Icon = valueIcons[i] ?? Zap; return (
           <li class="card card-hover ab-value" data-reveal data-reveal-delay={String(i + 1)} data-tilt="4">
@@ -100,10 +102,14 @@ const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name
 
 <style>
   .ab-hero { position: relative; overflow: hidden; padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)); padding-bottom: clamp(3rem, 5vw, 5rem); }
-  .ab-hero-grid { display: grid; gap: 3rem; align-items: center; }
-  @media (min-width: 64rem) { .ab-hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 5rem; } }
-  .ab-hero-media { max-width: 24rem; margin-inline: auto; width: 100%; }
-  @media (min-width: 64rem) { .ab-hero-media { max-width: none; } }
+  /* Text only: the portrait sits further down, right before "What I stand for". */
+  .ab-hero-grid { display: grid; gap: 3rem; }
+  .ab-portrait-band { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
+  .ab-portrait { max-width: 22rem; margin-inline: auto; width: 100%; }
+  @media (min-width: 64rem) {
+    .ab-portrait-band { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 4rem; align-items: center; }
+    .ab-portrait { margin-inline: 0; max-width: 24rem; }
+  }
   .ab-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
   .ab-hero h1 :global(.split-i) { display: inline-block; }
   .ab-story { margin-top: 2rem; display: grid; gap: 1.5rem; font-size: 1.125rem; line-height: 1.75; color: var(--color-ink-2); }

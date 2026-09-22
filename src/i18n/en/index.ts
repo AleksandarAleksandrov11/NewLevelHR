@@ -10,3 +10,5 @@ export { legal } from './legal';
 export { cookies } from './cookies';
 export { quiz } from './quiz';
 export { calculator } from './calculator';
+export { tools } from './tools';
+export { blog } from './blog';
