@@ -75,9 +75,6 @@ const itemList = {
                       <a href={blogPostPath(lang, slug)}>{post.data.title}</a>
                     </h2>
                     <p class="bl-desc">{post.data.description}</p>
-                    {post.data.tags.length > 0 && (
-                      <ul class="bl-tags" role="list">{post.data.tags.map((t) => <li>{t}</li>)}</ul>
-                    )}
                   </article>
                 </li>
               );
@@ -122,7 +119,5 @@ const itemList = {
   .bl-title a::after { content: ''; position: absolute; inset: 0; }
   .bl-card:hover .bl-title a { color: var(--color-accent-ink); }
   .bl-desc { margin-top: 0.75rem; font-size: 0.95rem; line-height: 1.6; color: var(--color-slate); }
-  .bl-tags { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .bl-tags li { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-ink); background: var(--color-accent-soft); padding: 0.2rem 0.55rem; border-radius: 999px; }
   .bl-empty { padding-block: 3rem; text-align: center; color: var(--color-slate); max-width: 34rem; margin-inline: auto; line-height: 1.7; }
 </style>

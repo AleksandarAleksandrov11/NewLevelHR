@@ -28,13 +28,12 @@ export const blog = {
     readingTime: '{minutes} min read',
     back: 'All articles',
     share: 'Share this article',
+    shareLinkedIn: 'Share on LinkedIn',
+    shareX: 'Share on X',
+    shareEmail: 'Share by email',
     author: 'Mariyana Velkova',
     authorRole: 'Founder, NewLevelHR',
     more: 'Keep reading',
-    cta: {
-      title: 'Something here sound familiar?',
-      text: 'A free 30-minute call is the fastest way to find out what your team needs first.',
-    },
   },
 } as const;
 

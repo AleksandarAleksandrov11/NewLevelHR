@@ -131,13 +131,13 @@ const config = {
             <ul class="hc-services" role="list" data-quiz-services>
               {serviceKeys.map((key) => (
                 <li data-quiz-service={key} hidden>
-                  <a href={serviceInfo[key].href} class="hc-service group">
+                  <div class="hc-service group">
                     <span class="hc-service-body">
-                      <span class="hc-service-name">{serviceInfo[key].name}</span>
+                      <a href={serviceInfo[key].href} class="hc-service-name">{serviceInfo[key].name}</a>
                       <span class="hc-service-desc">{serviceInfo[key].desc}</span>
                     </span>
-                    <span class="hc-service-cta">{q.result.explore}<ArrowRight class="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1" aria-hidden="true" /></span>
-                  </a>
+                    <span class="hc-service-cta" aria-hidden="true">{q.result.explore}<ArrowRight class="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1" /></span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -248,6 +248,9 @@ const config = {
   .hc-reco-intro { margin-top: 0.5rem; font-size: 0.95rem; color: var(--color-slate); }
   .hc-noissues { margin-top: 0.75rem; padding: 1rem 1.15rem; border-radius: var(--radius-md); background: var(--color-teal-soft); color: var(--color-teal-ink); font-weight: 500; line-height: 1.5; }
   .hc-services { display: grid; gap: 0.75rem; margin-top: 1.1rem; }
+  /* The row is the target, the name is the link: the anchor text is the service. */
+  .hc-service { position: relative; }
+  .hc-service-name::after { content: ''; position: absolute; inset: 0; }
   .hc-service { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--color-ivory); transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo); }
   @media (hover: hover) and (pointer: fine) {
     .hc-service:hover { border-color: rgba(255, 107, 53, 0.4); background: var(--color-white); transform: translateY(-3px); box-shadow: var(--shadow-soft); }

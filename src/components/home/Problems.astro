@@ -52,7 +52,9 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
                 <p class="problem-back-label">{p.flip}</p>
                 <p class="problem-fix">{card.fix}</p>
                 <div class="problem-back-actions">
-                  <Button href={card.href} variant="secondary" size="sm" magnetic={false}>{c.cta.seeHowWeFixIt}</Button>
+                  {/* The four cards share one label on screen; the hidden half keeps every
+                      link's text distinct for screen readers and for search engines. */}
+                  <Button href={card.href} variant="secondary" size="sm" magnetic={false}>{c.cta.seeHowWeFixIt}<span class="sr-only">: {card.title}</span></Button>
                   <button type="button" class="problem-toggle problem-toggle-back" data-flip-toggle aria-expanded="false" aria-controls={card.backId}>
                     <span class="problem-toggle-icon" aria-hidden="true"><Undo2 class="size-4" /></span>
                     <span>{p.back}</span>

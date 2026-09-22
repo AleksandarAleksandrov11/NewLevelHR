@@ -2,6 +2,8 @@
 title: The first 90 days decide whether a hire works
 description: Most early exits are set in motion long before probation ends. Here is what to put in place on day 1, day 30, day 60 and day 90.
 date: 2026-09-15
+image: onboarding-welcome
+imageAlt: 'Colleagues welcoming a new team member on a first day'
 tags: ['Hiring', 'Onboarding']
 translationKey: first-90-days
 ---

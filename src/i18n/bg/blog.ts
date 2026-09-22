@@ -25,12 +25,11 @@ export const blog: BlogDict = {
     readingTime: '{minutes} мин. четене',
     back: 'Всички статии',
     share: 'Споделете статията',
+    shareLinkedIn: 'Споделете в LinkedIn',
+    shareX: 'Споделете в X',
+    shareEmail: 'Споделете по имейл',
     author: 'Марияна Велкова',
     authorRole: 'Основател, NewLevelHR',
     more: 'Продължете с четенето',
-    cta: {
-      title: 'Звучи ли Ви познато?',
-      text: 'Безплатен 30-минутен разговор е най-бързият начин да разберем от какво има нужда екипът Ви първо.',
-    },
   },
 };

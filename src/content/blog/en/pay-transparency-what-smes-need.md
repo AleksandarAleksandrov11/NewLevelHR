@@ -2,12 +2,15 @@
 title: 'EU pay transparency: what an SME actually has to do'
 description: The directive is not only a reporting exercise. For most small companies the real work is having salary bands you can explain out loud.
 date: 2026-09-08
+image: notebook-desk
+imageAlt: 'A notebook, pen and laptop on a warm wooden desk'
 tags: ['Compliance', 'Pay']
 translationKey: pay-transparency
 ---
 
-The EU Pay Transparency Directive gets discussed as a reporting obligation.
-For a company of twenty or eighty people, that is the smaller half of the story.
+[Directive (EU) 2023/970](https://eur-lex.europa.eu/eli/dir/2023/970/oj) gets
+discussed as a reporting obligation. For a company of twenty or eighty people,
+that is the smaller half of the story.
 
 ## What changes for candidates and employees
 

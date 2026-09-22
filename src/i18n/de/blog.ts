@@ -25,12 +25,11 @@ export const blog: BlogDict = {
     readingTime: '{minutes} Min. Lesezeit',
     back: 'Alle Beiträge',
     share: 'Diesen Beitrag teilen',
+    shareLinkedIn: 'Auf LinkedIn teilen',
+    shareX: 'Auf X teilen',
+    shareEmail: 'Per E-Mail teilen',
     author: 'Mariyana Velkova',
     authorRole: 'Gründerin, NewLevelHR',
     more: 'Weiterlesen',
-    cta: {
-      title: 'Kommt Ihnen etwas davon bekannt vor?',
-      text: 'Ein kostenloses 30-Minuten-Gespräch ist der schnellste Weg herauszufinden, was Ihr Team zuerst braucht.',
-    },
   },
 };

@@ -1,9 +1,9 @@
 ---
 /** A single blog post. */
-import { ArrowLeft } from '@lucide/astro';
+import { ArrowLeft, Mail } from '@lucide/astro';
 import { render } from 'astro:content';
 import PageShell from '@/components/layout/PageShell.astro';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/pages/PageHero.astro';
 import Button from '@/components/ui/Button.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import { type Locale } from '@/i18n/config';
@@ -18,8 +18,17 @@ const b = d.blog;
 const c = d.common;
 const { Content } = await render(post);
 const minutes = readingMinutes(post.body);
+/** Every post opens like every other page: breadcrumbs, title, one line, a photo. */
+const photo = { name: post.data.image ?? 'notebook-desk', alt: post.data.imageAlt ?? post.data.title };
 const path = blogPostPath(lang, postSlug(post));
 const url = `${site.url}${path}`;
+/** Share targets. Plain links, so sharing needs no third-party script and no consent. */
+const shared = encodeURIComponent(url);
+const sharedTitle = encodeURIComponent(post.data.title);
+const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${shared}`;
+const shareX = `https://x.com/intent/post?url=${shared}&text=${sharedTitle}`;
+const shareEmail = `mailto:?subject=${sharedTitle}&body=${shared}`;
+
 // A post without translations is its own only language version.
 const alts = alternates && Object.keys(alternates).length > 1 ? (alternates as Record<Locale, string>) : ({ [lang]: path } as Record<Locale, string>);
 const article = {
@@ -37,33 +46,19 @@ const article = {
   keywords: post.data.tags.join(', '),
 };
 ---
-<PageShell lang={lang} pageKey="blog" path={path} alternates={alts} title={`${post.data.title} | ${site.name}`} description={post.data.description} jsonLd={[article]}>
+<PageShell lang={lang} pageKey="blog" path={path} alternates={alts} title={`${post.data.title} | ${site.name}`} description={post.data.description} jsonLd={[article]} heroPhoto={photo.name}>
   <article class="bp">
-    <header class="bp-head bg-mesh">
-      <div class="container-prose">
-        <Breadcrumbs
-          items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.blog, href: localizePath('blog', lang) }, { label: post.data.title }]}
-          label={c.nav.breadcrumbs}
-          class="mb-8"
-        />
-        {post.data.tags.length > 0 && <ul class="bp-tags" role="list">{post.data.tags.map((t) => <li>{t}</li>)}</ul>}
-        <h1 class="bp-title font-display">{post.data.title}</h1>
-        <p class="bp-lead text-lead text-slate">{post.data.description}</p>
-        <p class="bp-meta">
-          <span>{b.post.author}</span>
-          <span aria-hidden="true">·</span>
-          <time datetime={post.data.date.toISOString()}>{fmt(b.post.published, { date: formatDate(post.data.date, lang) })}</time>
-          <span aria-hidden="true">·</span>
-          <span>{fmt(b.post.readingTime, { minutes })}</span>
-          {post.data.updated && (
-            <>
-              <span aria-hidden="true">·</span>
-              <time datetime={post.data.updated.toISOString()}>{fmt(b.post.updated, { date: formatDate(post.data.updated, lang) })}</time>
-            </>
-          )}
-        </p>
-      </div>
-    </header>
+    <PageHero
+      lang={lang}
+      eyebrow={`${formatDate(post.data.date, lang)} · ${fmt(b.post.readingTime, { minutes })}`}
+      title={post.data.title}
+      text={post.data.description}
+      crumbs={[{ label: c.nav.blog, href: localizePath('blog', lang) }, { label: post.data.title }]}
+      photo={photo}
+    >
+      <Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button>
+      <Button href={localizePath('blog', lang)} variant="ghost" icon="none"><ArrowLeft class="size-4" aria-hidden="true" />{b.post.back}</Button>
+    </PageHero>
 
     <div class="section bg-white pt-0 lg:pt-0">
       <div class="container-prose bp-body prose-nl">
@@ -72,6 +67,27 @@ const article = {
 
       <div class="container-prose bp-foot">
         <a class="bp-back" href={localizePath('blog', lang)}><ArrowLeft class="size-4" aria-hidden="true" />{b.post.back}</a>
+        <nav class="bp-share" aria-label={b.post.share}>
+          <span class="bp-share-label">{b.post.share}</span>
+          <ul role="list">
+            <li>
+              <a href={shareLinkedIn} class="bp-share-link" target="_blank" rel="noopener noreferrer" title={b.post.shareLinkedIn}>
+                <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13M7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0" /></svg><span class="sr-only">{b.post.shareLinkedIn}</span>
+              </a>
+            </li>
+            <li>
+              <a href={shareX} class="bp-share-link" target="_blank" rel="noopener noreferrer" title={b.post.shareX}>
+                <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                <span class="sr-only">{b.post.shareX}</span>
+              </a>
+            </li>
+            <li>
+              <a href={shareEmail} class="bp-share-link" title={b.post.shareEmail}>
+                <Mail class="size-4" aria-hidden="true" /><span class="sr-only">{b.post.shareEmail}</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
       {related.length > 0 && (
@@ -84,18 +100,11 @@ const article = {
                 <h3 class="font-display text-lg font-bold text-ink mt-2">
                   <a href={blogPostPath(lang, postSlug(r))}>{r.data.title}</a>
                 </h3>
-                <p class="mt-2 text-sm text-slate leading-relaxed">{r.data.description}</p>
               </li>
             ))}
           </ul>
         </aside>
       )}
-
-      <div class="container-prose bp-cta">
-        <p class="font-display bp-cta-title">{b.post.cta.title}</p>
-        <p class="mt-2 text-slate">{b.post.cta.text}</p>
-        <div class="mt-5"><Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button></div>
-      </div>
     </div>
   </article>
 
@@ -103,17 +112,19 @@ const article = {
 </PageShell>
 
 <style>
-  .bp-head { padding-top: calc(var(--header-h) + 3rem); padding-bottom: 3rem; }
-  @media (min-width: 64rem) { .bp-head { padding-top: calc(var(--header-h) + 4rem); padding-bottom: 4rem; } }
-  .bp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
-  .bp-tags li { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-ink); background: rgba(255, 255, 255, 0.7); padding: 0.25rem 0.6rem; border-radius: 999px; }
-  .bp-title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); font-weight: 750; line-height: 1.1; letter-spacing: -0.03em; color: var(--color-ink); text-wrap: balance; }
-  .bp-lead { margin-top: 1.25rem; }
-  .bp-meta { margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--color-slate); }
 
   .bp-body { padding-top: 3rem; }
-  .bp-foot { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
+  .bp-foot { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
   .bp-back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.25rem; font-size: 0.9rem; font-weight: 650; color: var(--color-accent-ink); }
+  .bp-share { display: flex; align-items: center; gap: 0.85rem; }
+  .bp-share-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-slate); }
+  .bp-share ul { display: flex; gap: 0.5rem; }
+  .bp-share-link {
+    display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px;
+    border: 1px solid var(--color-line-strong); color: var(--color-ink);
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .bp-share-link:hover { color: var(--color-accent-ink); border-color: var(--color-accent); background: var(--color-accent-soft); }
   .bp-back:hover { text-decoration: underline; text-underline-offset: 4px; }
 
   .bp-related { margin-top: 4rem; }
@@ -125,6 +136,4 @@ const article = {
   .bp-related-card a::after { content: ''; position: absolute; inset: 0; }
   .bp-related-card:hover a { color: var(--color-accent-ink); }
 
-  .bp-cta { margin-top: 4rem; padding: 2rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); text-align: center; }
-  .bp-cta-title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
 </style>

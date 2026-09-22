@@ -4,10 +4,24 @@
  */
 const env = import.meta.env;
 
+/**
+ * Canonical origin. SITE_URL wins; on a Vercel *preview* deployment the
+ * deployment's own host is used instead, so canonicals and hreflang describe
+ * the page an auditor is actually looking at. Production never falls back to
+ * VERCEL_URL, which is a per-deployment host, not the custom domain.
+ */
+function siteUrl(): string {
+  const explicit = (env.SITE_URL as string | undefined)?.trim();
+  if (explicit) return explicit.replace(/\/$/, '');
+  const vercelHost = (env.VERCEL_URL as string | undefined)?.trim();
+  if (env.VERCEL_ENV === 'preview' && vercelHost) return `https://${vercelHost.replace(/^https?:\/\//, '').replace(/\/$/, '')}`;
+  return 'https://newlevelhr.com';
+}
+
 export const site = {
   name: 'NewLevelHR',
   legalName: 'NewLevelHR',
-  url: (env.SITE_URL as string | undefined)?.replace(/\/$/, '') || 'https://newlevelhr.com',
+  url: siteUrl(),
   email: 'info@newlevelhr.com',
   /**
    * Booking link for the free call; see TODO-CLIENT.md. Point PUBLIC_BOOKING_URL
