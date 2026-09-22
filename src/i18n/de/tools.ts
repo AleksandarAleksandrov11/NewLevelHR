@@ -10,7 +10,6 @@ export const tools: ToolsDict = {
       eyebrow: 'Kostenloses Werkzeug',
       title: 'Fünf Fragen. Ein ehrliches Bild.',
       text: 'Wo die People-Seite Ihres Unternehmens heute steht, in etwa einer Minute. Nichts wird an uns gesendet und nichts gespeichert.',
-      facts: ['5 Fragen', 'Etwa eine Minute', 'Ohne Anmeldung'],
       start: 'Check starten',
     },
     areas: {
@@ -27,7 +26,6 @@ export const tools: ToolsDict = {
       eyebrow: 'Kostenloses Werkzeug',
       title: 'Was eine Fehlbesetzung wirklich kostet.',
       text: 'Passen Sie die Annahmen an Ihr Unternehmen an und sehen Sie die Summe mitlaufen. Jede Zeile der Rechnung ist sichtbar, Sie können jede davon bestreiten.',
-      facts: ['6 Kostenpositionen', 'Summe in Echtzeit', 'Ohne Anmeldung'],
       start: 'Rechner öffnen',
     },
     included: {

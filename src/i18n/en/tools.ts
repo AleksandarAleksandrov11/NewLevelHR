@@ -14,7 +14,6 @@ export const tools = {
       title: 'Five questions. One honest picture.',
       /** Long form, used by the tools teaser on the home page. */
       text: 'Where the people side of your company stands today, in about a minute. Nothing is sent to us and nothing is stored.',
-      facts: ['5 questions', 'About a minute', 'No sign-up'],
       start: 'Start the check',
     },
     areas: {
@@ -32,7 +31,6 @@ export const tools = {
       title: 'What one wrong hire actually costs.',
       /** Long form, used by the tools teaser on the home page. */
       text: 'Adjust the assumptions to your company and watch the number move. Every line of the calculation is visible, so you can argue with any of them.',
-      facts: ['6 cost lines', 'Live total', 'No sign-up'],
       start: 'Open the calculator',
     },
     included: {
