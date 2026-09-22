@@ -49,27 +49,30 @@ export function initHeader() {
     cleanup.push(() => { trigger.removeEventListener('click', onClick); item.removeEventListener('mouseenter', open); item.removeEventListener('mouseleave', scheduleClose); item.removeEventListener('keydown', onKey); item.removeEventListener('focusout', onFocusOut); document.removeEventListener('click', onDocClick); });
   });
 
-  /* Language dropdowns --------------------------------------------------- */
-  document.querySelectorAll<HTMLElement>('[data-lang-switcher]').forEach((dd) => {
-    const btn = dd.querySelector<HTMLButtonElement>('button');
-    const menu = dd.querySelector<HTMLElement>('.lang-dd-menu');
-    if (!btn || !menu) return;
-    const setOpen = (v: boolean) => { menu.hidden = !v; btn.setAttribute('aria-expanded', String(v)); };
-    const onClick = (e: MouseEvent) => { e.stopPropagation(); setOpen(menu.hidden); if (!menu.hidden) menu.querySelector<HTMLElement>('a')?.focus(); };
-    const onDoc = (e: MouseEvent) => { if (!dd.contains(e.target as Node)) setOpen(false); };
+  /* Language dropdowns --------------------------------------------------
+     Native <details>: opening, closing, the keyboard and the focus order all
+     work without this. What is added here is closing on an outside click, on
+     Escape and when the other switcher opens. */
+  const switchers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-lang-switcher]'));
+  switchers.forEach((dd) => {
+    const summary = dd.querySelector<HTMLElement>('summary');
+    const links = () => Array.from(dd.querySelectorAll<HTMLElement>('a'));
+    const onToggle = () => { if (dd.open) switchers.forEach((other) => { if (other !== dd) other.open = false; }); };
+    const onDoc = (e: MouseEvent) => { if (dd.open && !dd.contains(e.target as Node)) dd.open = false; };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { setOpen(false); btn.focus(); }
-      const links = Array.from(menu.querySelectorAll<HTMLElement>('a'));
-      const i = links.indexOf(document.activeElement as HTMLElement);
-      if (e.key === 'ArrowDown') { e.preventDefault(); links[(i + 1) % links.length]?.focus(); }
-      if (e.key === 'ArrowUp') { e.preventDefault(); links[(i - 1 + links.length) % links.length]?.focus(); }
+      if (e.key === 'Escape' && dd.open) { dd.open = false; summary?.focus(); return; }
+      if (!dd.open) return;
+      const items = links();
+      const i = items.indexOf(document.activeElement as HTMLElement);
+      if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length]?.focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length]?.focus(); }
     };
-    const onFocusOut = (e: FocusEvent) => { if (!dd.contains(e.relatedTarget as Node)) setOpen(false); };
-    btn.addEventListener('click', onClick);
+    const onFocusOut = (e: FocusEvent) => { if (dd.open && !dd.contains(e.relatedTarget as Node)) dd.open = false; };
+    dd.addEventListener('toggle', onToggle);
     document.addEventListener('click', onDoc);
     dd.addEventListener('keydown', onKey);
     dd.addEventListener('focusout', onFocusOut);
-    cleanup.push(() => { btn.removeEventListener('click', onClick); document.removeEventListener('click', onDoc); dd.removeEventListener('keydown', onKey); dd.removeEventListener('focusout', onFocusOut); });
+    cleanup.push(() => { dd.removeEventListener('toggle', onToggle); document.removeEventListener('click', onDoc); dd.removeEventListener('keydown', onKey); dd.removeEventListener('focusout', onFocusOut); dd.open = false; });
   });
 
   /* Mobile menu ---------------------------------------------------------- */
