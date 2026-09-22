@@ -1,5 +1,5 @@
 ---
-import { ChevronDown, Users, Zap, Route, GraduationCap, ArrowRight, Mail, Clock } from '@lucide/astro';
+import { ChevronDown, Users, Zap, Route, GraduationCap, ArrowRight, Mail, Clock, Activity, Calculator } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
 import { site } from '@/config/site';
@@ -34,10 +34,16 @@ const primaryLinks: Array<{ key: PageKey; label: string }> = [
 const mobileLinks: Array<{ key: PageKey; label: string }> = [
   { key: 'services', label: c.nav.services },
   ...primaryLinks,
-  { key: 'tools', label: c.nav.tools },
+  { key: 'healthCheck', label: c.nav.healthCheck },
+  { key: 'badHireCost', label: c.nav.badHireCost },
   { key: 'faq', label: c.nav.faq },
   { key: 'contact', label: c.nav.contact },
 ];
+const toolLinks: Array<{ key: PageKey; icon: typeof Activity; name: string; desc: string }> = [
+  { key: 'healthCheck', icon: Activity, name: c.nav.healthCheck, desc: d.tools.health.hero.title },
+  { key: 'badHireCost', icon: Calculator, name: c.nav.badHireCost, desc: d.tools.cost.hero.title },
+];
+const isToolsOpen = currentKey === 'healthCheck' || currentKey === 'badHireCost';
 const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof currentKey === 'string' && currentKey.startsWith('service'));
 ---
 <header id="site-header" class="site-header">
@@ -93,6 +99,33 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
             <a href={p(l.key)} class:list={['nav-link', isActive(l.key) && 'is-active']} aria-current={isActive(l.key) ? 'page' : undefined}>{l.label}</a>
           </li>
         ))}
+        <li class="nav-item has-mega" data-mega>
+          {/* No HR Tools page: the trigger only opens the menu. */}
+          <button type="button" class:list={['nav-link', isToolsOpen && 'is-active']} aria-expanded="false" aria-controls="mega-tools" data-mega-trigger>
+            <span>{c.nav.tools}</span>
+            <ChevronDown class="size-3.5 transition-transform duration-300" aria-hidden="true" />
+          </button>
+          <div id="mega-tools" class="mega mega-narrow" data-mega-panel>
+            <div class="mega-inner">
+              <div class="mega-grid">
+                <ul class="mega-list mega-list-single" role="list">
+                  {toolLinks.map((t) => (
+                    <li>
+                      <a href={p(t.key)} class:list={['mega-card group', isActive(t.key) && 'is-active']}>
+                        <span class="mega-icon"><t.icon class="size-5" aria-hidden="true" /></span>
+                        <span class="mega-text">
+                          <span class="mega-name">{t.name}</span>
+                          <span class="mega-desc">{t.desc}</span>
+                        </span>
+                        <ArrowRight class="mega-arrow size-4" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </nav>
 
@@ -206,6 +239,10 @@ const isActive = (k: PageKey) => currentKey === k || (k === 'services' && typeof
   .mega-grid { padding: 1.5rem; }
   .mega-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-mist); margin-bottom: 0.75rem; padding-left: 0.5rem; }
   .mega-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem; }
+  /* The tools menu has no aside and no overview link, so it stays narrow. */
+  .mega-narrow { left: auto; right: -1rem; width: min(26rem, calc(100vw - 2 * var(--gutter))); transform-origin: top right; }
+  .mega-narrow .mega-inner { grid-template-columns: 1fr; }
+  .mega-list-single { grid-template-columns: 1fr; }
   .mega-card {
     display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 0.85rem;
     padding: 0.85rem 0.75rem; border-radius: var(--radius-md);

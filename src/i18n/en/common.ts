@@ -19,6 +19,8 @@ export const common = {
     howWeWork: 'How We Work',
     faq: 'FAQ',
     tools: 'HR Tools',
+    healthCheck: 'HR Health Check',
+    badHireCost: 'Cost of a bad hire',
     blog: 'Blog',
     contact: 'Contact',
     bookCall: 'Book a free call',
@@ -214,6 +216,9 @@ export const common = {
       spam: 'The message was rejected. Please try again.',
     },
     honeypotLabel: 'Leave this field empty',
+    step: '{current}/{total}',
+    next: 'Next',
+    back: 'Back',
   },
 } as const;
 

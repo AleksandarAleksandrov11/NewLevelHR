@@ -10,8 +10,9 @@ import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, fmt, serviceKeys, type ServiceKey } from '@/i18n';
 import Button from '@/components/ui/Button.astro';
 
-interface Props { lang: Locale }
-const { lang } = Astro.props;
+/** `standalone` drops the widget's own heading: the page around it already has one. */
+interface Props { lang: Locale; standalone?: boolean }
+const { lang, standalone = false } = Astro.props;
 const d = getDict(lang);
 const q = d.quiz;
 const c = d.common;
@@ -44,7 +45,7 @@ const config = {
   services: serviceKeys.map((key) => ({ key, name: serviceInfo[key].name, href: serviceInfo[key].href })),
 };
 ---
-<section id="health-check" class="hc section bg-white" aria-labelledby="hc-title" data-quiz={JSON.stringify(config)}>
+<section id="health-check" class:list={['hc section bg-white', standalone && 'is-standalone']} aria-labelledby="hc-title" data-quiz={JSON.stringify(config)}>
   <div class="hc-grid bg-grid" aria-hidden="true"></div>
   <div class="container-site">
     <div class="hc-card" data-quiz-card data-reveal>
@@ -52,10 +53,10 @@ const config = {
 
       <!-- Intro -->
       <div class="hc-panel hc-intro" data-quiz-panel="intro">
-        <p class="eyebrow mb-5">{q.eyebrow}</p>
-        <h2 id="hc-title" class="font-display text-display-md text-ink max-w-2xl">{q.title}</h2>
-        <p class="text-lead text-slate mt-5 max-w-xl">{q.text}</p>
-        <div class="mt-8 flex flex-wrap items-center gap-4">
+        {!standalone && <p class="eyebrow mb-5">{q.eyebrow}</p>}
+        <h2 id="hc-title" class:list={['font-display text-display-md text-ink max-w-2xl', standalone && 'sr-only']}>{q.title}</h2>
+        {!standalone && <p class="text-lead text-slate mt-5 max-w-xl">{q.text}</p>}
+        <div class:list={[standalone ? 'flex flex-wrap items-center gap-4' : 'mt-8 flex flex-wrap items-center gap-4']}>
           <Button type="button" size="lg" data-quiz-start="">{q.start}</Button>
         </div>
         <p class="hc-privacy mt-7">
@@ -159,6 +160,7 @@ const config = {
 
 <style>
   .hc { overflow: hidden; }
+  .hc.is-standalone { padding-top: 0; }
   .hc-grid { position: absolute; inset: 0; opacity: 0.85; pointer-events: none; }
   .hc-card {
     position: relative;

@@ -15,6 +15,10 @@ export const home = {
     cta2: 'Our services',
     scroll: 'Scroll',
   },
+  tools: {
+    title: 'Two free tools, no sign-up.',
+    text: 'One tells you where the people side of your company stands. The other puts a number on a hire that does not work out. Both run in your browser.',
+  },
   marquee: ['Fractional HR', 'High-Velocity Hiring', 'Manager Coaching', '90-Day Bridge', 'Compliance', 'Leadership', 'Team Building'],
   manifesto: {
     eyebrow: 'Why we exist',
@@ -23,7 +27,6 @@ export const home = {
   problems: {
     eyebrow: 'What we fix',
     title: 'The problems that keep you up at night.',
-    text: 'Eight situations we see in almost every growing company. Flip a card to see how we fix it.',
     flip: 'How we fix it',
     back: 'Back',
     all: 'See all eight in depth',
@@ -41,7 +44,6 @@ export const home = {
   services: {
     eyebrow: 'Our services',
     title: 'We don’t give you a dashboard. We give you solutions.',
-    text: 'Four ways to work with us, from an on-call partner to a full hiring engine.',
     all: 'All services',
     items: [
       { key: 'serviceFractional', body: 'On-demand support to fix your team structure, handle policy, and align your people with your business goals.', image: 'one-on-one' },
@@ -65,7 +67,6 @@ export const home = {
   comparison: {
     eyebrow: 'Fractional vs. full-time',
     title: 'Senior HR brain. Without the executive price tag.',
-    text: 'What changes when you replace a full-time HR hire with a fractional partner.',
     colFractional: 'Fractional HR partner',
     colFullTime: 'Full-time HR hire',
     note: 'The comparison describes typical setups for companies with 10 to 150 employees. Your situation may differ; the free call is where we find out.',

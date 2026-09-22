@@ -32,8 +32,10 @@ export function getPageMeta(lang: Locale, key: MetaKey): PageMeta {
       return { title: c.meta.defaultTitle, subtitle: tagline };
     case 'services':
       return { title: c.nav.services, subtitle: c.nav.servicesOverviewDesc };
-    case 'tools':
-      return { title: c.nav.tools, subtitle: tagline };
+    case 'healthCheck':
+      return { title: c.nav.healthCheck, subtitle: tagline };
+    case 'badHireCost':
+      return { title: c.nav.badHireCost, subtitle: tagline };
     case 'blog':
       return { title: c.nav.blog, subtitle: tagline };
     case 'serviceFractional':

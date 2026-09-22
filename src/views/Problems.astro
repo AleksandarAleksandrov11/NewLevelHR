@@ -149,7 +149,7 @@ const items = base.map((b, i) => {
   .pb-fix { position: relative; padding: 1.5rem; border-radius: var(--radius-xl); background: var(--color-ink); color: #fff; overflow: hidden; isolation: isolate; }
   .pb-fix::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(24rem circle at var(--mx, 80%) var(--my, 0%), rgba(255, 107, 53, 0.28), transparent 60%); }
   .pb-fix-cta { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.12); }
-  .pb-also { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
+  .pb-also { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 1.5rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
   .pb-also strong { color: #fff; }
   .pb-also:hover strong { color: var(--color-accent-3); }
 </style>

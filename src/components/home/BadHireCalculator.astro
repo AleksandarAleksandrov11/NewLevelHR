@@ -11,8 +11,9 @@ import { getDict, localizePath, fmt, formatNumber } from '@/i18n';
 import Button from '@/components/ui/Button.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 
-interface Props { lang: Locale }
-const { lang } = Astro.props;
+/** `standalone` drops the widget's own heading: the page around it already has one. */
+interface Props { lang: Locale; standalone?: boolean }
+const { lang, standalone = false } = Astro.props;
 const d = getDict(lang);
 const t = d.calculator;
 
@@ -46,10 +47,11 @@ const money = (n: number) => formatNumber(n, lang, { style: 'currency', currency
 const multiple = formatNumber(total / v.salary, lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
 ---
-<section id="bad-hire-calculator" class="calc section bg-ink text-white" aria-labelledby="calc-title" data-calculator>
+<section id="bad-hire-calculator" class:list={['calc section bg-ink text-white', standalone && 'is-standalone']} aria-labelledby="calc-title" data-calculator>
   <div class="calc-glow" aria-hidden="true"></div>
   <div class="container-site">
-    <SectionHeading eyebrow={t.eyebrow} title={t.title} text={t.text} dark as="h2" />
+    {!standalone && <SectionHeading eyebrow={t.eyebrow} title={t.title} text={t.text} dark as="h2" />}
+    {standalone && <h2 id="calc-title" class="sr-only">{t.title}</h2>}
     <div class="calc-grid">
       <form class="calc-form" aria-labelledby="calc-assumptions" novalidate data-calc-form data-reveal>
         <h3 id="calc-assumptions" class="calc-subtitle">{t.assumptionsTitle}</h3>
@@ -121,6 +123,7 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
 
 <style>
   .calc { overflow: hidden; isolation: isolate; }
+  .calc.is-standalone { padding-top: 3rem; }
   .calc-glow { position: absolute; width: 56vw; height: 56vw; max-width: 46rem; max-height: 46rem; left: -22vw; bottom: -24vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.24), transparent 66%); filter: blur(24px); pointer-events: none; z-index: -1; }
   .calc-grid { display: grid; gap: 2.5rem; margin-top: 3rem; }
   @media (min-width: 64rem) {

@@ -16,6 +16,8 @@ export const common: CommonDict = {
     howWeWork: 'So arbeiten wir',
     faq: 'FAQ',
     tools: 'HR-Tools',
+    healthCheck: 'HR-Check',
+    badHireCost: 'Kosten einer Fehlbesetzung',
     blog: 'Blog',
     contact: 'Kontakt',
     bookCall: 'Kostenloses Gespräch buchen',
@@ -211,5 +213,8 @@ export const common: CommonDict = {
       spam: 'Die Nachricht wurde abgelehnt. Bitte versuchen Sie es erneut.',
     },
     honeypotLabel: 'Dieses Feld bitte leer lassen',
+    step: '{current}/{total}',
+    next: 'Weiter',
+    back: 'Zurück',
   },
 };

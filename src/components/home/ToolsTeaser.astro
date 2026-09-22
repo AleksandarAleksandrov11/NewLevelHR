@@ -7,34 +7,31 @@
 import { Activity, Calculator } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath } from '@/i18n';
-import Button from '@/components/ui/Button.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const d = getDict(lang);
 const t = d.tools;
+const teaser = d.home.tools;
 const items = [
-  { icon: Activity, title: d.quiz.eyebrow, body: t.intro.health, hash: 'health-check' },
-  { icon: Calculator, title: d.calculator.eyebrow, body: t.intro.cost, hash: 'bad-hire-calculator' },
+  { icon: Activity, title: d.quiz.eyebrow, body: t.health.hero.text, href: localizePath('healthCheck', lang), cta: t.health.hero.start },
+  { icon: Calculator, title: d.calculator.eyebrow, body: t.cost.hero.text, href: localizePath('badHireCost', lang), cta: d.common.cta.open },
 ];
 ---
 <section class="tools-teaser section bg-white">
   <div class="container-site">
-    <SectionHeading eyebrow={t.hero.eyebrow} title={t.hero.title} text={t.hero.text} />
+    <SectionHeading eyebrow={t.health.hero.eyebrow} title={teaser.title} text={teaser.text} />
     <ul class="tt-grid" role="list">
       {items.map((it, i) => (
         <li class="card card-hover tt-card" data-reveal data-reveal-delay={String(i + 1)} data-tilt="4">
           <span class="tt-icon"><it.icon class="size-5" aria-hidden="true" /></span>
           <h3 class="font-display text-xl font-bold text-ink mt-5">{it.title}</h3>
           <p class="mt-2 text-slate leading-relaxed">{it.body}</p>
-          <a class="tt-link" href={localizePath('tools', lang, it.hash)}>{d.common.cta.open}</a>
+          <a class="tt-link" href={it.href}>{it.cta}</a>
         </li>
       ))}
     </ul>
-    <div class="tt-cta" data-reveal data-reveal-delay="3">
-      <Button href={localizePath('tools', lang)} variant="ghost" size="lg">{d.common.nav.tools}</Button>
-    </div>
   </div>
 </section>
 
@@ -47,5 +44,4 @@ const items = [
   /* The whole card is the target; the link stays for keyboard and screen readers. */
   .tt-link::after { content: ''; position: absolute; inset: 0; }
   .tt-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-  .tt-cta { margin-top: 2.5rem; display: flex; justify-content: center; }
 </style>

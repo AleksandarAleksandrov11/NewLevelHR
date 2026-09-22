@@ -1,6 +1,6 @@
 ---
-/** Contact: one message form, the booking calendar and the contact details. */
-import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, AlertCircle, ExternalLink } from '@lucide/astro';
+/** Contact: a four-step message form, the booking calendar and the contact details. */
+import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, ArrowLeft, AlertCircle, ExternalLink } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -39,8 +39,12 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
         <p class="text-slate mt-2">{t.form.text}</p>
 
         <form class="ct-form mt-7" method="post" action={site.formEndpoint} novalidate data-contact-form data-endpoint={site.formEndpoint} data-messages={JSON.stringify(messages)}>
+          <div class="ct-progress" data-step-progress hidden>
+            <div class="ct-progress-track" aria-hidden="true"><span class="ct-progress-fill" data-step-bar></span></div>
+            <p class="ct-progress-count" data-step-count aria-live="polite" data-template={fm.step}></p>
+          </div>
 
-          <div class="ct-group">
+          <div class="ct-step" data-form-step>
             <div class="field field-select" data-select>
               <select id="ct-topic" name="topic" required aria-describedby="ct-topic-err" data-field>
                 <option value="" disabled selected>{fm.topicPlaceholder}</option>
@@ -76,7 +80,7 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
             </div>
           </div>
 
-          <div class="ct-group">
+          <div class="ct-step" data-form-step>
             <div class="field">
               <textarea id="ct-message" name="message" rows="6" required minlength="10" maxlength="5000" placeholder=" " aria-describedby="ct-message-err" data-field></textarea>
               <label for="ct-message">{fm.message}</label>
@@ -84,7 +88,7 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
             </div>
           </div>
 
-          <div class="ct-group">
+          <div class="ct-step" data-form-step>
             <div class="field">
               <input id="ct-name" name="name" type="text" required maxlength="120" placeholder=" " autocomplete="name" aria-describedby="ct-name-err" data-field />
               <label for="ct-name">{fm.name}</label>
@@ -97,7 +101,7 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
             </div>
           </div>
 
-          <div class="ct-group">
+          <div class="ct-step" data-form-step>
             <div class="field">
               <input id="ct-email" name="email" type="email" required maxlength="200" placeholder=" " autocomplete="email" inputmode="email" aria-describedby="ct-email-err" data-field />
               <label for="ct-email">{fm.email}</label>
@@ -122,8 +126,9 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
           <input type="hidden" name="token" value={site.formToken} />
 
           <div class="ct-nav">
+            <button type="button" class="ct-back" data-step-back hidden><ArrowLeft class="size-4" aria-hidden="true" />{fm.back}</button>
+            <Button type="button" size="lg" icon="arrow" magnetic={false} data-step-next hidden>{fm.next}</Button>
             <Button type="submit" size="lg" icon="send" magnetic={false} data-submit="" data-label-idle={fm.submit} data-label-sending={fm.sending}><span data-submit-label>{fm.submit}</span></Button>
-            <p class="text-xs text-mist">{c.proof.reply}</p>
           </div>
         </form>
 
@@ -185,8 +190,15 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
     .ct-form-card { position: sticky; top: calc(var(--header-h) + 1.5rem); }
   }
   .ct-form { display: grid; gap: 1.25rem; }
-  .ct-group { display: grid; gap: 1.1rem; }
-  .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.25rem; }
+  .ct-step { display: grid; gap: 1.1rem; }
+  .ct-step[hidden] { display: none; }
+  .js-motion .ct-step.is-entering { animation: stepIn 0.4s var(--ease-out-expo); }
+  @keyframes stepIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .ct-progress { display: flex; align-items: center; gap: 0.85rem; }
+  .ct-progress-track { flex: 1; height: 3px; border-radius: 999px; background: var(--color-line); overflow: hidden; }
+  .ct-progress-fill { display: block; height: 100%; border-radius: inherit; background: var(--grad-accent); transform-origin: left; transform: scaleX(0.25); transition: transform 0.5s var(--ease-out-expo); }
+  .ct-progress-count { flex: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-mist); }
+  .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 0.25rem; }
   .ct-nav-main { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
   .ct-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 600; color: var(--color-ink-3); border-radius: var(--radius-sm); padding: 0.4rem 0.2rem; transition: color 0.25s ease; }
   .ct-back:hover { color: var(--color-ink); }

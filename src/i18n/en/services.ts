@@ -19,7 +19,6 @@ export const services = {
   cardsSection: {
     eyebrow: 'Four services',
     title: 'Pick the one that matches your situation.',
-    text: 'Every service is delivered by a senior partner who knows your team by name. No dashboards, no bots, no ticket queue.',
   },
   cards: [
     {
@@ -99,7 +98,6 @@ export const services = {
   howToChoose: {
     eyebrow: 'Not sure where to start?',
     title: 'Start with the symptom, not the service.',
-    text: 'Most founders come to us with a situation, not a shopping list. Here is a quick way to read the map.',
     optionLabel: 'Start with',
     options: [
       { when: 'You are doing HR yourself between product and sales, and it shows.', service: 'fractional' },

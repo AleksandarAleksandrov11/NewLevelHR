@@ -16,6 +16,8 @@ export const common: CommonDict = {
     howWeWork: 'Как работим',
     faq: 'Въпроси',
     tools: 'HR инструменти',
+    healthCheck: 'HR проверка',
+    badHireCost: 'Цена на грешно назначение',
     blog: 'Блог',
     contact: 'Контакти',
     bookCall: 'Запазете безплатен разговор',
@@ -211,5 +213,8 @@ export const common: CommonDict = {
       spam: 'Съобщението беше отхвърлено. Моля, опитайте отново.',
     },
     honeypotLabel: 'Оставете това поле празно',
+    step: '{current}/{total}',
+    next: 'Напред',
+    back: 'Назад',
   },
 };

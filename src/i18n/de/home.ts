@@ -14,6 +14,10 @@ export const home: HomeDict = {
     cta2: 'Unsere Leistungen',
     scroll: 'Scrollen',
   },
+  tools: {
+    title: 'Zwei kostenlose Werkzeuge, ohne Anmeldung.',
+    text: 'Das eine sagt Ihnen, wo die People-Seite Ihres Unternehmens steht. Das andere beziffert eine Einstellung, die nicht funktioniert. Beide laufen in Ihrem Browser.',
+  },
   marquee: ['Fraktionale HR', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Compliance', 'Leadership', 'Teambuilding'],
   manifesto: {
     eyebrow: 'Warum es uns gibt',
@@ -22,7 +26,6 @@ export const home: HomeDict = {
   problems: {
     eyebrow: 'Was wir lösen',
     title: 'Die Probleme, die Ihnen den Schlaf rauben.',
-    text: 'Acht Situationen, die uns in fast jedem wachsenden Unternehmen begegnen. Drehen Sie eine Karte um und sehen Sie, wie wir sie lösen.',
     flip: 'So lösen wir das',
     back: 'Zurück',
     all: 'Alle acht im Detail ansehen',
@@ -40,7 +43,6 @@ export const home: HomeDict = {
   services: {
     eyebrow: 'Unsere Leistungen',
     title: 'Wir geben Ihnen kein Dashboard. Wir geben Ihnen Lösungen.',
-    text: 'Vier Wege, mit uns zu arbeiten, vom Partner auf Abruf bis zur kompletten Recruiting-Maschine.',
     all: 'Alle Leistungen',
     items: [
       { key: 'serviceFractional', body: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf die Unternehmensziele auszurichten.', image: 'one-on-one' },
@@ -64,7 +66,6 @@ export const home: HomeDict = {
   comparison: {
     eyebrow: 'Fraktional vs. Festanstellung',
     title: 'Senior-HR-Expertise. Ohne das Gehalt einer Führungskraft.',
-    text: 'Was sich ändert, wenn Sie die HR-Festanstellung durch einen fraktionalen Partner ersetzen.',
     colFractional: 'Fraktionaler HR-Partner',
     colFullTime: 'HR-Festanstellung',
     note: 'Der Vergleich beschreibt typische Konstellationen in Unternehmen mit 10 bis 150 Mitarbeitenden. Ihre Situation kann anders aussehen. Genau das klären wir im kostenlosen Gespräch.',

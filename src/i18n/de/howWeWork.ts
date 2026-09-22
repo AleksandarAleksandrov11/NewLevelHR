@@ -14,7 +14,6 @@ export const howWeWork: HowWeWorkDict = {
   steps: {
     eyebrow: 'Der Ablauf',
     title: 'Vom ersten Gespräch zu einem laufenden Rhythmus.',
-    text: 'Die Schritte sind bei jeder Leistung dieselben. Nur die Tiefe ändert sich.',
     items: [
       { title: 'Kostenlose 30-Minuten-Beratung', duration: '30 Minuten', body: 'Sie beschreiben Ihre Situation, wir stellen viele Fragen. Kein Pitch, kein Druck. Sie gehen mit einem klaren Bild davon heraus, was zuerst helfen würde, ob wir zusammenarbeiten oder nicht.', outcome: 'Ergebnis: ein klares Bild, auf Wunsch schriftlich.' },
       { title: 'Diagnose', duration: 'Wenige Tage', body: 'Wir schauen auf die Realität, nicht auf das Organigramm: Verträge, Richtlinien, Gehaltslogik, die offenen Stellen, die Führungskräfte, die Gespräche, denen ausgewichen wird. Kurze Interviews mit dem Führungsteam, wo sinnvoll.', outcome: 'Ergebnis: eine priorisierte Liste der Lücken, nach Risiko und Aufwand.' },

@@ -15,7 +15,6 @@ export const services: ServicesDict = {
   cardsSection: {
     eyebrow: 'Vier Leistungen',
     title: 'Wählen Sie die Leistung, die zu Ihrer Situation passt.',
-    text: 'Jede Leistung wird von einer Senior-Partnerin erbracht, die Ihr Team beim Namen kennt. Keine Dashboards, keine Bots, keine Ticket-Warteschlange.',
   },
   cards: [
     {
@@ -95,7 +94,6 @@ export const services: ServicesDict = {
   howToChoose: {
     eyebrow: 'Nicht sicher, wo Sie anfangen sollen?',
     title: 'Beginnen Sie beim Symptom, nicht bei der Leistung.',
-    text: 'Die meisten Gründerinnen und Gründer kommen mit einer Situation zu uns, nicht mit einer Einkaufsliste. So lesen Sie die Karte am schnellsten.',
     optionLabel: 'Starten Sie mit',
     options: [
       { when: 'Sie machen HR selbst, irgendwo zwischen Produkt und Vertrieb, und man merkt es.', service: 'fractional' },
