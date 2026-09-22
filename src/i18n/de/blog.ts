@@ -9,6 +9,7 @@ export const blog: BlogDict = {
     eyebrow: 'Blog',
     title: 'Praktische Notizen zur People-Seite des Wachstums.',
     text: 'Was wir in den Unternehmen sehen, mit denen wir arbeiten: Einstellungen, die halten, Führungskräfte, die in die Rolle hineinwachsen, und die Unterlagen, die niemand mag und alle brauchen.',
+    imageAlt: 'Jemand schreibt am Laptop in warmem Tageslicht',
   },
   list: {
     allTags: 'Alle Themen',

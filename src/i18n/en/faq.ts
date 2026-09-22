@@ -14,6 +14,7 @@ export const faq = {
     eyebrow: 'FAQ',
     title: 'Questions founders ask us first.',
     text: 'Straight answers on fractional HR, hiring, compliance and how working with us actually feels. If yours is not here, the free 30-minute call is the fastest way to get it answered.',
+    imageAlt: 'A small team talking over notebooks in a bright office',
   },
   search: {
     label: 'Search the questions',

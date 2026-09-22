@@ -454,6 +454,61 @@ await test('tools: each one has its own page and neither runs on the home page',
   expect((await page.locator('h1').count()) === 1, 'the calculator page does not have exactly one h1');
 });
 
+await test('every inner page opens with the same hero: crumbs, title, CTAs, media', desktop, async (page) => {
+  const paths = [
+    '/en/services/', '/en/services/fractional-hr-partnership/', '/en/services/high-velocity-hiring/',
+    '/en/services/90-day-success-bridge/', '/en/services/manager-coaching/', '/en/what-we-fix/',
+    '/en/how-we-work/', '/en/about/', '/en/blog/', '/en/faq/', '/en/contact/',
+    '/en/hr-health-check/', '/en/cost-of-a-bad-hire/',
+  ];
+  const heights = [];
+  for (const p of paths) {
+    await page.goto(base + p, { waitUntil: 'networkidle' });
+    await settleBanners(page);
+    const hero = await page.evaluate(() => {
+      const el = document.querySelector('.page-hero');
+      if (!el) return null;
+      return {
+        bg: [...el.classList].filter((c) => c.startsWith('bg-')).join(' '),
+        crumbs: el.querySelectorAll('nav a').length,
+        h1: el.querySelectorAll('h1').length,
+        ctas: el.querySelectorAll('.page-hero-actions a, .page-hero-actions button').length,
+        media: el.querySelectorAll('.page-hero-media img, .page-hero-media svg').length,
+        height: Math.round(el.getBoundingClientRect().height),
+      };
+    });
+    expect(hero, `${p}: no standard hero`);
+    expect(hero.bg === 'bg-mesh', `${p}: hero background is "${hero.bg}"`);
+    expect(hero.crumbs >= 1, `${p}: hero has no breadcrumb trail`);
+    expect(hero.h1 === 1, `${p}: hero has ${hero.h1} h1 elements`);
+    expect(hero.ctas === 2, `${p}: hero has ${hero.ctas} calls to action`);
+    expect(hero.media >= 1, `${p}: hero has no photo or visual`);
+    heights.push([p, hero.height]);
+  }
+  const min = Math.min(...heights.map((h) => h[1]));
+  const max = Math.max(...heights.map((h) => h[1]));
+  expect(max - min <= 96, `hero heights differ by ${max - min}px: ${heights.map(([p, h]) => `${p} ${h}`).join(', ')}`);
+});
+
+await test('cost calculator: the total stays on screen while the sliders scroll past', phone, async (page) => {
+  await page.goto(base + '/en/cost-of-a-bad-hire/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  const height = page.viewportSize().height;
+  let seen = false;
+  for (let i = 0; i < 40; i++) {
+    await page.mouse.wheel(0, 300);
+    await page.waitForTimeout(50);
+    const last = await page.locator('[data-calc-range="vacancyMonths"]').boundingBox();
+    if (!last || last.y < 0 || last.y > height) continue;
+    // The last assumption is on screen: the running total has to be too.
+    const total = await page.locator('[data-calc-mini]').boundingBox();
+    expect(total && total.y >= 0 && total.y + total.height <= height, `the running total is at y=${total ? Math.round(total.y) : 'n/a'} in a ${height}px viewport`);
+    seen = true;
+    break;
+  }
+  expect(seen, 'never scrolled the last assumption into view');
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

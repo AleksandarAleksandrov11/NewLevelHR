@@ -9,6 +9,7 @@ export const contact: ContactDict = {
     eyebrow: 'Lassen Sie uns sprechen',
     title: 'Ihr nächstes Level beginnt hier.',
     text: 'Nicht sicher, ob Ihr Anliegen zu unseren Leistungen passt? Schreiben Sie trotzdem. Wir sagen Ihnen, was zuerst helfen würde.',
+    imageAlt: 'Zwei Kolleginnen geben sich nach einem Meeting die Hand',
   },
   form: {
     title: 'Schreiben Sie uns',
@@ -16,7 +17,7 @@ export const contact: ContactDict = {
   },
   book: {
     eyebrow: 'Oder direkt einen Termin buchen',
-    title: 'Vereinbaren Sie eine kostenlose 30-minütige Beratung zu einem Termin, der für Sie passt.',
+    title: 'Vereinbaren Sie eine kostenlose 30‑minütige Beratung zu einem Termin, der für Sie passt.',
     button: 'Termin buchen',
   },
   info: {

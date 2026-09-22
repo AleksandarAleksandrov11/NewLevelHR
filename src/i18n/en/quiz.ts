@@ -13,7 +13,6 @@ export const quiz = {
   seeResult: 'See my result',
   restart: 'Start again',
   progress: 'Question {current} of {total}',
-  privacy: 'Nothing is saved or sent. The result is calculated on your device.',
   questions: [
     { id: 'overwhelm', q: 'How much of your week goes to employee issues and HR admin?', options: ['Almost none, it runs itself', 'A few hours, more than I’d like', 'Too much. It regularly pushes out product work'] },
     { id: 'managers', q: 'How prepared are your team leads for feedback and conflict conversations?', options: ['Well prepared, they handle it', 'Mixed. Some avoid the hard calls', 'Not at all. Most were promoted for technical skills'] },

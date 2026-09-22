@@ -5,9 +5,10 @@ import PageShell from '@/components/layout/PageShell.astro';
 import PageHero from '@/components/pages/PageHero.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import Accordion from '@/components/ui/Accordion.astro';
+import Button from '@/components/ui/Button.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import { type Locale } from '@/i18n/config';
-import { getDict, fmt, type PageKey } from '@/i18n';
+import { getDict, localizePath, fmt, type PageKey } from '@/i18n';
 
 interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
@@ -23,7 +24,10 @@ const faqLd = {
 const paragraphs = (a: string) => a.split(/\n\n+/);
 ---
 <PageShell lang={lang} pageKey="faq" title={f.meta.title} description={f.meta.description} jsonLd={[faqLd]}>
-  <PageHero lang={lang} eyebrow={f.hero.eyebrow} title={f.hero.title} text={f.hero.text} crumbs={[{ label: c.nav.faq }]} variant="ivory" align="center" />
+  <PageHero lang={lang} eyebrow={f.hero.eyebrow} title={f.hero.title} text={f.hero.text} crumbs={[{ label: c.nav.faq }]} photo={{ name: 'hero-team-bright', alt: f.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button>
+    <Button href={localizePath('contact', lang)} variant="ghost">{c.cta.contactUs}</Button>
+  </PageHero>
 
   <section class="section bg-white pt-0 lg:pt-0" data-faq>
     <div class="container-site faq-grid">
