@@ -1,8 +1,8 @@
 # QA screenshots
 
-Generated 2026-09-21 22:41 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
+Generated 2026-09-22 08:32 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
 
-* 45 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
+* 55 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
 * Console errors while capturing: **0**.
 * Captures that failed: **0**.
@@ -17,8 +17,14 @@ not a blank section.
 | --- | --- | --- | --- | --- |
 | /bg/ | 390 | no | 0 | [bg/home@390.jpg](./bg/home@390.jpg) |
 | /bg/ | 1440 | no | 0 | [bg/home@1440.jpg](./bg/home@1440.jpg) |
+| /bg/blog/ | 390 | no | 0 | [bg/blog@390.jpg](./bg/blog@390.jpg) |
+| /bg/blog/ | 1440 | no | 0 | [bg/blog@1440.jpg](./bg/blog@1440.jpg) |
+| /bg/blog/purvite-90-dni-reshavat/ | 390 | no | 0 | [bg/blog-purvite-90-dni-reshavat@390.jpg](./bg/blog-purvite-90-dni-reshavat@390.jpg) |
+| /bg/blog/purvite-90-dni-reshavat/ | 1440 | no | 0 | [bg/blog-purvite-90-dni-reshavat@1440.jpg](./bg/blog-purvite-90-dni-reshavat@1440.jpg) |
 | /bg/faq/ | 390 | no | 0 | [bg/faq@390.jpg](./bg/faq@390.jpg) |
 | /bg/faq/ | 1440 | no | 0 | [bg/faq@1440.jpg](./bg/faq@1440.jpg) |
+| /bg/hr-instrumenti/ | 390 | no | 0 | [bg/hr-instrumenti@390.jpg](./bg/hr-instrumenti@390.jpg) |
+| /bg/hr-instrumenti/ | 1440 | no | 0 | [bg/hr-instrumenti@1440.jpg](./bg/hr-instrumenti@1440.jpg) |
 | /bg/kak-rabotim/ | 390 | no | 0 | [bg/kak-rabotim@390.jpg](./bg/kak-rabotim@390.jpg) |
 | /bg/kak-rabotim/ | 1440 | no | 0 | [bg/kak-rabotim@1440.jpg](./bg/kak-rabotim@1440.jpg) |
 | /bg/kakvo-reshavame/ | 390 | no | 0 | [bg/kakvo-reshavame@390.jpg](./bg/kakvo-reshavame@390.jpg) |
@@ -49,12 +55,18 @@ not a blank section.
 | /de/ | 1440 | no | 0 | [de/home@1440.jpg](./de/home@1440.jpg) |
 | /de/agb/ | 390 | no | 0 | [de/agb@390.jpg](./de/agb@390.jpg) |
 | /de/agb/ | 1440 | no | 0 | [de/agb@1440.jpg](./de/agb@1440.jpg) |
+| /de/blog/ | 390 | no | 0 | [de/blog@390.jpg](./de/blog@390.jpg) |
+| /de/blog/ | 1440 | no | 0 | [de/blog@1440.jpg](./de/blog@1440.jpg) |
+| /de/blog/die-ersten-90-tage-entscheiden/ | 390 | no | 0 | [de/blog-die-ersten-90-tage-entscheiden@390.jpg](./de/blog-die-ersten-90-tage-entscheiden@390.jpg) |
+| /de/blog/die-ersten-90-tage-entscheiden/ | 1440 | no | 0 | [de/blog-die-ersten-90-tage-entscheiden@1440.jpg](./de/blog-die-ersten-90-tage-entscheiden@1440.jpg) |
 | /de/cookie-richtlinie/ | 390 | no | 0 | [de/cookie-richtlinie@390.jpg](./de/cookie-richtlinie@390.jpg) |
 | /de/cookie-richtlinie/ | 1440 | no | 0 | [de/cookie-richtlinie@1440.jpg](./de/cookie-richtlinie@1440.jpg) |
 | /de/datenschutz/ | 390 | no | 0 | [de/datenschutz@390.jpg](./de/datenschutz@390.jpg) |
 | /de/datenschutz/ | 1440 | no | 0 | [de/datenschutz@1440.jpg](./de/datenschutz@1440.jpg) |
 | /de/faq/ | 390 | no | 0 | [de/faq@390.jpg](./de/faq@390.jpg) |
 | /de/faq/ | 1440 | no | 0 | [de/faq@1440.jpg](./de/faq@1440.jpg) |
+| /de/hr-tools/ | 390 | no | 0 | [de/hr-tools@390.jpg](./de/hr-tools@390.jpg) |
+| /de/hr-tools/ | 1440 | no | 0 | [de/hr-tools@1440.jpg](./de/hr-tools@1440.jpg) |
 | /de/impressum/ | 390 | no | 0 | [de/impressum@390.jpg](./de/impressum@390.jpg) |
 | /de/impressum/ | 1440 | no | 0 | [de/impressum@1440.jpg](./de/impressum@1440.jpg) |
 | /de/kontakt/ | 390 | no | 0 | [de/kontakt@390.jpg](./de/kontakt@390.jpg) |
@@ -79,6 +91,12 @@ not a blank section.
 | /en/ | 1440 | no | 0 | [en/home@1440.jpg](./en/home@1440.jpg) |
 | /en/about/ | 390 | no | 0 | [en/about@390.jpg](./en/about@390.jpg) |
 | /en/about/ | 1440 | no | 0 | [en/about@1440.jpg](./en/about@1440.jpg) |
+| /en/blog/ | 390 | no | 0 | [en/blog@390.jpg](./en/blog@390.jpg) |
+| /en/blog/ | 1440 | no | 0 | [en/blog@1440.jpg](./en/blog@1440.jpg) |
+| /en/blog/first-90-days-decide-the-hire/ | 390 | no | 0 | [en/blog-first-90-days-decide-the-hire@390.jpg](./en/blog-first-90-days-decide-the-hire@390.jpg) |
+| /en/blog/first-90-days-decide-the-hire/ | 1440 | no | 0 | [en/blog-first-90-days-decide-the-hire@1440.jpg](./en/blog-first-90-days-decide-the-hire@1440.jpg) |
+| /en/blog/pay-transparency-what-smes-need/ | 390 | no | 0 | [en/blog-pay-transparency-what-smes-need@390.jpg](./en/blog-pay-transparency-what-smes-need@390.jpg) |
+| /en/blog/pay-transparency-what-smes-need/ | 1440 | no | 0 | [en/blog-pay-transparency-what-smes-need@1440.jpg](./en/blog-pay-transparency-what-smes-need@1440.jpg) |
 | /en/contact/ | 390 | no | 0 | [en/contact@390.jpg](./en/contact@390.jpg) |
 | /en/contact/ | 1440 | no | 0 | [en/contact@1440.jpg](./en/contact@1440.jpg) |
 | /en/cookie-policy/ | 390 | no | 0 | [en/cookie-policy@390.jpg](./en/cookie-policy@390.jpg) |
@@ -87,6 +105,8 @@ not a blank section.
 | /en/faq/ | 1440 | no | 0 | [en/faq@1440.jpg](./en/faq@1440.jpg) |
 | /en/how-we-work/ | 390 | no | 0 | [en/how-we-work@390.jpg](./en/how-we-work@390.jpg) |
 | /en/how-we-work/ | 1440 | no | 0 | [en/how-we-work@1440.jpg](./en/how-we-work@1440.jpg) |
+| /en/hr-tools/ | 390 | no | 0 | [en/hr-tools@390.jpg](./en/hr-tools@390.jpg) |
+| /en/hr-tools/ | 1440 | no | 0 | [en/hr-tools@1440.jpg](./en/hr-tools@1440.jpg) |
 | /en/legal-notice/ | 390 | no | 0 | [en/legal-notice@390.jpg](./en/legal-notice@390.jpg) |
 | /en/legal-notice/ | 1440 | no | 0 | [en/legal-notice@1440.jpg](./en/legal-notice@1440.jpg) |
 | /en/privacy-policy/ | 390 | no | 0 | [en/privacy-policy@390.jpg](./en/privacy-policy@390.jpg) |
