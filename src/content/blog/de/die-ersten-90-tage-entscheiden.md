@@ -2,6 +2,8 @@
 title: Die ersten 90 Tage entscheiden über die Einstellung
 description: Die meisten frühen Abgänge entstehen lange vor dem Ende der Probezeit. Was an Tag 1, Tag 30, Tag 60 und Tag 90 stehen sollte.
 date: 2026-09-15
+image: onboarding-welcome
+imageAlt: 'Kolleginnen begrüßen ein neues Teammitglied am ersten Tag'
 tags: ['Recruiting', 'Onboarding']
 translationKey: first-90-days
 ---

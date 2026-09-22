@@ -56,15 +56,15 @@ const items = base.map((b, i) => {
             </header>
             <div class="pb-body">
               <div class="pb-col" data-reveal data-reveal-delay="1">
-                <h3 class="pb-h3"><AlertTriangle class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.symptoms}</h3>
+                <p class="pb-h3"><AlertTriangle class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.symptoms}</p>
                 <CheckList items={it.symptoms.slice(0, 3)} kind="no" class="mt-4" />
                 <div class="pb-cost">
-                  <h3 class="pb-h3"><Coins class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.cost}</h3>
+                  <p class="pb-h3"><Coins class="size-4 text-accent-ink" aria-hidden="true" />{p.labels.cost}</p>
                   <p class="mt-2 text-ink-2 leading-relaxed">{it.cost}</p>
                 </div>
               </div>
               <div class="pb-fix" data-reveal data-reveal-delay="2" data-spotlight>
-                <h3 class="pb-h3 text-accent-3"><Wrench class="size-4" aria-hidden="true" />{p.labels.fix}</h3>
+                <p class="pb-h3 text-accent-3"><Wrench class="size-4" aria-hidden="true" />{p.labels.fix}</p>
                 <p class="font-display text-lg font-bold text-white mt-3">{it.fix.title}</p>
                 <p class="mt-3 text-white/75 leading-relaxed">{it.fix.text}</p>
                 <CheckList items={it.fix.points.slice(0, 3)} class="mt-5" dark />

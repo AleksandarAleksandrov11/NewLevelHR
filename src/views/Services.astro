@@ -48,7 +48,9 @@ const itemList = {
               <h3 class="font-display text-display-sm text-ink mt-3"><a href={card.href} class="svc-row-link">{card.name}</a></h3>
               <p class="text-slate mt-4 leading-relaxed">{card.summary}</p>
               <CheckList items={card.bullets} class="mt-6" />
-              <div class="mt-7"><Button href={card.href} variant="secondary">{s.labels.exploreService}</Button></div>
+              {/* The four cards share one label on screen; the hidden half keeps
+                  every link's text distinct for readers and for search engines. */}
+              <div class="mt-7"><Button href={card.href} variant="secondary">{s.labels.exploreService}<span class="sr-only">: {card.name}</span></Button></div>
             </div>
           </article>
         ))}
@@ -89,10 +91,10 @@ const itemList = {
           <ul class="svc-options" role="list">
             {s.howToChoose.options.map((o, i) => { const short = o.service as Short; return (
               <li data-reveal data-reveal-delay={String(i + 1)}>
-                <a href={localizePath(keyOf[short], lang)} class="svc-option group">
+                <div class="svc-option group">
                   <span class="svc-option-when">{o.when}</span>
-                  <span class="svc-option-to"><span class="text-mist text-xs font-bold uppercase tracking-wider">{s.howToChoose.optionLabel}</span><span class="font-display font-bold text-ink">{c.services[short].name}</span><ArrowRight class="size-4 text-accent-ink transition-transform group-hover:translate-x-1" aria-hidden="true" /></span>
-                </a>
+                  <span class="svc-option-to"><span class="text-mist text-xs font-bold uppercase tracking-wider">{s.howToChoose.optionLabel}</span><a href={localizePath(keyOf[short], lang)} class="svc-option-link font-display font-bold text-ink">{c.services[short].name}</a><ArrowRight class="size-4 text-accent-ink transition-transform group-hover:translate-x-1" aria-hidden="true" /></span>
+                </div>
               </li>
             ); })}
           </ul>
@@ -142,6 +144,10 @@ const itemList = {
   .svc-option { display: grid; gap: 0.75rem; padding: 1.25rem 1.4rem; border-radius: var(--radius-lg); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-soft); transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo), border-color 0.4s ease; }
   @media (min-width: 40rem) { .svc-option { grid-template-columns: minmax(0, 1.4fr) auto; align-items: center; gap: 1.5rem; } }
   .svc-option:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: rgba(255, 107, 53, 0.35); }
+  /* The whole row is the target; only the service name is the link, so the
+     anchor text stays the service instead of the symptom sentence as well. */
+  .svc-option { position: relative; }
+  .svc-option-link::after { content: ''; position: absolute; inset: 0; }
   .svc-option-when { color: var(--color-ink-2); line-height: 1.5; }
   .svc-option-to { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; white-space: nowrap; }
   .svc-choose-aside { display: grid; gap: 1.25rem; }

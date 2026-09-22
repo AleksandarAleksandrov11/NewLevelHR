@@ -53,7 +53,7 @@ function initCounters() {
       onUpdate: () => { el.textContent = format(obj.v); },
       scrollTrigger: { trigger: el, start: 'top 88%', once: true },
     });
-    onCleanup(() => tw.kill());
+    onCleanup(() => { tw.scrollTrigger?.kill(); tw.kill(); });
   });
 }
 
@@ -66,7 +66,7 @@ function initParallax() {
       yPercent: amount * 40, ease: 'none',
       scrollTrigger: { trigger: el.closest('[data-parallax-scope]') || el, start: 'top bottom', end: 'bottom top', scrub: true },
     });
-    onCleanup(() => tw.kill());
+    onCleanup(() => { tw.scrollTrigger?.kill(); tw.kill(); });
   });
 }
 
@@ -116,7 +116,7 @@ function initIlluminate() {
       '--lit': 1, ease: 'none', stagger: 0.08,
       scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 45%', scrub: 0.4 },
     });
-    onCleanup(() => { tw.kill(); el.innerHTML = original; el.removeAttribute('data-illuminate-done'); });
+    onCleanup(() => { tw.scrollTrigger?.kill(); tw.kill(); el.innerHTML = original; el.removeAttribute('data-illuminate-done'); });
   });
 }
 
@@ -229,9 +229,12 @@ export function initMotion() {
 }
 
 export function destroyMotion() {
+  // Only what this module registered: page scripts (the pinned 90-day bridge,
+  // for one) own their own triggers and tear them down on `astro:before-swap`.
+  // Killing every trigger here would take theirs with it, and since the motion
+  // layer now loads after the page scripts it would take them down mid-life.
   cleanups.forEach((fn) => { try { fn(); } catch { /* ignore */ } });
   cleanups = [];
-  ScrollTrigger.getAll().forEach((st) => st.kill());
 }
 
 export function scrollTo(target: string | HTMLElement, offset = -80) {

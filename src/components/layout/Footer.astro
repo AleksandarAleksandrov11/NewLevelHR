@@ -52,15 +52,15 @@ const wordmarkLetters = ['N', 'e', 'w', 'L', 'e', 'v', 'e', 'l', 'H', 'R'];
       </div>
 
       <nav class="footer-col" aria-label={c.footer.colServices} data-reveal data-reveal-delay="1">
-        <h2 class="footer-h">{c.footer.colServices}</h2>
+        <p class="footer-h">{c.footer.colServices}</p>
         <ul role="list">{servicesLinks.map((l) => <li><a href={p(l.key)} class="footer-link">{l.label}</a></li>)}</ul>
       </nav>
       <nav class="footer-col" aria-label={c.footer.colCompany} data-reveal data-reveal-delay="2">
-        <h2 class="footer-h">{c.footer.colCompany}</h2>
+        <p class="footer-h">{c.footer.colCompany}</p>
         <ul role="list">{companyLinks.map((l) => <li><a href={p(l.key)} class="footer-link">{l.label}</a></li>)}</ul>
       </nav>
       <div class="footer-col" data-reveal data-reveal-delay="3">
-        <h2 class="footer-h">{c.footer.colContact}</h2>
+        <p class="footer-h">{c.footer.colContact}</p>
         <ul role="list" class="footer-contact">
           <li><Mail class="size-4" aria-hidden="true" /><a href={`mailto:${site.email}`} class="footer-link">{site.email}</a></li>
           <li><Clock class="size-4" aria-hidden="true" /><span><span class="block text-white/50 text-xs">{c.footer.hours}</span>{c.footer.hoursValue}</span></li>
@@ -68,7 +68,7 @@ const wordmarkLetters = ['N', 'e', 'w', 'L', 'e', 'v', 'e', 'l', 'H', 'R'];
           <li><MapPin class="size-4" aria-hidden="true" /><address class="not-italic">{c.footer.addressValue}</address></li>
         </ul>
         <nav aria-label={c.footer.colLegal} class="mt-6">
-          <h2 class="footer-h">{c.footer.colLegal}</h2>
+          <p class="footer-h">{c.footer.colLegal}</p>
           <ul role="list">{legalLinks.map((l) => <li><a href={p(l.key)} class="footer-link">{l.label}</a></li>)}</ul>
         </nav>
       </div>

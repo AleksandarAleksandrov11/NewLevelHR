@@ -143,12 +143,14 @@ const faqLd = {
         <ul class="sd-related-grid" role="list">
           {related.map((r, i) => (
             <li data-reveal data-reveal-delay={String(i + 1)}>
-              <a href={localizePath(keyOf[r], lang)} class="sd-related-card card card-hover group">
+              <div class="sd-related-card card card-hover group">
                 <p class="text-xs font-bold uppercase tracking-[0.14em] text-accent-ink">{c.services[r].tagline}</p>
-                <h3 class="font-display text-xl font-bold text-ink mt-2">{c.services[r].name}</h3>
+                <h3 class="font-display text-xl font-bold text-ink mt-2">
+                  <a href={localizePath(keyOf[r], lang)} class="sd-related-link">{c.services[r].name}</a>
+                </h3>
                 <p class="mt-2 text-slate text-[0.95rem] leading-relaxed">{c.services[r].menuDesc}</p>
-                <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-accent-ink">{l.exploreService}<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" /></span>
-              </a>
+                <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-accent-ink" aria-hidden="true">{l.exploreService}<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" /></span>
+              </div>
             </li>
           ))}
         </ul>
@@ -188,5 +190,8 @@ const faqLd = {
   .sd-problem-chip:hover { background: var(--color-accent); color: var(--color-ink); }
   .sd-related-grid { display: grid; gap: 1.25rem; margin-top: 2.5rem; }
   @media (min-width: 48rem) { .sd-related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .sd-related-card { display: flex; flex-direction: column; height: 100%; padding: 1.75rem; }
+  .sd-related-card { position: relative; display: flex; flex-direction: column; height: 100%; padding: 1.75rem; }
+  /* The card is the target, the name is the link: the anchor text is the
+     service, not the tagline and summary printed next to it. */
+  .sd-related-link::after { content: ''; position: absolute; inset: 0; }
 </style>
