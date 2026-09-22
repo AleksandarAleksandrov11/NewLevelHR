@@ -35,7 +35,7 @@ const itemList = {
 
   <section id="services-list" class="section bg-white">
     <div class="container-site">
-      <SectionHeading eyebrow={s.cardsSection.eyebrow} title={s.cardsSection.title} text={s.cardsSection.text} />
+      <SectionHeading eyebrow={s.cardsSection.eyebrow} title={s.cardsSection.title} />
       <div class="svc-rows">
         {cards.map((card, i) => (
           <article class:list={['svc-row', i % 2 === 1 && 'is-reverse']} data-reveal>
@@ -85,7 +85,7 @@ const itemList = {
     <div class="container-site">
       <div class="svc-choose">
         <div class="svc-choose-main">
-          <SectionHeading eyebrow={s.howToChoose.eyebrow} title={s.howToChoose.title} text={s.howToChoose.text} size="md" />
+          <SectionHeading eyebrow={s.howToChoose.eyebrow} title={s.howToChoose.title} size="md" />
           <ul class="svc-options" role="list">
             {s.howToChoose.options.map((o, i) => { const short = o.service as Short; return (
               <li data-reveal data-reveal-delay={String(i + 1)}>
@@ -107,7 +107,7 @@ const itemList = {
           <div class="svc-aside-card" data-reveal data-reveal-delay="3">
             <h3 class="font-display text-xl font-bold">{s.howToChoose.checkTitle}</h3>
             <p class="mt-2 text-slate leading-relaxed">{s.howToChoose.checkText}</p>
-            <div class="mt-5"><Button href={localizePath('tools', lang, 'health-check')} variant="ghost">{s.howToChoose.checkButton}</Button></div>
+            <div class="mt-5"><Button href={localizePath('healthCheck', lang)} variant="ghost">{s.howToChoose.checkButton}</Button></div>
           </div>
         </aside>
       </div>

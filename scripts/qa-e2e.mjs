@@ -129,6 +129,24 @@ await test('language banner stays hidden for an English browser on the English p
   expect(!(await page.locator('[data-lang-banner]').isVisible()), 'banner shown to a matching browser language');
 });
 
+await test('language switcher sits in the header on a phone, before anything is opened', phone, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  const sw = page.locator('.header-lang');
+  const box = await sw.boundingBox();
+  expect(box && box.y < 80, `the switcher is not in the header bar (y=${box ? Math.round(box.y) : 'none'})`);
+  expect(await sw.locator('button svg').first().isVisible(), 'no globe on the switcher');
+  await sw.locator('button').click();
+  await page.waitForTimeout(350);
+  const langs = await sw.locator('[data-lang-link]').evaluateAll((els) => els.map((e) => e.getAttribute('data-lang-link')));
+  expect(langs.join(',') === 'en,de,bg', `menu lists ${langs.join(',')}`);
+  await sw.locator('[data-lang-link="bg"]').click();
+  await page.waitForURL(/\/bg\//, { timeout: 8000 });
+  expect(new URL(page.url()).pathname === '/bg/', `landed on ${new URL(page.url()).pathname}`);
+});
+
 await test('language switcher opens the same page in DE and BG (translated slugs)', desktop, async (page) => {
   await page.goto(base + '/en/services/high-velocity-hiring/', { waitUntil: 'networkidle' });
   await settleBanners(page);
@@ -208,7 +226,7 @@ await test('header stays visible while scrolling down', desktop, async (page) =>
 });
 
 await test('cost calculator: the track fill follows the slider', desktop, async (page) => {
-  await page.goto(base + '/en/hr-tools/#bad-hire-calculator', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/cost-of-a-bad-hire/#bad-hire-calculator', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const range = page.locator('[data-calc-range]').first();
@@ -266,7 +284,7 @@ await test('what we fix: the problem bar is full width on phones, centres the ac
 });
 
 await test('anchors in the URL land under the sticky header', desktop, async (page) => {
-  for (const [path, id] of [['/en/hr-tools/#health-check', 'health-check'], ['/en/contact/#book', 'book']]) {
+  for (const [path, id] of [['/en/hr-health-check/#health-check', 'health-check'], ['/en/contact/#book', 'book']]) {
     await page.goto(base + path, { waitUntil: 'networkidle' });
     await page.waitForTimeout(2200);
     const r = await page.evaluate((id) => ({
@@ -291,11 +309,20 @@ await test('mobile menu: the whole panel is reachable on a short phone', { viewp
   await page.waitForTimeout(500);
   const r = await page.evaluate(() => {
     const menu = document.querySelector('[data-mobile-menu]');
-    const last = menu.querySelector('.mobile-footer p a');
-    return { scrolled: Math.round(menu.scrollTop), bottom: Math.round(last.getBoundingClientRect().bottom), vh: window.innerHeight };
+    // The booking button is the last thing in the panel.
+    const last = menu.querySelector('.mobile-footer a');
+    return {
+      scrolled: Math.round(menu.scrollTop),
+      overflow: menu.scrollHeight - menu.clientHeight,
+      bottom: Math.round(last.getBoundingClientRect().bottom),
+      vh: window.innerHeight,
+    };
   });
-  expect(r.scrolled > 100, `the panel did not scroll (scrollTop ${r.scrolled})`);
-  expect(r.bottom <= r.vh, `the last line sits at ${r.bottom} in a ${r.vh}px viewport`);
+  // Whatever the panel's height, the last control has to end up on screen: the panel
+  // scrolls itself when it overflows (Lenis is stopped and would swallow the gesture
+  // without data-lenis-prevent).
+  if (r.overflow > 2) expect(r.scrolled > r.overflow - 8, `the panel did not scroll to the end (${r.scrolled} of ${r.overflow})`);
+  expect(r.bottom <= r.vh, `the last control sits at ${r.bottom} in a ${r.vh}px viewport`);
 });
 
 await test('contact: the topic dropdown hangs off the button and closes on an outside click', phone, async (page) => {
@@ -406,14 +433,25 @@ await test('blog: the index filters by topic and a post opens with its own canon
   expect(await page.locator('article .prose-nl h2').count(), 'the post body did not render');
 });
 
-await test('tools: the health check and the calculator live on their own page, not on the home page', desktop, async (page) => {
+await test('tools: each one has its own page and neither runs on the home page', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   expect((await page.locator('#health-check, #bad-hire-calculator').count()) === 0, 'a tool is still on the home page');
-  await page.goto(base + '/en/hr-tools/', { waitUntil: 'networkidle' });
-  expect(await page.locator('#health-check').count(), 'no health check on the tools page');
-  expect(await page.locator('#bad-hire-calculator').count(), 'no calculator on the tools page');
+
+  // The home teaser links to the two pages, not to a combined one.
+  const hrefs = await page.locator('.tools-teaser a').evaluateAll((els) => els.map((el) => new URL(el.href).pathname));
+  expect(hrefs.includes('/en/hr-health-check/') && hrefs.includes('/en/cost-of-a-bad-hire/'), `teaser links ${hrefs.join(', ')}`);
+
+  await page.goto(base + '/en/hr-health-check/', { waitUntil: 'networkidle' });
+  expect(await page.locator('#health-check').count(), 'no health check on its page');
+  expect((await page.locator('#bad-hire-calculator').count()) === 0, 'the calculator is on the health check page');
+  expect((await page.locator('h1').count()) === 1, 'the health check page does not have exactly one h1');
+
+  await page.goto(base + '/en/cost-of-a-bad-hire/', { waitUntil: 'networkidle' });
+  expect(await page.locator('#bad-hire-calculator').count(), 'no calculator on its page');
+  expect((await page.locator('#health-check').count()) === 0, 'the health check is on the calculator page');
+  expect((await page.locator('h1').count()) === 1, 'the calculator page does not have exactly one h1');
 });
 
 await test('skip link and landmarks exist', desktop, async (page) => {
@@ -453,21 +491,24 @@ await test('contact form: one page, custom topic dropdown, validation and a mock
   await form.locator('.select-option').nth(1).click();
   expect(await form.locator('select[name="topic"]').inputValue(), 'the native select did not follow the listbox');
 
-  // A malformed address is rejected before anything is sent.
-  await form.locator('[name="email"]').fill('not-an-email');
-  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
-  await form.locator('[name="name"]').fill('Test Person');
-  await form.locator('[name="company"]').fill('Example GmbH');
-  await form.locator('[name="consent"]').check();
-  await form.locator('[data-submit]').click();
-  await page.waitForTimeout(300);
-  expect(((await form.locator('[data-error-for="email"]').textContent()) || '').trim().length > 0, 'a malformed email was accepted');
-
   const posts = [];
   await page.route('**/api/contact', async (route) => {
     posts.push(route.request().postDataJSON());
     return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true }) });
   });
+  // Consent first: blurring an invalid email inserts its error line and shifts the
+  // box down mid-click, which is a test-harness race, not a site bug.
+  await form.locator('.check-box').click();
+  expect(await form.locator('[name="consent"]').isChecked(), 'clicking the consent box did not tick it');
+  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
+  await form.locator('[name="name"]').fill('Test Person');
+  await form.locator('[name="company"]').fill('Example GmbH');
+  await form.locator('[name="email"]').fill('not-an-email');
+  await form.locator('[data-submit]').click();
+  await page.waitForTimeout(300);
+  expect(((await form.locator('[data-error-for="email"]').textContent()) || '').trim().length > 0, 'a malformed email was accepted');
+  expect(posts.length === 0, 'the form posted with an invalid email');
+
   await form.locator('[name="email"]').fill('test@example.com');
   await form.locator('[data-submit]').click();
   await page.locator('[data-form-success]').waitFor({ state: 'visible', timeout: 8000 });
@@ -485,11 +526,11 @@ await test('contact form: server error and rate limit are shown in the page lang
   await page.route('**/api/contact', (route) => route.fulfill({ status: n++ === 0 ? 429 : 500, contentType: 'application/json', body: JSON.stringify({ ok: false, error: n === 1 ? 'rate_limit' : 'send' }) }));
   await form.locator('.select-btn').click();
   await form.locator('.select-option').first().click();
+  await form.locator('.check-box').click();
   await form.locator('[name="message"]').fill('Guten Tag, dies ist eine Testnachricht mit ausreichend vielen Zeichen.');
   await form.locator('[name="name"]').fill('Test Person');
   await form.locator('[name="company"]').fill('Beispiel GmbH');
   await form.locator('[name="email"]').fill('test@example.com');
-  await form.locator('[name="consent"]').check();
   await page.waitForTimeout(3200);
   await form.locator('[data-submit]').click();
   const err = page.locator('[data-form-error]');
@@ -503,7 +544,7 @@ await test('contact form: server error and rate limit are shown in the page lang
 });
 
 await test('HR health check: answer every question and reach a result with a score', desktop, async (page) => {
-  await page.goto(base + '/en/hr-tools/#health-check', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/hr-health-check/#health-check', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const quiz = page.locator('[data-quiz]');
@@ -526,7 +567,7 @@ await test('HR health check: answer every question and reach a result with a sco
 });
 
 await test('bad-hire calculator: total updates when inputs change and reset restores defaults', desktop, async (page) => {
-  await page.goto(base + '/en/hr-tools/#bad-hire-calculator', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/cost-of-a-bad-hire/#bad-hire-calculator', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const calc = page.locator('[data-calculator]');

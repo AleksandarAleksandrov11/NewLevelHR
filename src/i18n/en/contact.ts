@@ -17,7 +17,6 @@ export const contact = {
   book: {
     eyebrow: 'Or book a call directly',
     title: 'Schedule a free 30-minute consultation at a time that works for you.',
-    text: 'No pitch deck, no pressure. You describe your situation, we ask questions, and you leave with a clear picture of what would help first.',
     button: 'Book an appointment',
   },
   info: {

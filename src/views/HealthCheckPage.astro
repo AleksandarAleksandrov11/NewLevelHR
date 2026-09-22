@@ -1,0 +1,95 @@
+---
+/**
+ * HR Health Check: its own page, built around the five-question quiz.
+ * The page explains what is checked, runs the check, and says what the score
+ * is good for. Nothing leaves the browser.
+ */
+import { Clock, Users, Coins, UserPlus, FileCheck, ShieldCheck } from '@lucide/astro';
+import PageShell from '@/components/layout/PageShell.astro';
+import PageHero from '@/components/pages/PageHero.astro';
+import HealthCheck from '@/components/home/HealthCheck.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, type PageKey } from '@/i18n';
+
+interface Props { lang: Locale; pageKey: PageKey }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const h = d.tools.health;
+const c = d.common;
+const areaIcons = [Clock, Users, Coins, UserPlus, FileCheck];
+---
+<PageShell lang={lang} pageKey="healthCheck" title={h.meta.title} description={h.meta.description}>
+  <PageHero
+    lang={lang}
+    eyebrow={h.hero.eyebrow}
+    title={h.hero.title}
+    text={h.hero.text}
+    crumbs={[{ label: c.nav.healthCheck }]}
+    variant="ivory"
+    align="center"
+  >
+    <div class="hc-hero-actions">
+      <Button href="#health-check" size="lg" icon="arrow">{h.hero.start}</Button>
+      <p class="hc-hero-privacy"><ShieldCheck class="size-4" aria-hidden="true" /><span>{h.privacy}</span></p>
+    </div>
+  </PageHero>
+
+  <section class="section bg-white pt-0 lg:pt-0">
+    <div class="container-site tl-areas">
+      <SectionHeading title={h.areas.title} align="center" size="md" />
+      <ol class="tl-area-list" role="list">
+        {h.areas.items.map((item, i) => { const Icon = areaIcons[i] ?? Clock; return (
+          <li class="card tl-area" data-reveal data-reveal-delay={String((i % 5) + 1)}>
+            <span class="tl-area-num font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="tl-area-icon"><Icon class="size-5" aria-hidden="true" /></span>
+            <h3 class="font-display tl-area-title">{item.title}</h3>
+            <p class="tl-area-body">{item.body}</p>
+          </li>
+        ); })}
+      </ol>
+    </div>
+  </section>
+
+  <HealthCheck lang={lang} standalone />
+
+  <section class="section bg-ivory bg-grain">
+    <div class="container-site">
+      <div class="tl-cross" data-reveal>
+        <div>
+          <p class="font-display tl-cross-title">{h.otherTool.title}</p>
+          <p class="mt-2 text-slate">{h.otherTool.text}</p>
+        </div>
+        <Button href={localizePath('badHireCost', lang)} variant="secondary">{h.otherTool.button}</Button>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<style>
+  .hc-hero-actions { margin-top: 2rem; display: grid; justify-items: center; gap: 1rem; }
+  .hc-hero-privacy { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--color-slate); max-width: 34rem; text-align: left; }
+  .hc-hero-privacy :global(svg) { flex: none; color: var(--color-accent-ink); }
+
+  .tl-areas { padding-top: 3rem; }
+  .tl-area-list { display: grid; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 40rem) { .tl-area-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 72rem) { .tl-area-list { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.25rem; } }
+  .tl-area { position: relative; padding: 1.5rem; }
+  .tl-area-num { position: absolute; top: 1.25rem; right: 1.25rem; font-size: 0.8rem; font-weight: 800; color: var(--color-line-strong); }
+  .tl-area-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 0.8rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
+  .tl-area-title { margin-top: 1rem; font-size: 1.0625rem; font-weight: 700; color: var(--color-ink); }
+  .tl-area-body { margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.6; color: var(--color-slate); }
+
+
+  .tl-cross {
+    max-width: 52rem; margin-inline: auto; padding: 1.75rem; border-radius: var(--radius-xl);
+    background: var(--color-white); border: 1px solid var(--color-line);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem;
+  }
+  .tl-cross-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.015em; color: var(--color-ink); }
+</style>

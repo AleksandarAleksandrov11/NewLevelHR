@@ -17,7 +17,6 @@ export const contact: ContactDict = {
   book: {
     eyebrow: 'Oder direkt einen Termin buchen',
     title: 'Vereinbaren Sie eine kostenlose 30-minütige Beratung zu einem Termin, der für Sie passt.',
-    text: 'Kein Pitch, kein Druck. Sie beschreiben Ihre Situation, wir stellen Fragen, und Sie gehen mit einem klaren Bild davon heraus, was zuerst helfen würde.',
     button: 'Termin buchen',
   },
   info: {

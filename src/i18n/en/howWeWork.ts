@@ -14,7 +14,6 @@ export const howWeWork = {
   steps: {
     eyebrow: 'The process',
     title: 'From the first call to a running rhythm.',
-    text: 'The steps are the same for every service. Only the depth changes.',
     items: [
       { title: 'Free 30-minute consultation', duration: '30 minutes', body: 'You describe your situation, we ask a lot of questions. No pitch, no pressure. You leave with a clear picture of what would help first, whether or not we work together.', outcome: 'Outcome: a clear picture, in writing if you want it.' },
       { title: 'Diagnosis', duration: 'A few days', body: 'We look at the reality, not the org chart: contracts, policies, pay logic, the open roles, the managers, the conversations that are being avoided. Short interviews with the leadership team where useful.', outcome: 'Outcome: a prioritised list of gaps, ranked by risk and effort.' },

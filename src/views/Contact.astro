@@ -1,6 +1,6 @@
 ---
-/** Contact: one message form, the booking calendar and the contact details. */
-import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, AlertCircle, ExternalLink } from '@lucide/astro';
+/** Contact: one message form, the booking block and the contact details. */
+import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, AlertCircle } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -142,7 +142,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
         <div id="book" class="ct-book" data-reveal data-reveal-delay="1">
           <p class="eyebrow text-accent-3">{t.book.eyebrow}</p>
           <h2 class="font-display text-display-sm mt-4">{t.book.title}</h2>
-          <p class="mt-3 text-white/75 leading-relaxed">{t.book.text}</p>
           {embedUrl && (
             <div class="ct-calendly" data-calendly data-url={embedUrl}>
               <div class="ct-calendly-frame" data-calendly-frame></div>
@@ -152,7 +151,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
           <div class="mt-6 flex flex-wrap gap-3">
             <Button href={site.bookingUrl} external icon="calendar">{t.book.button}</Button>
           </div>
-          <p class="mt-4 inline-flex items-start gap-1.5 text-xs text-white/55"><ExternalLink class="size-3.5 mt-0.5 shrink-0" aria-hidden="true" /><span>{c.misc.calendlyNote}</span></p>
         </div>
 
         <div class="ct-info" data-reveal data-reveal-delay="2">
@@ -186,7 +184,7 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
   }
   .ct-form { display: grid; gap: 1.25rem; }
   .ct-group { display: grid; gap: 1.1rem; }
-  .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.25rem; }
+  .ct-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 0.25rem; }
   .ct-nav-main { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
   .ct-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 600; color: var(--color-ink-3); border-radius: var(--radius-sm); padding: 0.4rem 0.2rem; transition: color 0.25s ease; }
   .ct-back:hover { color: var(--color-ink); }
