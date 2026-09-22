@@ -3,7 +3,7 @@
  * NewLevelHR contact form endpoint for classic PHP hosting (PHP 8+).
  * Same request/response contract as api/contact.js (Vercel):
  *   POST application/json or application/x-www-form-urlencoded
- *   { name, email, company?, topic, message, consent, website (honeypot), ts, lang, token? }
+ *   { name, email, company, topic, message, consent, website (honeypot), ts, lang, token? }
  *   -> { ok: true } | { ok: false, error: "method"|"spam"|"rate_limit"|"validation"|"config"|"send", fields?: {...} }
  *
  * Configuration (in order of precedence):
@@ -101,6 +101,7 @@ $lang = in_array($field('lang'), LANGS, true) ? $field('lang') : 'en';
 
 $errors = [];
 if ($name === '') { $errors['name'] = 'required'; }
+if ($company === '') { $errors['company'] = 'required'; }
 if ($email === '' || filter_var($email, FILTER_VALIDATE_EMAIL) === false) { $errors['email'] = 'email'; }
 if (!in_array($topic, TOPICS, true)) { $errors['topic'] = 'required'; }
 if (mb_strlen($message) < MIN_MESSAGE) { $errors['message'] = 'minLength'; }
@@ -115,12 +116,12 @@ $from = (string) $config['from'];
 if ($to === '' || filter_var($from, FILTER_VALIDATE_EMAIL) === false) {
     respond(503, ['ok' => false, 'error' => 'config']);
 }
-$subjectPlain = "[NewLevelHR] {$topic} - {$name}" . ($company !== '' ? " ({$company})" : '');
+$subjectPlain = "[NewLevelHR] {$topic} - {$name} ({$company})";
 $subject = '=?UTF-8?B?' . base64_encode($subjectPlain) . '?=';
 $text = implode("\n", [
     "Name: {$name}",
     "Email: {$email}",
-    'Company: ' . ($company !== '' ? $company : '-'),
+    'Company: ' . $company,
     "Topic: {$topic}",
     "Language: {$lang}",
     "IP: {$ip}",

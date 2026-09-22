@@ -17,10 +17,9 @@ interface Props extends Omit<SeoInput, 'lang'> {
   /** Body class hook */
   bodyClass?: string;
   pageKey?: string;
-  preloaderKey?: string;
 }
 
-const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', preloaderKey = site.storage.preloaderKey, ...seo } = Astro.props;
+const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', ...seo } = Astro.props;
 const dict = getDict(lang);
 const meta = localeMeta[lang];
 const fontPreloads = lang === 'bg'
@@ -58,7 +57,7 @@ const organization = {
 };
 ---
 <!doctype html>
-<html lang={meta.htmlLang} dir="ltr" data-lang={lang} data-page={pageKey} data-preloader-key={preloaderKey}>
+<html lang={meta.htmlLang} dir="ltr" data-lang={lang} data-page={pageKey}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -80,9 +79,6 @@ const organization = {
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (!reduce) document.documentElement.classList.add('js-motion');
         document.documentElement.classList.add('js');
-        try {
-          if (!reduce && !localStorage.getItem(document.documentElement.dataset.preloaderKey || 'nlhr_seen')) document.documentElement.classList.add('is-preloading');
-        } catch (e) {}
       })();
     </script>
     <ClientRouter />

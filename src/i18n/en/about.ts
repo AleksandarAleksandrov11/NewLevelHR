@@ -11,7 +11,7 @@ export const about = {
   hero: {
     eyebrow: 'About',
     title: 'A human partner, not another HR tool.',
-    text: 'I’m Mariyana Velkova, founder of NewLevelHR. I work with founders and leadership teams on the people side of growth: hiring, structure, managers and the hard conversations in between.',
+    text: 'Most HR services are built for corporations with thousands of employees and endless budgets. But in a startup or SME, “people problems” feel different. They’re personal. They’re expensive. And they’re often the only thing standing between you and your next level of growth.',
     monogram: 'MV',
     portraitLabel: 'Founder',
   },
@@ -19,7 +19,6 @@ export const about = {
     eyebrow: 'Why NewLevelHR exists',
     title: 'Built for startups and SMEs, not for corporations.',
     paragraphs: [
-      'Most HR services are built for corporations with thousands of employees and endless budgets. But in a startup or SME, “people problems” feel different. They’re personal. They’re expensive. And they’re often the only thing standing between you and your next level of growth.',
       'I founded NewLevelHR because I saw too many leaders drowning in operational noise: babysitting teams, losing great talent to slow hiring, and guessing their way through management.',
       'I’m not a vendor you call once a year. I’m the partner in your Slack channel, the advisor in your ear during a tough hire, and the safety net for your first 90 days.',
       'I’m here to take the “people puzzles” off your plate, so you can get back to building what matters.',

@@ -14,6 +14,8 @@ import Problems from '@/views/Problems.astro';
 import About from '@/views/About.astro';
 import HowWeWork from '@/views/HowWeWork.astro';
 import Faq from '@/views/Faq.astro';
+import Tools from '@/views/Tools.astro';
+import Blog from '@/views/Blog.astro';
 import Contact from '@/views/Contact.astro';
 import LegalNotice from '@/views/LegalNotice.astro';
 import Terms from '@/views/Terms.astro';
@@ -46,6 +48,8 @@ const { lang, view } = Astro.props as PageProps;
 {view === 'about' && <About lang={lang} pageKey={view} />}
 {view === 'howWeWork' && <HowWeWork lang={lang} pageKey={view} />}
 {view === 'faq' && <Faq lang={lang} pageKey={view} />}
+{view === 'tools' && <Tools lang={lang} pageKey={view} />}
+{view === 'blog' && <Blog lang={lang} pageKey={view} />}
 {view === 'contact' && <Contact lang={lang} pageKey={view} />}
 {view === 'legalNotice' && <LegalNotice lang={lang} pageKey={view} />}
 {view === 'terms' && <Terms lang={lang} pageKey={view} />}

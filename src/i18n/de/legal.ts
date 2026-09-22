@@ -239,7 +239,6 @@ export const legal: LegalDict = {
             rows: [
               ['{consentCookie}', 'Erstanbieter-Cookie', 'Speichert Ihre Cookie-Auswahl.', '12 Monate', 'Notwendig'],
               ['{langBannerKey}', 'localStorage', 'Merkt sich, dass Sie den Sprachhinweis geschlossen oder eine Sprache gewählt haben.', 'Bis zur Löschung', 'Notwendig'],
-              ['{preloaderKey}', 'localStorage', 'Merkt sich, dass die Intro-Animation beim ersten Besuch angezeigt wurde.', 'Bis zur Löschung', 'Notwendig'],
             ],
           },
           {

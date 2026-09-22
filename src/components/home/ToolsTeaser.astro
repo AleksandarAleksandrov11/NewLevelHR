@@ -1,0 +1,51 @@
+---
+/**
+ * Home teaser for the two free tools. They used to run inline on the home page,
+ * where the calculator's total read like a price; now the visitor opens them on
+ * the tools page on purpose.
+ */
+import { Activity, Calculator } from '@lucide/astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath } from '@/i18n';
+import Button from '@/components/ui/Button.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = getDict(lang);
+const t = d.tools;
+const items = [
+  { icon: Activity, title: d.quiz.eyebrow, body: t.intro.health, hash: 'health-check' },
+  { icon: Calculator, title: d.calculator.eyebrow, body: t.intro.cost, hash: 'bad-hire-calculator' },
+];
+---
+<section class="tools-teaser section bg-white">
+  <div class="container-site">
+    <SectionHeading eyebrow={t.hero.eyebrow} title={t.hero.title} text={t.hero.text} />
+    <ul class="tt-grid" role="list">
+      {items.map((it, i) => (
+        <li class="card card-hover tt-card" data-reveal data-reveal-delay={String(i + 1)} data-tilt="4">
+          <span class="tt-icon"><it.icon class="size-5" aria-hidden="true" /></span>
+          <h3 class="font-display text-xl font-bold text-ink mt-5">{it.title}</h3>
+          <p class="mt-2 text-slate leading-relaxed">{it.body}</p>
+          <a class="tt-link" href={localizePath('tools', lang, it.hash)}>{d.common.cta.open}</a>
+        </li>
+      ))}
+    </ul>
+    <div class="tt-cta" data-reveal data-reveal-delay="3">
+      <Button href={localizePath('tools', lang)} variant="ghost" size="lg">{d.common.nav.tools}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tt-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
+  @media (min-width: 48rem) { .tt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+  .tt-card { position: relative; padding: 1.75rem; display: flex; flex-direction: column; }
+  .tt-icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
+  .tt-link { margin-top: 1.25rem; align-self: flex-start; font-size: 0.9rem; font-weight: 650; color: var(--color-accent-ink); }
+  /* The whole card is the target; the link stays for keyboard and screen readers. */
+  .tt-link::after { content: ''; position: absolute; inset: 0; }
+  .tt-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .tt-cta { margin-top: 2.5rem; display: flex; justify-content: center; }
+</style>

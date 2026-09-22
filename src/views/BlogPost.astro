@@ -1,0 +1,130 @@
+---
+/** A single blog post. */
+import { ArrowLeft } from '@lucide/astro';
+import { render } from 'astro:content';
+import PageShell from '@/components/layout/PageShell.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { type Locale } from '@/i18n/config';
+import { getDict, localizePath, blogPostPath, fmt } from '@/i18n';
+import { formatDate, readingMinutes, postSlug, type Post } from '@/lib/blog';
+import { site } from '@/config/site';
+
+interface Props { lang: Locale; post: Post; related: Post[]; alternates?: Partial<Record<Locale, string>> }
+const { lang, post, related, alternates } = Astro.props;
+const d = getDict(lang);
+const b = d.blog;
+const c = d.common;
+const { Content } = await render(post);
+const minutes = readingMinutes(post.body);
+const path = blogPostPath(lang, postSlug(post));
+const url = `${site.url}${path}`;
+// A post without translations is its own only language version.
+const alts = alternates && Object.keys(alternates).length > 1 ? (alternates as Record<Locale, string>) : ({ [lang]: path } as Record<Locale, string>);
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.updated ? { dateModified: post.data.updated.toISOString() } : {}),
+  inLanguage: lang,
+  mainEntityOfPage: url,
+  url,
+  author: { '@type': 'Person', name: b.post.author, jobTitle: b.post.authorRole },
+  publisher: { '@id': `${site.url}/#organization` },
+  keywords: post.data.tags.join(', '),
+};
+---
+<PageShell lang={lang} pageKey="blog" path={path} alternates={alts} title={`${post.data.title} | ${site.name}`} description={post.data.description} jsonLd={[article]}>
+  <article class="bp">
+    <header class="bp-head bg-mesh">
+      <div class="container-prose">
+        <Breadcrumbs
+          items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.blog, href: localizePath('blog', lang) }, { label: post.data.title }]}
+          label={c.nav.breadcrumbs}
+          class="mb-8"
+        />
+        {post.data.tags.length > 0 && <ul class="bp-tags" role="list">{post.data.tags.map((t) => <li>{t}</li>)}</ul>}
+        <h1 class="bp-title font-display">{post.data.title}</h1>
+        <p class="bp-lead text-lead text-slate">{post.data.description}</p>
+        <p class="bp-meta">
+          <span>{b.post.author}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={post.data.date.toISOString()}>{fmt(b.post.published, { date: formatDate(post.data.date, lang) })}</time>
+          <span aria-hidden="true">·</span>
+          <span>{fmt(b.post.readingTime, { minutes })}</span>
+          {post.data.updated && (
+            <>
+              <span aria-hidden="true">·</span>
+              <time datetime={post.data.updated.toISOString()}>{fmt(b.post.updated, { date: formatDate(post.data.updated, lang) })}</time>
+            </>
+          )}
+        </p>
+      </div>
+    </header>
+
+    <div class="section bg-white pt-0 lg:pt-0">
+      <div class="container-prose bp-body prose-nl">
+        <Content />
+      </div>
+
+      <div class="container-prose bp-foot">
+        <a class="bp-back" href={localizePath('blog', lang)}><ArrowLeft class="size-4" aria-hidden="true" />{b.post.back}</a>
+      </div>
+
+      {related.length > 0 && (
+        <aside class="container-site bp-related" aria-labelledby="bp-related-title">
+          <h2 id="bp-related-title" class="font-display text-display-sm text-ink">{b.post.more}</h2>
+          <ul class="bp-related-list" role="list">
+            {related.map((r) => (
+              <li class="card card-hover bp-related-card">
+                <p class="bp-related-date">{formatDate(r.data.date, lang)}</p>
+                <h3 class="font-display text-lg font-bold text-ink mt-2">
+                  <a href={blogPostPath(lang, postSlug(r))}>{r.data.title}</a>
+                </h3>
+                <p class="mt-2 text-sm text-slate leading-relaxed">{r.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
+      <div class="container-prose bp-cta">
+        <p class="font-display bp-cta-title">{b.post.cta.title}</p>
+        <p class="mt-2 text-slate">{b.post.cta.text}</p>
+        <div class="mt-5"><Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button></div>
+      </div>
+    </div>
+  </article>
+
+  <FinalCta lang={lang} />
+</PageShell>
+
+<style>
+  .bp-head { padding-top: calc(var(--header-h) + 3rem); padding-bottom: 3rem; }
+  @media (min-width: 64rem) { .bp-head { padding-top: calc(var(--header-h) + 4rem); padding-bottom: 4rem; } }
+  .bp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .bp-tags li { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-ink); background: rgba(255, 255, 255, 0.7); padding: 0.25rem 0.6rem; border-radius: 999px; }
+  .bp-title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); font-weight: 750; line-height: 1.1; letter-spacing: -0.03em; color: var(--color-ink); text-wrap: balance; }
+  .bp-lead { margin-top: 1.25rem; }
+  .bp-meta { margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--color-slate); }
+
+  .bp-body { padding-top: 3rem; }
+  .bp-foot { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
+  .bp-back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.25rem; font-size: 0.9rem; font-weight: 650; color: var(--color-accent-ink); }
+  .bp-back:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .bp-related { margin-top: 4rem; }
+  .bp-related-list { display: grid; gap: 1.25rem; margin-top: 1.75rem; }
+  @media (min-width: 48rem) { .bp-related-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .bp-related-card { position: relative; padding: 1.5rem; }
+  .bp-related-date { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-mist); }
+  .bp-related-card a { color: inherit; }
+  .bp-related-card a::after { content: ''; position: absolute; inset: 0; }
+  .bp-related-card:hover a { color: var(--color-accent-ink); }
+
+  .bp-cta { margin-top: 4rem; padding: 2rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); text-align: center; }
+  .bp-cta-title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
+</style>

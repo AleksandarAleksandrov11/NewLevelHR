@@ -58,7 +58,7 @@ Copy `.env.example` to `.env`. Variables prefixed with `PUBLIC_` are inlined int
 | Variable | Purpose |
 | --- | --- |
 | `SITE_URL` | Canonical origin, used for canonicals, hreflang, sitemap, Open Graph |
-| `PUBLIC_BOOKING_URL` | Calendly link for the free 30-minute call (**placeholder until the client provides it**) |
+| `PUBLIC_BOOKING_URL` | Calendly link for the free 30-minute call (**placeholder until the client provides it**). Point it at the event itself (`https://calendly.com/<user>/<event>`) and the contact page embeds the calendar inline; anything else keeps the plain link. |
 | `PUBLIC_FORM_ENDPOINT` | Where the contact form posts: `/api/contact` (Vercel), `/contact.php` (PHP hosting) or a hosted form service URL |
 | `PUBLIC_FORM_TOKEN` / `CONTACT_TOKEN` | Optional shared secret between the form and the endpoint |
 | `CONTACT_TO` | Recipient mailbox for contact messages |
@@ -74,12 +74,14 @@ public/                      Static files copied as-is: fonts, icons, contact.ph
 src/
   assets/images/             Photography (see docs/image-credits.md)
   components/
-    layout/                  PageShell, Header, Footer, LangSwitcher, LangBanner, CookieBanner, Preloader
+    layout/                  PageShell, Header, Footer, LangSwitcher, LangBanner, CookieBanner
     home/                    Home page sections
     ui/                      Button, SectionHeading, Accordion, Breadcrumbs, Photo, Wordmark
     sections/                Shared sections (FinalCta)
     seo/                     Seo (meta, canonical, hreflang, Open Graph) and JsonLd
   config/site.ts             Company data, feature flags (KPIs, testimonials), storage names
+  content/blog/<lang>/       Blog posts in Markdown, one folder per language (see docs/blog-content.md)
+  content.config.ts          Schema of the blog collection
   i18n/
     config.ts, routes.ts     Locales and the translated slug registry
     en/ de/ bg/              Dictionaries, one file per namespace; English is the type reference
@@ -88,6 +90,7 @@ src/
   pages/
     index.astro              Root redirect to /en/
     [lang]/[...path].astro   Localised router for every page
+    [lang]/blog/[slug].astro One route per published post
     404.astro                Root 404: English shell + localized fallback; DE/BG URLs continue to /de/404/, /bg/404/
     sitemap.xml.ts, robots.txt.ts, og/…  Generated SEO files and Open Graph images
   scripts/                   Client-side TypeScript (motion core, header, consent, cursor, tools)
@@ -105,6 +108,13 @@ docs/                        Design system, image credits, QA reports and screen
 * `src/i18n/routes.ts` maps every page to its slug per language. Use `localizePath(key, lang)` for links.
   The language switcher always links to the same page in the other language.
 * `hreflang` and `x-default` alternates, canonical URLs and the multilingual sitemap are generated automatically.
+
+### Writing a blog post
+
+Add a Markdown file to `src/content/blog/<lang>/`; the file name becomes the URL slug. `title`,
+`description` and `date` are required, `tags` drive the filter on the blog index, `translationKey`
+links the same article across languages and `draft: true` keeps it out of the build. The full
+frontmatter reference is in `docs/blog-content.md`.
 
 ### Enabling KPIs, testimonials and client logos
 
@@ -153,7 +163,7 @@ check). For the full visual and functional QA run, after `npm run build`:
 
 | Command | Output |
 | --- | --- |
-| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, contact form (mocked endpoint), quiz, calculator, FAQ, 404, reduced motion, view transitions |
+| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, mobile menu, contact form (mocked endpoint), blog index and post, tools page, quiz, calculator, FAQ, 404, reduced motion, view transitions |
 | `npm run qa:screenshots` | `docs/qa-screenshots/`: every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
 | `npm run qa:lighthouse` | `docs/qa/lighthouse.md`: mobile Lighthouse for home, services, a service page, What We Fix, about, FAQ and contact in the three languages (target ≥ 90 everywhere) |
 

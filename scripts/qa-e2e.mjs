@@ -208,7 +208,7 @@ await test('header stays visible while scrolling down', desktop, async (page) =>
 });
 
 await test('cost calculator: the track fill follows the slider', desktop, async (page) => {
-  await page.goto(base + '/en/#bad-hire-calculator', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/hr-tools/#bad-hire-calculator', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const range = page.locator('[data-calc-range]').first();
@@ -266,7 +266,7 @@ await test('what we fix: the problem bar is full width on phones, centres the ac
 });
 
 await test('anchors in the URL land under the sticky header', desktop, async (page) => {
-  for (const [path, id] of [['/en/#health-check', 'health-check'], ['/en/contact/#book', 'book']]) {
+  for (const [path, id] of [['/en/hr-tools/#health-check', 'health-check'], ['/en/contact/#book', 'book']]) {
     await page.goto(base + path, { waitUntil: 'networkidle' });
     await page.waitForTimeout(2200);
     const r = await page.evaluate((id) => ({
@@ -373,6 +373,49 @@ await test('primary calls to action land on the right page', desktop, async (pag
   }
 });
 
+await test('blog: the index filters by topic and a post opens with its own canonical', desktop, async (page) => {
+  await page.goto(base + '/en/blog/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  const cards = page.locator('[data-blog-post]');
+  const total = await cards.count();
+  expect(total > 0, 'the blog index has no posts');
+
+  // Filtering by a topic hides the posts that do not carry it.
+  const chips = page.locator('[data-blog-tag]');
+  expect((await chips.count()) > 1, 'no topic filter rendered');
+  const tag = await chips.nth(1).getAttribute('data-blog-tag');
+  await chips.nth(1).click();
+  await page.waitForTimeout(250);
+  const visible = await page.locator('[data-blog-post]:not([hidden])').count();
+  expect(visible > 0 && visible <= total, `filter on "${tag}" showed ${visible} of ${total}`);
+  await chips.first().click();
+  await page.waitForTimeout(250);
+  expect((await page.locator('[data-blog-post]:not([hidden])').count()) === total, 'All topics did not restore every post');
+
+  // A card leads to the post, which carries its own canonical.
+  await page.locator('[data-blog-post]:not([hidden]) .bl-title a').first().click();
+  // View Transitions swap in place, so wait for the URL rather than a load event.
+  await page.waitForURL(/\/en\/blog\/[^/]+\//, { timeout: 8000 });
+  await page.waitForTimeout(400);
+  const path = new URL(page.url()).pathname;
+  expect(/^\/en\/blog\/[^/]+\/$/.test(path), `landed on ${path}`);
+  const canonical = await page.getAttribute('link[rel="canonical"]', 'href');
+  expect(canonical && canonical.endsWith(path), `canonical ${canonical} does not match ${path}`);
+  expect((await page.locator('h1').count()) === 1, 'the post does not have exactly one h1');
+  expect(await page.locator('article .prose-nl h2').count(), 'the post body did not render');
+});
+
+await test('tools: the health check and the calculator live on their own page, not on the home page', desktop, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  expect((await page.locator('#health-check, #bad-hire-calculator').count()) === 0, 'a tool is still on the home page');
+  await page.goto(base + '/en/hr-tools/', { waitUntil: 'networkidle' });
+  expect(await page.locator('#health-check').count(), 'no health check on the tools page');
+  expect(await page.locator('#bad-hire-calculator').count(), 'no calculator on the tools page');
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');
@@ -383,57 +426,53 @@ await test('skip link and landmarks exist', desktop, async (page) => {
   expect((await page.$$('h1')).length === 1, 'page must have exactly one h1');
 });
 
-await test('contact form: four steps, custom topic dropdown, validation and a mocked send', desktop, async (page) => {
+await test('contact form: one page, custom topic dropdown, validation and a mocked send', desktop, async (page) => {
   await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const form = page.locator('[data-contact-form]');
-  const steps = form.locator('[data-form-step]');
-  expect((await steps.count()) === 4, `expected 4 steps, found ${await steps.count()}`);
-  expect((await form.locator('[data-form-step]:visible').count()) === 1, 'more than one step visible');
+  // Every field is on the page at once: no wizard, no hidden steps.
+  for (const name of ['topic', 'message', 'name', 'company', 'email', 'consent']) {
+    expect(await form.locator(`[name="${name}"]`).count(), `field ${name} is missing`);
+  }
+  expect((await form.locator('[data-form-step]').count()) === 0, 'the stepped flow is still in the markup');
 
-  // Step 1: the native select is replaced by a listbox, and Next is blocked until it is answered.
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(250);
-  expect(await form.locator('[data-error-for="topic"]').textContent(), 'no error on the empty topic');
+  // Submitting empty reports every required field, company and a valid email included.
+  await page.waitForTimeout(3200); // the anti-bot timer requires a few seconds on the page
+  await form.locator('[data-submit]').click();
+  await page.waitForTimeout(300);
+  for (const name of ['topic', 'message', 'name', 'company', 'email', 'consent']) {
+    const msg = (await form.locator(`[data-error-for="${name}"]`).textContent()) || '';
+    expect(msg.trim().length > 0, `no error for the empty ${name} field`);
+  }
+
+  // The native select is the source of truth behind the listbox.
   const combo = form.locator('.select-btn');
   expect(await combo.count(), 'the topic select was not enhanced');
   await combo.click();
   await form.locator('.select-option').nth(1).click();
   expect(await form.locator('select[name="topic"]').inputValue(), 'the native select did not follow the listbox');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(300);
 
-  // Step 2: message, with the minimum length enforced before moving on.
-  await form.locator('[name="message"]').fill('too short');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(250);
-  expect(await form.locator('[data-error-for="message"]').textContent(), 'short message accepted');
+  // A malformed address is rejected before anything is sent.
+  await form.locator('[name="email"]').fill('not-an-email');
   await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(300);
-
-  // Step 3: name and optional company.
   await form.locator('[name="name"]').fill('Test Person');
   await form.locator('[name="company"]').fill('Example GmbH');
-  await form.locator('[data-step-next]').click();
+  await form.locator('[name="consent"]').check();
+  await form.locator('[data-submit]').click();
   await page.waitForTimeout(300);
+  expect(((await form.locator('[data-error-for="email"]').textContent()) || '').trim().length > 0, 'a malformed email was accepted');
 
-  // Step 4: email, consent and submit.
-  expect(await form.locator('[data-submit]').isVisible(), 'no submit button on the last step');
-  expect(!(await form.locator('[data-step-next]').isVisible()), 'Next still shown on the last step');
   const posts = [];
   await page.route('**/api/contact', async (route) => {
     posts.push(route.request().postDataJSON());
     return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true }) });
   });
   await form.locator('[name="email"]').fill('test@example.com');
-  await form.locator('[name="consent"]').check();
-  await page.waitForTimeout(3200); // the anti-bot timer requires a few seconds on the page
   await form.locator('[data-submit]').click();
   await page.locator('[data-form-success]').waitFor({ state: 'visible', timeout: 8000 });
   const sent = posts[0] || {};
-  expect(posts.length === 1 && sent.email === 'test@example.com' && sent.name === 'Test Person' && sent.consent === true && sent.lang === 'en' && typeof sent.ts === 'number' && Boolean(sent.topic), `payload ${JSON.stringify(sent)}`);
+  expect(posts.length === 1 && sent.email === 'test@example.com' && sent.name === 'Test Person' && sent.company === 'Example GmbH' && sent.consent === true && sent.lang === 'en' && typeof sent.ts === 'number' && Boolean(sent.topic), `payload ${JSON.stringify(sent)}`);
   expect('website' in sent && !sent.website, 'honeypot field missing or filled');
 });
 
@@ -446,11 +485,9 @@ await test('contact form: server error and rate limit are shown in the page lang
   await page.route('**/api/contact', (route) => route.fulfill({ status: n++ === 0 ? 429 : 500, contentType: 'application/json', body: JSON.stringify({ ok: false, error: n === 1 ? 'rate_limit' : 'send' }) }));
   await form.locator('.select-btn').click();
   await form.locator('.select-option').first().click();
-  await form.locator('[data-step-next]').click();
   await form.locator('[name="message"]').fill('Guten Tag, dies ist eine Testnachricht mit ausreichend vielen Zeichen.');
-  await form.locator('[data-step-next]').click();
   await form.locator('[name="name"]').fill('Test Person');
-  await form.locator('[data-step-next]').click();
+  await form.locator('[name="company"]').fill('Beispiel GmbH');
   await form.locator('[name="email"]').fill('test@example.com');
   await form.locator('[name="consent"]').check();
   await page.waitForTimeout(3200);
@@ -466,7 +503,7 @@ await test('contact form: server error and rate limit are shown in the page lang
 });
 
 await test('HR health check: answer every question and reach a result with a score', desktop, async (page) => {
-  await page.goto(base + '/en/#health-check', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/hr-tools/#health-check', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const quiz = page.locator('[data-quiz]');
@@ -489,7 +526,7 @@ await test('HR health check: answer every question and reach a result with a sco
 });
 
 await test('bad-hire calculator: total updates when inputs change and reset restores defaults', desktop, async (page) => {
-  await page.goto(base + '/en/#bad-hire-calculator', { waitUntil: 'networkidle' });
+  await page.goto(base + '/en/hr-tools/#bad-hire-calculator', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const calc = page.locator('[data-calculator]');
@@ -538,7 +575,7 @@ await test('404: unknown URL returns status 404 and continues to the localized 4
   expect(await page.locator('[data-lang-block="en"]').isVisible(), 'English block not visible');
 });
 
-await test('reduced motion: no preloader, no smooth-scroll class, content visible immediately', { ...desktop, reducedMotion: 'reduce' }, async (page) => {
+await test('reduced motion: no smooth-scroll class, content visible immediately', { ...desktop, reducedMotion: 'reduce' }, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const cls = await page.getAttribute('html', 'class');
   expect(!/\bjs-motion\b/.test(cls || ''), `html class "${cls}" still enables motion`);

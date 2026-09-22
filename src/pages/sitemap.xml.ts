@@ -5,7 +5,8 @@
 import type { APIRoute } from 'astro';
 import { site } from '@/config/site';
 import { locales, localeMeta, type Locale } from '@/i18n/config';
-import { pageKeys, localizePath, absoluteUrl, type PageKey } from '@/i18n/routes';
+import { pageKeys, localizePath, blogPostPath, absoluteUrl, type PageKey } from '@/i18n/routes';
+import { getAllPosts, postLang, postSlug } from '@/lib/blog';
 
 const EXCLUDED: PageKey[] = ['notFound'];
 
@@ -29,6 +30,8 @@ const priorities: Partial<Record<PageKey, string>> = {
   about: '0.8',
   howWeWork: '0.8',
   faq: '0.7',
+  blog: '0.7',
+  tools: '0.6',
   legalNotice: '0.2',
   terms: '0.2',
   privacy: '0.2',
@@ -48,7 +51,7 @@ function alternatesFor(paths: Partial<Record<Locale, string>>) {
   return alts;
 }
 
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
   const entries: UrlEntry[] = [];
 
   for (const key of pageKeys) {
@@ -58,6 +61,29 @@ export const GET: APIRoute = () => {
     for (const l of locales) {
       entries.push({ loc: absoluteUrl(site.url, paths[l]), alternates, priority: priorities[key], changefreq: 'monthly' });
     }
+  }
+
+  // Blog posts: languages are linked only when they share a translationKey.
+  const posts = await getAllPosts();
+  const byKey = new Map<string, Partial<Record<Locale, string>>>();
+  for (const post of posts) {
+    const key = post.data.translationKey;
+    if (!key) continue;
+    const group = byKey.get(key) ?? {};
+    group[postLang(post)] = blogPostPath(postLang(post), postSlug(post));
+    byKey.set(key, group);
+  }
+  for (const post of posts) {
+    const lang = postLang(post);
+    const path = blogPostPath(lang, postSlug(post));
+    const group = post.data.translationKey ? byKey.get(post.data.translationKey) : undefined;
+    entries.push({
+      loc: absoluteUrl(site.url, path),
+      lastmod: (post.data.updated ?? post.data.date).toISOString().slice(0, 10),
+      alternates: group ? alternatesFor(group) : [],
+      priority: '0.6',
+      changefreq: 'monthly',
+    });
   }
 
   const body = entries

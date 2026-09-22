@@ -1,0 +1,32 @@
+---
+/** One route per published post, in every language. */
+import BlogPost from '@/views/BlogPost.astro';
+import { type Locale } from '@/i18n/config';
+import { getAllPosts, postLang, postSlug, type Post } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => {
+    const lang = postLang(post);
+    const related = posts
+      .filter((p) => p.id !== post.id && postLang(p) === lang)
+      .filter((p) => (post.data.tags.length ? p.data.tags.some((t) => post.data.tags.includes(t)) : true))
+      .slice(0, 2);
+    // Only posts that carry the same translationKey link to each other.
+    const alternates = Object.fromEntries(
+      posts
+        .filter((p) => post.data.translationKey && p.data.translationKey === post.data.translationKey)
+        .map((p) => [postLang(p), `/${postLang(p)}/blog/${postSlug(p)}/`]),
+    ) as Partial<Record<Locale, string>>;
+    return { params: { lang, slug: postSlug(post) }, props: { lang, post, related, alternates } };
+  });
+}
+
+const { lang, post, related, alternates } = Astro.props as {
+  lang: Locale;
+  post: Post;
+  related: Post[];
+  alternates: Partial<Record<Locale, string>>;
+};
+---
+<BlogPost lang={lang} post={post} related={related} alternates={alternates} />

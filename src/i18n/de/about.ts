@@ -8,7 +8,7 @@ export const about: AboutDict = {
   hero: {
     eyebrow: 'Über uns',
     title: 'Eine menschliche Partnerin, kein weiteres HR-Tool.',
-    text: 'Ich bin Mariyana Velkova, Gründerin von NewLevelHR. Ich arbeite mit Gründungs- und Führungsteams an der People-Seite des Wachstums: Recruiting, Struktur, Führungskräfte und die schwierigen Gespräche dazwischen.',
+    text: 'Die meisten HR-Dienstleistungen sind für Konzerne mit Tausenden Mitarbeitenden und endlosen Budgets gemacht. Aber in einem Startup oder KMU fühlen sich „People-Probleme“ anders an. Sie sind persönlich. Sie sind teuer. Und oft stehen sie als Einziges zwischen Ihnen und Ihrem nächsten Wachstumsschritt.',
     monogram: 'MV',
     portraitLabel: 'Gründerin',
   },
@@ -16,7 +16,6 @@ export const about: AboutDict = {
     eyebrow: 'Warum es NewLevelHR gibt',
     title: 'Gebaut für Startups und KMU, nicht für Konzerne.',
     paragraphs: [
-      'Die meisten HR-Dienstleistungen sind für Konzerne mit Tausenden Mitarbeitenden und endlosen Budgets gemacht. Aber in einem Startup oder KMU fühlen sich „People-Probleme“ anders an. Sie sind persönlich. Sie sind teuer. Und oft stehen sie als Einziges zwischen Ihnen und Ihrem nächsten Wachstumsschritt.',
       'Ich habe NewLevelHR gegründet, weil ich zu viele Führungskräfte gesehen habe, die im operativen Lärm untergehen: Teams babysitten, gute Talente durch langsames Recruiting verlieren und sich durch das Management raten.',
       'Ich bin keine Dienstleisterin, die man einmal im Jahr anruft. Ich bin die Partnerin in Ihrem Slack-Channel, die Beraterin an Ihrer Seite bei einer schwierigen Einstellung und das Sicherheitsnetz für Ihre ersten 90 Tage.',
       'Ich nehme Ihnen die „People-Puzzles“ ab, damit Sie sich wieder darauf konzentrieren können, das aufzubauen, was zählt.',
