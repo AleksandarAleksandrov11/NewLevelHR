@@ -163,7 +163,7 @@ check). For the full visual and functional QA run, after `npm run build`:
 
 | Command | Output |
 | --- | --- |
-| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, mobile menu, four-step contact form (mocked endpoint), blog index and post, the two tool pages, quiz, calculator, FAQ, 404, reduced motion, view transitions |
+| `npm run qa:e2e` | `docs/qa/e2e.md`: cookie consent, language banner and switcher, sticky header, mobile menu, language switcher, contact form (mocked endpoint), blog index and post, the two tool pages, quiz, calculator, FAQ, 404, reduced motion, view transitions |
 | `npm run qa:screenshots` | `docs/qa-screenshots/`: every page in EN/DE/BG at 390 px and 1440 px, UI states, and a horizontal-overflow check at 360/390/768/1024/1280/1440/1920 px |
 | `npm run qa:lighthouse` | `docs/qa/lighthouse.md`: mobile Lighthouse for home, services, a service page, What We Fix, about, FAQ and contact in the three languages (target ≥ 90 everywhere) |
 

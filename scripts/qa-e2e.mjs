@@ -129,6 +129,24 @@ await test('language banner stays hidden for an English browser on the English p
   expect(!(await page.locator('[data-lang-banner]').isVisible()), 'banner shown to a matching browser language');
 });
 
+await test('language switcher sits in the header on a phone, before anything is opened', phone, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  const sw = page.locator('.header-lang');
+  const box = await sw.boundingBox();
+  expect(box && box.y < 80, `the switcher is not in the header bar (y=${box ? Math.round(box.y) : 'none'})`);
+  expect(await sw.locator('button svg').first().isVisible(), 'no globe on the switcher');
+  await sw.locator('button').click();
+  await page.waitForTimeout(350);
+  const langs = await sw.locator('[data-lang-link]').evaluateAll((els) => els.map((e) => e.getAttribute('data-lang-link')));
+  expect(langs.join(',') === 'en,de,bg', `menu lists ${langs.join(',')}`);
+  await sw.locator('[data-lang-link="bg"]').click();
+  await page.waitForURL(/\/bg\//, { timeout: 8000 });
+  expect(new URL(page.url()).pathname === '/bg/', `landed on ${new URL(page.url()).pathname}`);
+});
+
 await test('language switcher opens the same page in DE and BG (translated slugs)', desktop, async (page) => {
   await page.goto(base + '/en/services/high-velocity-hiring/', { waitUntil: 'networkidle' });
   await settleBanners(page);
@@ -291,11 +309,20 @@ await test('mobile menu: the whole panel is reachable on a short phone', { viewp
   await page.waitForTimeout(500);
   const r = await page.evaluate(() => {
     const menu = document.querySelector('[data-mobile-menu]');
-    const last = menu.querySelector('.mobile-footer p a');
-    return { scrolled: Math.round(menu.scrollTop), bottom: Math.round(last.getBoundingClientRect().bottom), vh: window.innerHeight };
+    // The booking button is the last thing in the panel.
+    const last = menu.querySelector('.mobile-footer a');
+    return {
+      scrolled: Math.round(menu.scrollTop),
+      overflow: menu.scrollHeight - menu.clientHeight,
+      bottom: Math.round(last.getBoundingClientRect().bottom),
+      vh: window.innerHeight,
+    };
   });
-  expect(r.scrolled > 100, `the panel did not scroll (scrollTop ${r.scrolled})`);
-  expect(r.bottom <= r.vh, `the last line sits at ${r.bottom} in a ${r.vh}px viewport`);
+  // Whatever the panel's height, the last control has to end up on screen: the panel
+  // scrolls itself when it overflows (Lenis is stopped and would swallow the gesture
+  // without data-lenis-prevent).
+  if (r.overflow > 2) expect(r.scrolled > r.overflow - 8, `the panel did not scroll to the end (${r.scrolled} of ${r.overflow})`);
+  expect(r.bottom <= r.vh, `the last control sits at ${r.bottom} in a ${r.vh}px viewport`);
 });
 
 await test('contact: the topic dropdown hangs off the button and closes on an outside click', phone, async (page) => {
@@ -437,48 +464,33 @@ await test('skip link and landmarks exist', desktop, async (page) => {
   expect((await page.$$('h1')).length === 1, 'page must have exactly one h1');
 });
 
-await test('contact form: four steps, custom topic dropdown, validation and a mocked send', desktop, async (page) => {
+await test('contact form: one page, custom topic dropdown, validation and a mocked send', desktop, async (page) => {
   await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
   const form = page.locator('[data-contact-form]');
-  const steps = form.locator('[data-form-step]');
-  expect((await steps.count()) === 4, `expected 4 steps, found ${await steps.count()}`);
-  expect((await form.locator('[data-form-step]:visible').count()) === 1, 'more than one step visible');
+  // Every field is on the page at once: no wizard, no hidden steps.
+  for (const name of ['topic', 'message', 'name', 'company', 'email', 'consent']) {
+    expect(await form.locator(`[name="${name}"]`).count(), `field ${name} is missing`);
+  }
+  expect((await form.locator('[data-form-step]').count()) === 0, 'the stepped flow is still in the markup');
 
-  // Step 1: the native select is replaced by a listbox, and Next is blocked until it is answered.
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(250);
-  expect(await form.locator('[data-error-for="topic"]').textContent(), 'no error on the empty topic');
+  // Submitting empty reports every required field, company and a valid email included.
+  await page.waitForTimeout(3200); // the anti-bot timer requires a few seconds on the page
+  await form.locator('[data-submit]').click();
+  await page.waitForTimeout(300);
+  for (const name of ['topic', 'message', 'name', 'company', 'email', 'consent']) {
+    const msg = (await form.locator(`[data-error-for="${name}"]`).textContent()) || '';
+    expect(msg.trim().length > 0, `no error for the empty ${name} field`);
+  }
+
+  // The native select is the source of truth behind the listbox.
   const combo = form.locator('.select-btn');
   expect(await combo.count(), 'the topic select was not enhanced');
   await combo.click();
   await form.locator('.select-option').nth(1).click();
   expect(await form.locator('select[name="topic"]').inputValue(), 'the native select did not follow the listbox');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(300);
 
-  // Step 2: message, with the minimum length enforced before moving on.
-  await form.locator('[name="message"]').fill('too short');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(250);
-  expect(await form.locator('[data-error-for="message"]').textContent(), 'short message accepted');
-  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(300);
-
-  // Step 3: name and company, both required now.
-  await form.locator('[name="name"]').fill('Test Person');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(250);
-  expect(((await form.locator('[data-error-for="company"]').textContent()) || '').trim().length > 0, 'an empty company was accepted');
-  await form.locator('[name="company"]').fill('Example GmbH');
-  await form.locator('[data-step-next]').click();
-  await page.waitForTimeout(600);
-
-  // Step 4: a malformed address is rejected, then email, consent and submit.
-  expect(await form.locator('[data-submit]').isVisible(), 'no submit button on the last step');
-  expect(!(await form.locator('[data-step-next]').isVisible()), 'Next still shown on the last step');
   const posts = [];
   await page.route('**/api/contact', async (route) => {
     posts.push(route.request().postDataJSON());
@@ -488,12 +500,15 @@ await test('contact form: four steps, custom topic dropdown, validation and a mo
   // box down mid-click, which is a test-harness race, not a site bug.
   await form.locator('.check-box').click();
   expect(await form.locator('[name="consent"]').isChecked(), 'clicking the consent box did not tick it');
+  await form.locator('[name="message"]').fill('Hello, this is a test message with enough characters to pass validation.');
+  await form.locator('[name="name"]').fill('Test Person');
+  await form.locator('[name="company"]').fill('Example GmbH');
   await form.locator('[name="email"]').fill('not-an-email');
-  await page.waitForTimeout(3200); // the anti-bot timer requires a few seconds on the page
   await form.locator('[data-submit]').click();
   await page.waitForTimeout(300);
   expect(((await form.locator('[data-error-for="email"]').textContent()) || '').trim().length > 0, 'a malformed email was accepted');
   expect(posts.length === 0, 'the form posted with an invalid email');
+
   await form.locator('[name="email"]').fill('test@example.com');
   await form.locator('[data-submit]').click();
   await page.locator('[data-form-success]').waitFor({ state: 'visible', timeout: 8000 });
@@ -511,14 +526,11 @@ await test('contact form: server error and rate limit are shown in the page lang
   await page.route('**/api/contact', (route) => route.fulfill({ status: n++ === 0 ? 429 : 500, contentType: 'application/json', body: JSON.stringify({ ok: false, error: n === 1 ? 'rate_limit' : 'send' }) }));
   await form.locator('.select-btn').click();
   await form.locator('.select-option').first().click();
-  await form.locator('[data-step-next]').click();
+  await form.locator('.check-box').click();
   await form.locator('[name="message"]').fill('Guten Tag, dies ist eine Testnachricht mit ausreichend vielen Zeichen.');
-  await form.locator('[data-step-next]').click();
   await form.locator('[name="name"]').fill('Test Person');
   await form.locator('[name="company"]').fill('Beispiel GmbH');
-  await form.locator('[data-step-next]').click();
   await form.locator('[name="email"]').fill('test@example.com');
-  await form.locator('.check-box').click();
   await page.waitForTimeout(3200);
   await form.locator('[data-submit]').click();
   const err = page.locator('[data-form-error]');

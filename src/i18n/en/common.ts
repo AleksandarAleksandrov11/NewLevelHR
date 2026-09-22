@@ -147,7 +147,6 @@ export const common = {
     new: 'New',
     comingSoon: 'Coming soon',
     opensNewTab: 'opens in a new tab',
-    calendlyNote: 'Opens Calendly in a new tab. Calendly is a third-party service; see our privacy policy.',
     calendlyConsent: 'The calendar loads once you accept marketing cookies. You can also book in a new tab with the button below.',
     loading: 'Loading…',
     close: 'Close',
@@ -216,9 +215,6 @@ export const common = {
       spam: 'The message was rejected. Please try again.',
     },
     honeypotLabel: 'Leave this field empty',
-    step: '{current}/{total}',
-    next: 'Next',
-    back: 'Back',
   },
 } as const;
 

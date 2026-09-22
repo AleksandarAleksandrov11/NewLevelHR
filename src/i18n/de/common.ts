@@ -144,7 +144,6 @@ export const common: CommonDict = {
     new: 'Neu',
     comingSoon: 'Demnächst',
     opensNewTab: 'öffnet in neuem Tab',
-    calendlyNote: 'Öffnet Calendly in einem neuen Tab. Calendly ist ein Dienst eines Drittanbieters; siehe Datenschutzerklärung.',
     calendlyConsent: 'Der Kalender wird geladen, sobald Sie Marketing-Cookies akzeptieren. Sie können auch über den Button unten in einem neuen Tab buchen.',
     loading: 'Wird geladen …',
     close: 'Schließen',
@@ -213,8 +212,5 @@ export const common: CommonDict = {
       spam: 'Die Nachricht wurde abgelehnt. Bitte versuchen Sie es erneut.',
     },
     honeypotLabel: 'Dieses Feld bitte leer lassen',
-    step: '{current}/{total}',
-    next: 'Weiter',
-    back: 'Zurück',
   },
 };

@@ -12,7 +12,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Pages per language | Home, Services + 4 service pages, What We Fix, About, How We Work, FAQ, Contact, Legal notice, Terms, Privacy, Cookie policy, 404 |
 | Total | 45 indexable pages + 3 localized 404 pages + root redirect; 45 sitemap entries with reciprocal `hreflang` and `x-default` |
 | Home sections | Sticky glass header with mega menu · full-screen hero · marquee · manifesto · 4 flip-card problems with a link to all eight · service cards · pinned 90-day timeline · fractional vs full-time comparison · HR Health Check quiz · cost-of-a-bad-hire calculator · testimonials (hidden until provided) · FAQ teaser · orange final CTA · footer |
-| Contact | Four-step form (topic, message, who, reply address) with a custom topic listbox; `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages |
+| Contact | One-page form (topic, message, name, company, email, consent) with a custom topic listbox; `api/contact.js` (Vercel + Resend) and `public/contact.php` (PHP 8 `mail()`): validation, honeypot, timing check, rate limit, consent, translated messages |
 | Cookies / GDPR | Own consent dialog (Accept / Reject / Configure), nothing optional before consent, revocable from the footer, first-party cookie `nlhr_consent`, no remote fonts or third-party requests |
 | SEO | Unique title/description per page and language, canonical, `hreflang`, Open Graph + Twitter with generated 1200×630 images (satori/resvg, Cyrillic-capable), JSON-LD (Organization/ProfessionalService, Service, FAQPage, BreadcrumbList, HowTo, Person), sitemap, robots, favicons, web manifest |
 | Deployment | `vercel.json` (redirects, headers, function) and `public/.htaccess` (Apache: redirects, 404, caching, security headers, CSP) |
@@ -79,10 +79,10 @@ PHP hosting, SEO plumbing and a QA suite.
 | Check | Command | Result |
 | --- | --- | --- |
 | Type and template diagnostics | `npm run check` | 0 errors, 0 warnings |
-| Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 468 strings, 0 errors |
+| Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 463 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 63 pages, 0 errors |
-| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, four-step form and its topic dropdown, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, view transitions) | `npm run qa:e2e` | 30/30 passed (`docs/qa/e2e.md`) |
+| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, four-step form and its topic dropdown, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, view transitions) | `npm run qa:e2e` | 31/31 passed (`docs/qa/e2e.md`) |
 | Screenshots 390/1440 px, overflow at 360 to 1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the seven widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 

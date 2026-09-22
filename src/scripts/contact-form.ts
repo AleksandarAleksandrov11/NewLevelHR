@@ -2,9 +2,9 @@
  * Contact form.
  *
  * The markup ships as one plain form that works without JavaScript. This module
- * turns it into a four-step flow (one question at a time), replaces the topic
- * select with a listbox that can be styled, validates each step before moving on
- * and posts JSON to the configured endpoint (api/contact.js or public/contact.php).
+ * replaces the topic select with a listbox that can be styled, validates each
+ * field as it is filled in and posts JSON to the configured endpoint
+ * (api/contact.js or public/contact.php).
  */
 let cleanup: Array<() => void> = [];
 
@@ -165,67 +165,6 @@ function initForm(form: HTMLFormElement) {
     f.addEventListener('change', () => { if (f.type === 'checkbox' || f.tagName === 'SELECT') validate(f); }, { signal: ac.signal });
   });
 
-  /* ---------------------------------------------------------------- steps */
-
-  const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-form-step]'));
-  const progress = form.querySelector<HTMLElement>('[data-step-progress]');
-  const count = form.querySelector<HTMLElement>('[data-step-count]');
-  const bar = form.querySelector<HTMLElement>('[data-step-bar]');
-  const backBtn = form.querySelector<HTMLButtonElement>('[data-step-back]');
-  const nextBtn = form.querySelector<HTMLButtonElement>('[data-step-next]');
-  let current = 0;
-
-  const fieldsOf = (i: number) => fields.filter((f) => steps[i]?.contains(f));
-  const firstFocusable = (i: number) => {
-    const f = fieldsOf(i)[0];
-    return f ? (f.closest('.field-select.is-enhanced')?.querySelector<HTMLElement>('.select-btn') ?? f) : null;
-  };
-
-  const render = (focus: 'field' | 'none' = 'none') => {
-    steps.forEach((step, i) => {
-      step.hidden = i !== current;
-      step.classList.toggle('is-entering', i === current && focus !== 'none');
-    });
-    if (count) count.textContent = (count.dataset.template || '{current}/{total}')
-      .replace('{current}', String(current + 1))
-      .replace('{total}', String(steps.length));
-    if (bar) bar.style.transform = `scaleX(${(current + 1) / steps.length})`;
-    if (backBtn) backBtn.hidden = current === 0;
-    const last = current === steps.length - 1;
-    if (nextBtn) nextBtn.hidden = last;
-    if (submit) submit.hidden = !last;
-    if (focus === 'field') firstFocusable(current)?.focus();
-  };
-
-  const goTo = (i: number, focus: 'field' | 'none' = 'field') => {
-    current = Math.max(0, Math.min(steps.length - 1, i));
-    render(focus);
-  };
-  const stepValid = (i: number) => fieldsOf(i).map((f) => validate(f)).every(Boolean);
-  const goNext = () => {
-    if (!stepValid(current)) {
-      const bad = fieldsOf(current).find((f) => f.getAttribute('aria-invalid') === 'true');
-      if (bad) focusField(bad);
-      return;
-    }
-    goTo(current + 1);
-  };
-
-  if (steps.length > 1) {
-    if (progress) progress.hidden = false;
-    render();
-    nextBtn?.addEventListener('click', goNext, { signal: ac.signal });
-    backBtn?.addEventListener('click', () => goTo(current - 1), { signal: ac.signal });
-    // Enter moves on instead of submitting from the middle of the flow.
-    form.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' || current === steps.length - 1) return;
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'TEXTAREA' || target.closest('[data-select]')) return;
-      e.preventDefault();
-      goNext();
-    }, { signal: ac.signal });
-  }
-
   /* --------------------------------------------------------------- submit */
 
   const setBusy = (busy: boolean) => {
@@ -243,8 +182,6 @@ function initForm(form: HTMLFormElement) {
     const results = fields.map((f) => validate(f));
     if (results.includes(false)) {
       const bad = fields[results.indexOf(false)];
-      const step = steps.findIndex((el) => el.contains(bad));
-      if (step >= 0 && step !== current) goTo(step);
       if (bad) focusField(bad);
       return;
     }
@@ -272,11 +209,7 @@ function initForm(form: HTMLFormElement) {
           setError(f, code === 'email' ? msgs.email : code === 'consent' ? msgs.consent : code === 'minLength' ? msgs.minLength.replace('{min}', '10') : msgs.required);
           firstBad = firstBad ?? f;
         });
-        if (firstBad) {
-          const step = steps.findIndex((el) => el.contains(firstBad!));
-          if (step >= 0) goTo(step);
-          focusField(firstBad);
-        }
+        if (firstBad) focusField(firstBad);
         return;
       }
       showFailure(body.error === 'rate_limit' || res.status === 429 ? msgs.rateLimit : body.error === 'spam' ? msgs.spam : msgs.errorText);
