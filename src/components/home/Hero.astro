@@ -50,10 +50,14 @@ const h = getDict(lang).home.hero;
 
   .hero-inner { position: relative; text-align: center; }
   /* The whole block arrives at once, in one short movement. */
-  .js-motion .hero-inner > * { animation: hero-in 0.7s var(--ease-out-expo) both; }
+  .js-motion .hero-inner > * { animation: hero-in 0.6s var(--ease-out-expo) both; }
+  /* The headline slides without fading, so it is painted on the first frame
+     and the browser can score it as the largest paint straight away. */
+  .js-motion .hero-title { animation-name: hero-in-title; }
   .js-motion .hero-sub { animation-delay: 0.06s; }
   .js-motion .hero-actions { animation-delay: 0.12s; }
   @keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes hero-in-title { from { transform: translateY(14px); } to { transform: none; } }
 
   .hero-title {
     margin-inline: auto; max-width: 18ch; color: var(--color-ink);

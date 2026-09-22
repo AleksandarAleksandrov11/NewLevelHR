@@ -27,7 +27,7 @@ const itemList = {
   itemListElement: cards.map((card, i) => ({ '@type': 'ListItem', position: i + 1, name: card.name, url: `${site.url}${card.href}` })),
 };
 ---
-<PageShell lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description} jsonLd={[itemList]}>
+<PageShell lang={lang} pageKey="services" title={s.meta.title} description={s.meta.description} jsonLd={[itemList]} heroPhoto="team-celebration">
   <PageHero lang={lang} eyebrow={s.hero.eyebrow} title={s.hero.title} text={s.hero.text} crumbs={[{ label: c.nav.services }]} photo={{ name: 'team-celebration', alt: s.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{s.labels.bookCall}</Button>
     <Button href="#services-list" variant="ghost" icon="none">{s.cardsSection.eyebrow}<ArrowRight class="size-4 rotate-90" aria-hidden="true" /></Button>

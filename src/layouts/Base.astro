@@ -6,6 +6,7 @@ import { localeMeta, type Locale } from '@/i18n/config';
 import { getDict } from '@/i18n';
 import Seo from '@/components/seo/Seo.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
+import { heroAvifSrcSet, HERO_SIZES } from '@/lib/hero-image';
 import type { SeoInput } from '@/lib/seo';
 
 interface Props extends Omit<SeoInput, 'lang'> {
@@ -17,9 +18,13 @@ interface Props extends Omit<SeoInput, 'lang'> {
   /** Body class hook */
   bodyClass?: string;
   pageKey?: string;
+  /** Name of the hero photo, preloaded from the head as the largest paint. */
+  heroPhoto?: string;
 }
 
-const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', ...seo } = Astro.props;
+const { lang, jsonLd = [], transparentHeader = false, bodyClass = '', pageKey = 'page', heroPhoto, ...seo } = Astro.props;
+/** Preloading the hero photo starts it before the parser has reached the markup. */
+const heroSrcSet = await heroAvifSrcSet(heroPhoto);
 const dict = getDict(lang);
 const meta = localeMeta[lang];
 const fontPreloads = lang === 'bg'
@@ -72,6 +77,9 @@ const organization = {
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     {fontPreloads.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin="anonymous" />)}
+    {heroSrcSet && (
+      <link rel="preload" as="image" type="image/avif" imagesrcset={heroSrcSet} imagesizes={HERO_SIZES} fetchpriority="high" />
+    )}
     <JsonLd data={[organization, ...jsonLd]} />
     <script is:inline>
       // Motion capability flag, set before paint so reveal styles apply only when allowed.
@@ -91,5 +99,19 @@ const organization = {
     </main>
     <slot name="footer" />
     <slot name="overlays" />
+    <script is:inline>
+      // First paint must not wait for the motion bundle: everything already on
+      // screen is revealed here, during parsing. The observer in motion.ts picks
+      // up the rest when it lands.
+      (function () {
+        if (!document.documentElement.classList.contains('js-motion')) return;
+        var h = window.innerHeight || 0;
+        var els = document.querySelectorAll('[data-reveal]');
+        for (var i = 0; i < els.length; i++) {
+          var r = els[i].getBoundingClientRect();
+          if (r.top < h && r.bottom > 0) els[i].classList.add('is-revealed');
+        }
+      })();
+    </script>
   </body>
 </html>

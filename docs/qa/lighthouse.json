@@ -4,78 +4,76 @@
     "key": "home",
     "path": "/en/",
     "scores": {
-      "performance": 97,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.4 s",
-      "tbt": "70 ms",
+      "fcp": "1.5 s",
+      "lcp": "2.2 s",
+      "tbt": "10 ms",
       "cls": "0",
-      "si": "2.6 s"
+      "si": "1.5 s"
     },
-    "issues": []
+    "issues": [
+      "performance: Reduce unused CSS (Est savings of 11 KiB)"
+    ]
   },
   {
     "lang": "en",
     "key": "services",
     "path": "/en/services/",
     "scores": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
-      "lcp": "2.2 s",
-      "tbt": "10 ms",
+      "fcp": "1.1 s",
+      "lcp": "2.0 s",
+      "tbt": "0 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.1 s"
     },
-    "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
-    ]
+    "issues": []
   },
   {
     "lang": "en",
     "key": "service",
     "path": "/en/services/fractional-hr-partnership/",
     "scores": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
-      "lcp": "2.2 s",
+      "fcp": "1.3 s",
+      "lcp": "2.0 s",
       "tbt": "20 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.3 s"
     },
-    "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
-    ]
+    "issues": []
   },
   {
     "lang": "en",
     "key": "problems",
     "path": "/en/what-we-fix/",
     "scores": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.6 s",
-      "lcp": "2.1 s",
-      "tbt": "10 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.0 s",
+      "tbt": "30 ms",
       "cls": "0",
-      "si": "1.6 s"
+      "si": "1.3 s"
     },
     "issues": []
   },
@@ -84,17 +82,17 @@
     "key": "about",
     "path": "/en/about/",
     "scores": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
-      "lcp": "2.2 s",
-      "tbt": "10 ms",
+      "fcp": "1.1 s",
+      "lcp": "2.0 s",
+      "tbt": "0 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.1 s"
     },
     "issues": [
       "performance: Reduce unused CSS (Est savings of 13 KiB)"
@@ -105,20 +103,21 @@
     "key": "faq",
     "path": "/en/faq/",
     "scores": {
-      "performance": 98,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.2 s",
-      "tbt": "40 ms",
+      "fcp": "1.2 s",
+      "lcp": "2.5 s",
+      "tbt": "30 ms",
       "cls": "0",
-      "si": "1.7 s"
+      "si": "1.3 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
+      "performance: Largest Contentful Paint (2.5 s)",
+      "performance: Reduce unused CSS (Est savings of 14 KiB)"
     ]
   },
   {
@@ -126,45 +125,26 @@
     "key": "contact",
     "path": "/en/contact/",
     "scores": {
-      "performance": 99,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
-      "lcp": "2.0 s",
+      "fcp": "1.2 s",
+      "lcp": "2.4 s",
       "tbt": "20 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.2 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 12 KiB)"
+      "performance: Reduce unused CSS (Est savings of 13 KiB)"
     ]
   },
   {
     "lang": "de",
     "key": "home",
     "path": "/de/",
-    "scores": {
-      "performance": 97,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100
-    },
-    "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.3 s",
-      "tbt": "60 ms",
-      "cls": "0",
-      "si": "1.7 s"
-    },
-    "issues": []
-  },
-  {
-    "lang": "de",
-    "key": "services",
-    "path": "/de/leistungen/",
     "scores": {
       "performance": 98,
       "accessibility": 100,
@@ -174,9 +154,30 @@
     "metrics": {
       "fcp": "1.5 s",
       "lcp": "2.2 s",
-      "tbt": "20 ms",
+      "tbt": "30 ms",
       "cls": "0",
       "si": "1.5 s"
+    },
+    "issues": [
+      "performance: Reduce unused CSS (Est savings of 11 KiB)"
+    ]
+  },
+  {
+    "lang": "de",
+    "key": "services",
+    "path": "/de/leistungen/",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "fcp": "1.1 s",
+      "lcp": "2.0 s",
+      "tbt": "20 ms",
+      "cls": "0",
+      "si": "1.1 s"
     },
     "issues": [
       "performance: Reduce unused CSS (Est savings of 13 KiB)"
@@ -187,42 +188,38 @@
     "key": "service",
     "path": "/de/leistungen/fraktionale-hr-partnerschaft/",
     "scores": {
-      "performance": 97,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.4 s",
-      "tbt": "40 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.0 s",
+      "tbt": "0 ms",
       "cls": "0",
-      "si": "1.7 s"
+      "si": "1.3 s"
     },
-    "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
-    ]
+    "issues": []
   },
   {
     "lang": "de",
     "key": "problems",
     "path": "/de/was-wir-loesen/",
     "scores": {
-      "performance": 97,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.3 s",
-      "tbt": "30 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.0 s",
+      "tbt": "10 ms",
       "cls": "0",
-      "si": "1.7 s"
+      "si": "1.3 s"
     },
-    "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
-    ]
+    "issues": []
   },
   {
     "lang": "de",
@@ -235,11 +232,11 @@
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
+      "fcp": "1.2 s",
       "lcp": "2.3 s",
-      "tbt": "30 ms",
+      "tbt": "0 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.2 s"
     },
     "issues": [
       "performance: Reduce unused CSS (Est savings of 13 KiB)"
@@ -250,20 +247,20 @@
     "key": "faq",
     "path": "/de/faq/",
     "scores": {
-      "performance": 98,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.7 s",
-      "lcp": "2.2 s",
-      "tbt": "50 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.5 s",
+      "tbt": "10 ms",
       "cls": "0",
-      "si": "1.7 s"
+      "si": "1.3 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
+      "performance: Reduce unused CSS (Est savings of 14 KiB)"
     ]
   },
   {
@@ -277,14 +274,14 @@
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.5 s",
+      "fcp": "1.2 s",
       "lcp": "2.0 s",
-      "tbt": "20 ms",
+      "tbt": "30 ms",
       "cls": "0",
-      "si": "1.5 s"
+      "si": "1.2 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 12 KiB)"
+      "performance: Reduce unused CSS (Est savings of 13 KiB)"
     ]
   },
   {
@@ -292,20 +289,20 @@
     "key": "home",
     "path": "/bg/",
     "scores": {
-      "performance": 96,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.6 s",
-      "lcp": "2.6 s",
-      "tbt": "70 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.3 s",
+      "tbt": "10 ms",
       "cls": "0",
-      "si": "1.6 s"
+      "si": "1.3 s"
     },
     "issues": [
-      "performance: Largest Contentful Paint (2.6 s)"
+      "performance: Reduce unused CSS (Est savings of 11 KiB)"
     ]
   },
   {
@@ -321,7 +318,7 @@
     "metrics": {
       "fcp": "1.3 s",
       "lcp": "2.3 s",
-      "tbt": "20 ms",
+      "tbt": "0 ms",
       "cls": "0",
       "si": "1.3 s"
     },
@@ -332,17 +329,17 @@
     "key": "service",
     "path": "/bg/uslugi/fraktsionno-hr-partniorstvo/",
     "scores": {
-      "performance": 97,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.4 s",
-      "lcp": "2.5 s",
-      "tbt": "20 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.3 s",
+      "tbt": "0 ms",
       "cls": "0",
-      "si": "1.4 s"
+      "si": "1.3 s"
     },
     "issues": []
   },
@@ -351,15 +348,15 @@
     "key": "problems",
     "path": "/bg/kakvo-reshavame/",
     "scores": {
-      "performance": 97,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.4 s",
-      "lcp": "2.4 s",
-      "tbt": "30 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.3 s",
+      "tbt": "10 ms",
       "cls": "0",
       "si": "1.4 s"
     },
@@ -372,20 +369,20 @@
     "key": "about",
     "path": "/bg/za-nas/",
     "scores": {
-      "performance": 98,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.3 s",
-      "lcp": "2.4 s",
-      "tbt": "30 ms",
+      "fcp": "1.1 s",
+      "lcp": "2.6 s",
+      "tbt": "0 ms",
       "cls": "0",
       "si": "1.3 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
+      "performance: Largest Contentful Paint (2.6 s)"
     ]
   },
   {
@@ -393,20 +390,20 @@
     "key": "faq",
     "path": "/bg/faq/",
     "scores": {
-      "performance": 97,
+      "performance": 96,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.4 s",
-      "lcp": "2.4 s",
-      "tbt": "30 ms",
+      "fcp": "1.3 s",
+      "lcp": "2.8 s",
+      "tbt": "20 ms",
       "cls": "0",
-      "si": "1.4 s"
+      "si": "1.3 s"
     },
     "issues": [
-      "performance: Reduce unused CSS (Est savings of 13 KiB)"
+      "performance: Largest Contentful Paint (2.8 s)"
     ]
   },
   {
@@ -414,20 +411,18 @@
     "key": "contact",
     "path": "/bg/kontakti/",
     "scores": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
     },
     "metrics": {
-      "fcp": "1.4 s",
-      "lcp": "2.3 s",
-      "tbt": "10 ms",
+      "fcp": "1.2 s",
+      "lcp": "2.1 s",
+      "tbt": "20 ms",
       "cls": "0",
-      "si": "1.4 s"
+      "si": "1.2 s"
     },
-    "issues": [
-      "performance: Reduce unused CSS (Est savings of 12 KiB)"
-    ]
+    "issues": []
   }
 ]

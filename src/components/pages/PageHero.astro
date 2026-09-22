@@ -1,8 +1,8 @@
 ---
 /**
  * The standard inner-page hero, used by every page below the home page:
- * breadcrumbs, eyebrow, title, one lead line (or a row of short facts), the
- * page's call-to-action buttons on the left, and a photo — or, on the tool
+ * breadcrumbs, eyebrow, title, an optional lead line, the page's
+ * call-to-action buttons on the left, and a photo — or, on the tool
  * pages, a custom visual in the `media` slot — on the right. Same background,
  * same rhythm and the same media ratio everywhere, so the heroes line up.
  */
@@ -17,15 +17,13 @@ interface Props {
   eyebrow?: string;
   title: string;
   text?: string;
-  /** Short facts shown instead of a lead paragraph (the tool pages use this). */
-  facts?: readonly string[];
   crumbs: Crumb[];
   photo?: { name: string; alt: string };
   variant?: 'ivory' | 'mesh' | 'dark' | 'white';
   align?: 'left' | 'center';
   class?: string;
 }
-const { lang, eyebrow, title, text, facts, crumbs, photo, variant = 'mesh', align = 'left', class: className = '' } = Astro.props;
+const { lang, eyebrow, title, text, crumbs, photo, variant = 'mesh', align = 'left', class: className = '' } = Astro.props;
 const c = getDict(lang).common;
 const allCrumbs: Crumb[] = [{ label: c.nav.home, href: localizePath('home' as PageKey, lang) }, ...crumbs];
 const dark = variant === 'dark';
@@ -37,13 +35,8 @@ const hasMedia = Boolean(photo) || Astro.slots.has('media');
     <div class:list={['page-hero-copy', align === 'center' && 'is-center']}>
       <Breadcrumbs items={allCrumbs} label={c.nav.breadcrumbs} light={dark} class="mb-8" />
       {eyebrow && <p class:list={['eyebrow', dark && 'text-accent-3']} data-reveal>{eyebrow}</p>}
-      <h1 class:list={['font-display text-display-lg mt-5', dark ? 'text-white' : 'text-ink']} data-split="immediate">{title}</h1>
+      <h1 class:list={['font-display text-display-lg mt-5', dark ? 'text-white' : 'text-ink']}>{title}</h1>
       {text && <p class:list={['text-lead mt-6 max-w-2xl', dark ? 'text-white/75' : 'text-slate', align === 'center' && 'mx-auto']} data-reveal data-reveal-delay="2">{text}</p>}
-      {facts && (
-        <ul class="page-hero-facts" role="list" data-reveal data-reveal-delay="2">
-          {facts.map((fact) => <li>{fact}</li>)}
-        </ul>
-      )}
       <div class="page-hero-actions" data-reveal data-reveal-delay="4"><slot /></div>
     </div>
     {hasMedia && (
@@ -73,16 +66,11 @@ const hasMedia = Boolean(photo) || Astro.slots.has('media');
   .page-hero-copy.is-center .page-hero-actions { justify-content: center; }
   .page-hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
   .page-hero-actions:empty { display: none; }
-  .page-hero-facts {
-    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.75rem;
-    font-size: 0.9rem; font-weight: 600; color: var(--color-slate);
-  }
-  .page-hero-facts li { display: inline-flex; align-items: center; gap: 0.5rem; }
-  .page-hero-facts li::before { content: ''; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent); }
   /* The art sits in the same box a photo would, so every hero is the same height. */
   .page-hero-art { display: grid; place-items: center; aspect-ratio: 4 / 3; }
-  .page-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-  .page-hero h1 :global(.split-i) { display: inline-block; }
+  /* The headline is usually the largest paint on the page, so it slides in
+     without a fade: it counts as painted on the very first frame. */
+  .js-motion .page-hero h1 { animation: page-hero-title 0.6s var(--ease-out-expo) both; }
+  @keyframes page-hero-title { from { transform: translateY(14px); } to { transform: none; } }
   .page-hero-dark :global(.eyebrow::before) { background: var(--color-accent-3); }
-  .page-hero-dark .page-hero-facts { color: rgba(255, 255, 255, 0.75); }
 </style>

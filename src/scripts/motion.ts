@@ -1,11 +1,13 @@
 /**
- * Motion core: Lenis smooth scroll + GSAP ScrollTrigger, reveal-on-scroll,
- * counters, parallax, split text, word illumination and marquee speed.
+ * Motion core: Lenis smooth scroll + GSAP ScrollTrigger, counters, parallax,
+ * split text, word illumination and marquee speed. Loaded after the first
+ * paint; reveal-on-scroll lives in reveal.ts and runs before it.
  * Everything registers cleanups so View Transitions can tear it down.
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { prefersReducedMotion, isFinePointer, setScrollLocker } from './dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +16,7 @@ let cleanups: Cleanup[] = [];
 let lenis: Lenis | null = null;
 let rafId = 0;
 
-export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-export const isFinePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+export { prefersReducedMotion, isFinePointer };
 export const getLenis = () => lenis;
 export { gsap, ScrollTrigger };
 
@@ -29,19 +30,8 @@ function initLenis() {
   const raf = (time: number) => { lenis?.raf(time); rafId = requestAnimationFrame(raf); };
   rafId = requestAnimationFrame(raf);
   lenis.on('scroll', ScrollTrigger.update);
-  onCleanup(() => { cancelAnimationFrame(rafId); lenis?.destroy(); lenis = null; });
-}
-
-/** Reveal elements when they enter the viewport. */
-function initReveal() {
-  const els = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
-  if (!els.length) return;
-  if (prefersReducedMotion() || !('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-revealed')); return; }
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { (e.target as HTMLElement).classList.add('is-revealed'); io.unobserve(e.target); }
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  els.forEach((el) => io.observe(el));
-  onCleanup(() => io.disconnect());
+  setScrollLocker((lock) => (lock ? lenis?.stop() : lenis?.start()));
+  onCleanup(() => { cancelAnimationFrame(rafId); setScrollLocker(null); lenis?.destroy(); lenis = null; });
 }
 
 /** Animated counters: <span data-counter="90" data-decimals="0" data-suffix="%"> */
@@ -228,7 +218,6 @@ export function initMotion() {
   destroyMotion();
   initLenis();
   initAnchors();
-  initReveal();
   initSplit();
   initIlluminate();
   initCounters();
@@ -253,7 +242,3 @@ export function scrollTo(target: string | HTMLElement, offset = -80) {
   }
 }
 
-export function lockScroll(lock: boolean) {
-  if (lock) { lenis?.stop(); document.documentElement.style.overflow = 'hidden'; }
-  else { lenis?.start(); document.documentElement.style.overflow = ''; }
-}

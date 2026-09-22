@@ -28,7 +28,7 @@ const howTo = {
 };
 const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: h.faq.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })) };
 ---
-<PageShell lang={lang} pageKey="howWeWork" title={h.meta.title} description={h.meta.description} jsonLd={[howTo, faqLd]}>
+<PageShell lang={lang} pageKey="howWeWork" title={h.meta.title} description={h.meta.description} jsonLd={[howTo, faqLd]} heroPhoto="office-light">
   <PageHero lang={lang} eyebrow={h.hero.eyebrow} title={h.hero.title} text={h.hero.text} crumbs={[{ label: c.nav.howWeWork }]} photo={{ name: 'office-light', alt: h.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{h.firstCall.button}</Button>
     <Button href={localizePath('services', lang)} variant="ghost">{c.cta.ourServices}</Button>

@@ -1,4 +1,4 @@
-import { lockScroll } from './motion';
+import { lockScroll } from './dom';
 
 let cleanup: Array<() => void> = [];
 

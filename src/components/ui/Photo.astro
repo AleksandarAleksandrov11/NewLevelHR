@@ -5,6 +5,7 @@
  */
 import { Picture } from 'astro:assets';
 import { getPhoto } from '@/lib/images';
+import { HERO_WIDTHS, HERO_SIZES } from '@/lib/hero-image';
 
 interface Props {
   name: string;
@@ -19,7 +20,7 @@ interface Props {
   ratio?: string;
   position?: string;
 }
-const { name, alt, class: className = '', imgClass = '', widths = [480, 768, 1024, 1440, 1920], sizes = '(min-width: 1024px) 50vw, 100vw', loading = 'lazy', fetchpriority = 'auto', ratio, position = 'center' } = Astro.props;
+const { name, alt, class: className = '', imgClass = '', widths = HERO_WIDTHS, sizes = HERO_SIZES, loading = 'lazy', fetchpriority = 'auto', ratio, position = 'center' } = Astro.props;
 const img = getPhoto(name);
 const style = ratio ? `aspect-ratio:${ratio};` : undefined;
 ---
@@ -31,6 +32,7 @@ const style = ratio ? `aspect-ratio:${ratio};` : undefined;
       widths={widths.filter((w) => w <= img.width)}
       sizes={sizes}
       formats={['avif', 'webp']}
+      fallbackFormat="webp"
       loading={loading}
       fetchpriority={fetchpriority}
       decoding="async"

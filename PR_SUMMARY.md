@@ -70,7 +70,13 @@ PHP hosting, SEO plumbing and a QA suite.
     with all three localized messages as a no-JavaScript fallback, and a tiny inline script continues `/de/…`
     and `/bg/…` URLs to the fully localized `/de/404/` and `/bg/404/` pages (header, footer and cookie dialog
     in the right language) while the HTTP status of the original response stays 404 for crawlers.
-14. **QA that runs by itself.** The QA scripts serve `dist/` through a small compressing static server, so no
+14. **The page is readable before the animation layer loads.** The first bundle carries only the header, the
+    consent dialog, the reveal observer and the flip cards; GSAP, Lenis and the pointer effects are imported
+    after it. An inline snippet reveals everything already on screen while the document is still parsing, and
+    page headlines slide in from CSS instead of being re-split and replayed by GSAP, which is what used to make
+    the text look like it loaded twice. The hero photo is preloaded from the head with exactly the `srcset` and
+    `sizes` the `<picture>` uses, and photos fall back to WebP instead of JPEG.
+15. **QA that runs by itself.** The QA scripts serve `dist/` through a small compressing static server, so no
     preview server is needed and Lighthouse measures the site rather than the compressor. Screenshots are taken
     after wheel-driven scrolling so Lenis, IntersectionObserver reveals and ScrollTrigger pins all run first.
 
@@ -82,7 +88,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 451 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 63 pages, 0 errors |
-| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, contact form and its topic dropdown, the standard page hero, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, view transitions) | `npm run qa:e2e` | 33/33 passed (`docs/qa/e2e.md`) |
+| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, contact form and its topic dropdown, the standard page hero, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, first paint without JavaScript, view transitions) | `npm run qa:e2e` | 34/34 passed (`docs/qa/e2e.md`) |
 | Screenshots 390/1440 px, overflow at 360 to 1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the seven widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 
@@ -92,27 +98,27 @@ All 21 audited pages score at least **96** in performance and **100** in accessi
 
 | Page | Perf | A11y | Best practices | SEO | LCP | TBT | CLS |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `/en/` | 97 | 100 | 100 | 100 | 2.4 s | 30 ms | 0 |
-| `/en/services/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/en/services/fractional-hr-partnership/` | 98 | 100 | 100 | 100 | 2.3 s | 20 ms | 0 |
-| `/en/what-we-fix/` | 98 | 100 | 100 | 100 | 2.3 s | 20 ms | 0 |
-| `/en/about/` | 98 | 100 | 100 | 100 | 2.2 s | 10 ms | 0 |
-| `/en/faq/` | 97 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/en/contact/` | 98 | 100 | 100 | 100 | 2.1 s | 10 ms | 0 |
-| `/de/` | 97 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
-| `/de/leistungen/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
-| `/de/leistungen/fraktionale-hr-partnerschaft/` | 97 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/de/was-wir-loesen/` | 97 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/de/ueber-uns/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/de/faq/` | 97 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
-| `/de/kontakt/` | 98 | 100 | 100 | 100 | 2.1 s | 10 ms | 0 |
-| `/bg/` | 96 | 100 | 100 | 100 | 2.6 s | 20 ms | 0 |
-| `/bg/uslugi/` | 98 | 100 | 100 | 100 | 2.4 s | 10 ms | 0 |
-| `/bg/uslugi/fraktsionno-hr-partniorstvo/` | 97 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
-| `/bg/kakvo-reshavame/` | 97 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
-| `/bg/za-nas/` | 97 | 100 | 100 | 100 | 2.6 s | 10 ms | 0 |
-| `/bg/faq/` | 97 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
-| `/bg/kontakti/` | 98 | 100 | 100 | 100 | 2.3 s | 20 ms | 0 |
+| `/en/` | 98 | 100 | 100 | 100 | 2.2 s | 10 ms | 0 |
+| `/en/services/` | 99 | 100 | 100 | 100 | 2.0 s | 0 ms | 0 |
+| `/en/services/fractional-hr-partnership/` | 99 | 100 | 100 | 100 | 2.0 s | 20 ms | 0 |
+| `/en/what-we-fix/` | 99 | 100 | 100 | 100 | 2.0 s | 30 ms | 0 |
+| `/en/about/` | 99 | 100 | 100 | 100 | 2.0 s | 0 ms | 0 |
+| `/en/faq/` | 97 | 100 | 100 | 100 | 2.5 s | 30 ms | 0 |
+| `/en/contact/` | 98 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
+| `/de/` | 98 | 100 | 100 | 100 | 2.2 s | 30 ms | 0 |
+| `/de/leistungen/` | 99 | 100 | 100 | 100 | 2.0 s | 20 ms | 0 |
+| `/de/leistungen/fraktionale-hr-partnerschaft/` | 99 | 100 | 100 | 100 | 2.0 s | 0 ms | 0 |
+| `/de/was-wir-loesen/` | 99 | 100 | 100 | 100 | 2.0 s | 10 ms | 0 |
+| `/de/ueber-uns/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/de/faq/` | 97 | 100 | 100 | 100 | 2.5 s | 10 ms | 0 |
+| `/de/kontakt/` | 99 | 100 | 100 | 100 | 2.0 s | 30 ms | 0 |
+| `/bg/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/bg/uslugi/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/bg/uslugi/fraktsionno-hr-partniorstvo/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/bg/kakvo-reshavame/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
+| `/bg/za-nas/` | 97 | 100 | 100 | 100 | 2.6 s | 0 ms | 0 |
+| `/bg/faq/` | 96 | 100 | 100 | 100 | 2.8 s | 20 ms | 0 |
+| `/bg/kontakti/` | 99 | 100 | 100 | 100 | 2.1 s | 20 ms | 0 |
 
 ## Not done / needs the client
 

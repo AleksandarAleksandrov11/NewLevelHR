@@ -48,7 +48,7 @@ const faqLd = {
   mainEntity: page.faq.items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })),
 };
 ---
-<PageShell lang={lang} pageKey={key} title={page.meta.title} description={page.meta.description} jsonLd={[serviceLd, faqLd]}>
+<PageShell lang={lang} pageKey={key} title={page.meta.title} description={page.meta.description} jsonLd={[serviceLd, faqLd]} heroPhoto={page.hero.image}>
   <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{l.bookCall}</Button>
     <Button href={localizePath('contact', lang)} variant="ghost" icon="none"><MessageCircle class="size-4" aria-hidden="true" />{l.askQuestion}</Button>

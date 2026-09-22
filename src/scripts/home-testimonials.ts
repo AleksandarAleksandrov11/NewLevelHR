@@ -1,5 +1,5 @@
 /** Testimonial carousel: prev/next buttons scroll the snap track by one card. */
-import { prefersReducedMotion } from './motion';
+import { prefersReducedMotion } from './dom';
 
 let cleanup: Array<() => void> = [];
 
