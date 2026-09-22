@@ -88,7 +88,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 446 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 63 pages, 0 errors |
-| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, contact form and its topic dropdown, the standard page hero, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, first paint without JavaScript, view transitions) | `npm run qa:e2e` | 35/35 passed (`docs/qa/e2e.md`) |
+| End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, contact form and its topic dropdown, the standard page hero, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, first paint without JavaScript, view transitions) | `npm run qa:e2e` | 36/36 passed (`docs/qa/e2e.md`) |
 | Screenshots 390/1440 px, overflow at 360 to 1920 px | `npm run qa:screenshots` | 114 screenshots (45 pages × 2 widths + UI states), no horizontal overflow at any of the seven widths, 0 console errors (`docs/qa-screenshots/README.md`) |
 | Lighthouse mobile | `npm run qa:lighthouse` | see below and `docs/qa/lighthouse.md` |
 

@@ -137,8 +137,8 @@ await test('language switcher sits in the header on a phone, before anything is 
   const sw = page.locator('.header-lang');
   const box = await sw.boundingBox();
   expect(box && box.y < 80, `the switcher is not in the header bar (y=${box ? Math.round(box.y) : 'none'})`);
-  expect(await sw.locator('button svg').first().isVisible(), 'no globe on the switcher');
-  await sw.locator('button').click();
+  expect(await sw.locator('summary svg').first().isVisible(), 'no globe on the switcher');
+  await sw.locator('summary').click();
   await page.waitForTimeout(350);
   const langs = await sw.locator('[data-lang-link]').evaluateAll((els) => els.map((e) => e.getAttribute('data-lang-link')));
   expect(langs.join(',') === 'en,de,bg', `menu lists ${langs.join(',')}`);
@@ -151,11 +151,11 @@ await test('language switcher opens the same page in DE and BG (translated slugs
   await page.goto(base + '/en/services/high-velocity-hiring/', { waitUntil: 'networkidle' });
   await settleBanners(page);
   await page.reload({ waitUntil: 'networkidle' });
-  await page.locator('[data-lang-switcher] button').first().click();
+  await page.locator('[data-lang-switcher] summary').first().click();
   await page.locator('[data-lang-link="de"]').first().click();
   await page.waitForLoadState('networkidle');
   expect(new URL(page.url()).pathname === '/de/leistungen/high-velocity-hiring/', `DE url ${page.url()}`);
-  await page.locator('[data-lang-switcher] button').first().click();
+  await page.locator('[data-lang-switcher] summary').first().click();
   await page.locator('[data-lang-link="bg"]').first().click();
   await page.waitForLoadState('networkidle');
   expect(new URL(page.url()).pathname === '/bg/uslugi/high-velocity-naemane/', `BG url ${page.url()}`);
@@ -565,6 +565,20 @@ await test('home: the pinned 90-day bridge advances with the scroll', desktop, a
   expect(counts.size >= 3, `the bridge jumped straight to the end: saw ${[...counts].join(', ')}`);
   expect(last.day === '90', `the day counter ended on "${last.day}"`);
   expect(last.fill.startsWith('matrix(1,'), `the progress line ended at ${last.fill}`);
+});
+
+await test('language switcher works with every script blocked', desktop, async (page) => {
+  // It is a native <details>, so opening it and following a language never
+  // depends on a script having loaded or another handler not having thrown.
+  await page.route('**/_astro/*.js', (route) => route.abort());
+  await page.goto(base + '/en/', { waitUntil: 'load' });
+  const dd = page.locator('details[data-lang-switcher].header-lang');
+  await dd.locator('summary').click();
+  await page.waitForTimeout(200);
+  expect(await dd.locator('.lang-dd-menu').isVisible(), 'the menu did not open without JavaScript');
+  await dd.locator('[data-lang-link="bg"]').click();
+  await page.waitForURL(/\/bg\//, { timeout: 8000 });
+  expect(new URL(page.url()).pathname === '/bg/', `landed on ${new URL(page.url()).pathname}`);
 });
 
 await test('skip link and landmarks exist', desktop, async (page) => {
