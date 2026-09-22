@@ -529,6 +529,44 @@ await test('first paint does not wait for the scripts: visible content is alread
   expect(h1 && h1.text > 0 && parseFloat(h1.opacity) > 0.9, `the headline is not painted: ${JSON.stringify(h1)}`);
 });
 
+await test('home: the pinned 90-day bridge advances with the scroll', desktop, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.waitForTimeout(600);
+  const read = () => page.evaluate(() => {
+    const sec = document.querySelector('[data-bridge]');
+    if (!sec) return null;
+    const items = [...sec.querySelectorAll('[data-bridge-item]')];
+    const fill = sec.querySelector('[data-bridge-fill]');
+    const track = sec.querySelector('[data-bridge-track]');
+    return {
+      active: items.filter((i) => i.classList.contains('is-active')).length,
+      total: items.length,
+      fill: fill ? getComputedStyle(fill).transform : '',
+      day: sec.querySelector('[data-bridge-day]')?.textContent?.trim() || '',
+      pinned: track ? !!track.closest('.pin-spacer') : false,
+    };
+  });
+  const start = await read();
+  expect(start && start.total > 0, 'no 90-day bridge on the home page');
+  expect(start.pinned, 'the bridge track is not pinned: the scroll scene never registered');
+
+  // The milestones have to light up one after another, not all at once at the end.
+  const counts = new Set([start.active]);
+  let last = start;
+  for (let i = 0; i < 90; i++) {
+    await page.mouse.wheel(0, 300);
+    await page.waitForTimeout(55);
+    last = await read();
+    counts.add(last.active);
+    if (last.active === last.total) break;
+  }
+  expect(last.active === last.total, `the bridge stopped at ${last.active}/${last.total} milestones`);
+  expect(counts.size >= 3, `the bridge jumped straight to the end: saw ${[...counts].join(', ')}`);
+  expect(last.day === '90', `the day counter ended on "${last.day}"`);
+  expect(last.fill.startsWith('matrix(1,'), `the progress line ended at ${last.fill}`);
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');
