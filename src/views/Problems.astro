@@ -25,7 +25,10 @@ const items = base.map((b, i) => {
 });
 ---
 <PageShell lang={lang} pageKey="problems" title={p.meta.title} description={p.meta.description}>
-  <PageHero lang={lang} eyebrow={p.hero.eyebrow} title={p.hero.title} text={p.hero.text} crumbs={[{ label: c.nav.problems }]} photo={{ name: 'whiteboard-planning', alt: p.hero.imageAlt }} variant="ivory" />
+  <PageHero lang={lang} eyebrow={p.hero.eyebrow} title={p.hero.title} text={p.hero.text} crumbs={[{ label: c.nav.problems }]} photo={{ name: 'whiteboard-planning', alt: p.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button>
+    <Button href={localizePath('services', lang)} variant="ghost">{c.cta.ourServices}</Button>
+  </PageHero>
 
   <section class="section bg-white pt-0 lg:pt-0">
     <div class="container-site pb-grid">

@@ -2,7 +2,7 @@
 /** Contact: one message form, the booking block and the contact details. */
 import { Mail, Clock, Zap, MapPin, Languages, Check, ChevronDown, AlertCircle } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/pages/PageHero.astro';
 import Button from '@/components/ui/Button.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import { type Locale } from '@/i18n/config';
@@ -23,18 +23,14 @@ const topics = Object.entries(fm.topics) as Array<[string, string]>;
 const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', name: t.meta.title, url: `${site.url}${localizePath('contact', lang)}`, mainEntity: { '@id': `${site.url}/#organization` } };
 ---
 <PageShell lang={lang} pageKey="contact" title={t.meta.title} description={t.meta.description} jsonLd={[contactLd]}>
-  <section class="ct-hero bg-mesh">
-    <div class="container-site">
-      <Breadcrumbs items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.contact }]} label={c.nav.breadcrumbs} class="mb-8" />
-      <p class="eyebrow" data-reveal>{t.hero.eyebrow}</p>
-      <h1 class="font-display text-display-lg text-ink mt-5 max-w-3xl" data-split="immediate">{t.hero.title}</h1>
-      <p class="text-lead text-slate mt-6 max-w-2xl" data-reveal data-reveal-delay="2">{t.hero.text}</p>
-    </div>
-  </section>
+  <PageHero lang={lang} eyebrow={t.hero.eyebrow} title={t.hero.title} text={t.hero.text} crumbs={[{ label: c.nav.contact }]} photo={{ name: 'handshake-agreement', alt: t.hero.imageAlt }}>
+    <Button href="#book" icon="calendar">{c.cta.bookCall}</Button>
+    <Button href="#contact-form" variant="ghost">{t.form.title}</Button>
+  </PageHero>
 
   <section class="section bg-white pt-10 lg:pt-14">
     <div class="container-site ct-grid">
-      <div class="ct-form-card" data-reveal>
+      <div id="contact-form" class="ct-form-card" data-reveal>
         <h2 class="font-display text-display-sm text-ink">{t.form.title}</h2>
         <p class="text-slate mt-2">{t.form.text}</p>
 
@@ -172,9 +168,6 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
 </PageShell>
 
 <style>
-  .ct-hero { padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)); padding-bottom: clamp(2rem, 4vw, 3.5rem); }
-  .ct-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-  .ct-hero h1 :global(.split-i) { display: inline-block; }
   .ct-grid { display: grid; gap: 2rem; }
   @media (min-width: 64rem) { .ct-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 3rem; align-items: start; } }
   .ct-form-card { position: relative; padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); border-radius: var(--radius-xl); background: var(--color-white); border: 1px solid var(--color-line); box-shadow: var(--shadow-lift); }

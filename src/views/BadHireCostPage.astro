@@ -1,15 +1,15 @@
 ---
 /**
  * Cost of a bad hire: its own page, built around the calculator.
- * The page lists what the total is made of and says plainly that the number
- * is about the visitor's company, not about our fee.
+ * The hero carries a stack of six bars (one per cost line) instead of a
+ * paragraph; below the calculator, the same six lines as a plain strip.
  */
-import { Wallet, Search, UserCog, FileMinus, RefreshCw, CalendarX, Info, ShieldCheck } from '@lucide/astro';
+import { Wallet, Search, UserCog, FileMinus, RefreshCw, CalendarX } from '@lucide/astro';
 import PageShell from '@/components/layout/PageShell.astro';
 import PageHero from '@/components/pages/PageHero.astro';
+import Button from '@/components/ui/Button.astro';
 import BadHireCalculator from '@/components/home/BadHireCalculator.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import Button from '@/components/ui/Button.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
@@ -20,20 +20,39 @@ const d = getDict(lang);
 const t = d.tools.cost;
 const c = d.common;
 const lineIcons = [Wallet, Search, UserCog, FileMinus, RefreshCw, CalendarX];
+/** Bar heights of the hero art, one per cost line, stacking up to the total. */
+const bars = [42, 66, 92, 122, 156, 196];
 ---
 <PageShell lang={lang} pageKey="badHireCost" title={t.meta.title} description={t.meta.description}>
   <PageHero
     lang={lang}
     eyebrow={t.hero.eyebrow}
     title={t.hero.title}
-    text={t.hero.text}
+    facts={t.hero.facts}
     crumbs={[{ label: c.nav.badHireCost }]}
-    variant="ivory"
-    align="center"
   >
-    <div class="bh-hero-actions">
-      <Button href="#bad-hire-calculator" size="lg" icon="arrow">{t.hero.start}</Button>
-      <p class="bh-hero-note"><ShieldCheck class="size-4" aria-hidden="true" /><span>{t.privacy}</span></p>
+    <Button href="#bad-hire-calculator" icon="arrow">{t.hero.start}</Button>
+    <Button href={localizePath('contact', lang, 'book')} variant="ghost" icon="calendar">{c.cta.bookCall}</Button>
+    <div class="bh-art" slot="media">
+      <svg class="bh-art-svg" viewBox="0 0 240 240" role="presentation" focusable="false">
+        <defs>
+          <linearGradient id="bh-art-grad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#ff6b35" /><stop offset="0.6" stop-color="#f7931e" /><stop offset="1" stop-color="#ffb347" />
+          </linearGradient>
+        </defs>
+        <line class="bh-art-base" x1="10" y1="212" x2="230" y2="212" />
+        {bars.map((h, i) => (
+          <rect
+            class="bh-art-bar"
+            x={18 + i * 36}
+            y={210 - h}
+            width="24"
+            height={h}
+            rx="12"
+            style={`--i:${i};--o:${0.34 + i * 0.132}`}
+          />
+        ))}
+      </svg>
     </div>
   </PageHero>
 
@@ -41,38 +60,15 @@ const lineIcons = [Wallet, Search, UserCog, FileMinus, RefreshCw, CalendarX];
 
   <section class="section bg-white">
     <div class="container-site">
-      <SectionHeading eyebrow={c.nav.badHireCost} title={t.included.title} align="center" size="md" />
+      <SectionHeading title={t.included.title} align="center" size="md" />
       <ol class="bh-lines" role="list">
         {t.included.items.map((item, i) => { const Icon = lineIcons[i] ?? Wallet; return (
-          <li class="card bh-line" data-reveal data-reveal-delay={String((i % 3) + 1)}>
+          <li class="bh-line" data-reveal data-reveal-delay={String((i % 3) + 1)}>
             <span class="bh-line-icon"><Icon class="size-5" aria-hidden="true" /></span>
-            <div>
-              <h3 class="font-display bh-line-title">{item.title}</h3>
-              <p class="bh-line-body">{item.body}</p>
-            </div>
+            <span class="font-display bh-line-title">{item}</span>
           </li>
         ); })}
       </ol>
-    </div>
-  </section>
-
-  <section class="section bg-ivory bg-grain pt-0 lg:pt-0">
-    <div class="container-site">
-      <div class="bh-note" data-reveal>
-        <span class="bh-note-icon"><Info class="size-5" aria-hidden="true" /></span>
-        <div>
-          <p class="font-display bh-note-title">{t.notPrice.title}</p>
-          <p class="mt-2 text-slate leading-relaxed">{t.notPrice.text}</p>
-        </div>
-      </div>
-
-      <div class="bh-cross" data-reveal data-reveal-delay="1">
-        <div>
-          <p class="font-display bh-cross-title">{t.otherTool.title}</p>
-          <p class="mt-2 text-slate">{t.otherTool.text}</p>
-        </div>
-        <Button href={localizePath('healthCheck', lang)} variant="secondary">{t.otherTool.button}</Button>
-      </div>
     </div>
   </section>
 
@@ -80,31 +76,32 @@ const lineIcons = [Wallet, Search, UserCog, FileMinus, RefreshCw, CalendarX];
 </PageShell>
 
 <style>
-  .bh-hero-actions { margin-top: 2rem; display: grid; justify-items: center; gap: 1rem; }
-  .bh-hero-note { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--color-slate); max-width: 34rem; text-align: left; }
-  .bh-hero-note :global(svg) { flex: none; color: var(--color-accent-ink); }
-
-  .bh-lines { display: grid; gap: 1rem; margin-top: 2.5rem; }
-  @media (min-width: 48rem) { .bh-lines { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; } }
-  @media (min-width: 72rem) { .bh-lines { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .bh-line { display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; }
-  .bh-line-icon { display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border-radius: 0.8rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
-  .bh-line-title { font-size: 1.0625rem; font-weight: 700; line-height: 1.3; color: var(--color-ink); }
-  .bh-line-body { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6; color: var(--color-slate); }
-
-  .bh-note {
-    display: flex; align-items: flex-start; gap: 1.25rem;
-    padding: 2rem; border-radius: var(--radius-xl);
-    background: var(--color-white); border: 1px solid var(--color-line-strong);
-    max-width: 52rem; margin-inline: auto;
+  /* Hero art: six bars, one per cost line, growing into the total. */
+  .bh-art { position: relative; width: min(24rem, 100%); max-height: 100%; aspect-ratio: 1; }
+  .bh-art::before {
+    content: ''; position: absolute; inset: 10% 6% 18%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.3), transparent 70%);
   }
-  .bh-note-icon { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; background: var(--color-accent-soft); color: var(--color-accent-ink); }
-  .bh-note-title { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
-
-  .bh-cross {
-    margin: 2rem auto 0; max-width: 52rem; padding: 1.75rem; border-radius: var(--radius-xl);
-    background: var(--color-white); border: 1px solid var(--color-line);
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem;
+  .bh-art-svg { position: relative; width: 100%; height: 100%; }
+  .bh-art-base { stroke: var(--color-line-strong); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; }
+  .bh-art-bar { fill: url(#bh-art-grad); opacity: var(--o, 1); transform-box: fill-box; transform-origin: bottom; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js-motion .bh-art-bar { animation: bh-art-grow 0.8s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 0.1s + 0.2s); }
   }
-  .bh-cross-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.015em; color: var(--color-ink); }
+  @keyframes bh-art-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+  /* Cost lines: icon and label only, no explanatory copy. */
+  .bh-lines { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
+  @media (min-width: 40rem) { .bh-lines { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .bh-lines { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; } }
+  .bh-line {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 1rem 1.15rem; border-radius: var(--radius-lg);
+    background: var(--color-ivory); border: 1px solid var(--color-line);
+  }
+  .bh-line-icon {
+    display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem;
+    border-radius: 0.8rem; background: var(--color-accent-soft); color: var(--color-accent-ink);
+  }
+  .bh-line-title { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--color-ink); }
 </style>

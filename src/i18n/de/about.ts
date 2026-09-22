@@ -11,6 +11,7 @@ export const about: AboutDict = {
     text: 'Die meisten HR-Dienstleistungen sind für Konzerne mit Tausenden Mitarbeitenden und endlosen Budgets gemacht. Aber in einem Startup oder KMU fühlen sich „People-Probleme“ anders an. Sie sind persönlich. Sie sind teuer. Und oft stehen sie als Einziges zwischen Ihnen und Ihrem nächsten Wachstumsschritt.',
     monogram: 'MV',
     portraitLabel: 'Gründerin',
+    imageAlt: 'Eine sonnige Straße mit historischen Häusern in einer europäischen Stadt',
   },
   story: {
     eyebrow: 'Warum es NewLevelHR gibt',

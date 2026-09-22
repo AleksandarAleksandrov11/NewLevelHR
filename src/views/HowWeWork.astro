@@ -12,7 +12,6 @@ import ProcessSteps from '@/components/services/ProcessSteps.astro';
 import CheckList from '@/components/services/CheckList.astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, type PageKey } from '@/i18n';
-import { site } from '@/config/site';
 
 interface Props { lang: Locale; pageKey: PageKey }
 const { lang } = Astro.props;
@@ -32,6 +31,7 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
 <PageShell lang={lang} pageKey="howWeWork" title={h.meta.title} description={h.meta.description} jsonLd={[howTo, faqLd]}>
   <PageHero lang={lang} eyebrow={h.hero.eyebrow} title={h.hero.title} text={h.hero.text} crumbs={[{ label: c.nav.howWeWork }]} photo={{ name: 'office-light', alt: h.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{h.firstCall.button}</Button>
+    <Button href={localizePath('services', lang)} variant="ghost">{c.cta.ourServices}</Button>
   </PageHero>
 
   <section class="section bg-white">

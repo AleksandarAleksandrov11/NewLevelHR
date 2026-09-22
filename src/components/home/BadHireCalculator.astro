@@ -48,13 +48,19 @@ const multiple = formatNumber(total / v.salary, lang, { minimumFractionDigits: 1
 const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
 ---
 <section id="bad-hire-calculator" class:list={['calc section bg-ink text-white', standalone && 'is-standalone']} aria-labelledby="calc-title" data-calculator>
-  <div class="calc-glow" aria-hidden="true"></div>
+  <div class="calc-clip" aria-hidden="true"><div class="calc-glow"></div></div>
   <div class="container-site">
     {!standalone && <SectionHeading eyebrow={t.eyebrow} title={t.title} text={t.text} dark as="h2" />}
     {standalone && <h2 id="calc-title" class="sr-only">{t.title}</h2>}
     <div class="calc-grid">
       <form class="calc-form" aria-labelledby="calc-assumptions" novalidate data-calc-form data-reveal>
         <h3 id="calc-assumptions" class="calc-subtitle">{t.assumptionsTitle}</h3>
+        <!-- Phone and tablet: the running total follows the sliders down the page.
+             The result card below carries the accessible copy, so this is decorative. -->
+        <div class="calc-mini" aria-hidden="true">
+          <span class="calc-mini-label">{t.lines.total}</span>
+          <span class="calc-mini-value font-display tabular" data-calc-mini>{money(total)}</span>
+        </div>
         <div class="calc-fields">
           {fields.map((f) => (
             <div class="calc-field">
@@ -122,15 +128,33 @@ const pct = (f: Field) => `${((f.value - f.min) / (f.max - f.min)) * 100}%`;
 </section>
 
 <style>
-  .calc { overflow: hidden; isolation: isolate; }
+  /* No overflow clipping on the section itself: it would turn the section into a
+     scroll container and the sticky result card would stop sticking. The glow is
+     clipped by its own layer instead. */
+  .calc { isolation: isolate; }
   .calc.is-standalone { padding-top: 3rem; }
-  .calc-glow { position: absolute; width: 56vw; height: 56vw; max-width: 46rem; max-height: 46rem; left: -22vw; bottom: -24vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.24), transparent 66%); filter: blur(24px); pointer-events: none; z-index: -1; }
+  .calc-clip { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+  .calc-glow { position: absolute; width: 56vw; height: 56vw; max-width: 46rem; max-height: 46rem; left: -22vw; bottom: -24vw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 53, 0.24), transparent 66%); filter: blur(24px); }
   .calc-grid { display: grid; gap: 2.5rem; margin-top: 3rem; }
   @media (min-width: 64rem) {
     .calc-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 4rem; margin-top: 4.5rem; align-items: start; }
     .calc-result { position: sticky; top: calc(var(--header-h) + 1.5rem); }
   }
   .calc-subtitle { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: #fff; }
+
+  /* Running total, pinned while the assumptions scroll past underneath. */
+  .calc-mini { display: none; }
+  @media (max-width: 63.99rem) {
+    .calc-mini {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+      position: sticky; top: calc(var(--header-h) + 0.5rem); z-index: 5;
+      margin-top: 1.25rem; padding: 0.7rem 1.15rem;
+      border-radius: 999px; background: var(--color-white); color: var(--color-ink);
+      box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.75);
+    }
+    .calc-mini-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-slate); }
+    .calc-mini-value { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+  }
   .calc-fields { display: grid; gap: 1.6rem; margin-top: 1.75rem; }
   .calc-field { padding-bottom: 1.6rem; border-bottom: 1px solid var(--color-line-dark); }
   .calc-field:last-child { border-bottom: 0; padding-bottom: 0; }

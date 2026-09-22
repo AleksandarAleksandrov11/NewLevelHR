@@ -3,6 +3,7 @@
 import PageShell from '@/components/layout/PageShell.astro';
 import PageHero from '@/components/pages/PageHero.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
+import Button from '@/components/ui/Button.astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, blogPostPath, fmt, type PageKey } from '@/i18n';
 import { getPosts, postSlug, collectTags, formatDate, readingMinutes } from '@/lib/blog';
@@ -35,7 +36,10 @@ const itemList = {
 };
 ---
 <PageShell lang={lang} pageKey="blog" title={b.meta.title} description={b.meta.description} jsonLd={[itemList]}>
-  <PageHero lang={lang} eyebrow={b.hero.eyebrow} title={b.hero.title} text={b.hero.text} crumbs={[{ label: c.nav.blog }]} variant="ivory" align="center" />
+  <PageHero lang={lang} eyebrow={b.hero.eyebrow} title={b.hero.title} text={b.hero.text} crumbs={[{ label: c.nav.blog }]} photo={{ name: 'founder-thinking', alt: b.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button>
+    <Button href={localizePath('contact', lang)} variant="ghost">{c.cta.contactUs}</Button>
+  </PageHero>
 
   <section class="section bg-white pt-0 lg:pt-0" data-blog>
     <div class="container-site">

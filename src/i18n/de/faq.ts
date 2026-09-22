@@ -10,6 +10,7 @@ export const faq: FaqDict = {
     eyebrow: 'FAQ',
     title: 'Die Fragen, die Gründer uns zuerst stellen.',
     text: 'Klare Antworten zu Fraktionaler HR, Recruiting, Compliance und dazu, wie sich die Zusammenarbeit mit uns tatsächlich anfühlt. Fehlt Ihre Frage, ist das kostenlose 30-Minuten-Gespräch der schnellste Weg zur Antwort.',
+    imageAlt: 'Ein kleines Team im Gespräch über Notizbüchern in einem hellen Büro',
   },
   search: {
     label: 'Fragen durchsuchen',

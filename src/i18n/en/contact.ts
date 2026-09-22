@@ -9,6 +9,7 @@ export const contact = {
     eyebrow: 'Let’s talk',
     title: 'Your next level starts here.',
     text: 'Not sure your needs fit our services? Tell us anyway. We will point you to what would help first.',
+    imageAlt: 'Two colleagues shaking hands after a meeting',
   },
   form: {
     title: 'Send us a message',
@@ -16,7 +17,7 @@ export const contact = {
   },
   book: {
     eyebrow: 'Or book a call directly',
-    title: 'Schedule a free 30-minute consultation at a time that works for you.',
+    title: 'Schedule a free 30‑minute consultation at a time that works for you.',
     button: 'Book an appointment',
   },
   info: {

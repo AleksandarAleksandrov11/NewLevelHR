@@ -42,6 +42,8 @@ function initCalculator(root: HTMLElement) {
     if (r) ranges.set(k, r);
   });
   const totalEl = root.querySelector<HTMLElement>('[data-calc-total]');
+  /** Decorative copy of the total that stays pinned while the sliders scroll past. */
+  const miniEl = root.querySelector<HTMLElement>('[data-calc-mini]');
   const multipleEl = root.querySelector<HTMLElement>('[data-calc-multiple]');
   const announce = root.querySelector<HTMLElement>('[data-calc-announce]');
   const resetBtn = root.querySelector<HTMLButtonElement>('[data-calc-reset]');
@@ -79,10 +81,15 @@ function initCalculator(root: HTMLElement) {
     }
     totalEl.dataset.value = String(total);
     tween?.kill();
-    if (reduced || !animate) { shown = total; totalEl.textContent = money.format(total); }
+    const paintTotal = (n: number) => {
+      const text = money.format(n);
+      totalEl.textContent = text;
+      if (miniEl) miniEl.textContent = text;
+    };
+    if (reduced || !animate) { shown = total; paintTotal(total); }
     else {
       const obj = { v: shown };
-      tween = gsap.to(obj, { v: total, duration: 0.6, ease: 'power3.out', onUpdate: () => { shown = obj.v; totalEl.textContent = money.format(obj.v); } });
+      tween = gsap.to(obj, { v: total, duration: 0.6, ease: 'power3.out', onUpdate: () => { shown = obj.v; paintTotal(obj.v); } });
     }
     if (announce) {
       window.clearTimeout(announceTimer);

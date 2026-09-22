@@ -14,6 +14,7 @@ export const about = {
     text: 'Most HR services are built for corporations with thousands of employees and endless budgets. But in a startup or SME, “people problems” feel different. They’re personal. They’re expensive. And they’re often the only thing standing between you and your next level of growth.',
     monogram: 'MV',
     portraitLabel: 'Founder',
+    imageAlt: 'A sunny street of historic houses in a European city',
   },
   story: {
     eyebrow: 'Why NewLevelHR exists',

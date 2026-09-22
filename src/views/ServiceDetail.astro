@@ -28,7 +28,6 @@ const key = keyOf[short];
 const page = s.pages[short];
 const name = c.services[short].name;
 const l = s.labels;
-const variant = ({ fractional: 'mesh', hiring: 'ivory', bridge: 'dark', coaching: 'mesh' } as const)[short];
 const related = page.related.map((r) => r as Short).filter((r) => r !== short);
 const url = `${site.url}${localizePath(key, lang)}`;
 const serviceLd = {
@@ -50,9 +49,9 @@ const faqLd = {
 };
 ---
 <PageShell lang={lang} pageKey={key} title={page.meta.title} description={page.meta.description} jsonLd={[serviceLd, faqLd]}>
-  <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }} variant={variant}>
-    <Button href={localizePath('contact', lang, 'book')} icon="calendar" variant={variant === 'dark' ? 'primary' : 'primary'}>{l.bookCall}</Button>
-    <Button href={localizePath('contact', lang)} variant={variant === 'dark' ? 'light-ghost' : 'ghost'} icon="none"><MessageCircle class="size-4" aria-hidden="true" />{l.askQuestion}</Button>
+  <PageHero lang={lang} eyebrow={page.hero.eyebrow} title={page.hero.title} text={page.hero.sub} crumbs={[{ label: c.nav.services, href: localizePath('services', lang) }, { label: name }]} photo={{ name: page.hero.image, alt: page.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{l.bookCall}</Button>
+    <Button href={localizePath('contact', lang)} variant="ghost" icon="none"><MessageCircle class="size-4" aria-hidden="true" />{l.askQuestion}</Button>
   </PageHero>
 
   <section class="section bg-white">

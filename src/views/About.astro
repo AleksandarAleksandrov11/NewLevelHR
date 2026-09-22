@@ -4,7 +4,7 @@ import { Zap, HeartHandshake, Target, MessageCircle, Search, ShieldCheck } from 
 import PageShell from '@/components/layout/PageShell.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/pages/PageHero.astro';
 import Button from '@/components/ui/Button.astro';
 import Photo from '@/components/ui/Photo.astro';
 import FounderPortrait from '@/components/ui/FounderPortrait.astro';
@@ -32,20 +32,10 @@ const person = {
 const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name: a.meta.title, url: `${site.url}${localizePath('about', lang)}`, about: { '@id': `${site.url}/#organization` } };
 ---
 <PageShell lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description} jsonLd={[person, aboutPage]}>
-  <section class="ab-hero bg-mesh">
-    <div class="container-site ab-hero-grid">
-      <div class="ab-hero-copy">
-        <Breadcrumbs items={[{ label: c.nav.home, href: localizePath('home', lang) }, { label: c.nav.about }]} label={c.nav.breadcrumbs} class="mb-8" />
-        <p class="eyebrow" data-reveal>{a.hero.eyebrow}</p>
-        <h1 class="font-display text-display-lg text-ink mt-5" data-split="immediate">{a.hero.title}</h1>
-        <p class="text-lead text-slate mt-6 max-w-2xl" data-reveal data-reveal-delay="2">{a.hero.text}</p>
-        <div class="mt-8 flex flex-wrap gap-4" data-reveal data-reveal-delay="3">
-          <Button href={localizePath('contact', lang, 'book')} icon="calendar">{a.cta.button}</Button>
-          <Button href={localizePath('howWeWork', lang)} variant="ghost">{c.nav.howWeWork}</Button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PageHero lang={lang} eyebrow={a.hero.eyebrow} title={a.hero.title} text={a.hero.text} crumbs={[{ label: c.nav.about }]} photo={{ name: 'city-europe', alt: a.hero.imageAlt }}>
+    <Button href={localizePath('contact', lang, 'book')} icon="calendar">{a.cta.button}</Button>
+    <Button href={localizePath('howWeWork', lang)} variant="ghost">{c.nav.howWeWork}</Button>
+  </PageHero>
 
   <section class="section bg-white">
     <div class="container-prose">
@@ -101,17 +91,12 @@ const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name
 </PageShell>
 
 <style>
-  .ab-hero { position: relative; overflow: hidden; padding-top: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)); padding-bottom: clamp(3rem, 5vw, 5rem); }
-  /* Text only: the portrait sits further down, right before "What I stand for". */
-  .ab-hero-grid { display: grid; gap: 3rem; }
   .ab-portrait-band { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
   .ab-portrait { max-width: 22rem; margin-inline: auto; width: 100%; }
   @media (min-width: 64rem) {
     .ab-portrait-band { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 4rem; align-items: center; }
     .ab-portrait { margin-inline: 0; max-width: 24rem; }
   }
-  .ab-hero h1 :global(.split-w) { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-  .ab-hero h1 :global(.split-i) { display: inline-block; }
   .ab-story { margin-top: 2rem; display: grid; gap: 1.5rem; font-size: 1.125rem; line-height: 1.75; color: var(--color-ink-2); }
   .ab-story-key { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; color: var(--color-ink); padding: 1.5rem 0 1.5rem 1.5rem; border-left: 3px solid var(--color-accent); }
   .ab-story-key :global(.ill-w) { --lit: 0; color: rgba(20, 20, 28, calc(0.6 + var(--lit) * 0.4)); }

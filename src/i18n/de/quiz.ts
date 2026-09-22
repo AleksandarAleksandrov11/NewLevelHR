@@ -10,7 +10,6 @@ export const quiz: QuizDict = {
   seeResult: 'Ergebnis anzeigen',
   restart: 'Neu starten',
   progress: 'Frage {current} von {total}',
-  privacy: 'Nichts wird gespeichert oder gesendet. Das Ergebnis wird auf Ihrem Gerät berechnet.',
   questions: [
     { id: 'overwhelm', q: 'Wie viel Ihrer Woche geht für Mitarbeiterthemen und HR-Administration drauf?', options: ['Fast nichts, das läuft von allein', 'Ein paar Stunden, mehr als mir lieb ist', 'Zu viel. Es verdrängt regelmäßig die Produktarbeit'] },
     { id: 'managers', q: 'Wie gut sind Ihre Teamleads auf Feedback- und Konfliktgespräche vorbereitet?', options: ['Gut vorbereitet, sie meistern das', 'Gemischt. Manche weichen den harten Gesprächen aus', 'Gar nicht. Die meisten wurden wegen ihrer Fachkompetenz befördert'] },

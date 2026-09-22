@@ -5,7 +5,7 @@
  * Everything is rendered server-side and hidden; src/scripts/quiz.ts only
  * switches visibility, scores and animates. Nothing is stored or sent.
  */
-import { ArrowLeft, ArrowRight, Check, RotateCcw, ShieldCheck } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, Check, RotateCcw } from '@lucide/astro';
 import { type Locale } from '@/i18n/config';
 import { getDict, localizePath, fmt, serviceKeys, type ServiceKey } from '@/i18n';
 import Button from '@/components/ui/Button.astro';
@@ -51,18 +51,14 @@ const config = {
     <div class="hc-card" data-quiz-card data-reveal>
       <div class="hc-glow" aria-hidden="true"></div>
 
-      <!-- Intro -->
+      <!-- Intro: on the tool page this is nothing but the start button. -->
       <div class="hc-panel hc-intro" data-quiz-panel="intro">
         {!standalone && <p class="eyebrow mb-5">{q.eyebrow}</p>}
         <h2 id="hc-title" class:list={['font-display text-display-md text-ink max-w-2xl', standalone && 'sr-only']}>{q.title}</h2>
         {!standalone && <p class="text-lead text-slate mt-5 max-w-xl">{q.text}</p>}
-        <div class:list={[standalone ? 'flex flex-wrap items-center gap-4' : 'mt-8 flex flex-wrap items-center gap-4']}>
-          <Button type="button" size="lg" data-quiz-start="">{q.start}</Button>
+        <div class:list={['hc-start', !standalone && 'mt-8']}>
+          <Button type="button" size="lg" class="hc-start-btn" data-quiz-start="">{q.start}</Button>
         </div>
-        <p class="hc-privacy mt-7">
-          <ShieldCheck class="size-4 shrink-0 text-accent-ink" aria-hidden="true" />
-          <span>{q.privacy}</span>
-        </p>
       </div>
 
       <!-- Questions, one step visible at a time -->
@@ -177,8 +173,19 @@ const config = {
   .hc-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--grad-accent); }
   .hc-glow { position: absolute; width: 26rem; height: 26rem; right: -10rem; top: -12rem; border-radius: 50%; background: radial-gradient(circle, rgba(255, 179, 71, 0.28), transparent 68%); pointer-events: none; z-index: -1; }
   .hc-panel { position: relative; }
-  .hc-privacy { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; color: var(--color-slate); max-width: 34rem; }
-  .hc-privacy :global(svg) { margin-top: 0.2rem; }
+
+  /* Start state: one large button, centred, nothing else. */
+  .hc-start { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+  .hc.is-standalone .hc-intro { display: grid; place-items: center; padding-block: clamp(0.25rem, 1.5vw, 1rem); }
+  /* Before the first question the card holds nothing but the button, so it
+     shrinks to fit it and grows once the questions appear. */
+  .hc.is-standalone .hc-card:has(.hc-intro:not([hidden]))
+    { max-width: 34rem; padding: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem); }
+  .hc.is-standalone .hc-start-btn {
+    height: auto;
+    padding: clamp(1.05rem, 0.85rem + 0.7vw, 1.5rem) clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+    font-size: clamp(1.05rem, 0.94rem + 0.5vw, 1.35rem);
+  }
 
   /* Progress */
   .hc-progress { display: flex; flex-direction: column; gap: 0.7rem; }

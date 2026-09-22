@@ -12,6 +12,7 @@ export const blog = {
     eyebrow: 'Blog',
     title: 'Practical notes on the people side of growth.',
     text: 'What we see in the companies we work with: hiring that sticks, managers who grow into the job, and the paperwork nobody enjoys but everybody needs.',
+    imageAlt: 'Someone writing at a laptop in warm natural light',
   },
   list: {
     allTags: 'All topics',
