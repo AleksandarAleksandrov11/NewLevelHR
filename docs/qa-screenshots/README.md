@@ -1,8 +1,8 @@
 # QA screenshots
 
-Generated 2026-09-22 08:32 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
+Generated 2026-09-22 10:45 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
 
-* 55 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
+* 58 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
 * Console errors while capturing: **0**.
 * Captures that failed: **0**.
@@ -23,8 +23,8 @@ not a blank section.
 | /bg/blog/purvite-90-dni-reshavat/ | 1440 | no | 0 | [bg/blog-purvite-90-dni-reshavat@1440.jpg](./bg/blog-purvite-90-dni-reshavat@1440.jpg) |
 | /bg/faq/ | 390 | no | 0 | [bg/faq@390.jpg](./bg/faq@390.jpg) |
 | /bg/faq/ | 1440 | no | 0 | [bg/faq@1440.jpg](./bg/faq@1440.jpg) |
-| /bg/hr-instrumenti/ | 390 | no | 0 | [bg/hr-instrumenti@390.jpg](./bg/hr-instrumenti@390.jpg) |
-| /bg/hr-instrumenti/ | 1440 | no | 0 | [bg/hr-instrumenti@1440.jpg](./bg/hr-instrumenti@1440.jpg) |
+| /bg/hr-proverka/ | 390 | no | 0 | [bg/hr-proverka@390.jpg](./bg/hr-proverka@390.jpg) |
+| /bg/hr-proverka/ | 1440 | no | 0 | [bg/hr-proverka@1440.jpg](./bg/hr-proverka@1440.jpg) |
 | /bg/kak-rabotim/ | 390 | no | 0 | [bg/kak-rabotim@390.jpg](./bg/kak-rabotim@390.jpg) |
 | /bg/kak-rabotim/ | 1440 | no | 0 | [bg/kak-rabotim@1440.jpg](./bg/kak-rabotim@1440.jpg) |
 | /bg/kakvo-reshavame/ | 390 | no | 0 | [bg/kakvo-reshavame@390.jpg](./bg/kakvo-reshavame@390.jpg) |
@@ -39,6 +39,8 @@ not a blank section.
 | /bg/poveritelnost/ | 1440 | no | 0 | [bg/poveritelnost@1440.jpg](./bg/poveritelnost@1440.jpg) |
 | /bg/pravna-informatsia/ | 390 | no | 0 | [bg/pravna-informatsia@390.jpg](./bg/pravna-informatsia@390.jpg) |
 | /bg/pravna-informatsia/ | 1440 | no | 0 | [bg/pravna-informatsia@1440.jpg](./bg/pravna-informatsia@1440.jpg) |
+| /bg/tsena-na-greshno-naznachenie/ | 390 | no | 0 | [bg/tsena-na-greshno-naznachenie@390.jpg](./bg/tsena-na-greshno-naznachenie@390.jpg) |
+| /bg/tsena-na-greshno-naznachenie/ | 1440 | no | 0 | [bg/tsena-na-greshno-naznachenie@1440.jpg](./bg/tsena-na-greshno-naznachenie@1440.jpg) |
 | /bg/uslugi/ | 390 | no | 0 | [bg/uslugi@390.jpg](./bg/uslugi@390.jpg) |
 | /bg/uslugi/ | 1440 | no | 0 | [bg/uslugi@1440.jpg](./bg/uslugi@1440.jpg) |
 | /bg/uslugi/90-dneven-most-za-uspeh/ | 390 | no | 0 | [bg/uslugi-90-dneven-most-za-uspeh@390.jpg](./bg/uslugi-90-dneven-most-za-uspeh@390.jpg) |
@@ -65,12 +67,14 @@ not a blank section.
 | /de/datenschutz/ | 1440 | no | 0 | [de/datenschutz@1440.jpg](./de/datenschutz@1440.jpg) |
 | /de/faq/ | 390 | no | 0 | [de/faq@390.jpg](./de/faq@390.jpg) |
 | /de/faq/ | 1440 | no | 0 | [de/faq@1440.jpg](./de/faq@1440.jpg) |
-| /de/hr-tools/ | 390 | no | 0 | [de/hr-tools@390.jpg](./de/hr-tools@390.jpg) |
-| /de/hr-tools/ | 1440 | no | 0 | [de/hr-tools@1440.jpg](./de/hr-tools@1440.jpg) |
+| /de/hr-check/ | 390 | no | 0 | [de/hr-check@390.jpg](./de/hr-check@390.jpg) |
+| /de/hr-check/ | 1440 | no | 0 | [de/hr-check@1440.jpg](./de/hr-check@1440.jpg) |
 | /de/impressum/ | 390 | no | 0 | [de/impressum@390.jpg](./de/impressum@390.jpg) |
 | /de/impressum/ | 1440 | no | 0 | [de/impressum@1440.jpg](./de/impressum@1440.jpg) |
 | /de/kontakt/ | 390 | no | 0 | [de/kontakt@390.jpg](./de/kontakt@390.jpg) |
 | /de/kontakt/ | 1440 | no | 0 | [de/kontakt@1440.jpg](./de/kontakt@1440.jpg) |
+| /de/kosten-einer-fehlbesetzung/ | 390 | no | 0 | [de/kosten-einer-fehlbesetzung@390.jpg](./de/kosten-einer-fehlbesetzung@390.jpg) |
+| /de/kosten-einer-fehlbesetzung/ | 1440 | no | 0 | [de/kosten-einer-fehlbesetzung@1440.jpg](./de/kosten-einer-fehlbesetzung@1440.jpg) |
 | /de/leistungen/ | 390 | no | 0 | [de/leistungen@390.jpg](./de/leistungen@390.jpg) |
 | /de/leistungen/ | 1440 | no | 0 | [de/leistungen@1440.jpg](./de/leistungen@1440.jpg) |
 | /de/leistungen/90-tage-erfolgsbruecke/ | 390 | no | 0 | [de/leistungen-90-tage-erfolgsbruecke@390.jpg](./de/leistungen-90-tage-erfolgsbruecke@390.jpg) |
@@ -101,12 +105,14 @@ not a blank section.
 | /en/contact/ | 1440 | no | 0 | [en/contact@1440.jpg](./en/contact@1440.jpg) |
 | /en/cookie-policy/ | 390 | no | 0 | [en/cookie-policy@390.jpg](./en/cookie-policy@390.jpg) |
 | /en/cookie-policy/ | 1440 | no | 0 | [en/cookie-policy@1440.jpg](./en/cookie-policy@1440.jpg) |
+| /en/cost-of-a-bad-hire/ | 390 | no | 0 | [en/cost-of-a-bad-hire@390.jpg](./en/cost-of-a-bad-hire@390.jpg) |
+| /en/cost-of-a-bad-hire/ | 1440 | no | 0 | [en/cost-of-a-bad-hire@1440.jpg](./en/cost-of-a-bad-hire@1440.jpg) |
 | /en/faq/ | 390 | no | 0 | [en/faq@390.jpg](./en/faq@390.jpg) |
 | /en/faq/ | 1440 | no | 0 | [en/faq@1440.jpg](./en/faq@1440.jpg) |
 | /en/how-we-work/ | 390 | no | 0 | [en/how-we-work@390.jpg](./en/how-we-work@390.jpg) |
 | /en/how-we-work/ | 1440 | no | 0 | [en/how-we-work@1440.jpg](./en/how-we-work@1440.jpg) |
-| /en/hr-tools/ | 390 | no | 0 | [en/hr-tools@390.jpg](./en/hr-tools@390.jpg) |
-| /en/hr-tools/ | 1440 | no | 0 | [en/hr-tools@1440.jpg](./en/hr-tools@1440.jpg) |
+| /en/hr-health-check/ | 390 | no | 0 | [en/hr-health-check@390.jpg](./en/hr-health-check@390.jpg) |
+| /en/hr-health-check/ | 1440 | no | 0 | [en/hr-health-check@1440.jpg](./en/hr-health-check@1440.jpg) |
 | /en/legal-notice/ | 390 | no | 0 | [en/legal-notice@390.jpg](./en/legal-notice@390.jpg) |
 | /en/legal-notice/ | 1440 | no | 0 | [en/legal-notice@1440.jpg](./en/legal-notice@1440.jpg) |
 | /en/privacy-policy/ | 390 | no | 0 | [en/privacy-policy@390.jpg](./en/privacy-policy@390.jpg) |
