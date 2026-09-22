@@ -567,6 +567,30 @@ await test('home: the pinned 90-day bridge advances with the scroll', desktop, a
   expect(last.fill.startsWith('matrix(1,'), `the progress line ended at ${last.fill}`);
 });
 
+await test('language switcher: a phone tap on a language is not swallowed', phone, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.waitForTimeout(400);
+  const dd = page.locator('details[data-lang-switcher].header-lang');
+  const summary = await dd.locator('summary').boundingBox();
+  expect(summary && summary.height >= 44, `the tap target is ${summary ? Math.round(summary.height) : 0}px tall`);
+  await page.touchscreen.tap(summary.x + summary.width / 2, summary.y + summary.height / 2);
+  await page.waitForTimeout(300);
+  expect(await dd.locator('.lang-dd-menu').isVisible(), 'the menu did not open on a tap');
+  // iOS does not focus a link on tap, so focus leaves the summary with a null
+  // relatedTarget. Closing on that used to eat the tap before the link was followed.
+  await page.evaluate(() => {
+    document.querySelector('.header-lang summary')
+      .dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+  });
+  await page.waitForTimeout(150);
+  expect(await dd.locator('.lang-dd-menu').isVisible(), 'the menu closed when focus left without a target');
+  const link = await dd.locator('[data-lang-link="bg"]').boundingBox();
+  await page.touchscreen.tap(link.x + link.width / 2, link.y + link.height / 2);
+  await page.waitForURL(/\/bg\//, { timeout: 8000 });
+  expect(new URL(page.url()).pathname === '/bg/', `landed on ${new URL(page.url()).pathname}`);
+});
+
 await test('language switcher works with every script blocked', desktop, async (page) => {
   // It is a native <details>, so opening it and following a language never
   // depends on a script having loaded or another handler not having thrown.

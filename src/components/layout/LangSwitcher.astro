@@ -44,16 +44,17 @@ const label = dict.common.nav.chooseLanguage;
   </nav>
 ) : (
   <details class:list={['lang-dd relative', className]} data-lang-switcher>
-    <summary
-      class:list={[
-        'lang-dd-btn inline-flex h-10 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold transition-colors',
-        light ? 'border-white/25 text-white hover:border-white' : 'border-line-strong text-ink hover:border-ink',
-      ]}
-      aria-label={`${label} (${dict.common.nav.currentLanguage}: ${localeMeta[lang].name})`}
-    >
-      <Globe class="size-4" aria-hidden="true" />
-      <span aria-hidden="true">{localeMeta[lang].short}</span>
-      <ChevronDown class="lang-dd-chevron size-3.5" aria-hidden="true" />
+    <summary aria-label={`${label} (${dict.common.nav.currentLanguage}: ${localeMeta[lang].name})`}>
+      <span
+        class:list={[
+          'lang-dd-btn inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold transition-colors',
+          light ? 'border-white/25 text-white hover:border-white' : 'border-line-strong text-ink hover:border-ink',
+        ]}
+      >
+        <Globe class="size-4" aria-hidden="true" />
+        <span aria-hidden="true">{localeMeta[lang].short}</span>
+        <ChevronDown class="lang-dd-chevron size-3.5" aria-hidden="true" />
+      </span>
     </summary>
     <div id={`${id}-menu`} class="lang-dd-menu">
       <ul role="list" class="p-1.5">
@@ -86,9 +87,13 @@ const label = dict.common.nav.chooseLanguage;
 <style>
   /* A native disclosure: opening and closing, the keyboard and the focus order
      all work before any script has run, and keep working if one fails. */
-  .lang-dd > summary { list-style: none; cursor: pointer; }
+  /* Safari stops toggling a <summary> whose display is overridden, so the pill
+     is an inner span and the summary keeps the display the browser gave it. */
+  .lang-dd > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .lang-dd > summary:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 3px; border-radius: 999px; }
   .lang-dd > summary::-webkit-details-marker { display: none; }
   .lang-dd > summary::marker { content: ''; }
+  .lang-dd-btn { user-select: none; }
   .lang-dd-chevron { transition: transform 0.3s var(--ease-out-expo); }
   .lang-dd[open] > summary .lang-dd-chevron { transform: rotate(180deg); }
 

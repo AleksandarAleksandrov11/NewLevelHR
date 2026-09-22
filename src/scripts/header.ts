@@ -38,7 +38,9 @@ export function initHeader() {
     const scheduleClose = () => { closeTimer = window.setTimeout(close, 140); };
     const onClick = () => (item.classList.contains('is-open') ? close() : open());
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { close(); trigger.focus(); } };
-    const onFocusOut = (e: FocusEvent) => { if (!item.contains(e.relatedTarget as Node)) close(); };
+    // Only when focus really moved somewhere else. Tapping a link on iOS does not
+    // focus it, so relatedTarget is null there and closing would eat the tap.
+    const onFocusOut = (e: FocusEvent) => { if (e.relatedTarget && !item.contains(e.relatedTarget as Node)) close(); };
     const onDocClick = (e: MouseEvent) => { if (!item.contains(e.target as Node)) close(); };
     trigger.addEventListener('click', onClick);
     item.addEventListener('mouseenter', open);
@@ -67,7 +69,10 @@ export function initHeader() {
       if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length]?.focus(); }
       if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length]?.focus(); }
     };
-    const onFocusOut = (e: FocusEvent) => { if (dd.open && !dd.contains(e.relatedTarget as Node)) dd.open = false; };
+    // Same on the language menu: on a phone the tap on a language does not move
+    // focus, and closing on a null relatedTarget swallowed the tap before the
+    // link could be followed.
+    const onFocusOut = (e: FocusEvent) => { if (dd.open && e.relatedTarget && !dd.contains(e.relatedTarget as Node)) dd.open = false; };
     dd.addEventListener('toggle', onToggle);
     document.addEventListener('click', onDoc);
     dd.addEventListener('keydown', onKey);
