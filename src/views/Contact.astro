@@ -22,7 +22,7 @@ const messages = { required: fm.errors.required, email: fm.errors.email, minLeng
 const topics = Object.entries(fm.topics) as Array<[string, string]>;
 const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', name: t.meta.title, url: `${site.url}${localizePath('contact', lang)}`, mainEntity: { '@id': `${site.url}/#organization` } };
 ---
-<PageShell lang={lang} pageKey="contact" title={t.meta.title} description={t.meta.description} jsonLd={[contactLd]}>
+<PageShell lang={lang} pageKey="contact" title={t.meta.title} description={t.meta.description} jsonLd={[contactLd]} heroPhoto="handshake-agreement">
   <PageHero lang={lang} eyebrow={t.hero.eyebrow} title={t.hero.title} text={t.hero.text} crumbs={[{ label: c.nav.contact }]} photo={{ name: 'handshake-agreement', alt: t.hero.imageAlt }}>
     <Button href="#book" icon="calendar">{c.cta.bookCall}</Button>
     <Button href="#contact-form" variant="ghost">{t.form.title}</Button>

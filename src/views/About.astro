@@ -31,7 +31,7 @@ const person = {
 };
 const aboutPage = { '@context': 'https://schema.org', '@type': 'AboutPage', name: a.meta.title, url: `${site.url}${localizePath('about', lang)}`, about: { '@id': `${site.url}/#organization` } };
 ---
-<PageShell lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description} jsonLd={[person, aboutPage]}>
+<PageShell lang={lang} pageKey="about" title={a.meta.title} description={a.meta.description} jsonLd={[person, aboutPage]} heroPhoto="city-europe">
   <PageHero lang={lang} eyebrow={a.hero.eyebrow} title={a.hero.title} text={a.hero.text} crumbs={[{ label: c.nav.about }]} photo={{ name: 'city-europe', alt: a.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{a.cta.button}</Button>
     <Button href={localizePath('howWeWork', lang)} variant="ghost">{c.nav.howWeWork}</Button>

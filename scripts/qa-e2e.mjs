@@ -509,6 +509,26 @@ await test('cost calculator: the total stays on screen while the sliders scroll 
   expect(seen, 'never scrolled the last assumption into view');
 });
 
+await test('first paint does not wait for the scripts: visible content is already revealed', desktop, async (page) => {
+  // Everything Astro ships as a module is blocked, so only the HTML, the CSS and
+  // the inline snippets run — what a visitor sees before the bundle arrives.
+  await page.route('**/_astro/*.js', (route) => route.abort());
+  await page.goto(base + '/en/services/fractional-hr-partnership/', { waitUntil: 'load' });
+  const hidden = await page.evaluate(() => {
+    const h = window.innerHeight;
+    return [...document.querySelectorAll('[data-reveal]')]
+      .filter((el) => { const r = el.getBoundingClientRect(); return r.top < h && r.bottom > 0; })
+      .filter((el) => parseFloat(getComputedStyle(el).opacity) < 0.9)
+      .map((el) => el.className.toString().slice(0, 40));
+  });
+  expect(hidden.length === 0, `still invisible without JS: ${hidden.join(' | ')}`);
+  const h1 = await page.evaluate(() => {
+    const el = document.querySelector('h1');
+    return el ? { text: (el.textContent || '').trim().length, opacity: getComputedStyle(el).opacity } : null;
+  });
+  expect(h1 && h1.text > 0 && parseFloat(h1.opacity) > 0.9, `the headline is not painted: ${JSON.stringify(h1)}`);
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

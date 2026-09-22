@@ -35,7 +35,7 @@ const itemList = {
   })),
 };
 ---
-<PageShell lang={lang} pageKey="blog" title={b.meta.title} description={b.meta.description} jsonLd={[itemList]}>
+<PageShell lang={lang} pageKey="blog" title={b.meta.title} description={b.meta.description} jsonLd={[itemList]} heroPhoto="founder-thinking">
   <PageHero lang={lang} eyebrow={b.hero.eyebrow} title={b.hero.title} text={b.hero.text} crumbs={[{ label: c.nav.blog }]} photo={{ name: 'founder-thinking', alt: b.hero.imageAlt }}>
     <Button href={localizePath('contact', lang, 'book')} icon="calendar">{c.cta.bookCall}</Button>
     <Button href={localizePath('contact', lang)} variant="ghost">{c.cta.contactUs}</Button>

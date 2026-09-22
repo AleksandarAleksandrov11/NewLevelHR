@@ -18,7 +18,7 @@ const initials = name.split(/\s+/).map((p) => p[0]).join('').slice(0, 2).toUpper
 <figure class:list={['portrait', className]}>
   <div class="portrait-frame">
     {photo ? (
-      <Picture src={photo} alt={`${name}, ${role}`} widths={[480, 768, 1024]} sizes="(min-width: 64rem) 40vw, 90vw" formats={['avif', 'webp']} class="portrait-img" loading="lazy" decoding="async" />
+      <Picture src={photo} alt={`${name}, ${role}`} widths={[480, 768, 1024]} sizes="(min-width: 64rem) 40vw, 90vw" formats={["avif", "webp"]} fallbackFormat="webp" class="portrait-img" loading="lazy" decoding="async" />
     ) : (
       <div class="portrait-placeholder" role="img" aria-label={d.common.misc.photoPlaceholder}>
         <svg class="portrait-steps" viewBox="0 0 120 120" aria-hidden="true">

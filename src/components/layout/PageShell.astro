@@ -20,14 +20,16 @@ interface Props extends Omit<SeoInput, 'lang' | 'path' | 'alternates'> {
   jsonLd?: Array<Record<string, unknown>>;
   transparentHeader?: boolean;
   bodyClass?: string;
+  /** Name of the hero photo, so the head can preload the largest paint. */
+  heroPhoto?: string;
 }
-const { lang, pageKey, path, alternates, jsonLd = [], transparentHeader = false, bodyClass = '', image, ...seo } = Astro.props;
+const { lang, pageKey, path, alternates, jsonLd = [], transparentHeader = false, bodyClass = '', heroPhoto, image, ...seo } = Astro.props;
 const alts = alternates ?? alternatePaths(pageKey);
 const pagePath = path ?? alts[lang];
 /** Open Graph image generated at build time by src/pages/og/[lang]/[key].png.ts */
 const ogImage = image ?? `/og/${lang}/${pageKey}.png`;
 ---
-<Base lang={lang} path={pagePath} alternates={alts} jsonLd={jsonLd} transparentHeader={transparentHeader} bodyClass={bodyClass} pageKey={pageKey} image={ogImage} {...seo}>
+<Base lang={lang} path={pagePath} alternates={alts} jsonLd={jsonLd} transparentHeader={transparentHeader} bodyClass={bodyClass} pageKey={pageKey} heroPhoto={heroPhoto} image={ogImage} {...seo}>
   <Header slot="header" lang={lang} alternates={alts} currentKey={pageKey} transparent={transparentHeader} />
   <slot />
   <Footer slot="footer" lang={lang} alternates={alts} />
