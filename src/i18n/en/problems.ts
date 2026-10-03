@@ -98,7 +98,7 @@ export const problems = {
         points: [
           'A role scorecard and interview plan agreed before the first CV is opened.',
           'A fast, respectful candidate process that keeps strong people from dropping out.',
-          'Check-ins at day 30, 60 and 90 with both the new hire and the manager, and a clear probation decision.',
+          'Check-ins at day 30 and 60 with both the new hire and the manager, and a mid-probation review on day 90.',
         ],
       },
       serviceLabel: 'Our hiring engine, with the bridge built in:',

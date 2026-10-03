@@ -29,7 +29,7 @@ export const contact = {
     hoursValue: 'Monday to Friday, 9-18 CET',
     languages: 'Languages',
     languagesValue: 'English, German, Bulgarian',
-    address: 'Address',
+    address: 'Location',
   },
 } as const;
 export type ContactDict = Widen<typeof contact>;

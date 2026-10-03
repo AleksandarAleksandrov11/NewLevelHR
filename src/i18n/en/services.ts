@@ -51,7 +51,7 @@ export const services = {
       bullets: [
         'Day 1: expectations and scorecard agreed on both sides',
         'Day 30 and 60: feedback loops and course correction',
-        'Day 90: confirmed fit, probation decision, development plan',
+        'Day 90: mid-probation review, development plan',
       ],
      
       image: 'onboarding-welcome',
@@ -277,7 +277,7 @@ export const services = {
       },
       includes: {
         title: 'What’s included',
-        text: 'From the first briefing to the confirmed probation decision.',
+        text: 'From the first briefing to the mid-probation review.',
         items: [
           { title: 'Role scorecard', body: 'What the role must achieve in the first year, which skills are essential and which are nice to have, agreed in writing with the hiring manager.' },
           { title: 'Sourcing & outreach', body: 'Active search and personal outreach in EN, DE or BG, plus a job description candidates actually want to read.' },
@@ -286,7 +286,7 @@ export const services = {
           { title: 'Reference checks', body: 'Structured calls with former managers, with the questions agreed beforehand, so the result is evidence and not a formality.' },
           { title: 'Offer & negotiation', body: 'An offer built on your pay logic, presented and negotiated so both sides start with trust.' },
           { title: 'Hiring manager coaching', body: 'Interview training and decision support for the manager, so the process runs well again after we leave.' },
-          { title: '90-Day Success Bridge', body: 'Day 1 expectations, check-ins on day 30 and 60 and a clear probation decision on day 90, coaching both sides.' },
+          { title: '90-Day Success Bridge', body: 'Day 1 expectations, check-ins on day 30 and 60 and a mid-probation review on day 90, coaching both sides.' },
         ],
       },
       process: {
@@ -380,7 +380,7 @@ export const services = {
           'Day 1: expectations, scorecard and first-month goals agreed by both sides.',
           'Day 30: first structured feedback loop; friction is named while it is small.',
           'Day 60: course correction on scope, support or working style where needed.',
-          'Day 90: probation review with a clear decision and a development plan.',
+          'Day 90: mid-probation review with a clear read on the fit and a development plan.',
         ],
       },
       includes: {
@@ -392,7 +392,7 @@ export const services = {
           { title: 'Coaching for the new hire', body: 'Confidential 1:1 sessions on expectations, priorities and the unwritten rules of the company.' },
           { title: 'Coaching for the manager', body: 'Short sessions on how to set goals, give early feedback and read the signals before they become problems.' },
           { title: 'Day-30 and day-60 feedback loops', body: 'Structured conversations with both sides, a written summary and agreed adjustments.' },
-          { title: 'Day-90 probation review', body: 'A clear decision based on the scorecard, documented, with a development plan for the confirmed hire.' },
+          { title: 'Day-90 mid-probation review', body: 'A clear, documented read on the fit based on the scorecard, with a development plan for the rest of probation.' },
           { title: 'Documentation', body: 'Every check-in leaves a short written record, useful for the development plan and, if needed, for a fair probation decision prepared with your legal counsel.' },
           { title: 'Support between the check-ins', body: 'Both sides can reach us between the fixed dates, so a difficult first month does not wait for the next milestone.' },
         ],
@@ -404,7 +404,7 @@ export const services = {
           { tag: 'Day 1', title: 'Clear expectations', body: 'Role scorecard, first-month goals and a check-in rhythm agreed with the new hire and the manager before the laptop arrives.' },
           { tag: 'Day 30', title: 'First feedback loop', body: 'Structured 1:1 with the hire and the manager. Early friction gets named and fixed while it is still small.' },
           { tag: 'Day 60', title: 'Course correction', body: 'Performance against the scorecard, coaching on the gaps, and adjustments to scope or support where needed.' },
-          { tag: 'Day 90', title: 'Confirmed fit', body: 'Probation review with a clear decision, a development plan and a manager who now runs the process alone.' },
+          { tag: 'Day 90', title: 'Confirmed fit', body: 'Mid-probation review: a clear read on the fit, a development plan and a manager who now runs the process alone.' },
         ],
       },
       forWhom: {
@@ -429,7 +429,7 @@ export const services = {
           'A role scorecard and first-month goals signed off by both sides',
           'A written onboarding plan for weeks one to four',
           'Check-in summaries from day 30 and day 60 with agreed adjustments',
-          'A documented day-90 probation review and decision',
+          'A documented day-90 mid-probation review',
           'A development plan for the confirmed hire',
           'A manager who can run the next onboarding alone',
         ],

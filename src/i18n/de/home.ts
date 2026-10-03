@@ -3,13 +3,13 @@ import type { HomeDict } from '../en/home';
 export const home: HomeDict = {
   meta: {
     title: 'NewLevelHR: Der HR-Partner, den Sie wirklich brauchen',
-    description: 'Echte HR-Unterstützung ohne Festanstellung. Fraktionale HR, High-Velocity Hiring, 90-Tage-Erfolgsbrücke und Manager-Coaching für Startups und KMU in Europa.',
+    description: 'Echte HR-Unterstützung ohne Festanstellung. HR Management, High-Velocity Hiring, 90-Tage-Einarbeitungsbrücke und Manager-Coaching für Startups und KMU in Europa.',
   },
   hero: {
     titleLine1: 'Echter HR-Support.',
     titleLine2: 'Ohne die',
     titleAccent: 'feste Stelle.',
-    sub: 'Recruiting, Compliance und die schwierigen Gespräche, übernommen von einem Partner, der Ihr Team kennt.',
+    sub: 'Recruiting, arbeitsrechtliche Compliance und die schwierigen Gespräche, übernommen von einem Partner, der Ihr Team kennt.',
     cta1: 'Kostenlose Beratung sichern',
     cta2: 'Unsere Leistungen',
     scroll: 'Scrollen',
@@ -18,7 +18,7 @@ export const home: HomeDict = {
     title: 'Zwei kostenlose Werkzeuge, ohne Anmeldung.',
     text: 'Das eine sagt Ihnen, wo die People-Seite Ihres Unternehmens steht. Das andere beziffert eine Einstellung, die nicht funktioniert. Beide laufen in Ihrem Browser.',
   },
-  marquee: ['Fraktionale HR', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Compliance', 'Leadership', 'Teambuilding'],
+  marquee: ['HR Management', 'High-Velocity Hiring', 'Manager-Coaching', '90-Tage-Brücke', 'Arbeitsrechtliche Compliance', 'Leadership', 'Teambuilding'],
   manifesto: {
     eyebrow: 'Warum es uns gibt',
     text: 'In einer Welt voller automatisierter HR-Tools und KI-Bots bieten wir etwas anderes: einen menschlichen Partner, der Ihr Team beim Namen kennt. Kein Dashboard. Lösungen.',
@@ -30,7 +30,7 @@ export const home: HomeDict = {
     back: 'Zurück',
     all: 'Alle acht im Detail ansehen',
     items: [
-      { id: 'overwhelm', title: 'Überlastete Gründer', body: 'Mitarbeiterdramen und Papierkram fressen Ihre Zeit fürs Wachstum. Jede Stunde, die Sie mit Streitschlichtung oder Formularen verbringen, fehlt Ihrem Produkt.', fix: 'Ein fraktionaler HR-Partner nimmt Ihnen Personaladministration, Richtlinien und schwierige Gespräche ab, und Ihre Woche gehört wieder dem Aufbau Ihres Unternehmens.', service: 'serviceFractional' },
+      { id: 'overwhelm', title: 'Überlastete Gründer', body: 'Mitarbeiterdramen und Papierkram fressen Ihre Zeit fürs Wachstum. Jede Stunde, die Sie mit Streitschlichtung oder Formularen verbringen, fehlt Ihrem Produkt.', fix: 'Ein externer HR-Partner nimmt Ihnen Personaladministration, Richtlinien und schwierige Gespräche ab, und Ihre Woche gehört wieder dem Aufbau Ihres Unternehmens.', service: 'serviceFractional' },
       { id: 'managers', title: 'Ungeschulte Führungskräfte', body: 'Top-Fachkräfte werden zu Teamleads befördert, ohne jede Führungserfahrung. In Feedbackgesprächen erstarren sie und weichen den harten Entscheidungen ganz aus.', fix: 'Manager-Coaching gibt Ihren Teamleads praktische Werkzeuge für Feedback, Konflikte und Delegation, mit einem Coach an ihrer Seite für die ersten schwierigen Gespräche.', service: 'serviceCoaching' },
       { id: 'pay', title: 'Gehalt nach Bauchgefühl', body: 'Willkürliche Gehalts- und Benefit-Angebote ohne klare Struktur. Uneinheitliche Angebote untergraben das Vertrauen und machen jede Verhandlung zum Glücksspiel.', fix: 'Wir bauen einfache Gehaltsbänder und klare Benefit-Regeln, ausgerichtet an der EU-Entgelttransparenzrichtlinie, damit jedes Angebot erklärbar und fair ist.', service: 'serviceFractional' },
       { id: 'hiring', title: 'Recruiting auf gut Glück', body: 'Einstellungen nach Bauchgefühl, und nach 3 Monaten ist die Person wieder weg. Jede Fehlbesetzung kostet Monate Einarbeitung und einen schmerzhaften Neustart.', fix: 'Strukturiertes, schnelles Recruiting mit klaren Erwartungen, gefolgt von einer 90-Tage-Brücke, die neue Fachkraft und Führungskraft gleichermaßen coacht.', service: 'serviceHiring' },
@@ -46,13 +46,13 @@ export const home: HomeDict = {
     all: 'Alle Leistungen',
     items: [
       { key: 'serviceFractional', body: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf die Unternehmensziele auszurichten.', image: 'one-on-one' },
-      { key: 'serviceHiring', body: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern ankommt.', image: 'interview' },
+      { key: 'serviceHiring', body: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Einarbeitungsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern ankommt.', image: 'interview' },
       { key: 'serviceBridge', body: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt.', image: 'onboarding-welcome' },
       { key: 'serviceCoaching', body: 'Wir coachen Ihre Manager und geben ihnen Werkzeuge, um Konflikte zu lösen, Feedback zu geben und leistungsstarke Teams eigenständig zu führen.', image: 'coaching-mentoring' },
     ],
   },
   bridge: {
-    eyebrow: 'Die 90-Tage-Erfolgsbrücke',
+    eyebrow: 'Die 90-Tage-Einarbeitungsbrücke',
     title: 'Eine Einstellung ist an Tag eins kein Erfolg. Sie ist es an Tag neunzig.',
     text: 'Die meisten frühen Abgänge entscheiden sich in den ersten Wochen. Wir bleiben an Bord und coachen beide Seiten, bis die Passung wirklich trägt.',
     cta: 'So funktioniert die Brücke',
@@ -60,13 +60,13 @@ export const home: HomeDict = {
       { day: 'Tag 1', title: 'Klare Erwartungen', body: 'Rollen-Scorecard, Ziele für den ersten Monat und ein Check-in-Rhythmus, vereinbart mit neuer Fachkraft und Führungskraft, bevor der Laptop ankommt.' },
       { day: 'Tag 30', title: 'Erste Feedbackschleife', body: 'Strukturiertes 1:1 mit der Fachkraft und der Führungskraft. Frühe Reibung wird benannt und behoben, solange sie noch klein ist.' },
       { day: 'Tag 60', title: 'Kurskorrektur', body: 'Leistung im Abgleich mit der Scorecard, Coaching zu den Lücken und Anpassungen bei Aufgabenumfang oder Unterstützung, wo nötig.' },
-      { day: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeitgespräch mit klarer Entscheidung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein steuert.' },
+      { day: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeit-Zwischengespräch mit einer klaren Einschätzung der Passung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein steuert.' },
     ],
   },
   comparison: {
-    eyebrow: 'Fraktional vs. Festanstellung',
+    eyebrow: 'HR Management vs. Festanstellung',
     title: 'Senior-HR-Expertise. Ohne das Gehalt einer Führungskraft.',
-    colFractional: 'Fraktionaler HR-Partner',
+    colFractional: 'Externer HR-Partner',
     colFullTime: 'HR-Festanstellung',
     note: 'Der Vergleich beschreibt typische Konstellationen in Unternehmen mit 10 bis 150 Mitarbeitenden. Ihre Situation kann anders aussehen. Genau das klären wir im kostenlosen Gespräch.',
     cta: 'Über Ihre Situation sprechen',
@@ -88,9 +88,9 @@ export const home: HomeDict = {
     title: 'Was Gründer uns zuerst fragen.',
     cta: 'Alle Fragen',
     items: [
-      { q: 'Was genau ist fraktionale HR?', a: 'Ein Senior-HR-Partner, der einen definierten Teil seiner Zeit für Sie arbeitet, auf Retainer-Basis oder pro Projekt, statt als Vollzeitkraft. Sie bekommen Strategie und Umsetzung ohne die Fixkosten.' },
+      { q: 'Was genau ist HR Management bei NewLevelHR?', a: 'Ein Senior-HR-Partner, der einen definierten Teil seiner Zeit für Sie arbeitet, auf Retainer-Basis oder pro Projekt, statt als Vollzeitkraft. Sie bekommen Strategie und Umsetzung ohne die Fixkosten.' },
       { q: 'Was machen Sie nicht?', a: 'Wir bieten keine Lohnabrechnung, Steuererklärung, Rechtsberatung oder PEO-/Co-Employment-Dienstleistungen an. Wo rechtlicher Rat nötig ist, arbeiten wir mit Ihrer Rechtsberatung zusammen.' },
-      { q: 'Wie funktioniert die 90-Tage-Erfolgsbrücke?', a: 'Nach der Vertragsunterschrift bleiben wir die ersten drei Monate an Bord und coachen neue Fachkraft und Führungskraft, mit einer Scorecard, Check-ins an Tag 30, 60 und 90 und einer klaren Entscheidung zur Probezeit.' },
+      { q: 'Wie funktioniert die 90-Tage-Einarbeitungsbrücke?', a: 'Nach der Vertragsunterschrift bleiben wir die ersten drei Monate an Bord und coachen neue Fachkraft und Führungskraft, mit einer Scorecard, Check-ins an Tag 30 und 60 und einem Probezeit-Zwischengespräch an Tag 90.' },
       { q: 'In welchen Sprachen arbeiten Sie?', a: 'Englisch, Deutsch und Bulgarisch. Dokumente, Interviews und Coaching-Sessions sind in allen drei Sprachen möglich.' },
       { q: 'Was passiert im kostenlosen Erstgespräch?', a: 'Ein 30-minütiges Gespräch. Sie schildern Ihre Situation, wir stellen viele Fragen, und Sie gehen mit einem klaren Bild davon heraus, was helfen würde. Ob Sie danach mit uns arbeiten oder nicht.' },
     ],

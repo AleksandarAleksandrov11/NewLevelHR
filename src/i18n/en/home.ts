@@ -61,7 +61,7 @@ export const home = {
       { day: 'Day 1', title: 'Clear expectations', body: 'Role scorecard, first-month goals and a check-in rhythm agreed with the new hire and the manager before the laptop arrives.' },
       { day: 'Day 30', title: 'First feedback loop', body: 'Structured 1:1 with the hire and the manager. Early friction gets named and fixed while it is still small.' },
       { day: 'Day 60', title: 'Course correction', body: 'Performance against the scorecard, coaching on the gaps, and adjustments to scope or support where needed.' },
-      { day: 'Day 90', title: 'Confirmed fit', body: 'Probation review with a clear decision, a development plan and a manager who now runs the process alone.' },
+      { day: 'Day 90', title: 'Confirmed fit', body: 'Mid-probation review: a clear read on the fit, a development plan and a manager who now runs the process alone.' },
     ],
   },
   comparison: {
@@ -91,7 +91,7 @@ export const home = {
     items: [
       { q: 'What exactly is fractional HR?', a: 'A senior HR partner who works with you for a defined share of their time, on a retainer or per project, instead of a full-time employee. You get strategy and execution without the fixed cost.' },
       { q: 'What do you not do?', a: 'We do not provide payroll processing, tax filing, legal counsel or PEO/co-employment services. Where legal advice is needed, we work alongside your lawyer.' },
-      { q: 'How does the 90-Day Success Bridge work?', a: 'After the contract is signed we stay for the first three months, coaching the new hire and the manager with a scorecard, check-ins at day 30, 60 and 90, and a clear probation decision.' },
+      { q: 'How does the 90-Day Success Bridge work?', a: 'After the contract is signed we stay for the first three months, coaching the new hire and the manager with a scorecard, check-ins at day 30 and 60, and a mid-probation review on day 90.' },
       { q: 'Which languages do you work in?', a: 'English, German and Bulgarian. Documents, interviews and coaching sessions can be run in any of the three.' },
       { q: 'What happens in the free consultation?', a: 'A 30-minute call. You describe your situation, we ask a lot of questions, and you leave with a clear picture of what would help, whether or not you work with us.' },
     ],

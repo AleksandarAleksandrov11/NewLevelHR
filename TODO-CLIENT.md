@@ -7,7 +7,8 @@ Items marked **visible** are rendered on the live site until replaced.
 
 | Item | Where it appears | Status |
 | --- | --- | --- |
-| Unified Identification Code (UIC / EIK) | Legal notice (all languages) | **visible** "TO BE ADDED" |
+| Unified Identification Code (UIC / EIK, the "BULSTAT" number) and the full registered name with its legal form (e.g. "NewLevelHR EOOD") | Legal notice (all languages), "Company Registration"; organization JSON-LD | not shown yet: the section names the register but no number. The client now has the number; send it to add it |
+| Registered (seat and management) address | Legal notice and privacy policy only | the street was removed from the footer, the contact page and the structured data (now "Remote · Blagoevgrad"), but kept on these two pages: the Bulgarian Commerce Act and § 5 DDG both expect a serviceable address there. Replace it with the registered address if it differs, or confirm it may go |
 | VAT identification number (if applicable) | Legal notice | **visible** "TO BE ADDED" |
 | Payment term in § 4 of the Terms (e.g. 14 days) | Terms & Conditions | **visible** "TO BE ADDED — e.g. 14 days" |
 | Name of the hosting provider and its log retention | Privacy policy, "Hosting and server logs" | **visible** placeholder |

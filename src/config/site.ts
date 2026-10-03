@@ -47,8 +47,6 @@ export const site = {
     portrait: 'mariyana-velkova' as string | null,
   },
   address: {
-    street: 'Orfei 1',
-    streetLocal: 'ул. „Орфей“ № 1',
     postalCode: '2700',
     city: 'Blagoevgrad',
     cityLocal: 'Благоевград',

@@ -54,7 +54,6 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
         <p class="text-lead text-slate mt-4">{h.firstCall.text}</p>
         <CheckList items={h.firstCall.points} class="mt-6" />
         <div class="mt-8"><Button href={localizePath('contact', lang, 'book')} size="lg" icon="calendar">{h.firstCall.button}</Button></div>
-        <p class="mt-4 text-sm text-slate">{c.proof.consultation} · {c.proof.reply} · {c.proof.languages}</p>
       </div>
     </div>
   </section>

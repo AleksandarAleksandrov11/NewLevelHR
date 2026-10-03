@@ -85,7 +85,7 @@ PHP hosting, SEO plumbing and a QA suite.
 | Check | Command | Result |
 | --- | --- | --- |
 | Type and template diagnostics | `npm run check` | 0 errors, 0 warnings |
-| Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 446 strings, 0 errors |
+| Dictionary parity EN/DE/BG | `npm run check:i18n` | 14 namespaces, 1 444 strings, 0 errors |
 | Language guard (no Spanish) | `npm run check:lang` | clean (sources, docs, build) |
 | Links, anchors, canonicals, hreflang, sitemap, OG images | `npm run check:links` | 63 pages, 0 errors |
 | End-to-end behaviour (cookies, banner, switcher, sticky header, mobile menu, contact form and its topic dropdown, the standard page hero, problem bar, anchors, primary CTAs, quiz, calculator, FAQ, 404, reduced motion, first paint without JavaScript, view transitions) | `npm run qa:e2e` | 37/37 passed (`docs/qa/e2e.md`) |
@@ -107,14 +107,14 @@ All 21 audited pages score at least **96** in performance and **100** in accessi
 | `/en/contact/` | 98 | 100 | 100 | 100 | 2.4 s | 20 ms | 0 |
 | `/de/` | 98 | 100 | 100 | 100 | 2.2 s | 30 ms | 0 |
 | `/de/leistungen/` | 99 | 100 | 100 | 100 | 2.0 s | 20 ms | 0 |
-| `/de/leistungen/fraktionale-hr-partnerschaft/` | 99 | 100 | 100 | 100 | 2.0 s | 0 ms | 0 |
+| `/de/leistungen/hr-management/` | 99 | 100 | 100 | 100 | 2.0 s | 0 ms | 0 |
 | `/de/was-wir-loesen/` | 99 | 100 | 100 | 100 | 2.0 s | 10 ms | 0 |
 | `/de/ueber-uns/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
 | `/de/faq/` | 97 | 100 | 100 | 100 | 2.5 s | 10 ms | 0 |
 | `/de/kontakt/` | 99 | 100 | 100 | 100 | 2.0 s | 30 ms | 0 |
 | `/bg/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
 | `/bg/uslugi/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
-| `/bg/uslugi/fraktsionno-hr-partniorstvo/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
+| `/bg/uslugi/hr-partnyor/` | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
 | `/bg/kakvo-reshavame/` | 98 | 100 | 100 | 100 | 2.3 s | 10 ms | 0 |
 | `/bg/za-nas/` | 97 | 100 | 100 | 100 | 2.6 s | 0 ms | 0 |
 | `/bg/faq/` | 96 | 100 | 100 | 100 | 2.8 s | 20 ms | 0 |

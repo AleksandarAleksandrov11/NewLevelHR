@@ -2,14 +2,14 @@ import type { FaqDict } from '../en/faq';
 
 export const faq: FaqDict = {
   meta: {
-    title: 'FAQ: Antworten zu Fraktionaler HR, Recruiting und Compliance',
+    title: 'FAQ: Antworten zu HR Management, Recruiting und arbeitsrechtlicher Compliance',
     description:
-      'Antworten auf die Fragen, die Gründer uns zuerst stellen: Was Fraktionale HR ist, wie Preise und das kostenlose Gespräch funktionieren, wie die 90-Tage-Erfolgsbrücke abläuft, was die EU-Entgelttransparenzrichtlinie für KMU bedeutet und was wir nicht tun.',
+      'Antworten auf die Fragen, die Gründer uns zuerst stellen: was HR Management bei uns bedeutet, wie Preise und das kostenlose Gespräch funktionieren, wie die 90-Tage-Einarbeitungsbrücke abläuft, was die EU-Entgelttransparenzrichtlinie für KMU bedeutet und was wir nicht tun.',
   },
   hero: {
     eyebrow: 'FAQ',
     title: 'Die Fragen, die Gründer uns zuerst stellen.',
-    text: 'Klare Antworten zu Fraktionaler HR, Recruiting, Compliance und dazu, wie sich die Zusammenarbeit mit uns tatsächlich anfühlt. Fehlt Ihre Frage, ist das kostenlose 30-Minuten-Gespräch der schnellste Weg zur Antwort.',
+    text: 'Klare Antworten zu HR Management, Recruiting, arbeitsrechtlicher Compliance und dazu, wie sich die Zusammenarbeit mit uns tatsächlich anfühlt. Fehlt Ihre Frage, ist das kostenlose 30-Minuten-Gespräch der schnellste Weg zur Antwort.',
     imageAlt: 'Ein kleines Team im Gespräch über Notizbüchern in einem hellen Büro',
   },
   search: {
@@ -22,10 +22,10 @@ export const faq: FaqDict = {
   groups: [
     {
       id: 'basics',
-      title: 'Fraktionale HR: die Grundlagen',
+      title: 'HR Management: die Grundlagen',
       items: [
         {
-          q: 'Was genau ist Fraktionale HR?',
+          q: 'Was genau ist HR Management bei NewLevelHR?',
           a: 'Eine erfahrene HR-Partnerin, die für einen definierten Anteil ihrer Zeit mit Ihrem Unternehmen arbeitet, auf Retainer-Basis oder pro Projekt, statt als Festangestellte auf der Gehaltsliste.\n\nSie bekommen Strategie und Umsetzung in einer Person: Struktur, Richtlinien, Recruiting, schwierige Gespräche und die Personalentscheidungen, die mit dem Wachstum kommen. Ohne die Fixkosten einer Führungskraft, und ohne ein Dashboard, das so tut, als wäre es ein Partner.',
         },
         {
@@ -33,7 +33,7 @@ export const faq: FaqDict = {
           a: 'Drei Dinge ändern sich. Seniorität: Sie bekommen vom ersten Tag an eine erfahrene Partnerin, nicht die Generalistin, die sich Ihr Budget gerade leisten kann. Tempo: Wir starten in Tagen, nicht nach Monaten aus Recruiting und Kündigungsfristen. Bindung: Der Umfang wächst mit Ihrem Bedarf, statt Fixgehalt, Benefits und Kündigungsfrist zu sein.\n\nWas gleich bleibt, ist die Nähe. Wir sind in Ihrem Slack, kennen Ihr Team beim Namen und gehen ans Telefon, wenn etwas schiefläuft.',
         },
         {
-          q: 'Für wen ist Fraktionale HR gedacht?',
+          q: 'Für wen ist HR Management gedacht?',
           a: 'Für Gründer, Geschäftsführer und Führungsteams von Start-ups und KMU in Europa, meist aus der Tech-Branche, insbesondere in Bulgarien und im deutschsprachigen Raum.\n\nTypischerweise ist das Unternehmen über den Punkt hinausgewachsen, an dem Personalthemen nebenbei erledigt werden können, aber noch nicht so weit, dass eine eigene HR-Abteilung sinnvoll wäre. Wenn Sie sich in dieser Lücke wiedererkennen, ist das Angebot für Sie gemacht.',
         },
         {
@@ -70,15 +70,15 @@ export const faq: FaqDict = {
     },
     {
       id: 'hiring',
-      title: 'Recruiting & die 90-Tage-Erfolgsbrücke',
+      title: 'Recruiting & die 90-Tage-Einarbeitungsbrücke',
       items: [
         {
           q: 'Wie funktioniert High-Velocity Hiring?',
-          a: 'Es beginnt vor der Stellenanzeige: mit einer Rollen-Scorecard, die festhält, wie Erfolg in den ersten Monaten aussieht, und mit einer Gehaltsspanne, die sich erklären lässt. Dann folgt ein strukturierter Prozess mit klarer Interview-Abfolge, schnellem Feedback an jede Kandidatin und jeden Kandidaten und Entscheidungen in Tagen statt Wochen.\n\nDie Recruiting-Disziplin der großen Tech-Unternehmen, zugeschnitten auf ein Unternehmen ohne eigene Recruiting-Abteilung. Und sie endet nicht mit der Unterschrift: Jede Einstellung kommt mit der 90-Tage-Erfolgsbrücke.',
+          a: 'Es beginnt vor der Stellenanzeige: mit einer Rollen-Scorecard, die festhält, wie Erfolg in den ersten Monaten aussieht, und mit einer Gehaltsspanne, die sich erklären lässt. Dann folgt ein strukturierter Prozess mit klarer Interview-Abfolge, schnellem Feedback an jede Kandidatin und jeden Kandidaten und Entscheidungen in Tagen statt Wochen.\n\nDie Recruiting-Disziplin der großen Tech-Unternehmen, zugeschnitten auf ein Unternehmen ohne eigene Recruiting-Abteilung. Und sie endet nicht mit der Unterschrift: Jede Einstellung kommt mit der 90-Tage-Einarbeitungsbrücke.',
         },
         {
-          q: 'Was ist die 90-Tage-Erfolgsbrücke?',
-          a: 'Nach der Vertragsunterschrift bleiben wir die ersten drei Monate an Bord und coachen sowohl die neue Fachkraft als auch die Führungskraft. Tag 1: Erwartungen, Ziele für den ersten Monat und ein Check-in-Rhythmus werden vereinbart, bevor der Laptop ankommt. Tag 30: eine strukturierte Feedbackschleife, die frühe Reibung benennt, solange sie noch klein ist. Tag 60: Kurskorrektur anhand der Scorecard. Tag 90: Probezeitgespräch mit klarer Entscheidung und Entwicklungsplan.\n\nDie meisten frühen Kündigungen entscheiden sich in den ersten Wochen. Die Brücke ist dafür da, dass es nicht dazu kommt.',
+          q: 'Was ist die 90-Tage-Einarbeitungsbrücke?',
+          a: 'Nach der Vertragsunterschrift bleiben wir die ersten drei Monate an Bord und coachen sowohl die neue Fachkraft als auch die Führungskraft. Tag 1: Erwartungen, Ziele für den ersten Monat und ein Check-in-Rhythmus werden vereinbart, bevor der Laptop ankommt. Tag 30: eine strukturierte Feedbackschleife, die frühe Reibung benennt, solange sie noch klein ist. Tag 60: Kurskorrektur anhand der Scorecard. Tag 90: Probezeit-Zwischengespräch mit klarer Einschätzung der Passung und Entwicklungsplan.\n\nDie meisten frühen Kündigungen entscheiden sich in den ersten Wochen. Die Brücke ist dafür da, dass es nicht dazu kommt.',
         },
         {
           q: 'Bekommen wir die Brücke auch für jemanden, den wir selbst eingestellt haben?',
@@ -92,7 +92,7 @@ export const faq: FaqDict = {
     },
     {
       id: 'compliance',
-      title: 'Compliance & die EU-Entgelttransparenzrichtlinie',
+      title: 'Arbeitsrechtliche Compliance & die EU-Entgelttransparenzrichtlinie',
       items: [
         {
           q: 'Was bedeutet die EU-Entgelttransparenzrichtlinie für ein Start-up oder KMU?',

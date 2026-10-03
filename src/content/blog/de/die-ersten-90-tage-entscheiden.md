@@ -32,12 +32,12 @@ An Tag 60 wissen Sie, ob der Zuschnitt gestimmt hat. Manchmal ist die Stelle auf
 dem Papier nicht die Stelle, die es gibt. Den Zuschnitt jetzt anzupassen ist
 günstig; es nach der Probezeit zu merken, ist es nicht.
 
-## Tag 90: die Entscheidung auf Basis von Belegen
+## Tag 90: ein Probezeit-Zwischengespräch auf Basis von Belegen
 
-Ein Probezeitgespräch, das mit „schauen wir mal“ endet, hilft niemandem. Nehmen
-Sie die Scorecard von Tag 1: Was wurde erreicht, was nicht, und wie sieht der
-Entwicklungsplan für das nächste Quartal aus. Ist die Antwort Nein, kam sie für
-beide Seiten nicht überraschend.
+Ein Probezeit-Zwischengespräch, das mit „schauen wir mal“ endet, hilft niemandem.
+Nehmen Sie die Scorecard von Tag 1: Was wurde erreicht, was nicht, und wie sieht
+der Entwicklungsplan für den Rest der Probezeit aus. Ist die Antwort Nein, kommt
+sie für beide Seiten nicht überraschend, und es bleibt Zeit, darauf zu reagieren.
 
 ---
 

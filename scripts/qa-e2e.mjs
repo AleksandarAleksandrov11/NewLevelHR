@@ -158,7 +158,7 @@ await test('language switcher opens the same page in DE and BG (translated slugs
   await page.locator('[data-lang-switcher] summary').first().click();
   await page.locator('[data-lang-link="bg"]').first().click();
   await page.waitForLoadState('networkidle');
-  expect(new URL(page.url()).pathname === '/bg/uslugi/high-velocity-naemane/', `BG url ${page.url()}`);
+  expect(new URL(page.url()).pathname === '/bg/uslugi/podbor-na-personal/', `BG url ${page.url()}`);
   expect((await page.getAttribute('html', 'lang')) === 'bg', 'html lang is not bg');
 });
 

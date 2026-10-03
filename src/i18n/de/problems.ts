@@ -93,7 +93,7 @@ export const problems: ProblemsDict = {
         points: [
           'Eine Rollen-Scorecard und ein Interviewplan, vereinbart bevor der erste Lebenslauf geöffnet wird.',
           'Ein schneller, respektvoller Kandidatenprozess, der starke Leute nicht abspringen lässt.',
-          'Check-ins an Tag 30, 60 und 90 mit neuer Fachkraft und Führungskraft, und eine klare Probezeitentscheidung.',
+          'Check-ins an Tag 30 und 60 mit neuer Fachkraft und Führungskraft, und ein Probezeit-Zwischengespräch an Tag 90.',
         ],
       },
       serviceLabel: 'Unser Recruiting-Motor, mit eingebauter Brücke:',

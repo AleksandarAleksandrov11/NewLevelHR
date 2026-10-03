@@ -2,14 +2,14 @@ import type { ServicesDict } from '../en/services';
 
 export const services: ServicesDict = {
   meta: {
-    title: 'Leistungen: Fraktionale HR, Recruiting, 90-Tage-Brücke und Manager-Coaching',
+    title: 'Leistungen: HR Management, Recruiting, 90-Tage-Brücke und Manager-Coaching',
     description:
-      'Vier Wege, mit NewLevelHR zu arbeiten: fraktionale HR-Partnerschaft, High-Velocity Hiring, die 90-Tage-Erfolgsbrücke und Manager-Coaching. Senior-HR-Unterstützung für Startups und KMU in Europa, als Retainer oder Projekt.',
+      'Vier Wege, mit NewLevelHR zu arbeiten: HR Management, High-Velocity Hiring, die 90-Tage-Einarbeitungsbrücke und Manager-Coaching. Senior-HR-Unterstützung für Startups und KMU in Europa, als Retainer oder Projekt.',
   },
   hero: {
     eyebrow: 'Unsere Leistungen',
     title: 'Senior-HR-Unterstützung, passend zur Größe Ihres Unternehmens.',
-    text: 'Fraktionale HR-Partnerschaft, High-Velocity Hiring, eine 90-Tage-Erfolgsbrücke und Manager-Coaching.',
+    text: 'HR Management, High-Velocity Hiring, eine 90-Tage-Einarbeitungsbrücke und Manager-Coaching.',
     imageAlt: 'Ein Team feiert gemeinsam einen Meilenstein in einem hellen Büro',
   },
   cardsSection: {
@@ -31,11 +31,11 @@ export const services: ServicesDict = {
     },
     {
       key: 'hiring',
-      summary: 'Schluss mit „Einstellen und Hoffen“. Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird.',
+      summary: 'Schluss mit „Einstellen und Hoffen“. Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Einarbeitungsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird.',
       bullets: [
         'Rollen-Scorecard und klare Erwartungen vor dem ersten Interview',
         'Ein strukturierter, schneller Prozess, den Kandidatinnen und Kandidaten respektieren',
-        'Die 90-Tage-Erfolgsbrücke ist bei jeder Einstellung inklusive',
+        'Die 90-Tage-Einarbeitungsbrücke ist bei jeder Einstellung inklusive',
       ],
      
       image: 'interview',
@@ -47,7 +47,7 @@ export const services: ServicesDict = {
       bullets: [
         'Tag 1: Erwartungen und Scorecard auf beiden Seiten vereinbart',
         'Tag 30 und 60: Feedbackschleifen und Kurskorrektur',
-        'Tag 90: bestätigte Passung, Probezeitentscheidung, Entwicklungsplan',
+        'Tag 90: Probezeit-Zwischengespräch, Entwicklungsplan',
       ],
      
       image: 'onboarding-welcome',
@@ -128,13 +128,13 @@ export const services: ServicesDict = {
   pages: {
     fractional: {
       meta: {
-        title: 'Fraktionale HR-Partnerschaft: Senior-HR ohne Festanstellung',
+        title: 'HR Management: Senior-HR ohne Festanstellung',
         description:
           'Bedarfsgerechte Senior-HR-Unterstützung für Startups und KMU: Teamstruktur, Richtlinien, Gehaltsbänder, Compliance gemeinsam mit Ihrer Rechtsberatung und Leadership-Alignment. Als Retainer oder Projekt, auf EN, DE und BG.',
       },
-      serviceType: 'Fraktionale HR-Partnerschaft',
+      serviceType: 'HR Management',
       hero: {
-        eyebrow: 'Fraktionale HR-Partnerschaft',
+        eyebrow: 'HR Management',
         title: 'Senior-HR auf Abruf. Die Alternative zur Festanstellung.',
         sub: 'Bedarfsgerechte Unterstützung, um Ihre Teamstruktur zu ordnen, Richtlinien umzusetzen und Ihre Mitarbeitenden auf Ihre Unternehmensziele auszurichten.',
         image: 'one-on-one',
@@ -224,11 +224,11 @@ export const services: ServicesDict = {
           { q: 'Können Sie mit unserer bestehenden HR-Person oder Office-Managerin zusammenarbeiten?', a: 'Ja, und das funktioniert meist sehr gut. Wir übernehmen die strategischen und sensiblen Senior-Themen; Ihre interne Person behält die tägliche Administration und wächst mit einer Senior-Partnerin im Rücken.' },
           { q: 'Welche Länder und Sprachen decken Sie ab?', a: 'Wir arbeiten mit Teams in ganz Europa, vor allem in Bulgarien und im deutschsprachigen Raum, auf Englisch, Deutsch und Bulgarisch. Dokumente, Sitzungen und Mitarbeitergespräche können in jeder der drei Sprachen stattfinden.' },
           { q: 'Wie schnell können wir starten?', a: 'Das kostenlose Gespräch ist meist innerhalb weniger Tage möglich, und das Audit beginnt, sobald der Umfang vereinbart ist. Es gibt keine Kündigungsfrist, keinen Recruiting-Prozess und keine Ausstattung, auf die Sie warten müssten.' },
-          { q: 'Was, wenn sich unser Bedarf ändert?', a: 'Das wird er. Der Umfang wird monatlich überprüft und kann wachsen, schrumpfen oder von Retainer auf Projekt wechseln. Ein fraktionales Setup ist dafür gebaut, mit dem Unternehmen zu skalieren, nicht gegen es.' },
+          { q: 'Was, wenn sich unser Bedarf ändert?', a: 'Das wird er. Der Umfang wird monatlich überprüft und kann wachsen, schrumpfen oder von Retainer auf Projekt wechseln. Ein externes Setup ist dafür gebaut, mit dem Unternehmen zu skalieren, nicht gegen es.' },
         ],
       },
       cta: {
-        title: 'Sehen Sie, was eine fraktionale Partnerin bei Ihnen verändern würde.',
+        title: 'Sehen Sie, was eine externe HR-Partnerin bei Ihnen verändern würde.',
         text: 'Buchen Sie ein kostenloses 30-Minuten-Gespräch. Wir schauen uns Ihr Setup an und sagen Ihnen ehrlich, ob eine Partnerschaft sinnvoll ist.',
         button: 'Kostenloses Gespräch buchen',
       },
@@ -238,13 +238,13 @@ export const services: ServicesDict = {
       meta: {
         title: 'High-Velocity Hiring: schnelles, strukturiertes Recruiting mit 90-Tage-Brücke',
         description:
-          'Schluss mit „Einstellen und Hoffen“. Strukturiertes Recruiting im Big-Tech-Tempo für Startups und KMU, mit klaren Erwartungen, einer Rollen-Scorecard und der 90-Tage-Erfolgsbrücke bei jeder Einstellung.',
+          'Schluss mit „Einstellen und Hoffen“. Strukturiertes Recruiting im Big-Tech-Tempo für Startups und KMU, mit klaren Erwartungen, einer Rollen-Scorecard und der 90-Tage-Einarbeitungsbrücke bei jeder Einstellung.',
       },
       serviceType: 'Recruiting und Einstellung',
       hero: {
         eyebrow: 'High-Velocity Hiring',
         title: 'Schluss mit „Einstellen und Hoffen“.',
-        sub: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Erfolgsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird.',
+        sub: 'Big-Tech-Recruiting-Tempo kombiniert mit einer 3-Monats-Einarbeitungsbrücke, damit Ihre neue Fachkraft nicht nur startet, sondern erfolgreich wird.',
         image: 'interview',
         imageAlt: 'Ein strukturiertes Vorstellungsgespräch zwischen Kandidatin und Hiring Manager',
        
@@ -268,12 +268,12 @@ export const services: ServicesDict = {
           'Rollen-Scorecard und Erfolgskriterien mit dem Hiring Manager vereinbart, bevor die Suche beginnt.',
           'Strukturierte Interviews mit definierten Fragen, damit Entscheidungen vergleichbar und schnell sind.',
           'Angebote auf Basis Ihrer Gehaltsbänder, klar erklärt, ohne Drama abgeschlossen.',
-          'Die 90-Tage-Erfolgsbrücke für jede Einstellung: Coaching für die neue Fachkraft und die Führungskraft.',
+          'Die 90-Tage-Einarbeitungsbrücke für jede Einstellung: Coaching für die neue Fachkraft und die Führungskraft.',
         ],
       },
       includes: {
         title: 'Was enthalten ist',
-        text: 'Vom ersten Briefing bis zur bestätigten Probezeitentscheidung.',
+        text: 'Vom ersten Briefing bis zum Probezeit-Zwischengespräch.',
         items: [
           { title: 'Rollen-Scorecard', body: 'Was die Rolle im ersten Jahr erreichen muss, welche Fähigkeiten essenziell und welche wünschenswert sind, schriftlich mit dem Hiring Manager vereinbart.' },
           { title: 'Sourcing & Ansprache', body: 'Aktive Suche und persönliche Ansprache auf EN, DE oder BG, plus eine Stellenbeschreibung, die Kandidatinnen und Kandidaten wirklich lesen wollen.' },
@@ -282,7 +282,7 @@ export const services: ServicesDict = {
           { title: 'Referenzgespräche', body: 'Strukturierte Gespräche mit früheren Führungskräften, mit vorab abgestimmten Fragen, damit am Ende Belege stehen und keine Formalität.' },
           { title: 'Angebot & Verhandlung', body: 'Ein Angebot auf Basis Ihrer Gehaltslogik, so präsentiert und verhandelt, dass beide Seiten mit Vertrauen starten.' },
           { title: 'Coaching für den Hiring Manager', body: 'Interview-Training und Entscheidungsunterstützung für die Führungskraft, damit der Prozess auch nach uns gut läuft.' },
-          { title: '90-Tage-Erfolgsbrücke', body: 'Erwartungen an Tag 1, Check-ins an Tag 30 und 60 und eine klare Probezeitentscheidung an Tag 90, mit Coaching für beide Seiten.' },
+          { title: '90-Tage-Einarbeitungsbrücke', body: 'Erwartungen an Tag 1, Check-ins an Tag 30 und 60 und ein Probezeit-Zwischengespräch an Tag 90, mit Coaching für beide Seiten.' },
         ],
       },
       process: {
@@ -293,7 +293,7 @@ export const services: ServicesDict = {
           { tag: 'Sourcing', title: 'Finden & ansprechen', body: 'Aktive Suche, persönliche Ansprache und eine erste Shortlist, die wir gemeinsam durchgehen, mit ehrlichem Feedback zum Markt.' },
           { tag: 'Interviews', title: 'Strukturierter Ablauf', body: 'Eine schlanke Interview-Sequenz mit definierten Fragen und Feedback am selben Tag, damit niemand im Ungewissen wartet.' },
           { tag: 'Angebot', title: 'Entscheiden & abschließen', body: 'Eine klare Entscheidung, ein Angebot auf Basis Ihrer Gehaltsbänder und eine Verhandlung, nach der sich beide Seiten auf Tag eins freuen.' },
-          { tag: 'Tag 1-90', title: 'Erfolgsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90.' },
+          { tag: 'Tag 1-90', title: 'Einarbeitungsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90.' },
         ],
       },
       forWhom: {
@@ -330,8 +330,8 @@ export const services: ServicesDict = {
           { q: 'Wie schnell ist „High Velocity“?', a: 'Schnell genug, dass starke Kandidatinnen und Kandidaten nicht das Interesse verlieren: ein schlanker Interview-Ablauf, Feedback innerhalb eines Tages und Entscheidungen innerhalb von Tagen. Der gesamte Zeitplan hängt von Rolle und Markt ab, und wir sagen Ihnen vorab, was realistisch ist, statt eine Zahl zu versprechen.' },
           { q: 'Ersetzen Sie unseren Recruiter oder unsere Agentur?', a: 'Das können wir, oder wir arbeiten mit ihnen zusammen. Der Unterschied ist Verantwortung: Wir bauen die Scorecard, führen den Prozess, coachen den Hiring Manager und bleiben die ersten 90 Tage.' },
           { q: 'Für welche Rollen rekrutieren Sie?', a: 'Vor allem Tech-, Produkt-, Operations- und Führungsrollen in Startups und KMU in ganz Europa, auf Englisch, Deutsch und Bulgarisch. Wenn eine Rolle außerhalb dessen liegt, was wir gut können, sagen wir das im kostenlosen Gespräch.' },
-          { q: 'Ist die 90-Tage-Erfolgsbrücke wirklich inklusive?', a: 'Ja, bei jeder Einstellung, die wir durchführen. Sie ist außerdem als eigenständige Leistung für Personen verfügbar, die Sie selbst eingestellt haben.' },
-          { q: 'Wie rechnen Sie ab?', a: 'Pro Suche oder als Teil eines fraktionalen HR-Retainers. Modell und Umfang werden vor dem Start vereinbart, ohne versteckte Gebühren.' },
+          { q: 'Ist die 90-Tage-Einarbeitungsbrücke wirklich inklusive?', a: 'Ja, bei jeder Einstellung, die wir durchführen. Sie ist außerdem als eigenständige Leistung für Personen verfügbar, die Sie selbst eingestellt haben.' },
+          { q: 'Wie rechnen Sie ab?', a: 'Pro Suche oder als Teil eines HR-Management-Retainers. Modell und Umfang werden vor dem Start vereinbart, ohne versteckte Gebühren.' },
           { q: 'Was passiert, wenn die Einstellung nicht funktioniert?', a: 'Die Brücke existiert, damit das an Tag 30 oder 60 auffällt, nicht nach der Probezeit. Wird die Passung an Tag 90 nicht bestätigt, erhalten Sie eine klare Empfehlung und einen Plan für den nächsten Schritt, bei Bedarf vorbereitet mit Ihrer Rechtsberatung.' },
         ],
       },
@@ -344,13 +344,13 @@ export const services: ServicesDict = {
     },
     bridge: {
       meta: {
-        title: '90-Tage-Erfolgsbrücke: Onboarding-Begleitung für neue Fachkräfte und Führungskräfte',
+        title: '90-Tage-Einarbeitungsbrücke: Onboarding-Begleitung für neue Fachkräfte und Führungskräfte',
         description:
           'Unsere Arbeit endet nicht mit der Vertragsunterschrift. Wir coachen neue Fachkraft und Führungskraft durch die ersten 90 Tage: klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90. Bei unserem Recruiting inklusive, auch eigenständig buchbar.',
       },
       serviceType: 'Onboarding- und Probezeit-Coaching',
       hero: {
-        eyebrow: '90-Tage-Erfolgsbrücke',
+        eyebrow: '90-Tage-Einarbeitungsbrücke',
         title: 'Unsere Arbeit endet nicht mit der Vertragsunterschrift.',
         sub: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft, damit die Passung wirklich stimmt.',
         image: 'onboarding-welcome',
@@ -376,7 +376,7 @@ export const services: ServicesDict = {
           'Tag 1: Erwartungen, Scorecard und Ziele für den ersten Monat von beiden Seiten vereinbart.',
           'Tag 30: erste strukturierte Feedbackschleife; Reibung wird angesprochen, solange sie klein ist.',
           'Tag 60: Kurskorrektur bei Aufgabenumfang, Unterstützung oder Arbeitsweise, wo nötig.',
-          'Tag 90: Probezeitgespräch mit klarer Entscheidung und Entwicklungsplan.',
+          'Tag 90: Probezeit-Zwischengespräch mit klarer Einschätzung der Passung und Entwicklungsplan.',
         ],
       },
       includes: {
@@ -388,7 +388,7 @@ export const services: ServicesDict = {
           { title: 'Coaching für die neue Fachkraft', body: 'Vertrauliche 1:1-Sitzungen zu Erwartungen, Prioritäten und den ungeschriebenen Regeln des Unternehmens.' },
           { title: 'Coaching für die Führungskraft', body: 'Kurze Sitzungen dazu, wie man Ziele setzt, früh Feedback gibt und Signale liest, bevor sie zu Problemen werden.' },
           { title: 'Feedbackschleifen an Tag 30 und 60', body: 'Strukturierte Gespräche mit beiden Seiten, eine schriftliche Zusammenfassung und vereinbarte Anpassungen.' },
-          { title: 'Probezeitgespräch an Tag 90', body: 'Eine klare, dokumentierte Entscheidung auf Basis der Scorecard, mit einem Entwicklungsplan für die bestätigte Fachkraft.' },
+          { title: 'Probezeit-Zwischengespräch an Tag 90', body: 'Eine klare, dokumentierte Einschätzung der Passung auf Basis der Scorecard, mit einem Entwicklungsplan für den Rest der Probezeit.' },
           { title: 'Dokumentation', body: 'Jeder Check-in hinterlässt ein kurzes schriftliches Protokoll, nützlich für den Entwicklungsplan und, falls nötig, für eine faire Probezeitentscheidung, vorbereitet mit Ihrer Rechtsberatung.' },
           { title: 'Unterstützung zwischen den Terminen', body: 'Beide Seiten erreichen uns auch zwischen den festen Terminen, damit ein schwieriger erster Monat nicht bis zum nächsten Meilenstein wartet.' },
         ],
@@ -400,7 +400,7 @@ export const services: ServicesDict = {
           { tag: 'Tag 1', title: 'Klare Erwartungen', body: 'Rollen-Scorecard, Ziele für den ersten Monat und ein Check-in-Rhythmus, mit neuer Fachkraft und Führungskraft vereinbart, bevor der Laptop ankommt.' },
           { tag: 'Tag 30', title: 'Erste Feedbackschleife', body: 'Strukturiertes 1:1 mit der Fachkraft und der Führungskraft. Frühe Reibung wird benannt und behoben, solange sie klein ist.' },
           { tag: 'Tag 60', title: 'Kurskorrektur', body: 'Leistung gemessen an der Scorecard, Coaching zu den Lücken und Anpassungen bei Umfang oder Unterstützung, wo nötig.' },
-          { tag: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeitgespräch mit klarer Entscheidung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein führt.' },
+          { tag: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeit-Zwischengespräch mit einer klaren Einschätzung der Passung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein führt.' },
         ],
       },
       forWhom: {
@@ -425,7 +425,7 @@ export const services: ServicesDict = {
           'Eine Rollen-Scorecard und Ziele für den ersten Monat, von beiden Seiten abgenommen',
           'Ein schriftlicher Onboarding-Plan für die Wochen eins bis vier',
           'Check-in-Zusammenfassungen von Tag 30 und Tag 60 mit vereinbarten Anpassungen',
-          'Ein dokumentiertes Probezeitgespräch mit Entscheidung an Tag 90',
+          'Ein dokumentiertes Probezeit-Zwischengespräch an Tag 90',
           'Ein Entwicklungsplan für die bestätigte Fachkraft',
           'Eine Führungskraft, die das nächste Onboarding allein führen kann',
         ],
@@ -433,7 +433,7 @@ export const services: ServicesDict = {
       faq: {
         title: 'Fragen zur Brücke',
         items: [
-          { q: 'Ist die Brücke in Ihrem Recruiting enthalten?', a: 'Ja. Jede Einstellung, die wir über High-Velocity Hiring durchführen, enthält die 90-Tage-Erfolgsbrücke. Sie ist außerdem eigenständig buchbar für Personen, die Sie selbst eingestellt haben.' },
+          { q: 'Ist die Brücke in Ihrem Recruiting enthalten?', a: 'Ja. Jede Einstellung, die wir über High-Velocity Hiring durchführen, enthält die 90-Tage-Einarbeitungsbrücke. Sie ist außerdem eigenständig buchbar für Personen, die Sie selbst eingestellt haben.' },
           { q: 'Können wir starten, wenn die Person bereits angefangen hat?', a: 'Ja, solange genug Probezeit übrig ist, um mindestens die Schleifen an Tag 30 und Tag 60 durchzuführen. Je früher wir beginnen, desto nützlicher ist die Brücke.' },
           { q: 'Mit wem sprechen Sie, mit der Fachkraft oder mit der Führungskraft?', a: 'Mit beiden, getrennt und gemeinsam. Nur die neue Fachkraft zu coachen löst die Hälfte des Problems; an den meisten frühen Kündigungen ist die Führungskraft genauso beteiligt wie die Mitarbeiterin oder der Mitarbeiter.' },
           { q: 'Was, wenn klar wird, dass die Passung nicht stimmt?', a: 'Dann hören Sie es an Tag 30 oder 60, nicht am Ende der Probezeit. Sie erhalten eine ehrliche Empfehlung und, falls nötig, einen ruhigen Trennungsplan, vorbereitet mit Ihrer Rechtsberatung.' },
@@ -521,7 +521,7 @@ export const services: ServicesDict = {
         no: [
           'Sie einen Führungskurs mit Zertifikat für das ganze Unternehmen wollen.',
           'Die Führungskraft bereits entschieden hat, dass sie die Rolle nicht will; Coaching kann diese Entscheidung nicht ersetzen.',
-          'Sie einen Leistungsfall oder eine Trennung abwickeln müssen; das ist eine Aufgabe für die fraktionale Partnerschaft, gemeinsam mit Ihrer Rechtsberatung.',
+          'Sie einen Leistungsfall oder eine Trennung abwickeln müssen; das ist eine Aufgabe für das HR Management, gemeinsam mit Ihrer Rechtsberatung.',
         ],
       },
       deliverables: {
@@ -544,7 +544,7 @@ export const services: ServicesDict = {
           { q: 'Können Sie auch unsere Gründer coachen?', a: 'Ja. Leadership-Alignment-Sitzungen mit Gründern und Führungskräften sind Teil der Leistung, und individuelles Coaching für Gründerinnen und Gründer ist möglich.' },
           { q: 'Ist es vertraulich?', a: 'Individuelle Sitzungen sind vertraulich zwischen Führungskraft und Coach. Das Unternehmen sieht die vereinbarten Ziele und den Fortschritt, nicht den Inhalt der Gespräche.' },
           { q: 'In welchen Sprachen coachen Sie?', a: 'Englisch, Deutsch und Bulgarisch. Gemischtsprachige Teams sind in unserer Arbeit üblich, und Materialien können in allen drei Sprachen bereitgestellt werden.' },
-          { q: 'Ersetzt das eine fraktionale HR-Partnerin?', a: 'Nein, es ergänzt sie. Coaching baut die Führungskräfte auf; die fraktionale Partnerschaft baut die Strukturen, Richtlinien und Prozesse um sie herum. Viele Kunden kombinieren beides.' },
+          { q: 'Ersetzt Coaching das HR Management?', a: 'Nein, beides ergänzt sich. Coaching baut die Führungskräfte auf; das HR Management baut die Strukturen, Richtlinien und Prozesse um sie herum. Viele Kunden kombinieren beides.' },
         ],
       },
       cta: {

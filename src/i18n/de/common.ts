@@ -5,7 +5,7 @@ export const common: CommonDict = {
     siteName: 'NewLevelHR',
     tagline: 'Praktisch. Erreichbar. Immer an Ihrer Seite.',
     defaultTitle: 'NewLevelHR: Der HR-Partner, den Ihr Unternehmen wirklich braucht',
-    defaultDescription: 'Echte HR-Unterstützung ohne Festanstellung. Compliance, Recruiting, Mitarbeiterthemen, richtig gemacht.',
+    defaultDescription: 'Echte HR-Unterstützung ohne Festanstellung. Arbeitsrechtliche Compliance, Recruiting, Mitarbeiterthemen, richtig gemacht.',
     titleSuffix: ' | NewLevelHR',
   },
   nav: {
@@ -27,7 +27,7 @@ export const common: CommonDict = {
     mainNavigation: 'Hauptnavigation',
     servicesMenuTitle: 'Was wir tun',
     servicesOverview: 'Alle Leistungen',
-    servicesOverviewDesc: 'Fraktionale HR, Recruiting, Onboarding-Begleitung und Coaching, ein Partner.',
+    servicesOverviewDesc: 'HR Management, Recruiting, Einarbeitung und Coaching, ein Partner.',
     menuCtaTitle: 'Nicht sicher, wo Sie anfangen sollen?',
     menuCtaText: 'Ein kostenloses 30-Minuten-Gespräch ist der schnellste Weg herauszufinden, was Ihr Team wirklich braucht.',
     skipToContent: 'Zum Inhalt springen',
@@ -39,8 +39,8 @@ export const common: CommonDict = {
   },
   services: {
     fractional: {
-      name: 'Fraktionale HR-Partnerschaft',
-      short: 'Fraktionale HR',
+      name: 'HR Management',
+      short: 'HR Management',
       tagline: 'Die Alternative zur Festanstellung.',
       menuDesc: 'Bedarfsgerechte Senior-HR-Unterstützung für Struktur, Richtlinien und Personalentscheidungen.',
     },
@@ -48,10 +48,10 @@ export const common: CommonDict = {
       name: 'High-Velocity Hiring',
       short: 'High-Velocity Hiring',
       tagline: 'Schluss mit „Einstellen und Hoffen“.',
-      menuDesc: 'Big-Tech-Recruiting-Tempo mit integrierter 3-Monats-Erfolgsbrücke.',
+      menuDesc: 'Big-Tech-Recruiting-Tempo mit integrierter 3-Monats-Einarbeitungsbrücke.',
     },
     bridge: {
-      name: '90-Tage-Erfolgsbrücke',
+      name: '90-Tage-Einarbeitungsbrücke',
       short: '90-Tage-Brücke',
       tagline: 'Unsere Arbeit endet nicht mit der Vertragsunterschrift.',
       menuDesc: 'Wir bleiben die ersten 3 Monate an Bord und coachen neue Fachkraft und Führungskraft.',
@@ -82,9 +82,7 @@ export const common: CommonDict = {
     startHere: 'Hier starten',
   },
   proof: {
-    consultation: 'Kostenlose 30-Minuten-Beratung',
     reply: 'Antwort innerhalb von 24 h',
-    languages: 'EN · DE · BG',
   },
   facts: {
     heading: 'Worauf Sie sich verlassen können',
@@ -121,7 +119,7 @@ export const common: CommonDict = {
     responseTime: 'Antwortzeit',
     responseValue: 'Innerhalb von 24 Stunden',
     address: 'Adresse',
-    addressValue: 'Orfei 1, 2700 Blagoewgrad, Bulgarien',
+    addressValue: 'Remote · Blagoewgrad, Bulgarien',
     rights: '© {year} NewLevelHR. Alle Rechte vorbehalten.',
     cookieSettings: 'Cookie-Einstellungen',
     legalNotice: 'Impressum',
@@ -187,10 +185,10 @@ export const common: CommonDict = {
     topic: 'Thema',
     topicPlaceholder: 'Thema auswählen',
     topics: {
-      fractional: 'Fraktionale HR-Partnerschaft',
+      fractional: 'HR Management',
       hiring: 'High-Velocity Hiring',
       coaching: 'Manager-Coaching',
-      compliance: 'Compliance / Rechtliches',
+      compliance: 'Arbeitsrechtliche Compliance',
       general: 'Allgemeine Anfrage',
     },
     message: 'Nachricht',

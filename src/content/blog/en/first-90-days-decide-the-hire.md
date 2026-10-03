@@ -31,12 +31,12 @@ By day 60 you know whether the scope was right. Sometimes the job on paper is
 not the job that exists. Adjusting the scope at this point is cheap; discovering
 it after probation is not.
 
-## Day 90: make the decision on evidence
+## Day 90: a mid-probation review on evidence
 
-A probation review that ends in "let's see how it goes" helps nobody. Use the
-scorecard you wrote on day 1: what was achieved, what was not, and what the
-development plan looks like for the next quarter. If the answer is no, both
-sides knew it was coming.
+A mid-probation review that ends in "let's see how it goes" helps nobody. Use
+the scorecard you wrote on day 1: what was achieved, what was not, and what the
+development plan looks like for the rest of probation. If the answer is no,
+both sides saw it coming, and there is still time to act on it.
 
 ---
 

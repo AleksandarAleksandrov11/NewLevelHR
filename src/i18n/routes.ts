@@ -35,17 +35,17 @@ export const routes: Record<PageKey, Record<Locale, string>> = {
   services: { en: 'services', de: 'leistungen', bg: 'uslugi' },
   serviceFractional: {
     en: 'services/fractional-hr-partnership',
-    de: 'leistungen/fraktionale-hr-partnerschaft',
-    bg: 'uslugi/fraktsionno-hr-partniorstvo',
+    de: 'leistungen/hr-management',
+    bg: 'uslugi/hr-partnyor',
   },
   serviceHiring: {
     en: 'services/high-velocity-hiring',
     de: 'leistungen/high-velocity-hiring',
-    bg: 'uslugi/high-velocity-naemane',
+    bg: 'uslugi/podbor-na-personal',
   },
   serviceBridge: {
     en: 'services/90-day-success-bridge',
-    de: 'leistungen/90-tage-erfolgsbruecke',
+    de: 'leistungen/90-tage-einarbeitungsbruecke',
     bg: 'uslugi/90-dneven-most-za-uspeh',
   },
   serviceCoaching: {

@@ -82,7 +82,7 @@ export const faq = {
         },
         {
           q: 'What is the 90-Day Success Bridge?',
-          a: 'After the contract is signed, we stay for the first three months and coach both the new hire and the manager. Day 1: expectations, first-month goals and a check-in rhythm are agreed before the laptop arrives. Day 30: a structured feedback loop that names early friction while it is still small. Day 60: course correction against the scorecard. Day 90: a probation review with a clear decision and a development plan.\n\nMost early exits are decided in the first weeks. The bridge is there so that they do not happen.',
+          a: 'After the contract is signed, we stay for the first three months and coach both the new hire and the manager. Day 1: expectations, first-month goals and a check-in rhythm are agreed before the laptop arrives. Day 30: a structured feedback loop that names early friction while it is still small. Day 60: course correction against the scorecard. Day 90: a mid-probation review with a clear read on the fit and a development plan.\n\nMost early exits are decided in the first weeks. The bridge is there so that they do not happen.',
         },
         {
           q: 'Can we get the bridge for someone we hired ourselves?',

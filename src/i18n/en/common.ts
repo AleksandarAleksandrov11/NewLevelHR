@@ -85,9 +85,7 @@ export const common = {
     startHere: 'Start here',
   },
   proof: {
-    consultation: 'Free 30-min consultation',
     reply: 'Reply within 24 h',
-    languages: 'EN · DE · BG',
   },
   facts: {
     heading: 'What you can count on',
@@ -124,7 +122,7 @@ export const common = {
     responseTime: 'Response time',
     responseValue: 'Within 24 hours',
     address: 'Address',
-    addressValue: 'Orfei 1, 2700 Blagoevgrad, Bulgaria',
+    addressValue: 'Remote · Blagoevgrad, Bulgaria',
     rights: '© {year} NewLevelHR. All rights reserved.',
     cookieSettings: 'Cookie settings',
     legalNotice: 'Legal notice',
