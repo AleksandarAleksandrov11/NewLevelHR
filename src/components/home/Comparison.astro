@@ -74,7 +74,8 @@ const t = d.home.comparison;
   .cmp-cell { padding-top: 0.35rem; }
   [data-view='fractional'] .cmp-cell-full { display: none; }
   [data-view='fullTime'] .cmp-cell-fractional { display: none; }
-  .cmp-toggle { display: inline-flex; margin: 2.5rem auto 0; padding: 0.3rem; border-radius: 999px; background: var(--color-sand); border: 1px solid var(--color-line); position: relative; left: 50%; transform: translateX(-50%); }
+  /* Centred by its margins, not by a transform: the reveal animation owns transform. */
+  .cmp-toggle { display: flex; width: fit-content; margin: 2.5rem auto 0; padding: 0.3rem; border-radius: 999px; background: var(--color-sand); border: 1px solid var(--color-line); }
   .cmp-toggle-btn { padding: 0.6rem 1rem; border-radius: 999px; border: 0; background: transparent; font-size: 0.85rem; font-weight: 650; color: var(--color-ink-3); cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
   .cmp-toggle-btn[aria-pressed='true'] { background: var(--color-ink); color: #fff; box-shadow: var(--shadow-soft); }
   .cmp-toggle-btn:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 2px; }

@@ -293,7 +293,7 @@ export const services: ServicesDict = {
           { tag: 'Sourcing', title: 'Finden & ansprechen', body: 'Aktive Suche, persönliche Ansprache und eine erste Shortlist, die wir gemeinsam durchgehen, mit ehrlichem Feedback zum Markt.' },
           { tag: 'Interviews', title: 'Strukturierter Ablauf', body: 'Eine schlanke Interview-Sequenz mit definierten Fragen und Feedback am selben Tag, damit niemand im Ungewissen wartet.' },
           { tag: 'Angebot', title: 'Entscheiden & abschließen', body: 'Eine klare Entscheidung, ein Angebot auf Basis Ihrer Gehaltsbänder und eine Verhandlung, nach der sich beide Seiten auf Tag eins freuen.' },
-          { tag: 'Tag 1-90', title: 'Einarbeitungsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90.' },
+          { tag: 'Tag 1-90', title: 'Einarbeitungsbrücke', body: 'Wir bleiben an Bord: Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, ein Probezeit-Zwischengespräch an Tag 90.' },
         ],
       },
       forWhom: {
@@ -346,7 +346,7 @@ export const services: ServicesDict = {
       meta: {
         title: '90-Tage-Einarbeitungsbrücke: Onboarding-Begleitung für neue Fachkräfte und Führungskräfte',
         description:
-          'Unsere Arbeit endet nicht mit der Vertragsunterschrift. Wir coachen neue Fachkraft und Führungskraft durch die ersten 90 Tage: klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, bestätigte Passung an Tag 90. Bei unserem Recruiting inklusive, auch eigenständig buchbar.',
+          'Unsere Arbeit endet nicht mit der Vertragsunterschrift. Wir coachen neue Fachkraft und Führungskraft durch die ersten 90 Tage: klare Erwartungen an Tag 1, Feedbackschleifen an Tag 30 und 60, ein Probezeit-Zwischengespräch an Tag 90. Bei unserem Recruiting inklusive, auch eigenständig buchbar.',
       },
       serviceType: 'Onboarding- und Probezeit-Coaching',
       hero: {
@@ -400,7 +400,7 @@ export const services: ServicesDict = {
           { tag: 'Tag 1', title: 'Klare Erwartungen', body: 'Rollen-Scorecard, Ziele für den ersten Monat und ein Check-in-Rhythmus, mit neuer Fachkraft und Führungskraft vereinbart, bevor der Laptop ankommt.' },
           { tag: 'Tag 30', title: 'Erste Feedbackschleife', body: 'Strukturiertes 1:1 mit der Fachkraft und der Führungskraft. Frühe Reibung wird benannt und behoben, solange sie klein ist.' },
           { tag: 'Tag 60', title: 'Kurskorrektur', body: 'Leistung gemessen an der Scorecard, Coaching zu den Lücken und Anpassungen bei Umfang oder Unterstützung, wo nötig.' },
-          { tag: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeit-Zwischengespräch mit einer klaren Einschätzung der Passung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein führt.' },
+          { tag: 'Tag 90', title: 'Probezeit-Zwischengespräch', body: 'Eine klare Einschätzung der Passung, ein Entwicklungsplan und eine Führungskraft, die den Prozess jetzt allein führt.' },
         ],
       },
       forWhom: {

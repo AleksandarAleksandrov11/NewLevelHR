@@ -605,6 +605,33 @@ await test('language switcher works with every script blocked', desktop, async (
   expect(new URL(page.url()).pathname === '/bg/', `landed on ${new URL(page.url()).pathname}`);
 });
 
+await test('cards stay aligned when hovered while they are still sliding in', desktop, async (page) => {
+  await page.goto(base + '/en/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.waitForTimeout(500);
+  const cards = page.locator('.tools-teaser .tt-card');
+  for (let i = 0; i < 80; i++) {
+    await page.mouse.wheel(0, 250);
+    await page.waitForTimeout(40);
+    if ((await cards.first().evaluate((el) => el.getBoundingClientRect().top)) < 650) break;
+  }
+  // Mid-reveal: the tilt used to capture the reveal's offset and keep the card lower for good.
+  const b = await cards.first().boundingBox();
+  await page.mouse.move(b.x + b.width * 0.3, b.y + b.height * 0.4, { steps: 4 });
+  await page.waitForTimeout(600);
+  await page.mouse.move(4, 4, { steps: 3 });
+  await page.waitForTimeout(2500);
+  const state = await cards.evaluateAll((els) => els.map((el) => {
+    // Vertical offset of whatever transform is left: matrix(…, tx, ty) or matrix3d(…, tx, ty, tz, 1).
+    const m = getComputedStyle(el).transform;
+    const v = m === 'none' ? [] : m.replace(/^matrix(3d)?\(|\)$/g, '').split(',').map(Number);
+    const ty = v.length === 16 ? v[13] : v.length === 6 ? v[5] : 0;
+    return { top: Math.round(el.getBoundingClientRect().top), ty };
+  }));
+  expect(state[0].top === state[1].top, `the two tool cards sit at ${state[0].top}px and ${state[1].top}px`);
+  expect(state.every((c) => Math.abs(c.ty) < 0.5), `a card is still shifted: ${state.map((c) => c.ty.toFixed(2) + 'px').join(' | ')}`);
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

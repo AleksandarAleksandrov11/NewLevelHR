@@ -60,7 +60,7 @@ export const home: HomeDict = {
       { day: 'Tag 1', title: 'Klare Erwartungen', body: 'Rollen-Scorecard, Ziele für den ersten Monat und ein Check-in-Rhythmus, vereinbart mit neuer Fachkraft und Führungskraft, bevor der Laptop ankommt.' },
       { day: 'Tag 30', title: 'Erste Feedbackschleife', body: 'Strukturiertes 1:1 mit der Fachkraft und der Führungskraft. Frühe Reibung wird benannt und behoben, solange sie noch klein ist.' },
       { day: 'Tag 60', title: 'Kurskorrektur', body: 'Leistung im Abgleich mit der Scorecard, Coaching zu den Lücken und Anpassungen bei Aufgabenumfang oder Unterstützung, wo nötig.' },
-      { day: 'Tag 90', title: 'Bestätigte Passung', body: 'Probezeit-Zwischengespräch mit einer klaren Einschätzung der Passung, einem Entwicklungsplan und einer Führungskraft, die den Prozess jetzt allein steuert.' },
+      { day: 'Tag 90', title: 'Probezeit-Zwischengespräch', body: 'Eine klare Einschätzung der Passung, ein Entwicklungsplan und eine Führungskraft, die den Prozess jetzt allein steuert.' },
     ],
   },
   comparison: {

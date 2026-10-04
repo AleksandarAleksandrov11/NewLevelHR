@@ -61,7 +61,7 @@ export const home = {
       { day: 'Day 1', title: 'Clear expectations', body: 'Role scorecard, first-month goals and a check-in rhythm agreed with the new hire and the manager before the laptop arrives.' },
       { day: 'Day 30', title: 'First feedback loop', body: 'Structured 1:1 with the hire and the manager. Early friction gets named and fixed while it is still small.' },
       { day: 'Day 60', title: 'Course correction', body: 'Performance against the scorecard, coaching on the gaps, and adjustments to scope or support where needed.' },
-      { day: 'Day 90', title: 'Confirmed fit', body: 'Mid-probation review: a clear read on the fit, a development plan and a manager who now runs the process alone.' },
+      { day: 'Day 90', title: 'Mid-probation review', body: 'A clear read on the fit, a development plan and a manager who now runs the process alone.' },
     ],
   },
   comparison: {

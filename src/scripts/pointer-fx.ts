@@ -16,7 +16,7 @@ function magnetic() {
       const dy = e.clientY - (r.top + r.height / 2);
       gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.6, ease: 'power3.out' });
     };
-    const onLeave = () => gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.4)' });
+    const onLeave = () => gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.4)', overwrite: 'auto', onComplete: () => { gsap.set(el, { clearProps: 'transform' }); } });
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerleave', onLeave);
     cleanup.push(() => { el.removeEventListener('pointermove', onMove); el.removeEventListener('pointerleave', onLeave); gsap.set(el, { clearProps: 'transform' }); });
@@ -31,9 +31,13 @@ function tilt() {
       const r = el.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
-      gsap.to(el, { rotateY: px * max, rotateX: -py * max, transformPerspective: 900, duration: 0.6, ease: 'power3.out' });
+      // x and y are pinned to 0: when the pointer arrives while the card is still
+      // sliding in, GSAP would otherwise read the half-finished reveal offset into
+      // its own transform and keep the card that much lower for good.
+      gsap.to(el, { rotateY: px * max, rotateX: -py * max, x: 0, y: 0, transformPerspective: 900, duration: 0.6, ease: 'power3.out', overwrite: 'auto' });
     };
-    const onLeave = () => gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.9, ease: 'power3.out' });
+    // Back to no inline transform at all, so the stylesheet owns the card again.
+    const onLeave = () => gsap.to(el, { rotateX: 0, rotateY: 0, x: 0, y: 0, duration: 0.9, ease: 'power3.out', overwrite: 'auto', onComplete: () => { gsap.set(el, { clearProps: 'transform' }); } });
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerleave', onLeave);
     cleanup.push(() => { el.removeEventListener('pointermove', onMove); el.removeEventListener('pointerleave', onLeave); gsap.set(el, { clearProps: 'transform' }); });

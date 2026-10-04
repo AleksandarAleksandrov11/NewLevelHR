@@ -297,7 +297,7 @@ export const services = {
           { tag: 'Sourcing', title: 'Find & engage', body: 'Active search, personal outreach and a first shortlist reviewed together, with honest feedback on the market.' },
           { tag: 'Interviews', title: 'Structured loop', body: 'A lean interview sequence with defined questions and same-day feedback, so no candidate waits in silence.' },
           { tag: 'Offer', title: 'Decide & close', body: 'A clear decision, an offer built on your pay bands and a negotiation that ends with both sides looking forward to day one.' },
-          { tag: 'Day 1-90', title: 'Success Bridge', body: 'We stay on board: expectations on day 1, feedback loops on day 30 and 60, confirmed fit on day 90.' },
+          { tag: 'Day 1-90', title: 'Success Bridge', body: 'We stay on board: expectations on day 1, feedback loops on day 30 and 60, a mid-probation review on day 90.' },
         ],
       },
       forWhom: {
@@ -350,7 +350,7 @@ export const services = {
       meta: {
         title: '90-Day Success Bridge: Onboarding Support for New Hires and Managers',
         description:
-          'Our job doesn’t end when the contract is signed. We coach the new hire and the manager through the first 90 days: clear expectations on day 1, feedback loops on day 30 and 60, a confirmed fit on day 90. Included with our hiring, also available standalone.',
+          'Our job doesn’t end when the contract is signed. We coach the new hire and the manager through the first 90 days: clear expectations on day 1, feedback loops on day 30 and 60, a mid-probation review on day 90. Included with our hiring, also available standalone.',
       },
       serviceType: 'Onboarding and probation coaching',
       hero: {
@@ -404,7 +404,7 @@ export const services = {
           { tag: 'Day 1', title: 'Clear expectations', body: 'Role scorecard, first-month goals and a check-in rhythm agreed with the new hire and the manager before the laptop arrives.' },
           { tag: 'Day 30', title: 'First feedback loop', body: 'Structured 1:1 with the hire and the manager. Early friction gets named and fixed while it is still small.' },
           { tag: 'Day 60', title: 'Course correction', body: 'Performance against the scorecard, coaching on the gaps, and adjustments to scope or support where needed.' },
-          { tag: 'Day 90', title: 'Confirmed fit', body: 'Mid-probation review: a clear read on the fit, a development plan and a manager who now runs the process alone.' },
+          { tag: 'Day 90', title: 'Mid-probation review', body: 'A clear read on the fit, a development plan and a manager who now runs the process alone.' },
         ],
       },
       forWhom: {
