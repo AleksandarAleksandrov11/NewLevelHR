@@ -1,6 +1,6 @@
 /**
- * Central site configuration. Items the client still has to supply (booking link,
- * verified KPIs, testimonials, logos) are listed in /TODO-CLIENT.md.
+ * Central site configuration: identity, contact, booking link, hours, and the
+ * optional KPI, testimonial and client-logo blocks.
  */
 const env = import.meta.env;
 
@@ -24,7 +24,7 @@ export const site = {
   url: siteUrl(),
   email: 'info@newlevelhr.com',
   /**
-   * Booking link for the free call; see TODO-CLIENT.md. Point PUBLIC_BOOKING_URL
+   * Booking link for the free call. Point PUBLIC_BOOKING_URL
    * at the Calendly event itself (https://calendly.com/<user>/<event>) and the
    * contact page shows the calendar inline instead of only linking out.
    */
@@ -61,9 +61,8 @@ export const site = {
   bridgeDays: 90,
   languages: ['EN', 'DE', 'BG'] as const,
   /**
-   * KPI counters. The previous site showed hiring-success, time-to-hire and
-   * client-retention counters without verified data. They stay disabled until
-   * the client provides real, verifiable numbers.
+   * KPI counters (hiring success, time-to-hire, client retention). Disabled
+   * until there are verifiable numbers to show.
    */
   kpis: {
     enabled: false,

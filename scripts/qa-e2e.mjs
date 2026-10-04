@@ -578,7 +578,7 @@ await test('language switcher: a phone tap on a language is not swallowed', phon
   await page.waitForTimeout(300);
   expect(await dd.locator('.lang-dd-menu').isVisible(), 'the menu did not open on a tap');
   // iOS does not focus a link on tap, so focus leaves the summary with a null
-  // relatedTarget. Closing on that used to eat the tap before the link was followed.
+  // relatedTarget. Closing on that would swallow the tap before the link is followed.
   await page.evaluate(() => {
     document.querySelector('.header-lang summary')
       .dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
@@ -615,7 +615,7 @@ await test('cards stay aligned when hovered while they are still sliding in', de
     await page.waitForTimeout(40);
     if ((await cards.first().evaluate((el) => el.getBoundingClientRect().top)) < 650) break;
   }
-  // Mid-reveal: the tilt used to capture the reveal's offset and keep the card lower for good.
+  // Mid-reveal: the tilt must not capture the reveal's offset and keep the card lower.
   const b = await cards.first().boundingBox();
   await page.mouse.move(b.x + b.width * 0.3, b.y + b.height * 0.4, { steps: 4 });
   await page.waitForTimeout(600);
@@ -634,7 +634,7 @@ await test('cards stay aligned when hovered while they are still sliding in', de
 
 await test('card buttons line up whatever the length of the text above them', desktop, async (page) => {
   // Every language has headings and paragraphs of different lengths, which is
-  // where the buttons used to drift out of line.
+  // where the buttons can drift out of line.
   const checks = [
     { path: '/en/', rows: [['.problem-front .problem-toggle'], ['.tt-card .tt-link']] },
     { path: '/bg/', rows: [['.problem-front .problem-toggle'], ['.tt-card .tt-link']] },

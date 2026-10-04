@@ -7,7 +7,7 @@ import path from 'node:path';
 
 const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
 const SELF = path.resolve(new URL(import.meta.url).pathname);
-const TARGETS = ['src', 'public', 'api', 'docs', 'scripts', 'README.md', 'TODO-CLIENT.md', 'PR_SUMMARY.md', '.env.example', 'vercel.json', 'astro.config.mjs', 'package.json', 'dist'];
+const TARGETS = ['src', 'public', 'api', 'docs', 'scripts', 'README.md', '.env.example', 'vercel.json', 'astro.config.mjs', 'package.json', 'dist'];
 const EXT = new Set(['.ts', '.mjs', '.js', '.astro', '.md', '.json', '.php', '.css', '.html', '.txt', '.xml', '.example', '.htaccess', '.webmanifest']);
 const SKIP_DIRS = new Set(['node_modules', '.git', '_astro', '.astro', 'qa-screenshots', 'reference']);
 

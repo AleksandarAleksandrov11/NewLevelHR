@@ -58,7 +58,7 @@ Copy `.env.example` to `.env`. Variables prefixed with `PUBLIC_` are inlined int
 | Variable | Purpose |
 | --- | --- |
 | `SITE_URL` | Canonical origin, used for canonicals, hreflang, sitemap, Open Graph |
-| `PUBLIC_BOOKING_URL` | Calendly link for the free 30-minute call (**placeholder until the client provides it**). Point it at the event itself (`https://calendly.com/<user>/<event>`) and the contact page embeds the calendar inline; anything else keeps the plain link. |
+| `PUBLIC_BOOKING_URL` | Calendly link for the free 30-minute call. Point it at the event itself (`https://calendly.com/<user>/<event>`) and the contact page embeds the calendar inline; anything else keeps the plain link. |
 | `PUBLIC_FORM_ENDPOINT` | Where the contact form posts: `/api/contact` (Vercel), `/contact.php` (PHP hosting) or a hosted form service URL |
 | `PUBLIC_FORM_TOKEN` / `CONTACT_TOKEN` | Optional shared secret between the form and the endpoint |
 | `CONTACT_TO` | Recipient mailbox for contact messages |
@@ -118,8 +118,8 @@ frontmatter reference is in `docs/blog-content.md`.
 
 ### Enabling KPIs, testimonials and client logos
 
-`src/config/site.ts` contains `kpis`, `testimonials` and `clientLogos`. They are disabled until the client
-provides verifiable data; set `enabled: true` and fill in the items.
+`src/config/site.ts` contains `kpis`, `testimonials` and `clientLogos`. They stay hidden until there is verifiable
+data to show; set `enabled: true` and fill in the items.
 
 ## Deployment
 
@@ -176,5 +176,3 @@ Playwright is used; set `CHROMIUM_PATH` to use another binary.
 * `docs/image-credits.md` — photographer, source and license of every image
 * `docs/qa/` and `docs/qa-screenshots/` — QA reports and screenshots
 * `docs/reference/` — reference screenshots and extracted content of the previous site (not deployed)
-* `TODO-CLIENT.md` — everything the client still has to provide or confirm
-* `PR_SUMMARY.md` — summary of decisions and results

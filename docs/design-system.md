@@ -89,7 +89,7 @@ Sections alternate deliberately so that each one reads as a new "level":
 * `ui/Photo.astro` — `<Picture>` (AVIF/WebP) by image name with a graceful gradient fallback when a file is missing.
 * Contact form — one question per step (four steps), a progress bar and a listbox that replaces the native
   topic select. The select stays in the markup, so the form still posts without JavaScript.
-* `ui/FounderPortrait.astro` — monogram placeholder until the client provides a portrait (`site.founder.portrait`).
+* `ui/FounderPortrait.astro` — founder portrait (`site.founder.portrait`), with a monogram fallback if no photo is set.
 * `layout/PageShell.astro` — wraps every page: SEO, hreflang, header, footer, cookie banner, language banner, cursor, preloader.
 * `layout/LangSwitcher.astro` — dropdown (header) or inline pills (footer, 404); every link targets the same page in the other language.
 * `layout/CookieBanner.astro` — consent dialog with Accept / Reject / Configure, category switches, revocable from the footer.
