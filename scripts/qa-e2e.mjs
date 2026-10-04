@@ -632,6 +632,28 @@ await test('cards stay aligned when hovered while they are still sliding in', de
   expect(state.every((c) => Math.abs(c.ty) < 0.5), `a card is still shifted: ${state.map((c) => c.ty.toFixed(2) + 'px').join(' | ')}`);
 });
 
+await test('card buttons line up whatever the length of the text above them', desktop, async (page) => {
+  // Every language has headings and paragraphs of different lengths, which is
+  // where the buttons used to drift out of line.
+  const checks = [
+    { path: '/en/', rows: [['.problem-front .problem-toggle'], ['.tt-card .tt-link']] },
+    { path: '/bg/', rows: [['.problem-front .problem-toggle'], ['.tt-card .tt-link']] },
+    { path: '/de/', rows: [['.problem-front .problem-toggle'], ['.tt-card .tt-link']] },
+    { path: '/bg/uslugi/hr-partnyor/', rows: [['.sd-related-card > span:last-child']] },
+    { path: '/en/services/fractional-hr-partnership/', rows: [['.sd-related-card > span:last-child']] },
+  ];
+  for (const { path, rows } of checks) {
+    await page.goto(base + path, { waitUntil: 'networkidle' });
+    await settleBanners(page);
+    await page.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important}' });
+    for (const [selector] of rows) {
+      const tops = await page.locator(selector).evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().bottom + scrollY)));
+      expect(tops.length >= 2, `${path}: found ${tops.length} of ${selector}`);
+      expect(Math.max(...tops) - Math.min(...tops) <= 2, `${path}: ${selector} sit at ${tops.join(', ')}`);
+    }
+  }
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

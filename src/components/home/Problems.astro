@@ -155,7 +155,10 @@ const cards = p.items.slice(0, 4).map((item, i) => ({
   .problem-back-label { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-ink); }
   .problem-back-label::before { content: ''; width: 1.5rem; height: 2px; border-radius: 2px; background: var(--grad-accent); }
   .problem-fix { font-size: 0.9375rem; line-height: 1.55; font-weight: 500; color: var(--color-ink-2); }
-  .problem-back-actions { margin-top: 0.35rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding-top: 0.5rem; }
+  /* The buttons sit at the bottom of the card on both faces, so the ones in a row
+     line up whatever the length of the text above them. */
+  .problem-front .problem-toggle { margin-top: auto; }
+  .problem-back-actions { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding-top: 0.5rem; }
   .problem-toggle-back { color: var(--color-ink-3); }
   .problem-steps { position: absolute; right: -0.5rem; bottom: -0.5rem; width: 6rem; height: auto; fill: var(--color-accent); opacity: 0.1; pointer-events: none; z-index: 0; }
 

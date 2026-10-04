@@ -1,8 +1,8 @@
 # QA screenshots
 
-Generated 2026-10-04 11:34 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
+Generated 2026-10-04 12:09 UTC from `http://127.0.0.1:4173` with `npm run qa:screenshots`.
 
-* 9 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
+* 4 pages × 390 / 1440 px full-page screenshots, plus UI states per language.
 * Horizontal-overflow check at 360 / 390 / 768 / 1024 / 1280 / 1440 / 1920 px: **no page scrolls horizontally**.
 * Console errors while capturing: **0**.
 * Captures that failed: **0**.
@@ -17,22 +17,12 @@ not a blank section.
 | --- | --- | --- | --- | --- |
 | /bg/ | 390 | no | 0 | [bg/home@390.jpg](./bg/home@390.jpg) |
 | /bg/ | 1440 | no | 0 | [bg/home@1440.jpg](./bg/home@1440.jpg) |
-| /bg/uslugi/90-dneven-most-za-uspeh/ | 390 | no | 0 | [bg/uslugi-90-dneven-most-za-uspeh@390.jpg](./bg/uslugi-90-dneven-most-za-uspeh@390.jpg) |
-| /bg/uslugi/90-dneven-most-za-uspeh/ | 1440 | no | 0 | [bg/uslugi-90-dneven-most-za-uspeh@1440.jpg](./bg/uslugi-90-dneven-most-za-uspeh@1440.jpg) |
-| /bg/uslugi/podbor-na-personal/ | 390 | no | 0 | [bg/uslugi-podbor-na-personal@390.jpg](./bg/uslugi-podbor-na-personal@390.jpg) |
-| /bg/uslugi/podbor-na-personal/ | 1440 | no | 0 | [bg/uslugi-podbor-na-personal@1440.jpg](./bg/uslugi-podbor-na-personal@1440.jpg) |
 | /de/ | 390 | no | 0 | [de/home@390.jpg](./de/home@390.jpg) |
 | /de/ | 1440 | no | 0 | [de/home@1440.jpg](./de/home@1440.jpg) |
-| /de/leistungen/90-tage-einarbeitungsbruecke/ | 390 | no | 0 | [de/leistungen-90-tage-einarbeitungsbruecke@390.jpg](./de/leistungen-90-tage-einarbeitungsbruecke@390.jpg) |
-| /de/leistungen/90-tage-einarbeitungsbruecke/ | 1440 | no | 0 | [de/leistungen-90-tage-einarbeitungsbruecke@1440.jpg](./de/leistungen-90-tage-einarbeitungsbruecke@1440.jpg) |
-| /de/leistungen/high-velocity-hiring/ | 390 | no | 0 | [de/leistungen-high-velocity-hiring@390.jpg](./de/leistungen-high-velocity-hiring@390.jpg) |
-| /de/leistungen/high-velocity-hiring/ | 1440 | no | 0 | [de/leistungen-high-velocity-hiring@1440.jpg](./de/leistungen-high-velocity-hiring@1440.jpg) |
 | /en/ | 390 | no | 0 | [en/home@390.jpg](./en/home@390.jpg) |
 | /en/ | 1440 | no | 0 | [en/home@1440.jpg](./en/home@1440.jpg) |
-| /en/services/90-day-success-bridge/ | 390 | no | 0 | [en/services-90-day-success-bridge@390.jpg](./en/services-90-day-success-bridge@390.jpg) |
-| /en/services/90-day-success-bridge/ | 1440 | no | 0 | [en/services-90-day-success-bridge@1440.jpg](./en/services-90-day-success-bridge@1440.jpg) |
-| /en/services/high-velocity-hiring/ | 390 | no | 0 | [en/services-high-velocity-hiring@390.jpg](./en/services-high-velocity-hiring@390.jpg) |
-| /en/services/high-velocity-hiring/ | 1440 | no | 0 | [en/services-high-velocity-hiring@1440.jpg](./en/services-high-velocity-hiring@1440.jpg) |
+| /en/services/fractional-hr-partnership/ | 390 | no | 0 | [en/services-fractional-hr-partnership@390.jpg](./en/services-fractional-hr-partnership@390.jpg) |
+| /en/services/fractional-hr-partnership/ | 1440 | no | 0 | [en/services-fractional-hr-partnership@1440.jpg](./en/services-fractional-hr-partnership@1440.jpg) |
 | /en/ (cookie dialog) | 390 | no | 0 | [en/state-cookie-dialog@390.jpg](./en/state-cookie-dialog@390.jpg) |
 | /en/ (cookie dialog) | 1440 | no | 0 | [en/state-cookie-dialog@1440.jpg](./en/state-cookie-dialog@1440.jpg) |
 | /en/ (cookie settings) | 1440 | no | 0 | [en/state-cookie-settings@1440.jpg](./en/state-cookie-settings@1440.jpg) |
