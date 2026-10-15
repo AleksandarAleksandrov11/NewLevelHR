@@ -36,6 +36,7 @@ export const legal: LegalDict = {
         title: 'Handelsregistereintrag',
         blocks: [
           { type: 'p', text: 'Handelsregister / Registeragentur Bulgariens' },
+          { type: 'p', text: 'Einheitlicher Identifikationscode (EIK): 208948055' },
         ],
       },
     ],

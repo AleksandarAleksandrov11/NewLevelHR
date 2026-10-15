@@ -149,7 +149,11 @@ from the file extension, and its `runtime` key would have to be an npm package w
 3. Configure the form recipient either through environment variables (`CONTACT_TO`, `CONTACT_FROM`,
    `CONTACT_TOKEN`) or by copying `contact.config.example.php` to `contact.config.php` next to
    `contact.php` and editing it.
-4. Make sure PHP 8 and the `mail()` function are available on the host.
+4. Make sure the host runs PHP 8.1 or newer and that `mail()` works. `CONTACT_FROM` must be a mailbox on the
+   same domain, otherwise most hosts drop the message.
+5. `public/.htaccess` allows the Calendly widget (`assets.calendly.com` for script, style and images, and
+   `calendly.com` for the frame). Any other third-party script has to be added to its
+   `Content-Security-Policy` line first, or the browser blocks it.
 
 ### Any other static host
 

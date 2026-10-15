@@ -22,7 +22,7 @@ import type { Widen } from '../types';
  */
 export const legal = {
   /** ISO date shown as "Last updated" on all four pages. */
-  updated: '2026-09-19',
+  updated: '2026-10-15',
   common: {
     eyebrow: 'Legal',
     lastUpdated: 'Last updated: {date}',
@@ -65,6 +65,7 @@ export const legal = {
         title: 'Company Registration',
         blocks: [
           { type: 'p', text: 'Commercial Register / Registry Agency of Bulgaria' },
+          { type: 'p', text: 'Unified Identification Code (UIC / EIK): 208948055' },
         ],
       },
     ],
