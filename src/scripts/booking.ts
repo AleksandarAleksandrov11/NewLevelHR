@@ -24,7 +24,7 @@ function loadScript(): Promise<void> {
   return scriptPromise;
 }
 
-interface CalendlyApi { initInlineWidget: (o: { url: string; parentElement: HTMLElement }) => void }
+interface CalendlyApi { initInlineWidget: (o: { url: string; parentElement: HTMLElement; resize?: boolean }) => void }
 
 function init() {
   destroy();
@@ -44,7 +44,9 @@ function init() {
       const api = (window as unknown as { Calendly?: CalendlyApi }).Calendly;
       if (!api || !document.body.contains(frame)) return;
       frame.innerHTML = '';
-      api.initInlineWidget({ url, parentElement: frame });
+      // resize: Calendly reports its content height and the frame follows it, so there is
+      // neither a blank strip under the calendar nor a scrollbar inside it.
+      api.initInlineWidget({ url, parentElement: frame, resize: true });
       root.classList.add('is-embedded');
       if (gate) gate.hidden = true;
     } catch {

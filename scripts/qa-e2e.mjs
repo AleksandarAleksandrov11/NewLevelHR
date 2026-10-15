@@ -654,6 +654,38 @@ await test('card buttons line up whatever the length of the text above them', de
   }
 });
 
+await test('booking calendar fills its frame and follows the height Calendly reports', phone, async (page) => {
+  // A stand-in for widget.js that builds the iframe exactly as Calendly does
+  // (width and height "100%") and applies the page_height message when resize is on.
+  await page.route('https://assets.calendly.com/**', (route) => route.fulfill({
+    contentType: 'application/javascript',
+    body: `window.Calendly = { initInlineWidget({ url, parentElement, resize }) {
+      const f = document.createElement('iframe'); f.src = 'about:blank'; f.width = '100%'; f.height = '100%';
+      if (resize) window.addEventListener('message', (e) => { if (e.data && e.data.event === 'calendly.page_height') parentElement.style.height = e.data.payload.height; });
+      parentElement.appendChild(f);
+    } };`,
+  }));
+  await page.goto(base + '/en/contact/', { waitUntil: 'networkidle' });
+  await settleBanners(page);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(800);
+  const size = () => page.evaluate(() => {
+    const i = document.querySelector('[data-calendly-frame] iframe');
+    if (!i) return null;
+    const r = i.getBoundingClientRect();
+    return { w: Math.round(r.width), h: Math.round(r.height) };
+  });
+  const before = await size();
+  expect(before, 'the calendar was not embedded');
+  // The frame used to have only a min-height, so the iframe collapsed to 150 px.
+  expect(before.h >= 600, `the calendar is only ${before.h}px tall`);
+  expect(before.w >= 320, `the calendar is only ${before.w}px wide; Calendly needs 320`);
+  await page.evaluate(() => window.postMessage({ event: 'calendly.page_height', payload: { height: '1050px' } }, '*'));
+  await page.waitForTimeout(200);
+  const after = await size();
+  expect(after.h === 1050, `the calendar did not follow the reported height (${after.h}px)`);
+});
+
 await test('skip link and landmarks exist', desktop, async (page) => {
   await page.goto(base + '/en/', { waitUntil: 'load' });
   const skip = await page.$('a[href="#main"], a.skip-link');

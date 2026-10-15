@@ -252,7 +252,15 @@ const contactLd = { '@context': 'https://schema.org', '@type': 'ContactPage', na
      shows why it is missing and the link below still works. */
   .ct-calendly { margin-top: 1.5rem; }
   .ct-calendly-frame { min-height: 0; border-radius: var(--radius-lg); overflow: hidden; background: #fff; }
-  .ct-calendly.is-embedded .ct-calendly-frame { min-height: 40rem; }
+  /* Calendly's iframe is height: 100%, so the frame needs a definite height while it loads;
+     the widget then sets the real one from the calendar's own content. */
+  .ct-calendly.is-embedded .ct-calendly-frame { height: 44rem; scroll-margin-top: calc(var(--header-h) + 1rem); }
+  .ct-calendly-frame :global(iframe) { display: block; width: 100%; height: 100%; border: 0; }
+  /* Phones: Calendly needs at least 320 px, so the calendar runs to the edges of the card. */
+  @media (max-width: 39.99rem) {
+    .ct-book { padding: 1.75rem 1.25rem; }
+    .ct-calendly.is-embedded .ct-calendly-frame { margin-inline: -1.25rem; border-radius: 0; }
+  }
   .ct-calendly-gate { font-size: 0.8rem; line-height: 1.6; color: rgba(255, 255, 255, 0.6); }
   .ct-calendly-gate[hidden] { display: none; }
   .ct-info { padding: 1.75rem; border-radius: var(--radius-xl); background: var(--color-ivory); border: 1px solid var(--color-line); }
