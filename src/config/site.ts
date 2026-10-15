@@ -28,7 +28,7 @@ export const site = {
    * at the Calendly event itself (https://calendly.com/<user>/<event>) and the
    * contact page shows the calendar inline instead of only linking out.
    */
-  bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || 'https://calendly.com/newlevelhr-info/30min',
+  bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || 'https://calendly.com/newlevelhr/30min',
   formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/api/contact',
   /** True once the booking link points at a specific Calendly event, not just the domain. */
   get bookingEmbedUrl(): string | null {
